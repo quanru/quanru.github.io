@@ -50,13 +50,13 @@ tags:
 
 > 丢弃暂存区的修改, 使改动退回到工作区
 
-如下图, 当在 'first modify' 覆盖修改 README.md 文件后, 将此次修改通过 git add 命令将其添加到暂存区, 终端提示使用 git reset HEAD <path> 用于取消暂存区的修改, 其中 git reset HEAD 代表将当前 HEAD 指向当前 commit.
+如下图, 当在添加 'second modify' 到 README.md 文件后, 将此次修改通过 git add 命令将其添加到暂存区, 终端提示使用 git reset HEAD <path> 用于取消暂存区的修改, 其中 git reset HEAD 代表将当前 HEAD 指向当前 commit.
 
 > 其中 HEAD 可省略, 即默认指向当前 commit.
 
 ![git](/images/git-1.png)
 
-如下图, 继续修改 README.md, 在文件中追加 'second modify', 此时查看 git status, 发现除了原有的暂存区修改 (绿色文字) 之外, 还有第二次修改的当前工作区修改 (红色文字), 接着执行 git reset HEAD, 终端提示 '重置后取消暂存的变更', 此时查看 git status, 发现暂存区不见了, 只剩当前工作区, 查看工作区中的 README.md 文件, 发现原有的暂存区修改被撤销了, 且不影响工作区文件.
+如下图, 继续修改 README.md, 在文件中追加 ' third modify', 此时查看 git status, 发现除了原有的暂存区修改 (绿色文字) 之外, 还有第二次修改的当前工作区修改 (红色文字), 接着执行 git reset HEAD, 终端提示 '重置后取消暂存的变更', 此时查看 git status, 发现暂存区不见了, 只剩当前工作区, 查看工作区中的 README.md 文件, 发现原有的暂存区修改被撤销了, 且不影响工作区文件.
 
 ![git](/images/git-2.png)
 
