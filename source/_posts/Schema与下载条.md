@@ -1,3 +1,4 @@
+---
 title: Schema 与下载条
 date: 2015-08-16 19:34:27
 categories: 小程序
@@ -86,15 +87,15 @@ sms://
               var timeOutTime = new Date();
               if (!clickTime || timeOutTime - clickTime < 600 + 200) {
                     window.location = itunesSrc;
-              } 
+              }
             }, 600);
           }
           if(android) {
                 t = window.setTimeout(function() {
                     var endTime = Date.now();
-                    if (!clickTime || endTime - clickTime < 600 + 200) { 
+                    if (!clickTime || endTime - clickTime < 600 + 200) {
                         window.location = androidSrc;
-                    } 
+                    }
                 }, 600);
           }
           window.onblur = function() {

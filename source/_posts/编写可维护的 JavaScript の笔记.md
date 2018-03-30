@@ -38,7 +38,7 @@ tags: JavaScript
    >
    > d. 当函数的返回值期望是对象时，用作返回值传出
 
-5. null === undefined // true
+5. null == undefined // true
 
 6. typeof null === object // true
 

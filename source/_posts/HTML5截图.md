@@ -1,3 +1,4 @@
+---
 title: HTML5 截图
 date: 2015-07-19 10:41:29
 categories: 前端
@@ -36,7 +37,7 @@ tags: 小任务
 	    opacity: .5;
 	    border: 2px solid #2d2d2d;
 	}
-	
+
 	.resizeBR {
 	    position: absolute;
 	    right: -5px;
@@ -104,11 +105,11 @@ tags: 小任务
 	function resizeDown(event) {
 	    event = event || window.event;
 	    var shotRect = document.getElementById("shotRect"),
-	        //计算Rect左上角的坐标 
+	        //计算Rect左上角的坐标
 	        x = shotRect.offsetLeft,
 	        y = shotRect.offsetTop ;
 	        //console.log("x=" +  x+ " " + "y=" +  y);
-	    //绑定事件 
+	    //绑定事件
 	    document.addEventListener("mousemove", mouseMove);
 	    document.addEventListener("mouseup", mouseUp);
 	    //移动鼠标
@@ -130,9 +131,9 @@ tags: 小任务
 	        shotRect.style.height = xy + 'px';
 	        updateRect(x, x, shotRect.offsetWidth, shotRect.offsetHeight);
 	    }
-	    //停止事件 
+	    //停止事件
 	    function mouseUp() {
-	        //卸载事件 
+	        //卸载事件
 	        document.removeEventListener("mousemove", mouseMove);
 	        document.removeEventListener("mouseup", mouseUp);
 	    }
@@ -147,10 +148,10 @@ tags: 小任务
 	    var shotRect = document.getElementById("shotRect"),
 	        disX = event.clientX - shotRect.offsetLeft, // 光标按下时光标相对截图框的坐标
 	        disY = event.clientY - shotRect.offsetTop;
-	    //绑定事件 
+	    //绑定事件
 	    document.addEventListener("mousemove", mouseMove);
 	    document.addEventListener("mouseup", mouseUp);
-	
+
 	    function mouseMove(event) {
 	        event = event || window.event;
 	        var disL = event.clientX - disX, //截图框左边界与左侧边界的距离
@@ -172,7 +173,7 @@ tags: 小任务
 	        shotRect.style.top = disT + 'px';
 	        updateRect(disL, disT, shotRect.offsetWidth, shotRect.offsetHeight);
 	    }
-	
+
 	    function mouseUp(event) {
 	        document.removeEventListener("mousemove", mouseMove);
 	        document.removeEventListener("mouseup", mouseUp);

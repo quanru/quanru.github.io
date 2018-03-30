@@ -1,7 +1,8 @@
+---
 title: 记一次 Webview Jsbridge 接口封装
 date: 2016-10-02 09:31:21
 categories: 前端
-tags: 
+tags:
 - JavaScript
 - Webview
 - Jsbridge
@@ -48,7 +49,7 @@ tags:
 
 ** 例如:closeWebView **
 >关闭当前 webview ，并向下一个打开的 webview 传递 message 信息
-  
+
 ```js
   //发送参数
   const data = {
@@ -83,7 +84,7 @@ tags:
 ```js
 
   bridge.doLogin();
-  
+
 ```
 
 + 异步
@@ -114,7 +115,7 @@ h5通过如下函数向native发送消息
 ```js
 
   web.handleMessageFromJs
-  
+
 ```
 
 >无回调api: 直接使用上述函数向native发送消息
@@ -132,14 +133,14 @@ h5通过如下函数向native发送消息
         {"action": "doLogin", "hasCallback": false},
         {"action": "test", "hasCallback": true}
     ];
-    
+
     // 根据列表生成 API 函数
     factory(actionList) {
     for (let value of actionList) {
       this[`${value.action}`] = this.generator(value);
     }
   }
-  
+
     // API 生成器, 根据是否有回调函数, 分别生成同步 API 和 异步 API
     generator(action) {
     return function(params) {
@@ -174,7 +175,7 @@ h5通过如下函数向native发送消息
 
 # 关于 generator 函数
 
-最近函数式编程越来越火, 从某种意义上来说该函数就是传说中的 curry 函数: 
+最近函数式编程越来越火, 从某种意义上来说该函数就是传说中的 curry 函数:
 
 1. 它接受一个函数
 2. 返回一个只接收一个参数的函数

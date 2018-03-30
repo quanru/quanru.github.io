@@ -1,7 +1,8 @@
+---
 title: git checkout 与 git reset 备忘录
 date: 2016-10-04 11:32:51
 categories: 开发工具
-tags: 
+tags:
 - Git
 
 ---
@@ -101,6 +102,3 @@ tags:
 如图, 可知默认参数是 --mixed
 
 ![git](/images/git-7.png)
-
-
-

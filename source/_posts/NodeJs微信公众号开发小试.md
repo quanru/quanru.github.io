@@ -1,7 +1,8 @@
+---
 title: Node.js 微信公众号开发小试
 date: 2016-08-14 13:10:21
 categories: 前端
-tags: 
+tags:
 - JavaScript
 - Node
 ---
@@ -12,7 +13,7 @@ tags:
 
 ## 申请服务器
 
-微信公众号的开发需要使用一台用于接收并处理消息的服务器, 此处推荐申请腾讯的免费云主机, [点我去申请吧](https://www.qcloud.com/act/try?t=cvm), 每天九点半开抢, 我选择的服务器镜像是Ubuntu, 关于如何在服务器上配置Node环境, 可参考我另一篇博客[使用 Linux 系统开发Web前端](http://quanru.github.io/2016/04/17/%E4%BD%BF%E7%94%A8%20Linux%20%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91Web%E5%89%8D%E7%AB%AF/). 公众号开发的原理就是通过设置一个接收接口, 一旦开启开发者模式, 微信服务器将转发消息至该接口. 
+微信公众号的开发需要使用一台用于接收并处理消息的服务器, 此处推荐申请腾讯的免费云主机, [点我去申请吧](https://www.qcloud.com/act/try?t=cvm), 每天九点半开抢, 我选择的服务器镜像是Ubuntu, 关于如何在服务器上配置Node环境, 可参考我另一篇博客[使用 Linux 系统开发Web前端](http://quanru.github.io/2016/04/17/%E4%BD%BF%E7%94%A8%20Linux%20%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91Web%E5%89%8D%E7%AB%AF/). 公众号开发的原理就是通过设置一个接收接口, 一旦开启开发者模式, 微信服务器将转发消息至该接口.
 
 ## 接入开发步骤
 
@@ -110,7 +111,7 @@ tags:
     module.exports = getTuringResponse;
     ```
 
-自动回复模块autoReply: 
+自动回复模块autoReply:
 ```js
     function autoReply(requestData, info) {
         if(requestData.msgtype == 'text') {

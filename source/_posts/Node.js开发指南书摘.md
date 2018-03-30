@@ -1,7 +1,8 @@
+---
 title: Node.js 开发指南の书摘
 date: 2016-3-18 16:31:19
 categories: 读书笔记
-tags: 
+tags:
 - JavaScript
 - Node
 ---
@@ -54,7 +55,7 @@ util.inspect(object, [showHidden], [depth], [colors]): 将任意对象转换为�
 
 4，events：
 ```javascript
-            events.EventEmitter: 
+            events.EventEmitter:
                  var events = require("events");
                  var emitter = new events.EventEmitter();
                   emitter.on("someEvent", function(arg1, arg2) {
@@ -124,7 +125,7 @@ http.ServerResponse是返回给客户端的信息：
 8，视图助手：
 >静态视图助手可以是任何类型的对象，包括接受任意参数的函数，并且访问到的对象必须是与用户请求无关的；
 动态视图助手只能是一个函数，这个函数不能接受参数，但可以访问req合res对象；
-    
+
 
 # 章六
 1，在不显式指定文件模块扩展名的时候，Node.js会分别试图加上.js、.json和.node扩展名。.js是JavaScript代码，.json是JSON格式的文本，.node是编译好的C/C++代码。

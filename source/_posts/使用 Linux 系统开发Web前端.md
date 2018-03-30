@@ -1,3 +1,4 @@
+---
 title: 使用 Linux 系统开发Web前端
 date: 2016-04-17 13:15:08
 categories: 教程
@@ -40,7 +41,7 @@ Mac纵有千千万万的好，作为学生党来说，毕竟其较高的价格�
 2. 生成ssh key
 
         ssh-keygen -t rsa -C "邮箱"
-        
+
 然后根据提示连续回车即可在~/.ssh目录下得到id_rsa和id_rsa.pub两个文件，id_rsa.pub文件里存放的就是公钥。
 
 3. 上传公钥到github
@@ -50,7 +51,7 @@ Mac纵有千千万万的好，作为学生党来说，毕竟其较高的价格�
 4. 测试是否配置成功
 
         ssh -T git@github.com
-        
+
 如果配置成功，则会显示：
 
     Hi username! You’ve successfully authenticated, but GitHub does not provide shell access.
@@ -79,12 +80,12 @@ Mac纵有千千万万的好，作为学生党来说，毕竟其较高的价格�
 方法三：也可采用编译源码的方式安装，打开终端，其步骤如下。
 
 0. 安装 build-essential，即软件编译工具集，用于从源代码编译和安装软件。
-    
+
         sudo apt-get update
         sudo apt-get install build-essential
 
 1. 克隆分支并进入node目录：
-        
+
         git clone https://github.com/nodejs/node.git && cd node
 
 2. 切换到一个你需要的稳定分支：
@@ -108,9 +109,9 @@ Mac纵有千千万万的好，作为学生党来说，毕竟其较高的价格�
     node -v
 
 #### PlayOnLinux && PhotoShop
-令人头疼的PhotoShop，Adobe没有对应的Linux版本，此处使用Wine方案，推荐安装PlayOnLinux，你只要有exe文件就好了，Wine的环境配置不需要你操心，PlayOnLinux帮你搞定。安装PlayOnLinux只需输入一条命令搞定： 
+令人头疼的PhotoShop，Adobe没有对应的Linux版本，此处使用Wine方案，推荐安装PlayOnLinux，你只要有exe文件就好了，Wine的环境配置不需要你操心，PlayOnLinux帮你搞定。安装PlayOnLinux只需输入一条命令搞定：
 
-    sudo apt-get install playonlinux 
+    sudo apt-get install playonlinux
 
 装好后，打开PlayOnLinux，如何安装请看下图：
 
@@ -153,7 +154,5 @@ easystroke鼠标手势：
         sudo apt-get install easystroke
 
 audacious听歌：
-        
+
     sudo apt-get install audacious
-
-

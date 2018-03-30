@@ -1,3 +1,4 @@
+---
 title: 从 line-height 到 0.5 px
 date: 2015-09-14 21:54:33
 categories: 前端
@@ -37,7 +38,7 @@ tags: CSS
 
 要是没有最后一句话该多好啊~
 
-网上搜了好久，找到一个不错的方法： 
+网上搜了好久，找到一个不错的方法：
 ### 伪类 + transform
 >原理是把原先元素的 border 去掉，然后利用 :before 或者 :after 重做 border ，并 transform 的 scale 缩小一半，原先的元素相对定位，新做的 border 绝对定位
 

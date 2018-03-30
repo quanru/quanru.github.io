@@ -1,3 +1,4 @@
+---
 title: JavaScript 权威指南の笔记
 date: 2015-6-15 20:22:15
 categories: 读书笔记
@@ -47,7 +48,7 @@ tags: JavaScript
 >忽略操作数的计算结果并返回undefined。
 
 17. for(variable in object) statement;先计算variable的值，并将属性名赋值给它。
-18. break不能越过函数的边界，而continue只能在循环体内使用。 
+18. break不能越过函数的边界，而continue只能在循环体内使用。
 
 19. &&短路：
 >当左操作数是真值时，该运算符将计算右操作数的值并将其返回作为整个表达式的计算结果。
@@ -60,7 +61,7 @@ tags: JavaScript
 22. 数据属性：值，可写性，可枚举性，可配置性；
 23. 存取器属性：get，set，可枚举性，可配置性。
 24. 转换为不可扩展性后，不可转回，Object.preventExtensions()，给一个不可扩展的对象的原型添加属性，它照样会继承新属性。
-23. 
+23.
 
 >1, Object.getOwnPropertyDescriptor()可获得某个对象特定属性的属性描述符：({x:1},"x")。
 
@@ -181,26 +182,26 @@ tags: JavaScript
 48. 对于任意函数F.prototype.constructor==F;一个对象的constructor属性指代这个类。
 
 49. 构造函数与原型对象之间的关系：![](/images/权威指南1.png)
-  
-50. 
+
+50.
 >1. 任何添加到构造函数对象（不是指添加到构造函数内部）的属性都是类字段和类方法，属于类而不属于类的某个实例；
 >2. 原型对象的属性被类的所有实例所继承，若原型对象的属性值是函数的话，这个函数就作为类的实例方法来调用，实例方法由所有实例所共享；
 >3. 直接给类的每个实例定义非函数属性，实际上就是实例的字段。
 
 51. 即使创建对象之后，原型的属性发生改变，也会影响到继承这个原型的所有实例对象。
 
-52. 
+52.
 >1. 检测对象的类：instanceof，isPrototypeOf()，这里的继承可以不是直接继承；
 >2. constructor属性；
 >3. 以上两个方法不适用于多窗口和多框架子页面，因此可以使用构造函数的名称；
 
 53. 工厂方法：
-![](/images/权威指南2.png) 
+![](/images/权威指南2.png)
 ![](/images/权威指南3.png)    
 
 54. 构造函数方法：
 ![](/images/权威指南4.png)
-                
+
 54. toJSON()用于序列号对象，如果一个对象有toJSON()方法，则JSON.stringify()并不会对传入的对象做序列号操作，而会调用toJSON()来执行序列号操作，JSON.parse()是其逆过程。
 
 55. forEach：![](/images/权威指南5.png)
@@ -217,7 +218,7 @@ tags: JavaScript
 ![](/images/权威指南7.png)
 ![](/images/权威指南8.png)
 
-59. 
+59.
 >1. Object.preventExtensions():将对象设置为不可扩展的，即不能给对象添加任何新属性；
 >2. Object.seal与Object.freeze:将对象的所有属性设置为只读和不可配置的。
 
@@ -270,19 +271,19 @@ tags: JavaScript
 18. 在复制和传递时使用的是引用，但在比较它们时使用的却是值。
 19. 通过设置class.prototype属性来定义所有类实例共享的方法和常量。
 
-20. 
+20.
 >1. Function()构造函数   函数直接量
 >2. 允许运行时动态地创建和编译JS代码 静态
 >3. 每次调用都会解析函数体并创建一个新的函数对象 相反
 >4. 不使用词法作用域作为顶级函数                                  
 
-21. 
+21.
 >1. null == undefined ->true;
 >2. null === undefined -> false;
 
 # web浏览器中的JS
 23. 如果两个窗口包含的脚本把Document的domain属性设置成相同的值，则这两个窗口就不再受同源策略的约束，能够相互读取对方的属性。
-22. 
+22.
 
 >1, 当HTML解析器遇到script标签元素时，它默认必须先执行脚本，然后再恢复文档的解析和渲染；
 
@@ -354,7 +355,7 @@ tags: JavaScript
 
 
 40. each()只能遍历jQuery对象，而jQuery.each()可以遍历数组元素或对象属性。
-39. 
+39.
 
 >1. focus与blur事件不支持冒泡，而focusin与focusout支持；
 >2. mouseover与mouseout支持冒泡，mouseenter与mouseleave不支持；

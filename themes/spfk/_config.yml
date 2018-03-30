@@ -53,6 +53,13 @@ disqus:
   # It is unnecessary to enable disqus here if
   # you have set "disqus_shortname" in your site's "_config.yml"
 
+duoshuo:
+  # on: true
+  domain: luuman
+  # 是否开启多说评论，http://duoshuo.com/create-site/
+  # 使用上面网址登陆你的多说，然后创建站点，在 domain 中填入你设定的域名前半部分
+  # http://<要填的部分>.duoshuo.com (domain 只填上 <> 里的内容，不要填整个网址)
+
 youyan:
   #on: true
   id:
@@ -121,7 +128,7 @@ friends:
 
 
 #是否开启“关于我”。
-aboutme: "心猿意马"
+aboutme: "挖财前端工程师，心猿意码~内推邮箱：quanruzhuoxiu@gmail.com"
 #aboutme: false
 
 # 是否在新窗口打开链接

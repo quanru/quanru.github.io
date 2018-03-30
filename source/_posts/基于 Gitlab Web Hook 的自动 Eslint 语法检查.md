@@ -1,7 +1,8 @@
+---
 title: 基于 Gitlab Web Hook 的自动 Eslint 语法检查
 date: 2016-10-02 15:11:33
 categories: 前端
-tags: 
+tags:
 - JavaScript
 - Node
 - Git
@@ -15,7 +16,7 @@ tags:
 
 # Gitlab Web Hook
 
-[Gitlab Web Hook](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md) 提供如下事件的 Hook: 
+[Gitlab Web Hook](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md) 提供如下事件的 Hook:
 
 1. Push events
 2. Tag push events
@@ -214,13 +215,13 @@ npm install eslint-react-wacai babel-eslint eslint --save-dev
 
 ```shell
 #!/bin/bash
-if [ ! -d eslint ]; then 
+if [ ! -d eslint ]; then
 mkdir eslint
 fi
 
 cd eslint
 
-if [ ! -d $1 ]; then 
+if [ ! -d $1 ]; then
 mkdir $1
 fi
 

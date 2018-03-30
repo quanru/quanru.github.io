@@ -1,3 +1,4 @@
+---
 title: NodeのMorgan 模块与 Cluster 模块
 date: 2016-03-18 20:21:19
 categories: 后端
@@ -16,7 +17,7 @@ tags:
 
 此处简要记录下该书第六章提到的关于日志与多核CPU的优化问题，并介绍一款 debug tool。
 
-整个 microblog 的代码已放至 github 上：[摸我](https://github.com/quanru/microblog) 
+整个 microblog 的代码已放至 github 上：[摸我](https://github.com/quanru/microblog)
 
 ![ ](/images/microblog.png  "microblog")
 
@@ -76,13 +77,13 @@ tags:
 
 # 四、Node.js 除虫工具
 
-我就不搬运了，它基于 electron，模仿 chrome 的 devtool，会用 chrome 的 devtool 就会这个，反正很吊：[devtool](https://segmentfault.com/a/1190000004509016) ，github 地址为：[devtool](https://github.com/Jam3/devtool) 
+我就不搬运了，它基于 electron，模仿 chrome 的 devtool，会用 chrome 的 devtool 就会这个，反正很吊：[devtool](https://segmentfault.com/a/1190000004509016) ，github 地址为：[devtool](https://github.com/Jam3/devtool)
 
 安装：
 > npm install -g devtool
 
 此处启动命令为：
->devtool bin/www --watch 
+>devtool bin/www --watch
 
 1. 断点之后，按 ctrl + r，重启服务器即可。
 
@@ -91,4 +92,3 @@ tags:
 当使用 cluster 时，无法进入 get 与 post 请求函数内部，我提了个 issue。
 
 高级使用方法见上述网址咯。
-
