@@ -4,7 +4,7 @@ date: 2016-10-02 15:11:33
 categories: 前端
 tags:
 - JavaScript
-- Node
+- Node.js
 - Git
 - Hook
 
@@ -133,7 +133,7 @@ import ReactNativeEslint from 'eslint-plugin-react-native';
 const reactRules = ReactEslint.rules;
 const reactNativeRules = ReactNativeEslint.rules;
 
-const ReactNativeWacai = {
+const ReactNativeDemo = {
   rules: {
     'split-platform-components': reactNativeRules['split-platform-components'],
     'no-inline-styles': reactNativeRules['no-inline-styles'],
@@ -148,10 +148,10 @@ const ReactNativeWacai = {
         }
       },
       rules: {
-        'react-native-wacai/split-platform-components': 2,
-        'react-native-wacai/no-inline-styles': 2,
-        'react-native-wacai/no-did-mount-set-state': 2,
-        'react-native-wacai/no-did-update-set-state': 2
+        'react-native-demo/split-platform-components': 2,
+        'react-native-demo/no-inline-styles': 2,
+        'react-native-demo/no-did-mount-set-state': 2,
+        'react-native-demo/no-did-update-set-state': 2
       }
     }
   }
@@ -160,10 +160,10 @@ const ReactNativeWacai = {
 export default MyEslinPlugin;
 ```
 
-假设你的插件叫做: eslint-react-wacai, 那么通过安装该插件(前提是你 npm publish了这个插件):
+假设你的插件叫做: eslint-react-demo, 那么通过安装该插件(前提是你 npm publish了这个插件):
 
 ```
-npm install eslint-react-wacai babel-eslint eslint --save-dev
+npm install eslint-react-demo babel-eslint eslint --save-dev
 ```
 
 并在项目根目录配置如下 .eslintrc 文件即可:
@@ -172,9 +172,9 @@ npm install eslint-react-wacai babel-eslint eslint --save-dev
 {
   "parser": "babel-eslint",
   "plugins": [
-    "react-wacai",
+    "react-demo",
   ],
-  "extends": ["plugin:react-wacai/recommended"]
+  "extends": ["plugin:react-demo/recommended"]
 }
 ```
 
