@@ -2,8 +2,13 @@
   "name": "quanru.github.io",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "start": "hexo server",
+    "build": "hexo generate",
+    "deploy": "hexo deploy"
+  },
   "hexo": {
-    "version": "3.7.0"
+    "version": "3.9.0"
   },
   "dependencies": {
     "hexo": "^3.2.0",
