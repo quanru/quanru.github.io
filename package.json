@@ -5,7 +5,9 @@
   "scripts": {
     "start": "hexo server",
     "build": "hexo generate",
-    "deploy": "hexo deploy"
+    "deploy": "hexo deploy",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "hexo": {
     "version": "3.9.0"
@@ -21,6 +23,8 @@
     "hexo-renderer-ejs": "^0.2.0",
     "hexo-renderer-marked": "^0.2.10",
     "hexo-renderer-stylus": "^0.3.1",
-    "hexo-server": "^0.2.0"
-  }
+    "hexo-server": "^0.2.0",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
