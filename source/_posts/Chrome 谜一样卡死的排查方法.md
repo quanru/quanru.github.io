@@ -9,7 +9,7 @@ tags: Javascript
 
 <!-- more -->
 
-最近由于 Chrome 浏览器升级，触发了一个 Omega sdk 和 Golden sdk 的潜在问题，目前 Omega 和 Golden 方面已经跟进解决，详细原因可见文章 [Chrome 83 下千帆工作台卡死的问题](http://way.xiaojukeji.com/article/22698)。
+最近由于 Chrome 浏览器升级，触发了一个埋点 SDK 的潜在问题，目前埋点 SDK 方面已经跟进解决，详细原因可见文章 [Chrome 83 下千帆工作台卡死的问题](http://way.xiaojukeji.com/article/22698)。
 
 一切好像没什么问题，但是陆续有团队同学反馈，线上页面的确不卡了，测试环境某些操作仍然会出现卡死，而且卡死时正好会有 golden 或 omega 埋点处于 pending 状态。于是开始了排查之路~
 
@@ -19,7 +19,7 @@ tags: Javascript
 
 查看 pending 状态的请求：
 
-![image-20200611104915572](https://tva1.sinaimg.cn/large/007S8ZIlly1gfo5qbtaqrj31ig0ha417.jpg)
+![pending](/images/chrome1.jpg)
 
 发现请求卡在了一个 "Stalled" 的状态，谷歌还贴心的给出了 ["Explanation"](https://developers.google.com/web/tools/chrome-devtools/network-performance/reference?utm_source=devtools#timing-explanation) 链接，解释如下：
 
@@ -70,7 +70,7 @@ tags: Javascript
 
 按上述方式打开浏览器，实时查看日志文件，一步一步复现步骤，日志打印如下：
 
-![image-20200611110030310](https://tva1.sinaimg.cn/large/007S8ZIlly1gfo61u5ifvj314e0o013q.jpg)
+![log](/images/chrome2.jpg)
 
 所以绕了一圈还是 "ResizeObserver" 的问题，原因在 [Chrome 83 下千帆工作台卡死的问题](http://way.xiaojukeji.com/article/22698) 中也有提到，这里列两个 issue 大家有兴趣查看下：
 
@@ -106,11 +106,11 @@ EventTarget.prototype.addEventListenerBase = EventTarget.prototype.addEventListe
 
 所以，还有除了 `EventTarget.prototype.addEventListener` 方法之外的监听没有被重写，我掐指一算，难道是 `window.onerror`，于是去当前卡死页面的调试控制台打印 `window.onerror`:
 
-![image-20200611110748856](https://tva1.sinaimg.cn/large/007S8ZIlly1gfo69fc4jlj31ie0aswfo.jpg)
+![log](/images/chrome3.jpg)
 
 真有这个监听，而且还有『字符串 replace 操作』，这要是无限循环调用这个回调，分分钟卡死！顺手点击这个打印结果，直接跳转到引用它的代码：
 
-![image-20200611111016154](https://tva1.sinaimg.cn/large/007S8ZIlly1gfo6bzox23j31ig0he0wd.jpg)
+![log](/images/chrome4.jpg)
 
 竟然是 vConsole 监听的，前端同学都知道，这个 vConsole 是为了在移动端方便调试使用的，一般在测试环境使用，所以这端代码很可能是这个导致了测试环境卡死，而线上环境正常的罪魁祸首！
 
@@ -120,11 +120,11 @@ EventTarget.prototype.addEventListenerBase = EventTarget.prototype.addEventListe
 
 接下来我们就验证下猜想，首先把 window.onerror 覆盖为 console.log，重复复现步骤，控制台便打印出：
 
-![image-20200611111513808](https://tva1.sinaimg.cn/large/007S8ZIlly1gfo6h5sybkj31ig0hin6f.jpg)
+![verify](/images/chrome5.jpg)
 
 果不其然，不过这样还是卡住了，因为 console.log 也是同步操作。接着直接置空 window.onerror，执行 `window.onerror = undefined`，再来一次复现：
 
-![image-20200611112321755](https://tva1.sinaimg.cn/large/007S8ZIlly1gfo6plvoenj31ig064abw.jpg)
+![verify](/images/chrome6.jpg)
 
 
 

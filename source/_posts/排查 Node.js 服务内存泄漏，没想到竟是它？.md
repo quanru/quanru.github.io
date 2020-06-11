@@ -27,7 +27,7 @@ tags:
 
 团队最近将两个项目迁移至 `degg 2.0` 中，两个项目均出现比较严重的内存泄漏问题，此处以本人维护的 goldenserver 为例进行排查。服务上线后内存增长如下图，其中红框为 `degg 2.0` 线上运行的时间窗口，在短短 36 小时内，内存已经增长到 50%，而平时内存稳定在 20%-30%，可知十之八九出现了内存泄漏。
 
-![image-20200418180508687](https://tva1.sinaimg.cn/large/007S8ZIlly1gdy2v117zwj31uy0q2agr.jpg)
+![泄漏](/images/node-leak1.jpg)
 
 
 
@@ -43,7 +43,7 @@ tags:
 
 使用 [alinode](http://alinode.aliyun.com/) 获取堆快照，服务启动后，使用小流量预热一两分钟便记录第1份堆快照（2020-4-16-16:52），接着设置 qps 为 125 对服务进行施压，经过大约一个小时（2020-4-16-15:46）获取第2份堆快照。使用 Chrome dev 工具载入两份堆快照，如下图所示，发现服务仅短短运行一小时，其堆快照文件就增大了 45MB，而初始大小也不过 39.7MB；我们按 `Retained Size` 列进行排序，很快就发现了一个『嫌疑犯』，即 generator；该项占用了 55% 的大小，同时 `Shallow Size` 却为 0%，一项一项地展开，锁定到了图中高亮的这行，但是继续展开却提示 0%，线索突然断了。
 
-![image-20200418183141595](https://tva1.sinaimg.cn/large/007S8ZIlly1gdy3mmz2jtj312z0u0nbe.jpg)
+![快照](/images/node-leak2.jpg)
 
 
 
@@ -96,13 +96,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 
 重复之前获取堆快照的步骤，惊奇地发现即使过了一天，内存也没有增长，而且 generator 也没有持有未释放的内存：
 
-![image-20200418202712507](https://tva1.sinaimg.cn/large/007S8ZIlly1gdy6yudl6mj31f20pswmk.jpg)
-
-
+![验证](/images/node-leak3.jpg)
 
 至此，内存泄漏问题已经解决！那么如何避免遇到这个问题呢？
-
-
 
 ## 如何避免
 
@@ -125,7 +121,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 此外这个内存泄漏问题是从哪个版本开始有的，现在是否解决了呢？编写可验证的内存泄漏的代码如下：
 
 ```js
-// no-leak.js
+// node-leak.js
 const heapdump = require('heapdump')
 
 class Async {
@@ -148,7 +144,7 @@ run();
 ```
 
 ```js
-// leak.js 由 no-leak.js 编译得来
+// leak.js 由 node-leak.js 编译得来
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -180,11 +176,9 @@ const run = () => __awaiter(this, void 0, void 0, function* () {
 run();
 ```
 
-
-
 经过二分排查，发现该泄漏问题从 `v11.0.0` 引入，在 [v12.16.0]( https://github.com/nodejs/node/pull/31691) 解决；内存泄漏版本执行脚本时，内存占用逐步递增直到 crash，而未泄漏版本则会及时回收内存。
 
-![image-20200418212258518](https://tva1.sinaimg.cn/large/007S8ZIlly1gdy8kvbyodj31390u0aq0.jpg)
+![对比](/images/node-leak4.jpg)
 
 
 
@@ -192,13 +186,13 @@ run();
 
 根本原因是 v8 的一个 bug，相关链接：
 
-- v8 issue: https://bugs.chromium.org/p/v8/issues/detail?id=10031
+1. v8 issue: https://bugs.chromium.org/p/v8/issues/detail?id=10031
 
-- v8 commit: https://chromium.googlesource.com/v8/v8.git/+/d3a1a5b6c4916f22e076e3349ed3619bfb014f29
+2. v8 commit: https://chromium.googlesource.com/v8/v8.git/+/d3a1a5b6c4916f22e076e3349ed3619bfb014f29
 
-- node issue: https://github.com/nodejs/node/issues/30753
+3. node issue: https://github.com/nodejs/node/issues/30753
 
-- node commit: https://github.com/nodejs/node/pull/31005/files
+4. node commit: https://github.com/nodejs/node/pull/31005/files
 
 
 
@@ -275,12 +269,12 @@ void PrototypeUsers::ScanForEmptySlots(WeakArrayList array) {
 
 ## 不止内存泄漏
 
-在我测试内存泄漏时，有一个发现，执行发生内存泄漏时的代码（前文的 leak.js）和未发生内存泄漏时的代码（前文的 no-leak.js）时，即使在已经修复该问题的 `Node.js v12.16.2` 版本下，generator 语法仍然有两个问题：
+在我测试内存泄漏时，有一个发现，执行发生内存泄漏时的代码（前文的 leak.js）和未发生内存泄漏时的代码（前文的 node-leak.js）时，即使在已经修复该问题的 `Node.js v12.16.2` 版本下，generator 语法仍然有两个问题：
 
 1. 内存回收效率低，导致执行完后，仍有相当大的内存占用；
 2. 执行效率非常慢，`async/await` 版本仅需要 0.953 秒，而 generator 却需要 17.754 秒；
 
-![image-20200418234239068](https://tva1.sinaimg.cn/large/007S8ZIlly1gdycm73ym6j31ca0twqc2.jpg)
+![对比](/images/node-leak5.jpg)
 
 这说明，相比 generator 语法，`async/await` 语法无论从执行效率还是内存占用方面都有压倒性优势。那么执行效率对比如何呢？上 `benchmark` 工具比划比划：
 
@@ -362,6 +356,6 @@ generator 每秒执行了 516,178 次操作，而 `async/await` 每秒执行了 
 
 既然是 v8 的问题，那么 chrome 浏览器也是有这个问题的，打开空白标签页，执行前文给出的 `leak.js` 代码：
 
-![image-20200418232344413](https://tva1.sinaimg.cn/large/007S8ZIlly1gdyc2iqmktj31550u0dra.jpg)
+![chrome](/images/node-leak6.jpg)
 
 
