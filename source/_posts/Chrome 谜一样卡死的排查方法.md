@@ -74,9 +74,9 @@ tags: Javascript
 
 所以绕了一圈还是 "ResizeObserver" 的问题，原因在 [Chrome 83 下千帆工作台卡死的问题](http://way.xiaojukeji.com/article/22698) 中也有提到，这里列两个 issue 大家有兴趣查看下：
 
-- https://github.com/ElemeFE/element/issues/12866
+1. https://github.com/ElemeFE/element/issues/12866
 
-- https://github.com/ElemeFE/element/issues/17642
+2. https://github.com/ElemeFE/element/issues/17642
 
 
 
