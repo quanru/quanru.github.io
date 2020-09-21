@@ -8,7 +8,7 @@ tags:
 
 ---
 
-** 团队最近将两个项目迁移至 `degg 2.0` 中，两个项目均出现比较严重的内存泄漏问题，此处以本人维护的 goldenserver 为例进行排查。服务上线后内存增长如下图，其中红框为 `degg 2.0` 线上运行的时间窗口，在短短 36 小时内，内存已经增长到 50%，而平时内存稳定在 20%-30%，可知十之八九出现了内存泄漏。 **
+** 团队最近将两个项目迁移至 `degg 2.0` 中，两个项目均出现比较严重的内存泄漏问题，此处以本人维护的埋点服务为例进行排查。服务上线后内存增长如下图，其中红框为 `degg 2.0` 线上运行的时间窗口，在短短 36 小时内，内存已经增长到 50%，而平时内存稳定在 20%-30%，可知十之八九出现了内存泄漏。 **
 
 <!-- more -->
 
@@ -25,7 +25,7 @@ tags:
 
 ## 背景
 
-团队最近将两个项目迁移至 `degg 2.0` 中，两个项目均出现比较严重的内存泄漏问题，此处以本人维护的 goldenserver 为例进行排查。服务上线后内存增长如下图，其中红框为 `degg 2.0` 线上运行的时间窗口，在短短 36 小时内，内存已经增长到 50%，而平时内存稳定在 20%-30%，可知十之八九出现了内存泄漏。
+团队最近将两个项目迁移至 `degg 2.0` 中，两个项目均出现比较严重的内存泄漏问题，此处以本人维护的埋点服务为例进行排查。服务上线后内存增长如下图，其中红框为 `degg 2.0` 线上运行的时间窗口，在短短 36 小时内，内存已经增长到 50%，而平时内存稳定在 20%-30%，可知十之八九出现了内存泄漏。
 
 ![泄漏](/images/node-leak1.jpg)
 
@@ -33,7 +33,7 @@ tags:
 
 ## 排查思路
 
-由于两个接入 `degg 2.0` 的服务均出现内存泄漏问题，因此初步将排查范围锁定在 `degg 2.0` 引入或重写的基础组件上，重点怀疑对象为 `@didi/nodex-logger` 组件；同时为了排查内存泄漏，我们需要获取服务运行进程的堆快照（**heapsnapshot**），获取方式可参看文章：[记-Nodejs内存泄露排查-捉妖记by陈钦辉](http://way.xiaojukeji.com/article/20733)。
+由于两个接入 `degg 2.0` 的服务均出现内存泄漏问题，因此初步将排查范围锁定在 `degg 2.0` 引入或重写的基础组件上，重点怀疑对象为 `nodex-logger` 组件；同时为了排查内存泄漏，我们需要获取服务运行进程的堆快照（**heapsnapshot**），获取方式可参看文章：[记-Nodejs内存泄露排查-捉妖记by陈钦辉](http://way.xiaojukeji.com/article/20733)。
 
 
 
@@ -47,7 +47,7 @@ tags:
 
 
 
-盯着 generator 进入思考，我的服务代码并没有 generator 语法，为什么会出现 generator 对象的内存泄漏呢？此时我把注意力转到 `node_modules` 目录中，由于最近一直在优化 `@didi/nodex-kafka` 组件，有时直接在 `node_modules` 目录中修改该组件的代码进行调试，因此几乎每个文件头部都有的一段代码引起了我的注意：
+盯着 generator 进入思考，我的服务代码并没有 generator 语法，为什么会出现 generator 对象的内存泄漏呢？此时我把注意力转到 `node_modules` 目录中，由于最近一直在优化 `nodex-kafka` 组件，有时直接在 `node_modules` 目录中修改该组件的代码进行调试，因此几乎每个文件头部都有的一段代码引起了我的注意：
 
 ```js
 "use strict";
@@ -84,9 +84,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 
 同时一个关于 generator 内存泄漏的 [#30753 generator functions - memory leak](https://github.com/nodejs/node/issues/30753) 也引起了我的注意，该 issue 遇到的问题无论从 Node.js 的版本和内存泄漏的表现都和我遇到的问题十分相似。所以我在工程的 `node_modules` 中搜索所有 `__awaiter` 字符串，发现了 3 个模块编译出了上述代码，分别是：
 
-1. `@didi/nodex-logger`
-2. `@didi/nodex-kafka`
-3. `@didi/nodex-apollo`
+1. `nodex-logger`
+2. `nodex-kafka`
+3. `nodex-apollo`
 
 由于模块的 tsconfig.json 的 target 字段将目标产出为 `es6`，因此才会使用 generator 去模拟 `async/await` 语法，但是从 Node.js v8.10.0 开始已经 100% 支持了 `ES2017` 的所有特性，所以本不该编译  `async/await` 语法，此处遂将这 3 个模块的目标产出配置改为 `es2017`，这样 tsc 就不会编译 `async/await` 语法。
 
