@@ -1,5 +1,5 @@
 ---
-title: 给你心爱的 npm 包上个北京户口
+title: 给你心爱的 npm 包上个『北京户口』
 date: 2020-09-27 12:45:00
 categories: 前端
 tags:
@@ -44,15 +44,15 @@ tags:
 
 有的，有的！回忆下你使用 `npm view` 查询一个 npm 包时的情形：
 
-![image-20200925220307303](https://tva1.sinaimg.cn/large/007S8ZIlly1gj38vxzb0nj31d40u0qgo.jpg)
+![](/images/npm-sync1.jpg)
 
 聪明的你肯定发现 `.tarball: https://registry.npmjs.org/koa/-/koa-2.13.0.tgz`，这个包正是当前最新版本 2.13.0 的 koa 包。下载解压后发现这正是我们要的，只要进入该目录执行 npm publish 即可：
 
-![image-20200925220816827](https://tva1.sinaimg.cn/large/007S8ZIlly1gj391b32slj30l60fmdhi.jpg)
+![](/images/npm-sync2.jpg)
 
 那我们能获取指定版本的 tgz 包吗？当然，使用 `npm view koa@1.0.0` 即可查看指定版本。等等，我没法知道当前 koa 包有哪些版本诶？别慌，试试这个命令 `npm view koa --json`，答案就藏在 `versions` 字段里：
 
-![image-20200925221305331](https://tva1.sinaimg.cn/large/007S8ZIlly1gj396bgv9nj31ab0u079l.jpg)
+![](/images/npm-sync3.jpg)
 
 此外 `dist-tags` 字段也需要同步（ *默认不同步 tag，这有可能导致杭州源的 tag 覆盖了北京源的 tag，而杭州源的 tag 可能不是最新的*）。
 
