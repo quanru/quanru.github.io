@@ -17,13 +17,13 @@ tags:
 
 > 此理论认为环境中的不良现象如果被放任存在，会诱使人们仿效，甚至变本加厉。以一幢有少许破窗的建筑为例，如果那些窗不被修理好，可能将会有破坏者破坏更多的窗户。最终他们甚至会闯入建筑内，如果发现无人居住，也许就在那里定居或者纵火。一面墙，如果出现一些涂鸦没有被清洗掉，很快的，墙上就布满了乱七八糟、不堪入目的东西；一条人行道有些许纸屑，不久后就会有更多垃圾，最终人们会视若理所当然地将垃圾顺手丢弃在地上。
 
-因此，随着时间的推移，此类项目会变得愈发难以维护。当然，这种难以维护不仅仅是 eslint 的问题，会有一系列约定和规范的问题，约定和规范制定很简单，但是如何保证这些约定和规范执行才是关键。本文聚焦 eslint 治理，将以一个仍然在持续维护的项目为例，阐述如何治理这种老项目。
+因此，随着时间的推移，此类项目会变得愈发难以维护。当然，这种难以维护不仅仅是 [eslint](https://www.npmjs.com/package/eslint) 的问题，会有一系列约定和规范的问题，约定和规范制定很简单，但是如何保证这些约定和规范执行才是关键。本文聚焦 [eslint](https://www.npmjs.com/package/eslint) 治理，将以一个仍然在持续维护的项目为例，阐述如何治理这种老项目。
 
 
 
 ## 现状描述
 
-当前存在的 eslint 错误数和告警数：
+当前存在的 [eslint](https://www.npmjs.com/package/eslint) 错误数和告警数：
 
 ![](/images/eslint1.png)
 
@@ -48,7 +48,7 @@ extends: [
 
 
 
-此处我们接入了 prettier 和 lint-staged，前者用于保证同一份代码仅输出一个确定的格式；后者用于保证不会有新的 eslint 错误引入，并对修改过的文件强制校验，从而逐步减少错误数。
+此处我们接入了 [prettier](https://www.npmjs.com/package/prettier) 和 [lint-staged](https://www.npmjs.com/package/lint-staged)，前者用于保证同一份代码仅输出一个确定的格式；后者用于保证不会有新的 [eslint](https://www.npmjs.com/package/eslint) 错误引入，并对修改过的文件强制校验，从而逐步减少错误数。
 
 
 
@@ -87,6 +87,4 @@ eslint 默认的结果仅支持文件维度的统计，这在错误数非常多�
 5. `no-dupe-keys` 和 `no-duplicate-case`，即重复定义的对象 key 或者 switch case，增加了不确定性，目前有 7 处
 6. `react/no-direct-muttion-state`，即直接修改 this.state，有可能导致状态更新不生效，目前有 21 处
 
-
-
-这样修复之后，剩余的就交给 lint-staged 即可。
+此外，诸如变量驼峰，双等号这种错误如果数量巨大，建议改成 warn 级别或者直接关闭，毕竟无关痛痒。经过上述修复之后，剩余的就交给 [lint-staged](https://www.npmjs.com/package/lint-staged) 即可。
