@@ -1,6 +1,6 @@
 title: redux 中间件入门到编写，到改进，到出门
 date: 2017-03-18 20:15:09
-categories: 前端
+categories: 源码解析
 tags:
 - JavaScript
 - Redux

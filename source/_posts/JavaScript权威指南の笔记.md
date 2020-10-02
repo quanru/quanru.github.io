@@ -2,7 +2,8 @@
 title: JavaScript 权威指南の笔记
 date: 2015-6-15 20:22:15
 categories: 读书笔记
-tags: JavaScript
+tags:
+- JavaScript
 ---
 
 1. 当Javascript解释器启动时，它将创建一个新的全局对象，并给它一组定义的初始属性。

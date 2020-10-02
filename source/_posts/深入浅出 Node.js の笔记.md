@@ -2,7 +2,9 @@
 title: 深入浅出 Node.js の笔记
 date: 2016-12-25 21:09:38
 categories: 读书笔记
-tags: JavaScript
+tags:
+- JavaScript
+- Node.js
 ---
 
 前端开发人员上手 Node.js 还是需要课补一些服务端知识的。

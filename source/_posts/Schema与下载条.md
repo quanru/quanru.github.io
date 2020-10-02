@@ -1,8 +1,9 @@
 ---
 title: Schema 与下载条
 date: 2015-08-16 19:34:27
-categories: 小程序
-tags: JavaScript
+categories: 小任务
+tags:
+- JavaScript
 ---
 
 **由于我司有个网站还没有对应的移动端版本，因此需要在移动端访问该网站时，在底部显示一条下载条，而且点击该下载条时需要满足以下两个需求：**

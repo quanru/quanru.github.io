@@ -1,7 +1,8 @@
 title: Javascript 函数式编程の书摘
 date: 2015-10-6 20:34:23
 categories: 读书笔记
-tags: JavaScript
+tags:
+- JavaScript
 ---
 
 ### 章一

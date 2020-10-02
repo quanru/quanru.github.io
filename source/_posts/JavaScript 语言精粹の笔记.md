@@ -2,7 +2,8 @@
 title: Javascript 语言精粹の笔记
 date: 2016-11-20 23:11:45
 categories: 读书笔记
-tags: JavaScript
+tags:
+- JavaScript
 ---
 
 最近买了几本书，这本《JavaScript 语言精粹》果真精粹，篇幅很少，而附录较多，作者是 JSON 的发明者 Douglas Crockford ，听起来屌屌的，其中的干货也是不少的，看完受益匪浅！

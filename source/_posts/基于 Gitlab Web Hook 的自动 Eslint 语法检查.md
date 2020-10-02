@@ -1,7 +1,7 @@
 ---
 title: 基于 Gitlab Web Hook 的自动 Eslint 语法检查
 date: 2016-10-02 15:11:33
-categories: 前端
+categories: Node.js 服务端
 tags:
 - JavaScript
 - Node.js

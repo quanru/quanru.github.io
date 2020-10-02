@@ -1,10 +1,11 @@
 ---
 title: 使用 Node.js 将珍藏的 bash 脚本封装成命令行工具
 date: 2020-10-02 00:19:13
-categories: 前端
+categories: 工程化
 tags:
 - Node.js
 - JavaScript
+- 命令行工具
 
 ---
 

@@ -1,8 +1,11 @@
 ---
-title: Node.js  调试方式集锦
+title: Node.js 调试方式集锦
 date: 2017-08-15 21:17:11
-categories: 小程序
-tags: JavaScript
+categories: 教程
+tags:
+- JavaScript
+- debug
+
 ---
 
 本文讨论了几个流行的 Node.js 调试方式，包括 Chrome，VSCODE，ATOM，WebStorm

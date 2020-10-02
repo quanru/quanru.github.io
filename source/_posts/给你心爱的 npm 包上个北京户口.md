@@ -1,8 +1,9 @@
 ---
 title: 给你心爱的 npm 包上个『北京户口』
 date: 2020-09-27 12:45:00
-categories: 前端
+categories: 工程化
 tags:
+- 命令行工具
 - Node.js
 - JavaScript
 ---

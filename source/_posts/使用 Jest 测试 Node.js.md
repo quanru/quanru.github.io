@@ -1,7 +1,7 @@
 ---
 title: 使用 Jest 测试 Node.js
 date: 2018-02-22 18:13:35
-categories: 后端
+categories: Node.js 服务端
 tags:
 - JavaScript
 - Node.js

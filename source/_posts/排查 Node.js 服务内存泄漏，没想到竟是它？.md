@@ -1,10 +1,11 @@
 ---
 title: 排查 Node.js 服务内存泄漏，没想到竟是它？
 date: 2020-04-20 14:01:13
-categories: 前端
+categories: Node.js 服务端
 tags:
 - Node.js
 - JavaScript
+- 内存泄漏
 
 ---
 
