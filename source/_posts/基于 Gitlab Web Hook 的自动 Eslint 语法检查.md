@@ -10,7 +10,7 @@ tags:
 
 ---
 
-** [Eslint](http://eslint.org/), 一个插件化的 Javascript 语法检查工具, 如何将其结合 Gitlab 并应用于开发呢? **
+**[Eslint](http://eslint.org/), 一个插件化的 Javascript 语法检查工具, 如何将其结合 Gitlab 并应用于开发呢?**
 
 <!-- more -->
 

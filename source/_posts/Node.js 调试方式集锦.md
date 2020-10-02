@@ -11,7 +11,7 @@ tags: JavaScript
 
 #### Chrome：
 
-** 优势 **
+**优势**
 
   1. 不依赖编辑器；
   2. 不依赖配置；
@@ -19,28 +19,28 @@ tags: JavaScript
   4. 与前端代码调试工具一致；
   5. dev-tools  工具强大
 
-** 劣势 **
+**劣势**
   1. 无法在源文件上进行断点
 
 ---
 
 #### VSCODE：
 
-** 优势 **
+**优势**
   1. 可在源文件上进行断点
 
-** 劣势 **
+**劣势**
   1. 需要一定的配置
 
 ---
 
 #### WebStorm：
 
-** 优势 **
+**优势**
 
   1. 可在源文件上进行断点
 
-** 劣势 **
+**劣势**
 
   1. 需要一定的配置
 
@@ -48,10 +48,10 @@ tags: JavaScript
 
 #### ATOM：
 
-** 优势 **
+**优势**
   1. 可在源文件上进行断点
 
-** 劣势 **
+**劣势**
   1. 功能比较弱，不如 VSCODE
 
 ---
@@ -81,7 +81,7 @@ tags: JavaScript
 
 #### 步骤三：启动前端调试服务(如果有的话)
 
-   ![image](/images/启动调试服务.png)
+   ![image](/post-img/启动调试服务.png)
 
 
 
@@ -101,9 +101,9 @@ tags: JavaScript
 
 #### 步骤五：打开 Chrome，并打开 dev tool，当你的 Chrome 足够新（60 以上），可点击如下 node.js 图标，进入调试
 
-   ![image](/images/打开调试.png)
+   ![image](/post-img/打开调试.png)
 
-   ![image](/images/打断点.png)
+   ![image](/post-img/打断点.png)
 
 
 
@@ -119,13 +119,13 @@ tags: JavaScript
 
 #### 步骤二：切换到 debug tab：
 
-   ![image](/images/vscode-debug.png)
+   ![image](/post-img/vscode-debug.png)
 
 
 
 #### 步骤三：打开 launch.json  文件
 
-   ![image](/images/编辑-vscode-配置.png)
+   ![image](/post-img/编辑-vscode-配置.png)
 
 
 
@@ -157,19 +157,19 @@ tags: JavaScript
 
 #### 步骤五：启动前端调试服务(如果有的话)
 
-   ![image](/images/启动调试服务.png)
+   ![image](/post-img/启动调试服务.png)
 
 
 
 #### 步骤六：使用 VSCode 打开源码文件，点击行号左侧以添加断点
 
-   ![image](/images/源码断点.png)
+   ![image](/post-img/源码断点.png)
 
 
 
 #### 步骤七：切回 debug tab，启动 node.js  服务，即可调试
 
-   ![image](/images/调试.png)
+   ![image](/post-img/调试.png)
 
 ---
 
@@ -177,19 +177,19 @@ tags: JavaScript
 
 #### 步骤一：打开项目目录，展开 `Run` 菜单，选择 `Edit Configurations`
 
-   ![image](/images/WebStorm.png)
+   ![image](/post-img/WebStorm.png)
 
 
 
 #### 步骤二：新建 Node.js 调试配置
 
-   ![image](/images/WebStorm-配置.png)
+   ![image](/post-img/WebStorm-配置.png)
 
 
 
 #### 步骤三：配置参考
 
-   ![image](/images/WebStorm-配置参考.png)
+   ![image](/post-img/WebStorm-配置参考.png)
 
 
 
@@ -204,19 +204,19 @@ tags: JavaScript
 
 #### 步骤四：启动前端调试服务(如果有的话)
 
-   ![image](/images/启动调试服务.png)
+   ![image](/post-img/启动调试服务.png)
 
 
 
 #### 步骤五：使用 WebStorm 打开源码文件，点击行号左侧以添加断点
 
-   ![image](/images/WebStorm-源码调试.png)
+   ![image](/post-img/WebStorm-源码调试.png)
 
 
 
 #### 步骤六：点击启动调试服务
 
-   ![image](/images/WebStorm-启动调试.png)
+   ![image](/post-img/WebStorm-启动调试.png)
 
 ---
 
@@ -224,34 +224,34 @@ tags: JavaScript
 
 #### 步骤一：安装插件：a.  [xatom-debug](https://github.com/willyelm/xatom-debug) b. [xatom-debug-nodejs](https://github.com/willyelm/xatom-debug)
 
-   ![image](/images/atom-安装插件.png)
+   ![image](/post-img/atom-安装插件.png)
 
 
 
 #### 步骤二：打开 node  项目入口文件，并在箭头处切换需要调试的项目目录，之后点击箭头右侧的 Node.js  按钮进入配置
 
-   ![image](/images/atom-切换调试目录.png)
+   ![image](/post-img/atom-切换调试目录.png)
 
 
 
 #### 步骤三：配置调试
 
-   ![image](/images/atom-配置调试.png)
+   ![image](/post-img/atom-配置调试.png)
 
 
 
 #### 步骤四：启动前端调试服务(如果有的话)
 
-   ![image](/images/启动调试服务.png)
+   ![image](/post-img/启动调试服务.png)
 
 
 
 #### 步骤五：使用 ATOM 打开源码文件，点击行号左侧以添加断点
 
-   ![image](/images/atom-源码调试.png)
+   ![image](/post-img/atom-源码调试.png)
 
 
 
 #### 步骤六：点击启动调试服务
 
-   ![image](/images/atom-启动调试服务.png)
+   ![image](/post-img/atom-启动调试服务.png)

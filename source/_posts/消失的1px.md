@@ -5,7 +5,7 @@ categories: 前端
 tags: CSS
 ---
 
-** 之前本人写过一篇文章，是关于1px边框的：[从line-height到0-5px](http://quanru.github.io/2015/09/14/%E4%BB%8Eline-height%E5%88%B00-5px/)。文中提到用缩放的方法固然可行，但是在使用rem或者百分比单位时，时常会造成1px边框在某些机型下消失；而使用[border-image](http://imweb.io/topic/55e3d402771670e207a16bd1)方案则不会出现消失的情况；本文将探索该1px边框消失的原因以及后者为何能正常显示。**
+**之前本人写过一篇文章，是关于1px边框的：[从line-height到0-5px](http://quanru.github.io/2015/09/14/%E4%BB%8Eline-height%E5%88%B00-5px/)。文中提到用缩放的方法固然可行，但是在使用rem或者百分比单位时，时常会造成1px边框在某些机型下消失；而使用[border-image](http://imweb.io/topic/55e3d402771670e207a16bd1)方案则不会出现消失的情况；本文将探索该1px边框消失的原因以及后者为何能正常显示。**
 
 <!-- more -->
 
@@ -17,7 +17,7 @@ tags: CSS
 
 在[LayoutUnit](http://trac.webkit.org/wiki/LayoutUnit)中提到了两种将亚像素(即小数点像素)转换为真实物理像素的两种方法，示意图如下：
 
-![WebKitlayouttypes](/images/WebKitlayouttypes.png)
+![WebKitlayouttypes](/post-img/WebKitlayouttypes.png)
 
 #### enclosingIntRect
 
@@ -71,7 +71,7 @@ tags: CSS
 
 显示效果如下：
 
-![iPhone4](/images/ip4.png)
+![iPhone4](/post-img/ip4.png)
 
 其计算规则如下：
 

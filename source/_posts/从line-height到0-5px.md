@@ -5,7 +5,7 @@ categories: 前端
 tags: CSS
 ---
 
-** 前几天发现写的一段代码，其中line-height（1.7rem）与height（1.7rem）相等，font-size（1.1rem）；在ios设备上文字垂直居中，而在android设备上竟上下缝隙相差1px（其实我看不出来是不是一像素，我猜的）。**
+**前几天发现写的一段代码，其中line-height（1.7rem）与height（1.7rem）相等，font-size（1.1rem）；在ios设备上文字垂直居中，而在android设备上竟上下缝隙相差1px（其实我看不出来是不是一像素，我猜的）。**
 
 <!-- more -->
 
@@ -34,7 +34,7 @@ tags: CSS
 
 ## 那么问题来了
 
-1px边框到底如何在非ios8的retina屏幕下实现呢？今天看到一篇博客里的一句话，我激动了：![被嫌弃的target-densitydpi属性](/images/0.5px.png)
+1px边框到底如何在非ios8的retina屏幕下实现呢？今天看到一篇博客里的一句话，我激动了：![被嫌弃的target-densitydpi属性](/post-img/0.5px.png)
 
 要是没有最后一句话该多好啊~
 
