@@ -1,7 +1,7 @@
 ---
 title: 论如何科学地治理老项目的 eslint
 date: 2020-09-28 12:50:11
-categories: 前端
+categories: 工作记录
 tags:
 - JavaScript
 - 项目治理
