@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "predeploy": "git push",
+    "prebuild": "npm run clean",
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
