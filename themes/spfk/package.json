@@ -5,6 +5,12 @@
   "dependencies": {
     "hexo-renderer-ejs": "*",
     "hexo-renderer-stylus": "*",
-    "hexo-renderer-marked": "*"
-  }
+    "hexo-renderer-marked": "*",
+    "snyk": "^1.134.2"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
