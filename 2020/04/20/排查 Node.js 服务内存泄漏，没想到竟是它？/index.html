@@ -177,7 +177,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.9k 字
+      3.1k 字
     </span>
   
 
@@ -187,7 +187,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      41
+      42
        分钟
     </span>
   
@@ -510,6 +510,8 @@ async/await x <span class="hljs-number">4</span>,<span class="hljs-number">567</
 </blockquote>
 <p>既然是 v8 的问题，那么 chrome 浏览器也是有这个问题的，打开空白标签页，执行前文给出的 <code>leak.js</code> 代码：</p>
 <p><img src="/post-img/node-leak6.jpg" srcset="/img/loading.gif" alt="chrome"></p>
+<p>可发现，chrome 下也会有内存泄漏问题，只不过 chrome 页面上的代码运行一般不会有密集地、重复地执行某段『导致内存泄漏』的代码，因此该问题在 chrome 端不容易被察觉。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>没想到一个小小的语法转译也会造成如此严重的内存泄漏问题，且一个 V8 底层小小的 bug 在上层使用时会被放大得如此严重。但是只要我们不放过每一个可疑点，深入排查总会有意想不到的收获！</p>
 
             </div>
             <hr>
