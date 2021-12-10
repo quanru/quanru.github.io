@@ -29,7 +29,7 @@ module.exports = (hexo) => {
 
   // Merge configs in /source/_data/fluid_static_prefix.yml into hexo.theme.config.
   const configPath = path.join(hexo.theme_dir, '_static_prefix.yml');
-  const yamlDoc = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'));
+  const yamlDoc = yaml.load(fs.readFileSync(configPath, 'utf8'));
   hexo.theme.config.static_prefix = objUtil.merge({}, yamlDoc, staticPrefix);
   hexo.log.debug('[Fluid] Theme static_prefix config merged');
 
