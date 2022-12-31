@@ -73,7 +73,7 @@ tags:
 
 ### **为什么使用 feature branch development？**
 
-- #### **多功能并****行开发**
+- #### **多功能并行开发**
   
 
 使多个开发人员可以轻松地在不干扰主代码库的情况下处理特定功能。
@@ -182,7 +182,7 @@ Trunk-based development 更容易做到线性的 commit 历史，它有如下几
 4. 撤销变更，比如：当你发现一个有问题的 commit，简单的 revert 对应的 commit 即可，而非线性的历史会有很多跨分支的合并，使 revert 变得困难
   
 
-![图片](/post-img/mono-git7.png)
+![图片](/post-img/mono-git7.jpg)
 
 
 ### **有效的两个前提**
