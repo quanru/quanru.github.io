@@ -5,7 +5,7 @@ categories: 工作记录
 tags:
 - JavaScript
 - Webview
-- Jsbridge
+- JsBridge
 
 ---
 
