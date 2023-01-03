@@ -7,3 +7,8 @@ tags:
 ---
 
 <object data="/pdf/monorepo.pdf" type="application/pdf" width="100%" height="855px">
+    <p>
+        Your browser does not support PDF files.
+        <a href="/pdf/monorepo.pdf">Download the file instead</a>
+    </p>
+</object>
