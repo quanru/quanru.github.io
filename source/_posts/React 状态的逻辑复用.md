@@ -7,4 +7,8 @@ tags:
 - React
 ---
 
+关于 React 状态的逻辑复用史！
+
+<!-- more -->
+
 <iframe width="100%" height="855px" src="/js/pdfjs/web/viewer.html?file=/pdf/react-状态的逻辑复用.pdf"></iframe>

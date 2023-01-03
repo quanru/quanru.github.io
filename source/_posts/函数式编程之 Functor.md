@@ -9,4 +9,8 @@ tags:
 
 ---
 
+万万没想到，Promise 也属于函数式编程？
+
+<!-- more -->
+
 <iframe width="100%" height="855px" src="/js/pdfjs/web/viewer.html?file=/pdf/函数式编程之 Functor.pdf"></iframe>
