@@ -1,0 +1,647 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>给你心爱的 npm 包上个『北京户口』 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-27 12:45" pubdate>
+        2020年9月27日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">给你心爱的 npm 包上个『北京户口』</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>记录解决如何批量将 npm 包从一个 npm 源迁移到另一个源</strong></p>
+<span id="more"></span>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>一切从我司有两个 npm 源说起，一个叫杭州源，另一个叫北京源。本来各用各的相安无事，直到有一天我们想依赖另一个源的 npm 包时，就相互拉取不到对方的源了。杭州源这边也有做过兼容，当拉取的源不存在时，就尝试去北京源拉取，看似解决了这个问题。但是这只解决了我们依赖北京源的 npm 包的问题，而我们有大量的包需要推广到其它部门，因此我们决定切换到使用人数更多的北京源，目前团队正处于集体转向使用北京源的阶段，不过经常会遇到如下问题：</p>
+<ol>
+<li><p>项目拉取下来，执行 npm install，提示某些包不存在，然后查看当前源，切换到另一种源，继续 npm install；</p>
+</li>
+<li><p>老项目使用杭州源，但是依赖了北京源的 npm 包，虽然杭州源会在拉取不到包时主动向北京源拉取，但是这个机制经常出问题，有时会阻塞服务的构建，得解决这个依赖问题才能重新构建项目；</p>
+</li>
+<li><p>新项目使用北京源，但是依赖了杭州源的 npm 包，这个场景比较棘手，北京源没有向杭州源拉取包的机制，因此需要将杭州源的包重新在北京源上发布，如果采用手动发布，版本多的包会很繁琐还容易出错；如果只发布部分包，会导致两边不一致，导致无法拉取到未发布的包；</p>
+</li>
+<li><p>发布一个包，只向杭州源发布，那使用北京源的项目很可能更新不到你的新版本，反之亦然；</p>
+</li>
+</ol>
+<p><strong>咋整？</strong></p>
+<h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><p>为了加快结束这个过渡期，需要我们全面切换到北京源，有两个问题需要解决：</p>
+<ol>
+<li><p>团队内的杭州源 npm 包的各个版本需要在北京源重新发布一次，除了版本外，dist-tag 也要同步到北京源；</p>
+</li>
+<li><p>通知团队成员将项目切换到北京源，并不再使用杭州源，如有遗漏未同步到北京源的 npm 包告知我将其同步；</p>
+</li>
+</ol>
+<p>那么，我们团队有多少个包呢？已知的 @kd scope 下的包有 49 个，而更多的包都在 @dd scope 下，目前收集到的有 50 个。假设平均一个包有 10 个版本，那么粗略估计有上千个版本需要重新发布，所以手动是不可能手动的，得想法子通过自动化的方式批量同步。</p>
+<p>来看看到底咋整吧！</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>作为一个前端开发，当然选择 Node.js 来编写脚本或命令行工具解决这种重复劳动了！先来回顾下如何发布一个 npm 包：只要进入 npm 包的根目录，执行 <code>npm publish</code> 即可。所以我们只要找到一个方式能获取到每个包的每个版本的所有代码即可！那有这种方式吗？</p>
+<p>有的，有的！回忆下你使用 <code>npm view</code> 查询一个 npm 包时的情形：</p>
+<p><img src="/post-img/npm-sync1.jpg" srcset="/img/loading.gif"></p>
+<p>聪明的你肯定发现 <code>.tarball: https://registry.npmjs.org/koa/-/koa-2.13.0.tgz</code>，这个包正是当前最新版本 2.13.0 的 koa 包。下载解压后发现这正是我们要的，只要进入该目录执行 npm publish 即可：</p>
+<p><img src="/post-img/npm-sync2.jpg" srcset="/img/loading.gif"></p>
+<p>那我们能获取指定版本的 tgz 包吗？当然，使用 <code>npm view koa@1.0.0</code> 即可查看指定版本。等等，我没法知道当前 koa 包有哪些版本诶？别慌，试试这个命令 <code>npm view koa --json</code>，答案就藏在 <code>versions</code> 字段里：</p>
+<p><img src="/post-img/npm-sync3.jpg" srcset="/img/loading.gif"></p>
+<p>此外 <code>dist-tags</code> 字段也需要同步（ <em>默认不同步 tag，这有可能导致杭州源的 tag 覆盖了北京源的 tag，而杭州源的 tag 可能不是最新的</em>）。</p>
+<p>目前万事俱备，离搞定只差一个程序猿了！核心逻辑即是根据包名拉取所有版本的 tgz 压缩包，同时解压所有 tgz 压缩包，进入对应目录执行 npm publish：</p>
+<pre><code class="hljs js"><span class="hljs-comment">// 获取该包的所有版本</span>
+<span class="hljs-keyword">let</span> result
+<span class="hljs-keyword">try</span> &#123;
+  result = <span class="hljs-keyword">await</span> execa.<span class="hljs-title function_">command</span>(<span class="hljs-string">`npm view <span class="hljs-subst">$&#123;npmPacakgeName&#125;</span> --json --registry=<span class="hljs-subst">$&#123;<span class="hljs-keyword">from</span>&#125;</span>`</span>)
+&#125; <span class="hljs-keyword">catch</span> (error) &#123;
+  <span class="hljs-comment">// 查询失败的日志写入文件，方便追踪</span>
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">red</span>(<span class="hljs-string">`获取列表失败：<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>`</span>))
+
+  <span class="hljs-keyword">const</span> content = <span class="hljs-keyword">await</span> fs.<span class="hljs-title function_">readFile</span>(errorLogFile)
+
+  <span class="hljs-keyword">await</span> fs.<span class="hljs-title function_">writeFile</span>(errorLogFile, <span class="hljs-string">`<span class="hljs-subst">$&#123;content&#125;</span>\n获取列表失败：<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>: <span class="hljs-subst">$&#123;error.stack&#125;</span>`</span>)
+  <span class="hljs-keyword">return</span>
+&#125;
+
+<span class="hljs-keyword">const</span> json = result.<span class="hljs-property">stdout</span> ? <span class="hljs-built_in">eval</span>(<span class="hljs-string">`temp = <span class="hljs-subst">$&#123;result.stdout&#125;</span>`</span>) : &#123;&#125;
+
+<span class="hljs-keyword">const</span> tagTaskList = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(json[<span class="hljs-string">&#x27;dist-tags&#x27;</span>]).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">npmPackageTag</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-keyword">await</span> execa.<span class="hljs-title function_">command</span>(<span class="hljs-string">`npm dist-tag add <span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>@<span class="hljs-subst">$&#123;json[<span class="hljs-string">&#x27;dist-tags&#x27;</span>][npmPackageTag]&#125;</span> <span class="hljs-subst">$&#123;npmPackageTag&#125;</span> --registry=<span class="hljs-subst">$&#123;to&#125;</span>`</span>)
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">green</span>(<span class="hljs-string">`成功同步 tag：<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>@<span class="hljs-subst">$&#123;npmPackageTag&#125;</span>`</span>))
+    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+      <span class="hljs-comment">// 发布失败的日志写入文件，方便追踪</span>
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">red</span>(<span class="hljs-string">`tag 添加失败：<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>@<span class="hljs-subst">$&#123;json[<span class="hljs-string">&#x27;dist-tags&#x27;</span>]&#125;</span>`</span>))
+
+      <span class="hljs-keyword">const</span> content = <span class="hljs-keyword">await</span> fs.<span class="hljs-title function_">readFile</span>(errorLogFile)
+
+      <span class="hljs-keyword">await</span> fs.<span class="hljs-title function_">writeFile</span>(errorLogFile, <span class="hljs-string">`<span class="hljs-subst">$&#123;content&#125;</span>\ntag 添加失败：<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>@<span class="hljs-subst">$&#123;json[<span class="hljs-string">&#x27;dist-tags&#x27;</span>]&#125;</span>: <span class="hljs-subst">$&#123;error.stack&#125;</span>`</span>)
+    &#125;
+  &#125;
+&#125;)
+
+<span class="hljs-keyword">const</span> publishTaskList = json.<span class="hljs-property">versions</span> &amp;&amp; json.<span class="hljs-property">versions</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">npmPacakgeVersion</span> =&gt;</span> &#123;
+  <span class="hljs-comment">// 该包每个版本的处理逻辑</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-comment">// 如果 $&#123;to&#125;已经存在该版本，则不处理</span>
+      <span class="hljs-comment">// <span class="hljs-doctag">FIXME:</span> 处理 $&#123;to&#125;不存在该包的情况</span>
+      <span class="hljs-keyword">let</span> result
+
+      <span class="hljs-keyword">try</span> &#123;
+        result = <span class="hljs-keyword">await</span> execa.<span class="hljs-title function_">command</span>(<span class="hljs-string">`npm view <span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>@<span class="hljs-subst">$&#123;npmPacakgeVersion&#125;</span> --registry=<span class="hljs-subst">$&#123;to&#125;</span>`</span>)
+
+        <span class="hljs-keyword">if</span> (result.<span class="hljs-property">stdout</span>) &#123;
+          <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">green</span>(<span class="hljs-string">`已存在于 <span class="hljs-subst">$&#123;to&#125;</span>，无需同步：<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>@<span class="hljs-subst">$&#123;npmPacakgeVersion&#125;</span>`</span>))
+
+          <span class="hljs-keyword">return</span>
+        &#125;
+      &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+        <span class="hljs-keyword">if</span> (!error.<span class="hljs-property">message</span>.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&#x27;npm ERR! code E404&#x27;</span>)) &#123;
+          <span class="hljs-keyword">throw</span> error
+        &#125;
+      &#125;
+
+      <span class="hljs-comment">// 去除形如 @scope 的字符串</span>
+      <span class="hljs-keyword">const</span> packagePath = path.<span class="hljs-title function_">join</span>(__dirname, npmPacakgeName, <span class="hljs-string">`<span class="hljs-subst">$&#123;npmPacakgeName.replace(/@.*\//, <span class="hljs-string">&#x27;&#x27;</span>)&#125;</span>-<span class="hljs-subst">$&#123;npmPacakgeVersion&#125;</span>`</span>)
+      <span class="hljs-keyword">const</span> tgzPath = <span class="hljs-string">`<span class="hljs-subst">$&#123;packagePath&#125;</span>.tgz`</span>
+
+      <span class="hljs-comment">// 下载包</span>
+      <span class="hljs-keyword">await</span> <span class="hljs-title function_">download</span>(
+        <span class="hljs-string">`<span class="hljs-subst">$&#123;<span class="hljs-keyword">from</span>&#125;</span>/<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>/download/<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>-<span class="hljs-subst">$&#123;npmPacakgeVersion&#125;</span>.tgz`</span>,
+        npmPacakgeName
+      )
+      <span class="hljs-comment">// 解压包</span>
+      <span class="hljs-keyword">await</span> compressing.<span class="hljs-property">tgz</span>.<span class="hljs-title function_">uncompress</span>(
+        tgzPath,
+        packagePath
+      )
+      <span class="hljs-comment">// 删除压缩包</span>
+      <span class="hljs-keyword">await</span> execa.<span class="hljs-title function_">command</span>(<span class="hljs-string">`rm <span class="hljs-subst">$&#123;tgzPath&#125;</span>`</span>)
+      <span class="hljs-comment">// 发布</span>
+      <span class="hljs-keyword">await</span> execa.<span class="hljs-title function_">command</span>(<span class="hljs-string">`npm publish --tag=sync --registry=<span class="hljs-subst">$&#123;to&#125;</span>`</span>, &#123;
+        <span class="hljs-attr">cwd</span>: path.<span class="hljs-title function_">join</span>(packagePath, <span class="hljs-string">&#x27;package&#x27;</span>)
+      &#125;)
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">green</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>@<span class="hljs-subst">$&#123;npmPacakgeVersion&#125;</span> 成功同步 <span class="hljs-subst">$&#123;to&#125;</span>！`</span>))
+    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+      <span class="hljs-comment">// 发布失败的日志写入文件，方便追踪</span>
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">red</span>(<span class="hljs-string">`version 发布失败：<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>@<span class="hljs-subst">$&#123;npmPacakgeVersion&#125;</span>`</span>))
+
+      <span class="hljs-keyword">const</span> content = <span class="hljs-keyword">await</span> fs.<span class="hljs-title function_">readFile</span>(errorLogFile)
+
+      <span class="hljs-keyword">await</span> fs.<span class="hljs-title function_">writeFile</span>(errorLogFile, <span class="hljs-string">`<span class="hljs-subst">$&#123;content&#125;</span>\nversion 发布失败：<span class="hljs-subst">$&#123;npmPacakgeName&#125;</span>@<span class="hljs-subst">$&#123;npmPacakgeVersion&#125;</span>: <span class="hljs-subst">$&#123;error.stack&#125;</span>`</span>)
+    &#125;
+  &#125;
+&#125;)
+<span class="hljs-comment">// 限制并行数为 5，防止 npm 网站报错</span>
+<span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(publishTaskList.<span class="hljs-title function_">map</span>(<span class="hljs-title function_">pLimit</span>(<span class="hljs-number">5</span>)))
+<span class="hljs-comment">// 修复所有 tag，并行会导致不成功，此处改为串行</span>
+<span class="hljs-comment">// 默认不同步 tag，有可能导致$&#123;from&#125;的 tag 覆盖了 $&#123;to&#125;的 tag，而$&#123;from&#125;的 tag 可能不是最新的</span>
+<span class="hljs-keyword">if</span> (options.<span class="hljs-property">syncTag</span>) &#123;
+  <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(tagTaskList.<span class="hljs-title function_">map</span>(<span class="hljs-title function_">pLimit</span>(<span class="hljs-number">1</span>)))
+&#125;</code></pre>
+
+<p>请留意并行问题，并发量太大 npm 网站会报错（估计被拦截了）。</p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>本来仅提供脚本执行方式，为了让大家也能方便使用（不要再叫我同步了）。贴心的我已把这个脚本实现为一个命令行工具，使用方式如下：</p>
+<blockquote>
+<p>内部工具，此处不提供，大伙可自行实现</p>
+</blockquote>
+<h3 id="安装命令行"><a href="#安装命令行" class="headerlink" title="安装命令行"></a>安装命令行</h3><p><code>npm i @dd/npm-sync -g</code></p>
+<h3 id="执行版本同步"><a href="#执行版本同步" class="headerlink" title="执行版本同步"></a>执行版本同步</h3><p><code>npm-sync packageName</code></p>
+<h3 id="执行版本和tag同步"><a href="#执行版本和tag同步" class="headerlink" title="执行版本和tag同步"></a>执行版本和tag同步</h3><p><code>npm-sync packageName --syncTag=true</code></p>
+<h3 id="更多使用方式"><a href="#更多使用方式" class="headerlink" title="更多使用方式"></a>更多使用方式</h3><p><code>npm-sync --help</code></p>
+<h2 id="TODOS"><a href="#TODOS" class="headerlink" title="TODOS"></a>TODOS</h2><blockquote>
+<p>欢迎提交代码</p>
+</blockquote>
+<ul>
+<li>支持『发布前有编译钩子』的包</li>
+<li>登录前置校验</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/">工程化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">命令行工具</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/28/%E8%AE%BA%E5%A6%82%E4%BD%95%E7%A7%91%E5%AD%A6%E5%9C%B0%E6%B2%BB%E7%90%86%E8%80%81%E9%A1%B9%E7%9B%AE%E7%9A%84%20eslint/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">论如何科学地治理老项目的 eslint</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/18/%E6%8E%92%E6%9F%A5%E5%AE%88%E5%80%99%E5%9C%A8%E9%9B%B6%E7%82%B9%E4%B8%A4%E5%88%86%E7%9A%84%20bug/">
+                        <span class="hidden-mobile">排查守候在零点两分的 bug</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "给你心爱的 npm 包上个『北京户口』&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

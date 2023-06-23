@@ -1,0 +1,975 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>JavaScript 权威指南の笔记 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-06-15 20:22" pubdate>
+        2015年6月15日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      42
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaScript 权威指南の笔记</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <ol>
+<li>当Javascript解释器启动时，它将创建一个新的全局对象，并给它一组定义的初始属性。</li>
+<li>只要引用了字符串直接量的属性，就会将字符串值通过调用new String(). 方式转换成对象，一旦引用结束，则销毁这个临时对象。</li>
+<li>“==”将运算符将原始值与其包装对象视为相等，而“===”不然。</li>
+<li>原始值不可变，对象引用可变。</li>
+<li>undefined转换为数字：<blockquote>
+<p>NaN，而null转换为数字：0，空字符串转为0与false。</p>
+</blockquote>
+</li>
+</ol>
+<span id="more"></span>
+
+<h1 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h1><ol>
+<li><p>当Javascript解释器启动时，它将创建一个新的全局对象，并给它一组定义的初始属性。</p>
+</li>
+<li><p>只要引用了字符串直接量的属性，就会将字符串值通过调用new String(). 方式转换成对象，一旦引用结束，则销毁这个临时对象。</p>
+</li>
+<li><p>“==”将运算符将原始值与其包装对象视为相等，而“===”不然。</p>
+</li>
+<li><p>原始值不可变，对象引用可变。</p>
+</li>
+<li><p>undefined转换为数字：</p>
+<blockquote>
+<p>NaN，而null转换为数字：0，空字符串转为0与false。</p>
+</blockquote>
+</li>
+<li><p>对象到布尔值的转换：</p>
+<blockquote>
+<p>所有对象（包括数组和函数）都转为true。</p>
+</blockquote>
+</li>
+<li><p>全局作用域可以不写var，但局部变量的声明需要var，否则默认生成全局变量。</p>
+</li>
+<li><p>Javascript并无块级作用域，取而代之的是函数作用域，指在函数内声明的所有变量在函数体内始终可见，意. 着变量在声明之前已经可用，但是赋值操作还在原始位置执行，即“声明提前”。</p>
+</li>
+<li><blockquote>
+<ol>
+<li>var truevar = 1；//声明一个不可删除的全局变量</li>
+<li>fakevar = 2; //创建全局对象的可删除的属性</li>
+</ol>
+</blockquote>
+</li>
+<li><p>x!=x来判断x是否为NaN。</p>
+</li>
+<li><p>in运算符：</p>
+<blockquote>
+<p>若右侧对象拥有一个名为左操作数值的属性名，则返回true。</p>
+</blockquote>
+</li>
+<li><p>typeof(null) -&gt; “object”;typeof(undefined) -&gt; “undefined”;常用语表达式中：</p>
+<blockquote>
+<p>(typeof value == “string”) ? “ ‘ “ + value + “ ‘ “ : value;</p>
+</blockquote>
+</li>
+<li><p>函数是对象的一种，但是typeof(func)的结果是“function”。</p>
+</li>
+<li><p>删除属性或数组不仅仅是设置了一个undefined的值，其属性将不存在。</p>
+</li>
+<li><p>不能删除通过var声明的变量，删除不存在的属性返回true，删除数组元素，不改变其长度。</p>
+</li>
+<li><p>void运算符：</p>
+<blockquote>
+<p>忽略操作数的计算结果并返回undefined。</p>
+</blockquote>
+</li>
+<li><p>for(variable in object) statement;先计算variable的值，并将属性名赋值给它。</p>
+</li>
+<li><p>break不能越过函数的边界，而continue只能在循环体内使用。</p>
+</li>
+<li><p>&amp;&amp;短路：</p>
+<blockquote>
+<p>当左操作数是真值时，该运算符将计算右操作数的值并将其返回作为整个表达式的计算结果。</p>
+</blockquote>
+</li>
+<li><p>hasOwnProperty()用来检测给定的名字是否是对象的自有属性。</p>
+</li>
+<li><p>存取器属性：</p>
+<blockquote>
+<p>getter与setter，可继承，get property(){},set property(){}。</p>
+</blockquote>
+</li>
+<li><p>数据属性：值，可写性，可枚举性，可配置性；</p>
+</li>
+<li><p>存取器属性：get，set，可枚举性，可配置性。</p>
+</li>
+<li><p>转换为不可扩展性后，不可转回，Object.preventExtensions()，给一个不可扩展的对象的原型添加属性，它照样会继承新属性。</p>
+</li>
+<li></li>
+</ol>
+<blockquote>
+<p>1, Object.getOwnPropertyDescriptor()可获得某个对象特定属性的属性描述符：({x:1},”x”)。</p>
+</blockquote>
+<blockquote>
+<p>2, Object.defineProperty(o,”x”,{value:1,writable:true,enumerable:false,configurable:true});</p>
+</blockquote>
+<blockquote>
+<p>3, 以上两个函数都不包括继承属性。</p>
+</blockquote>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><ol start="25">
+<li><p>数组是JS对象的特殊形式，数组索引实际上和碰巧是整数的属性名差不多。</p>
+</li>
+<li><p>数组遍历：1. 排除null与defined、不存在的元素：</p>
+<blockquote>
+<p>if(!a[i]) continue;</p>
+</blockquote>
+</li>
+<li><p>排除undefined和不存在的元素：</p>
+<blockquote>
+<p>if(a === undefined) continue;</p>
+</blockquote>
+</li>
+<li><p>排除不存在仍处理undefined：</p>
+<blockquote>
+<p>if(!(i in a)) continue;或：for(var index in sparseArray){}。</p>
+</blockquote>
+</li>
+<li><p>数组方法：</p>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li>join()：<br>将所有元素转成字符串连接在一起，默认分隔符为逗号，可指定分隔符；</li>
+<li>reverse()：<br>将元素颠倒顺序；</li>
+<li>sort()：<br>字母表顺序排列，数值顺序：a.sort(function(a,b) { return a - b; } ); //若第一个参数应该在前，返回小于零的数值，反之亦然；</li>
+<li>concat()：<br>创建并返回一个新数组，包括原始数组与concat()的每个参数；</li>
+<li>slice()：<br>返回的数组包含第一个参数指定的位置到第二个参数指定的位置之间的所有数组元素，不包括第二个参数；若指定一个参数，则该参数为起始位置，结束位置在最后；负数：-1代表最后一个元素；</li>
+<li>splice()：<br>不同于slice与concat，它会修改调用的数组；并返回被删元素组成的数组；</li>
+<li>push与pop；</li>
+<li>unshift与shift在数组头部操作；</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>Javascript 5：</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>forEach()：<br>遍历数组，为每个元素调用指定的函数；</li>
+<li>map()：<br>需要返回值，返回的是新数组，不修改调用的数组，而forEach()修改；</li>
+<li>filter()：<br>压缩稀疏数组：var dense = sparse.filter(functin(){return true;});//filter会跳过稀疏数组中缺少的元素，返回的数组总是稠密的;</li>
+<li>同时删除undefined和null元素：<br>a = a.filter(function(x){return x !== undefined &amp;&amp; x != null;});</li>
+<li>every()：<br>当且仅当针对数组中的所有元素调用判定函数都返回true，它才返回true；</li>
+<li>some()：<br>至少有一个为true，则返回true；</li>
+<li>reduce()：<br>var sum = a.reduce(function(x,y) { return x + y }, 0);//其中第二个参数0是初始值；</li>
+<li>reduceRight()：<br>从右到左处理；</li>
+<li>indexOf()：<br>搜索整个数组中具有给定值的元素，返回找到的第一个元素的索引，没找到返回-1；</li>
+<li>lastIndexOf()：<br>反向搜索，第二个参数指定开始查找的位置。</li>
+<li>判定是否为数组：<br>Array.isArray()。</li>
+</ol>
+</blockquote>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ol start="29">
+<li><p>嵌套函数不会从调用它的函数中继承this，如果嵌套函数作为方法调用，其this的值指向调用它的对象，作为函数调用，其this值不是全局对象（非严格模式下）就是undefined（严格模式下）。</p>
+</li>
+<li><p>new o.m()调用上下文（this）并不是o，而是构造函数调用创建的一个新的空对象。</p>
+</li>
+<li><p>&amp;&amp;：</p>
+<blockquote>
+<p>若左操作数为假，返回左操作数值，不计算右操作数；若左操作数为真，计算右操作数并返回右操作数的值；</p>
+</blockquote>
+</li>
+<li><p> ||：</p>
+<blockquote>
+<p>若左操作数为真，返回左操作数值，不计算右操作数；若左操作数为假，计算右操作数并返回右操作数的值；</p>
+</blockquote>
+</li>
+<li><p>arguments：</p>
+<blockquote>
+<p>指向实参对象的引用，包含一个length属性，却不是真正的数组。</p>
+</blockquote>
+</li>
+<li><p>arguments的属性：</p>
+<blockquote>
+<p>callee：指代当前正在执行的函数。</p>
+</blockquote>
+</li>
+<li><p>函数可以有自己的属性，因为它是一种特殊的对象。</p>
+</li>
+<li><p>函数可以作为命名空间：</p>
+<blockquote>
+<p>( function(){ //codes } () );//结束函数定义并立即调用它。</p>
+</blockquote>
+</li>
+<li><p>闭包：</p>
+<blockquote>
+<p>JS函数执行用到了作用域链，此链是函数定义的时候创建的，不管在何时何地执行内部嵌套函数f()<br>，f中的变量一定是局部变量。</p>
+</blockquote>
+</li>
+<li><p>每次调用JS函数的时候，都会为之创建一个新的对象用来保存局部变量，把这个对象添加至作用域链中，当函数返回时，就从作用域链中将这个绑定变量的对象删除。</p>
+</li>
+<li><p>嵌套函数里是无法访问this的，除非在外部函数将其转换为一个变量：</p>
+<blockquote>
+<p>var self = this;</p>
+</blockquote>
+</li>
+<li><p>函数属性：</p>
+<blockquote>
+<p>length：形参个数；</p>
+</blockquote>
+</li>
+<li><p>prototype属性：</p>
+<blockquote>
+<p>当函数用作构造函数时，新创建的对象会从原型对象上继承属性。</p>
+</blockquote>
+</li>
+<li><p>以对象o的方法来调用函数f：</p>
+<blockquote>
+<p>f.call(o)或者f.apply(o);</p>
+</blockquote>
+</li>
+<li><p>bind()方法：</p>
+<blockquote>
+<p>var g = f.bind(o);//通过调用g(x)来调用o.f(x)。</p>
+</blockquote>
+</li>
+<li><p>Function()构造函数所创建的函数并不使用词法作用域，函数体代码的编译总是会在顶层函数（全局作用域）执行。</p>
+</li>
+<li><p>不完全函数与记忆函数。</p>
+</li>
+</ol>
+<h1 id="类和模块"><a href="#类和模块" class="headerlink" title="类和模块"></a>类和模块</h1><ol start="45">
+<li><p>调用构造函数：</p>
+<blockquote>
+<p>构造函数的prototype属性被用作新对象的原型，从而继承了prototype的属性。</p>
+</blockquote>
+</li>
+<li><p>工厂函数方法与构造函数方法。</p>
+</li>
+<li><p>原型对象是类的唯一标识，当且仅当两个对象继承自同一个原型对象时，它们才属于同一个类的实例。</p>
+</li>
+<li><p>对于任意函数F.prototype.constructor==F;一个对象的constructor属性指代这个类。</p>
+</li>
+<li><p>构造函数与原型对象之间的关系：<img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%971.png" srcset="/img/loading.gif"></p>
+</li>
+</ol>
+<p>50.</p>
+<blockquote>
+<ol>
+<li>任何添加到构造函数对象（不是指添加到构造函数内部）的属性都是类字段和类方法，属于类而不属于类的某个实例；</li>
+<li>原型对象的属性被类的所有实例所继承，若原型对象的属性值是函数的话，这个函数就作为类的实例方法来调用，实例方法由所有实例所共享；</li>
+<li>直接给类的每个实例定义非函数属性，实际上就是实例的字段。</li>
+</ol>
+</blockquote>
+<ol start="51">
+<li>即使创建对象之后，原型的属性发生改变，也会影响到继承这个原型的所有实例对象。</li>
+</ol>
+<p>52.</p>
+<blockquote>
+<ol>
+<li>检测对象的类：instanceof，isPrototypeOf()，这里的继承可以不是直接继承；</li>
+<li>constructor属性；</li>
+<li>以上两个方法不适用于多窗口和多框架子页面，因此可以使用构造函数的名称；</li>
+</ol>
+</blockquote>
+<ol start="53">
+<li><p>工厂方法：<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%972.png" srcset="/img/loading.gif"><br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%973.png" srcset="/img/loading.gif">    </p>
+</li>
+<li><p>构造函数方法：<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%974.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>toJSON()用于序列号对象，如果一个对象有toJSON()方法，则JSON.stringify()并不会对传入的对象做序列号操作，而会调用toJSON()来执行序列号操作，JSON.parse()是其逆过程。</p>
+</li>
+<li><p>forEach：<img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%975.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>私有方法：</p>
+<blockquote>
+<p>通过将变量（或参数）闭包在一个构造函数内来模拟实现私有实例字段：<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%976.png" srcset="/img/loading.gif"></p>
+</blockquote>
+</li>
+<li><p>创建子类的关键：</p>
+<blockquote>
+<ol>
+<li>B.prototype = inherit(A.prototype);//子类派生自父类</li>
+<li>B.prototype.constructor = B;//重载继承来的constructor属性</li>
+</ol>
+</blockquote>
+</li>
+<li><p>用组合代替继承的集合的实现：<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%977.png" srcset="/img/loading.gif"><br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%978.png" srcset="/img/loading.gif"></p>
+</li>
+</ol>
+<p>59.</p>
+<blockquote>
+<ol>
+<li>Object.preventExtensions():将对象设置为不可扩展的，即不能给对象添加任何新属性；</li>
+<li>Object.seal与Object.freeze:将对象的所有属性设置为只读和不可配置的。</li>
+</ol>
+</blockquote>
+<ol start="60">
+<li><p>Object.create(null);//创建一个不包含原型的对象，使之能够直接对它使用in运算符</p>
+</li>
+<li><p>作为私有命名空间的函数：<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%979.png" srcset="/img/loading.gif"><br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%9710.png" srcset="/img/loading.gif"></p>
+</li>
+<li><p>创建屏外图像：</p>
+<blockquote>
+<p>new Image(80,20).src = “images/***.gif”;</p>
+</blockquote>
+</li>
+<li><p>this：</p>
+<blockquote>
+<p>1,指向函数执行时的当前对象；<br>2,没有明确的当前对象时，指向全局对象window。<br>3,在事件处理程序的代码中，关键字this引用触发该事件的文档元素。</p>
+</blockquote>
+</li>
+<li><p>表单元素的属性：</p>
+<blockquote>
+<p>type，form（对包含该元素的form对象的只读引用），name，value；<br>使用this.form引用Form对象，this.form.x引用名为x的兄弟表单元素。</p>
+</blockquote>
+</li>
+<li><p>cookie的性质：</p>
+<blockquote>
+<p>expires，path，domain，secure。</p>
+</blockquote>
+</li>
+<li><p>函数直接量与Function()构造函数创建函数的方法：适用于只用一次，无需命名。</p>
+</li>
+<li><p>属性callee：</p>
+<blockquote>
+<p>用来引用当前正在执行的函数。</p>
+</blockquote>
+</li>
+<li><p>f.call(o,1,2);等价于：</p>
+<blockquote>
+<p>o.m = f; o.m(1,2); delete o.m;</p>
+</blockquote>
+</li>
+<li><p>删除一个属性：</p>
+<blockquote>
+<p>delete book.chapter2。</p>
+</blockquote>
+</li>
+<li><p>在方法主体的内部，this的值就变成了调用该方法的对象。</p>
+</li>
+<li><p>JS对象都“继承”原型对象的属性。</p>
+</li>
+<li><p>属性的继承只发生于读属性值时，而在写属性值时不发生。</p>
+</li>
+<li><p>实例属性有自己的副本，而实例方法是一个类共享的。</p>
+</li>
+<li><p>若要生成类Complex的一个子类，只需确保新类的原型对象是Complex的一个实例；这样它就能继承Complex.prototype的所有属性：</p>
+<blockquote>
+<ol>
+<li>MoreComplex.prototype = new Complex(0,0)；</li>
+<li>MoreComplex.prototype.constructor = MoreComplex;</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Object.property 等价于 Object[“property”] -&gt;关联数组。</p>
+</li>
+<li><p>只有那些真正存储在数组中的元素才能够分配内存。</p>
+</li>
+<li><p>正则表达式直接量：</p>
+<blockquote>
+<p>var pattern = /S$/;即：var pattern = new RegExp(“S$”);</p>
+</blockquote>
+</li>
+<li><p>在复制和传递时使用的是引用，但在比较它们时使用的却是值。</p>
+</li>
+<li><p>通过设置class.prototype属性来定义所有类实例共享的方法和常量。</p>
+</li>
+</ol>
+<p>20.</p>
+<blockquote>
+<ol>
+<li>Function()构造函数   函数直接量</li>
+<li>允许运行时动态地创建和编译JS代码 静态</li>
+<li>每次调用都会解析函数体并创建一个新的函数对象 相反</li>
+<li>不使用词法作用域作为顶级函数                                  </li>
+</ol>
+</blockquote>
+<p>21.</p>
+<blockquote>
+<ol>
+<li>null == undefined -&gt;true;</li>
+<li>null === undefined -&gt; false;</li>
+</ol>
+</blockquote>
+<h1 id="web浏览器中的JS"><a href="#web浏览器中的JS" class="headerlink" title="web浏览器中的JS"></a>web浏览器中的JS</h1><ol start="23">
+<li>如果两个窗口包含的脚本把Document的domain属性设置成相同的值，则这两个窗口就不再受同源策略的约束，能够相互读取对方的属性。</li>
+<li></li>
+</ol>
+<blockquote>
+<p>1, 当HTML解析器遇到script标签元素时，它默认必须先执行脚本，然后再恢复文档的解析和渲染；</p>
+</blockquote>
+<blockquote>
+<p>2, script标签的defer属性：<br>使得浏览器延迟脚本的执行，直到文档的载入和解析完成；按顺序执行。</p>
+</blockquote>
+<blockquote>
+<p>3, async属性：<br>使得浏览器尽快的执行脚本，而不用在下载脚本时阻塞文档的解析；有可能无序执行。</p>
+</blockquote>
+<h1 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h1><ol start="24">
+<li><p>Window对象的location属性引用的是Location对象：</p>
+<blockquote>
+<p>window.location === document.location //true</p>
+</blockquote>
+</li>
+<li><p>Location对象的toString方法返回的是它的href属性的值。</p>
+</li>
+<li><p>A窗口中调用B窗口中的函数，此函数在定义它的作用域中执行，而不是在调用它的作用域中执行。</p>
+</li>
+<li><p>对于内置的类，每个窗口都有构造函数的一个独立副本和构造函数对应原型对象的一个独立副本。</p>
+</li>
+</ol>
+<h1 id="脚本化文档"><a href="#脚本化文档" class="headerlink" title="脚本化文档"></a>脚本化文档</h1><ol start="28">
+<li><p>为某些HTML元素设置name或id属性值，将自动为window与document对象创建对应的属性，其属性值指向表示该文档元素的HTMLElement对象。</p>
+</li>
+<li><p>通过CSS选择器选取元素：</p>
+<blockquote>
+<p>querySelectorAll()，querySelector()；接受一个包含CSS选择器的字符串参数。</p>
+</blockquote>
+</li>
+<li><p>Document、Element、Text对象都是Node对象，其属性：</p>
+<blockquote>
+<p>parentNode，childNodes，firstChild，lastChild，nextSibling，previoursSibling，nodeType，nodeValue，nodeName，textContent。</p>
+</blockquote>
+</li>
+<li><p>Element属性：</p>
+<blockquote>
+<p>attributes，innerHTML;</p>
+</blockquote>
+</li>
+<li><p>DocumentFragment是一种特殊的Node，作为其他节点的一个临时容器。</p>
+</li>
+<li><p>滚动条位置：</p>
+<blockquote>
+<p>window.pageXOffset/pageYOffset;</p>
+</blockquote>
+</li>
+<li><p>查询视口尺寸：</p>
+<blockquote>
+<p>windows.innerWidth/innerHeight;</p>
+</blockquote>
+</li>
+<li><p> HTML5中，input标签的placeholder属性指定了用户输入前在输入域显示的提示消息。</p>
+</li>
+<li><p>Document类型定义了创建Element和Text对象的方法：</p>
+<blockquote>
+<p>document.createTextNode(“text node content”);</p>
+</blockquote>
+</li>
+<li><p>Node类型定义了在节点树中插入、删除和替换的方法：</p>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li>parent.appendChild(child);//插入parent元素的最后；</li>
+<li>parent.insertBefore(child,parent.childNodes[n];</li>
+<li>n.parentNode.removeChild(n);</li>
+<li>n.parentNode.replaceChild(document.createTextNode(“[ REDACTED ]”), n);</li>
+</ol>
+</blockquote>
+<h1 id="脚本化CSS"><a href="#脚本化CSS" class="headerlink" title="脚本化CSS"></a>脚本化CSS</h1><ol>
+<li><p>内联样式：</p>
+<blockquote>
+<p>e.style.position=”relative”;</p>
+</blockquote>
+</li>
+<li><p>计算样式：</p>
+<blockquote>
+<p>window.getComputedStyle(element,null);</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h1><ol start="37">
+<li><p>通过HTML属性来注册事件处理程序是一个例外，它们被转换为能存取全局变量的顶级函数而非任何本地变量。</p>
+</li>
+<li><p>在一个对象上触发某类事件（比如单击onclick事件），如果此对象定义了此事件的处理程序，那么此事件就会调用这个处理程序，如果没有定义此事件处理程序或者事件返回true，那么这个事件会向这个对象的父级对象传播，从里到外，直至它被处理（父级对象所有同类事件都将被激活），或者它到达了对象层次的最顶层，即document对象（有些浏览器是window）。</p>
+</li>
+</ol>
+<h1 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h1><ol start="40">
+<li>each()只能遍历jQuery对象，而jQuery.each()可以遍历数组元素或对象属性。</li>
+<li></li>
+</ol>
+<blockquote>
+<ol>
+<li>focus与blur事件不支持冒泡，而focusin与focusout支持；</li>
+<li>mouseover与mouseout支持冒泡，mouseenter与mouseleave不支持；</li>
+</ol>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2015/06/16/16%E5%AE%AB%E6%A0%BC%E6%8B%96%E6%8B%BD/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">16宫格拖拽</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2015/06/14/%E4%B8%8D%E8%A6%81%E5%8F%AB%E6%88%91%E7%A8%8B%E5%BA%8F%E7%8C%BF-%E6%88%91%E6%98%AF%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E5%B7%A5%E7%A8%8B%E7%8B%AE/">
+                        <span class="hidden-mobile">不要叫我程序猿,我是前端开发工程狮</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "JavaScript 权威指南の笔记&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

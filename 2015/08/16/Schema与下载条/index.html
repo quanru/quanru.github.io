@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>Schema 与下载条 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-08-16 19:34" pubdate>
+        2015年8月16日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Schema 与下载条</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>由于我司有个网站还没有对应的移动端版本，因此需要在移动端访问该网站时，在底部显示一条下载条，而且点击该下载条时需要满足以下两个需求：</strong></p>
+<ol>
+<li>点击下载时，如果本机已经安装该软件，则尝试打开对应软件；</li>
+<li>点击下载时，如果本机未安装该软件，则跳转到对应系统的下载地址。</li>
+</ol>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>由于我司有个网站还没有对应的移动端版本，因此需要在移动端访问该网站时，在底部显示一条下载条，而且点击该下载条时需要满足以下两个需求：</p>
+<ol>
+<li>点击下载时，如果本机已经安装该软件，则尝试打开对应软件；</li>
+<li>点击下载时，如果本机未安装该软件，则跳转到对应系统的下载地址。</li>
+</ol>
+<p><img src="/post-img/downloadBar.png" srcset="/img/loading.gif" alt="示意图"></p>
+<h1 id="schema协议"><a href="#schema协议" class="headerlink" title="schema协议"></a>schema协议</h1><blockquote>
+<p>schema类似自定义url协议，我们可以通过自定义的协议来打开自己的应用，形如：<br> 代码如下 复制代码<br>myapplink://</p>
+</blockquote>
+<ol>
+<li>例如 facebook的<br>fb://</li>
+<li>itunes的<br>itms-apps://</li>
+<li>还有短信也是类似的<br>sms://<br>如果要打开一个app，最简单的方式是通过一个链接，如我们在html中这样写：<br>代码如下 复制代码<br><a href="myapplink://">打开我的app</a></li>
+</ol>
+<h1 id="下载条"><a href="#下载条" class="headerlink" title="下载条"></a>下载条</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>由于该下载条在PC页面中使用，因此无法使用rem单位，我将下载条统一做成了png，并通过引入js文件来配置不同的下载条：</p>
+<pre><code class="hljs abnf">&lt;script src<span class="hljs-operator">=</span><span class="hljs-string">&quot;dlBar.js&quot;</span> data-imgurl<span class="hljs-operator">=</span><span class="hljs-string">&quot;下载条图片地址&quot;</span> data-itunesurl<span class="hljs-operator">=</span><span class="hljs-string">&quot;苹果下载地址&quot;</span> data-androidurl<span class="hljs-operator">=</span><span class="hljs-string">&quot;安卓下载地址&quot;</span> data-schemaurl<span class="hljs-operator">=</span><span class="hljs-string">&quot;schema url&quot;</span>&gt;
+&lt;/script&gt;</code></pre>
+
+<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h2><p>考虑到兼容性，其中下载条使用原生原生的方法生成对应的css与html部分，其代码如下：</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">creatHtml</span> () &#123;
+      <span class="hljs-keyword">var</span> st = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&quot;style&quot;</span>);
+      <span class="hljs-keyword">var</span> cssText = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createTextNode</span>(<span class="hljs-string">&quot;.bottom-bar &#123; display: none; position: fixed;  left: 0; bottom: 0;  width: 100%; &#125; .dl-btn &#123; position: absolute; right: 17.5%; width: 18.75%; &#125; .cl-btn &#123; position: absolute; right: 3.4375%; width: 4.6875%; &#125;  .dl-img &#123; width: 100%;  display: block; &#125;&quot;</span>);
+      st.<span class="hljs-title function_">setAttribute</span>(<span class="hljs-string">&quot;type&quot;</span>, <span class="hljs-string">&quot;text/css&quot;</span>);
+      st.<span class="hljs-title function_">appendChild</span>(cssText);
+      <span class="hljs-keyword">var</span> heads = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementsByTagName</span>(<span class="hljs-string">&quot;head&quot;</span>);
+      <span class="hljs-keyword">if</span>(heads.<span class="hljs-property">length</span>) &#123;
+       heads[<span class="hljs-number">0</span>].<span class="hljs-title function_">appendChild</span>(st);
+      &#125;
+
+  <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">insertAdjacentHTML</span>(<span class="hljs-string">&quot;beforeEnd&quot;</span>, <span class="hljs-string">&#x27;&lt;div id=&quot;barab&quot; style=&quot;display: none; position: fixed;  left: 0; bottom: 0;  width: 100%;&quot;&gt;&lt;img style=&quot;width: 100%;  display: block;&quot; src=&quot;&#x27;</span>+ imgSrc +<span class="hljs-string">&#x27;&quot; alt=&quot;下载条&quot;&gt;&lt;span style=&quot;position: absolute; right: 14.8%;  bottom: 20%; width: 18.55%; height: 63%&quot;&gt;&lt;/span&gt;&lt;span style=&quot;position: absolute; right: 3.4375%; bottom: 35%;width: 4.6875%; height: 30%;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&#x27;</span>);
+&#125;</code></pre>
+
+<p>配置使用的下载条图片、APP store跳转地址、Android的下载地址以及schema地址。</p>
+<h1 id="主要代码"><a href="#主要代码" class="headerlink" title="主要代码"></a>主要代码</h1><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">downloadApp</span> () &#123;
+    <span class="hljs-keyword">var</span> dlNow = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">&quot;#barab span&quot;</span>);
+    <span class="hljs-keyword">var</span> closeBtn = dlNow.<span class="hljs-property">nextElementSibling</span>;
+    closeBtn.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;touchend&quot;</span>, <span class="hljs-keyword">function</span>  (<span class="hljs-params">event</span>) &#123;
+       downBar.<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&quot;none&quot;</span>;
+    &#125;);
+    dlNow.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;touchend&quot;</span>, <span class="hljs-keyword">function</span>  (<span class="hljs-params">event</span>) &#123;
+      <span class="hljs-keyword">var</span> t;
+      <span class="hljs-keyword">var</span> clickTime = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();
+      <span class="hljs-keyword">var</span> ifr = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">&#x27;iframe&#x27;</span>);
+      ifr.<span class="hljs-property">src</span> = schemaSrc;
+      ifr.<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&#x27;none&#x27;</span>;
+      <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(ifr);
+      <span class="hljs-keyword">if</span>(ios) &#123;
+        t = <span class="hljs-variable language_">window</span>.<span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span>  (<span class="hljs-params"></span>) &#123;
+          <span class="hljs-keyword">var</span> timeOutTime = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();
+          <span class="hljs-keyword">if</span> (!clickTime || timeOutTime - clickTime &lt; <span class="hljs-number">600</span> + <span class="hljs-number">200</span>) &#123;
+                <span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span> = itunesSrc;
+          &#125;
+        &#125;, <span class="hljs-number">600</span>);
+      &#125;
+      <span class="hljs-keyword">if</span>(android) &#123;
+            t = <span class="hljs-variable language_">window</span>.<span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+                <span class="hljs-keyword">var</span> endTime = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();
+                <span class="hljs-keyword">if</span> (!clickTime || endTime - clickTime &lt; <span class="hljs-number">600</span> + <span class="hljs-number">200</span>) &#123;
+                    <span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span> = androidSrc;
+                &#125;
+            &#125;, <span class="hljs-number">600</span>);
+      &#125;
+      <span class="hljs-variable language_">window</span>.<span class="hljs-property">onblur</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+          <span class="hljs-built_in">clearTimeout</span>(t);
+      &#125;;
+    &#125;);
+&#125;
+&#125;)();</code></pre>
+
+<h2 id="代码思路"><a href="#代码思路" class="headerlink" title="代码思路"></a>代码思路</h2><ol>
+<li>首先创建一个iframe，将schema赋值给它的src属性；</li>
+<li>当点击下载按钮时，记录点击时的时间戳，并将iframe添加到body中，紧接着设置一个setTimeout；</li>
+<li>如果该程序已经安装，便会尝试使用schema协议打开app；</li>
+<li>如果该程序没有被安装，则所设置的定时器会在600ms后执行，并记录定时器触发的时间，与点击的时间如果相差200ms，则跳转到对应系统的下载地址。</li>
+</ol>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><ol>
+<li>如果schema地址跳转成功，说明程序已经安装，则后续代码如何执行已不重要；</li>
+<li>否则，没跳转成功的话，说明程序尚未安装，因此程序跳转到对应下载地址；</li>
+<li>其中时间差就是为了等待schema地址打开软件的，如果不设置等待时间的话，程序会马上执行跳转部分，也就没有schema什么事了。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://github.com/quanru/downloadBar">完整代码</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B0%8F%E4%BB%BB%E5%8A%A1/">小任务</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2015/09/14/%E4%BB%8Eline-height%E5%88%B00-5px/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从 line-height 到 0.5 px</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2015/07/19/HTML5%E6%88%AA%E5%9B%BE/">
+                        <span class="hidden-mobile">HTML5 截图</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Schema 与下载条&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

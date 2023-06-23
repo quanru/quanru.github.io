@@ -1,0 +1,839 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>字节跳动的前端工程化实践 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-06-17 17:20" pubdate>
+        2023年6月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      54
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">字节跳动的前端工程化实践</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h2 id="分享会背景"><a href="#分享会背景" class="headerlink" title="分享会背景"></a>分享会背景</h2><p>受邀参加 2023 51CTO 举办的<a target="_blank" rel="noopener" href="https://wot.51cto.com/act/wot2023/dev/">『WOT全球技术创新大会』</a></p>
+<h2 id="本主题简介"><a href="#本主题简介" class="headerlink" title="本主题简介"></a>本主题简介</h2><p><img src="/post-img/wot-%E6%B5%B7%E6%8A%A51.jpg" srcset="/img/loading.gif"><br><img src="/post-img/wot-%E6%B5%B7%E6%8A%A52.jpg" srcset="/img/loading.gif"></p>
+<span id="more"></span>
+
+<h2 id="PPT-正文"><a href="#PPT-正文" class="headerlink" title="PPT 正文"></a>PPT 正文</h2><p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5.jpeg" srcset="/img/loading.gif"></p>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%202.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>大家早上好，我叫林宜丙，今天带来的分享主题是『字节跳动的前端工程化实践』。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%203.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>简单介绍下我自己，我是一名来 Web Infra 部门的前端架构工程师，拥有多年前端工程化的经验，致力于帮助前端工程师更好地管理和治理工程；目前负责工程治理方向的方案设计和落地工作。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%204.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>今天的分享包括以下四个部分<ul>
+<li>首先分析『当下前端开发领域的趋势』，并引出字节跳动前端开发所面临的新挑战；</li>
+<li>其次分享我们目前通过哪些实践来应对这些新挑战；</li>
+<li>接着分享自研的方案在字节跳动的整体落地情况；</li>
+<li>最后总结和展望前端工程化的发展规律；</li>
+<li>OK，在分享之前，我们先来看看『什么是前端工程化？』</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%205.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>所谓前端工程化，就是在前端开发过程中，采用一系列的技术手段和工具，来提高开发效率、保证代码质量、提高代码复用性、实现自动化流程和促进团队协作等方面的目标，是现代前端开发不可或缺的一部分；</li>
+<li>在这里呢我要特别说明一下，本次主题所要分享的并不是大而全的前端工程化，而是分享为了应对当前『新趋势』下的『新挑战』，我们所做的『新实践』，接下来一起看看，前端开发出现了哪些新趋势呢？</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%206.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>首先是前端工种的趋势<ul>
+<li>第一个趋势是涉及的平台越来越多，Web，Node，客户端和跨平台等</li>
+<li>第二个趋势是所能支撑的业务也越来越多，复杂度越来越大，特别是近年来前端侧涌现出不少重前端交互的应用</li>
+<li>第三个的话，是随着上述两个趋势而来地、不可避免地使得前端团队的规模增大</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%207.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>上述三个趋势又客观上造成了前端工程的四个趋势，也就是：<ul>
+<li>第一个是，代码规模增大，内部已经出现代码量超过 10G 的大型工程，同时一个应用的上下游依赖所涉及的项目数量也是非常的多</li>
+<li>第二个，维护人数增多，一个工程少则十来人，多则四五十人</li>
+<li>第三个，应用体积增加，随着应用功能的迭代，体积越来越庞大</li>
+<li>第四个，治理难度增高，复杂的依赖关系难以治理，复杂的构建产物难以诊断</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%208.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>那么，在上述这些趋势下，我们的前端开发面临了哪些新的挑战呢？主要有四个：<ul>
+<li>第一个是多项目维护成本比较高，项目基建重复、代码复用困难、工作流程割裂等</li>
+<li>第二个是多人开发协作成本比较高，相互依赖的流程、级联的依赖升级，都增加了协作成本</li>
+<li>第三个是巨型应用构建速度比较慢，构建耗时随着应用增大而变慢</li>
+<li>第四个是大型应用劣化速度比较快，我们缺乏有效的防劣化手段</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%209.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>为了解决上述新挑战，我们投资如下工具来应对<ul>
+<li>第一个是自研 Monorepo 工具，用于降低多项目的维护成本</li>
+<li>第二个是对原有的微前端框架进行升级，进一步降低多人开发的协作成本</li>
+<li>第三个是开发 Bundler 和 Build System，来加快巨型应用的构建速度</li>
+<li>第四个是提供诊断工具，来有效地防止应用劣化</li>
+<li>接下来将从这四个主题展开聊聊，为了达到上述目标，我们是如何实践的 </li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2010.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>什么是 Monorepo？<ul>
+<li>它是一种源代码管理的模式，其形式就是将多个项目集中到一个仓库中管理；</li>
+<li>与之相对的是 Polyrepo 模式，这种模式下各个项目都有独立的仓库；</li>
+<li>简而言之，Monorepo 就是将多个不同的项目以良好地组织关系，放到单个仓库中维护；</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2011.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>那么 Monorepo 是如何降低多项目的维护成本的？他通过<ul>
+<li>复用基建，让开发人员重新专注于应用本身</li>
+<li>代码共享，能够低成本的做到代码复用</li>
+<li>原子提交，使用自动化的多项目工作流</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2012.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>首先是通过复用基建，让开发人员重新专注于应用本身：<ul>
+<li>在传统的 Polyrepo 模式下，每个项目都需要有开发人员创建和维护；而在 Monorepo 中，只需要一两个开发人员负责建立 Monorepo 工程，所有的项目都能够在一个仓库中统一维护，通过复用一套基建（比如 CI 配置、Lint 规则、构建脚本等），从而降低多项目维护成本</li>
+<li>此外，复用基建也使得统一改造和升级基建变得方便，比如想在 CI 流程中为所有项目加入类型检查，来提高下项目的质量，在 Polyrepo 下需要修改每一个项目，这样成本其实是很高的。而在 Monorepo 下，基建的调整和维护，能够很容易地应用到多个项目中。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2013.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>其次是通过代码共享，让开发人员能够低成本地复用代码：<ul>
+<li>Polyrepo 中，维护公用模块的成本比较高，首先是调试很繁琐，公用模块的调试需要手动执行 npm link，与当前调试的项目关联起来，如果公用模块较多的话，npm link 步骤将非常繁琐低效。</li>
+<li>其次公用模块的升级很繁琐，需要手动管理这种依赖关系，先升级底层的模块，然后发布，最后再升级顶层模块，如果中途出错了，我还得再来一遍这个过程。</li>
+<li>而在 Monorepo 中，可以直接一键创建公用模块，顶层的模块一键引入公用模块进行开发、调试，底层模块的更改能够直接被上层感知，甚至不需要经过 link 和 npm 发布，减少了很多重复的工作，大大降低了抽离新的『复用代码』的成本，这使得大家更愿意做这类抽离工作，这反过来又提高了代码复用率。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2014.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>再次，是通过原子提交，让开发人员享受自动化的多项目工作流<ul>
+<li>如果我的业务需求要涉及到多个项目，在 Polyrepo 模式中，例如需要修改图中的三个项目，需要先修改提交底层模块，跑每个模块的 CI 流程，在处理顶层模块时，还得更新底层依赖，接着再跑一次 CI 流程，这一套流程非常繁琐且不连续。</li>
+<li>而在 Monorpeo 中，我们可以直接一次性调整并提交多个项目，CI 和发布流程也都是一次搞定的，从而将多项目的工作流自动化。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2015.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>我们简单的做一个总结：<ul>
+<li>在 Polyrepo 的模式下，每一个项目都有各自的一套基建，且代码复用困难、工作流程割裂，但是在 Monorepo 里面，我们可以让多个项目复用一套基建；方便地共享代码，使用一致的工作流。</li>
+<li>很多时候一个团队的项目往往不是割裂的，而是相互联系的，Monorepo 可以很方便地将这些项目组织到一个大仓库中维护，从而极大地降低了多项目的维护成本。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2016.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>接下来分享下 bunlder 和 build stystem 的工程化实践，因为无论是单仓项目还是多仓项目，随着代码规模和子应用数量的增加，都会导致构建性能下降，为了应对这种情况，我们分别建设了 Bundler 和 Build System 工具。<ul>
+<li>其中 Bundler 是为了解决单个巨石应用构建速度慢的问题；</li>
+<li>而 Build System 则是为了解决 Monorepo 下构建速度慢的问题。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2017.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>在前端领域，Bundler 是一种工具，用于将多个前端资源（例如 JS、CSS、图像等文件）打包到一个或多个文件中，从而让浏览器能够直接运行；</li>
+<li>常见的 Bundler 工具有 Webpack、Rollup、Vite、Parcel、Esbuild。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2018.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>接下来介绍一下我们自研的 Rspack Bundler，它是一个基于 Rust 语言的高性能构建引擎， 具备与 Webpack 生态系统的互操作性。</li>
+<li>从这句介绍中，我们可以知道，Rspack 有两个特性，一个是高性能，另一个是与 Webpack 生态的兼容性。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2019.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>首先第一个特性，即采用 Rust 语言实现，由于 JS 是单线程的，虽然在 JS 中也有些方式做到并发，但这些方法都有种带着镣铐跳舞的感觉，而在 Rust 中我们能很好地支持并发特性，所以我们将构建过程中的任务，利用并发的特性去执行，这极大提升了构建性能；</li>
+<li>这两张图片是 Webpack 与 RSpack 在构建过程中的线程情况对比，我们可以明显地看出，Webpack 其实只是一个单线程，而 Rspack 则能充分发挥多核 CPU 的优势，极致地压榨出性能。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2020.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>这是我们官网上的一个对比图，在相同的项目下，RSpack 只需要 4.2秒，而 Webpack 需要 34.8秒</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2021.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>Rspack 第二个特性就是与 webpack 部分兼容，目前的实现可以理解为是一个 webpack 的子集，这套子集里包含了大部分的常用配置，满足了日常的业务开发，那么，为什么要与 webpack 生态兼容？<ul>
+<li>首先，webpack 的插件机制满足了项目对定制化的要求</li>
+<li>其次，复用 webpack 丰富的生态，相当于用最小的成本优化巨型项目的开发体验</li>
+<li>最后，存量的 webpack 项目非常多，兼容 webpack 能大大降低迁移成本</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2022.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>这是两个典型业务上的收益，两个项目原本 dev 启动耗时5分钟左右，使用 Rspack 后只需 20 秒左右，原本 hmr 需要 20 秒左右，使用 Rspack 后只需要 1 秒左右，性能收益基本都在 10 倍左右</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2023.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>简单介绍下 Build System，它通过处理 Monorepo 下的项目依赖关系图，并根据这个关系图调度构建任务；</li>
+<li>为什么 Monorepo 下需要一个 Build System 呢？ 因为 Monorepo 不是简单的将多个项目直接维护到单个仓库而已，它还需要借助 Build System 来管理整个代码仓库中的多个项目，并根据项目之间的依赖关系进行构建；</li>
+<li>常见的 Build System 工具有 Bazel、NX、Turborepo、Lage 等</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2024.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>接下来介绍下在我们自研的 Monorepo 工具中，如何实践 Build System，我们通过<ul>
+<li>支持『任务并行能力』，采用最大限度的并行任务加速</li>
+<li>支持『多级缓存能力』，对构建任务实现了多级缓存</li>
+<li>支持『按需构建能力』，根据代码更改的影响面来构建</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2025.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>如图所示，根据子项目的依赖关系转成一个任务依赖图，它的构建顺序必须符合这样一种要求，即上层的项目构建，需要等待底层项目构建的完成。</li>
+<li>OK，我们看方式一，即通过串行排成 DEBCA，这是能够符合构建要求的；但是它的性能是比较低的，比如 D 和 E 是可以并行的，所以第二种方式就是通过把 DE 以及 BC 进行并行处理，这样便能把前面的 5 个步骤加速到 3 个步骤。</li>
+<li>此时我们发现任务 C 呢，它不依赖任务 D 的完成，但是方式二下，任务 C 却得等待 D 和 E 都完成才开始执行。</li>
+<li>因此便引出第三种方式，在任务 E 完成后，D 和 C 以并行方式执行；</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2026.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>当 monorepo 子项目规模增大后，每一次开发或者上线都会涉及多个子项目，如果每次都需要对这些子项目进行重新构建，这将会极大地拖慢构建和部署速度。</li>
+<li>我们提供了对构建产物进行缓存的能力，能够同时将产物缓存到本地和远程，当相关的子项目没有修改过代码时，将会复用之前的构建产物以减少构建时间。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2027.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>按需构建能力方面的实践，我们支持按影响面执行 CI 流程，通过 git diff 当前有改动的代码进行依赖分析，从而只构建受影响的项目，否则每次 CI 都会完整的构建所有的子项目。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2028.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>此处以一个简单的 Monorepo 为例，依赖关系如图所示<ol>
+<li>如果一次性全量构建所有项目，耗时约为 17.72秒</li>
+<li>如果仅仅改动了 component 模块，那么按需构建的话，我只需要构建 component, app1, app2，此时耗时 8.94秒，节约 50% 的时间</li>
+<li>再来看看无缓存的情况下，我仅仅构建 App1, App2, App3 它们的耗时在 10.77秒到16.94秒之间</li>
+<li>如果有缓存的话，比如 component, sdk, util 已经构建过，那么再单独构建 App1, App2, App3 时，构建耗时在 7.55秒到9.74秒之间，大约节约 45% 的时间</li>
+</ol>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2029.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>通过 Builder 和 Build System 的建设，我们分别借助 Rust 语言的高性能和远程构建缓存能力，极大地加速了巨型应用的构建速度，但这又不仅仅是开发速度上的提升，它同时给我们的业务带来两个巨大的收益<ol>
+<li>拉高了一个巨石应用上限：使得我们能够开发一个更巨型更强大的应用</li>
+<li>加快迭代速度：使得我们可以更快更多地做 AB 测试和功能发布</li>
+</ol>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2030.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>所谓微前端，就是前端领域的应用分治解决方案，字节跳动的微前端实践也经过 iframe, spa, 框架阶段；在实践中遇到不少问题，为了进一步降低多人协作的成本，目前进入一个新方案的探索阶段。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2031.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>接下来看下微前端的工程化实践，新方案是如何降低多人开发的协作成本的<ul>
+<li>首先，通过减轻基座负担，将基座应用与业务逻辑解耦</li>
+<li>其次，采用细粒度的组合，在更细粒度的模块上独立开发、部署</li>
+<li>最后，通过约定模块协议标准，我们搭建了模块中心，甚至可以结合低代码平台，从而带来更高的模块复用率；并支持模块级别的灰度和AB能力；</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2032.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>它是如何减轻基座负担的呢？传统的微前端，通过建立一个公共的基座来承载公共逻辑，这种复用方式，除了工具库以外，往往导致不少业务逻辑耦合到基座中，这导致基座更频繁的改动和发布，更容易出现更大的故障影响面和更容易失效的缓存；</li>
+<li>这又让子应用从独立开发、部署重新回到某种程度上地相互依赖，因此，新方案通过两种方式消除了这类基座的存在，一个是消费机制，另一个是共享机制，前者一般用于复用业务逻辑，后者用于复用业务无关的工具库</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2033.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>那么，新方案的机制是如何起作用的？<ul>
+<li>传统的微前端架构中，多个子应用之间是相对隔离的，往往都会通过一套沙箱机制来保证这种隔离性；</li>
+<li>但随着前端子应用的规模增大，人员增多，如此粗粒度的隔离又会反过来制约每个子应用内外的人员协作；</li>
+<li>因此，我们新的应对方式就是通过提供更细粒度的模块消费和共享方案，从而让开发人员能够以更小的单位进行独立开发、测试、部署</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2034.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>模块协议标准约定了模块的元信息，通过该协议在各个平台之间流转，来达到特定的功能<ol>
+<li>比如构建平台会根据配置文件构建出这份协议文件</li>
+<li>比如部署平台会将元信息转成包含具体 cdn 地址的数据，直接回填到 html 里下发，这步操作也是能做到模块灰度和AB的前提</li>
+<li>再比如应用运行时也会根据这份协议动态加载模块</li>
+</ol>
+</li>
+<li>有了细粒度组合和模块协议标准的特性，我们又能够十分方便地建立一个在线模块中心，无论是业务相关的组件，还是业务无关的工具库，都能以极低的成本在团队内部，甚至跨团队复用；</li>
+<li>此外，基于这套机制，我们还尝试了与低代码平台的配合，通过低代码平台搭建出符合模块协议标准的组件，并注册为在线模块后，能够极大的提高业务开发的效率。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2035.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>这是一个典型的接入业务，接入之后我们发现从构建耗时、部署耗时，甚至迭代速度和需求吞吐量都有了显著的提升效果。</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2036.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>接下来分享下诊断工具，市面上的工具大多面向构建产物进行诊断和分析，无法对构建过程进行更深入诊断和分析，作用十分有限</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2037.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>那么我们自研的诊断工具，是如何有效地防止应用劣化的呢？<ul>
+<li>首先，提供面向构建过程的分析能力，由于记录了构建过程的数据，我们会有更细粒度和更丰富的分析；</li>
+<li>其次，提供一套可扩展的规则机制，让不同的垂直场景和业务场景能够扩展自身的规则；</li>
+<li>最后，通过与核心研发流程结合，让规则真正发生作用；</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2038.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>这是一份 statoscope 的分析结果页面，它是典型面向构建产物分析的，即通过消费 stats.json 来分析产物；</li>
+<li>它没有 loader、resolver、plugin 等和构建过程相关的分析和诊断；</li>
+<li>而我们的工具能做到如下一些能力：</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2039.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>webpack loader 时序分析</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2040.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>webpack loader 分析</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2041.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>webpack resolver 分析</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2042.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>webpack plugin 分析</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2043.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>bundle 深度分析</li>
+<li>那我们是如何做到的呢？我们通过监听插件钩子和劫持 Loader 等方式介入构建过程，并收集和生成专门用于诊断和分析场景的数据结构，比如依赖图、模块图、三方包图、源码、loader、plugin、resolver 等数据，从而获得更完善的构建上下文信息，以便我们后续进行深度的诊断和分析</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2044.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>我们提供了一些默认的诊断规则，比如  <ol>
+<li>重复包检查 - Duplicate Packages</li>
+<li>包规范语句匹配 - Default Import Check</li>
+<li>Loader 性能优化 - Loader Performance Optimization</li>
+</ol>
+</li>
+<li>此外，我们还提供一套可扩展的诊断规则机制，我们将重新生成的数据结构作为上下文传递给自定义的规则，便能轻松的做到如下能力：<ol>
+<li>依赖的引用方式检查</li>
+<li>特定依赖的版本检查</li>
+<li>禁止使用特定的语句</li>
+</ol>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2045.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>光有上述两个能力还不够，我们还谋求与核心研发流程结合，在 CI 中支持基于分支的 diff 拦截，从而让规则真正发生作用</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2046.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>总结一下，这是一些典型的业务收益情况</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2047.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>这是目前上述几个工具的整体落地情况，其中 Monorepo 工具接入工程x个，微前端活跃用户y个，Bundler 开源工具 Rspack z stars，诊断工具的周下载量达到n次</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2048.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>接下来做一个简单的总结和展望：<ul>
+<li>当上述一系列工具链支撑了更大的工程规模，更多的人员规模，更加快速的构建速度，更可维护的前端工程之后；</li>
+<li>我相信未来一定会催生出更『强大』的前端应用，当这个更强大的前端应用继续增大工程规模，增加团队人员，渐渐地拉低了构建速度和可维护性</li>
+<li>那未来必将会对这些工具提出更高的要求，从而带动整个前端工具链再一次革新</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5%2049.jpeg" srcset="/img/loading.gif"></p>
+<ul>
+<li>谢谢，这就是我今天带来的分享</li>
+</ul>
+<h2 id="PPT-附件"><a href="#PPT-附件" class="headerlink" title="PPT 附件"></a>PPT 附件</h2><iframe width="100%" height="855px" src="/js/pdfjs/web/viewer.html?file=/pdf/字节跳动的前端工程化实践.pdf"></iframe>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E7%A8%8B%E6%B2%BB%E7%90%86/">工程治理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Monorepo/">Monorepo</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Micro-Frontend/">Micro Frontend</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Bundler/">Bundler</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Diagnostics-Tool/">Diagnostics Tool</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/06/18/%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%94%A8%E6%96%B0%E5%9E%8B%20Obsidian%20%E5%AE%9E%E8%B7%B5%E4%B9%8B%E6%9E%84%E5%BB%BA%E6%88%91%E7%9A%84%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91%20%F0%9F%A7%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一种实用新型 Obsidian 实践之构建我的第二大脑 🧠</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/31/%E5%89%8D%E7%AB%AF%20Monorepo%20%E5%9C%A8%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%AE%9E%E8%B7%B5/">
+                        <span class="hidden-mobile">前端 Monorepo 在字节跳动的实践</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "字节跳动的前端工程化实践&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,601 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>Javascript 函数式编程の书摘 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-10-06 20:34" pubdate>
+        2015年10月6日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      902 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Javascript 函数式编程の书摘</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h3 id="章一"><a href="#章一" class="headerlink" title="章一"></a>章一</h3><p>1，确定抽象，并为其构建函数；<br>2，利用已有的函数来构建更为复杂的抽象；<br>3，通过将现有的函数传给其他的函数来构建更加复杂的抽象。</p>
+<span id="more"></span>
+
+<h1 id="章一-1"><a href="#章一-1" class="headerlink" title="章一"></a>章一</h1><p>1，确定抽象，并为其构建函数；<br>2，利用已有的函数来构建更为复杂的抽象；<br>3，通过将现有的函数传给其他的函数来构建更加复杂的抽象。</p>
+<h1 id="章二"><a href="#章二" class="headerlink" title="章二"></a>章二</h1><p>1，函数时一等公民：</p>
+<blockquote>
+<p>函数式编程语言应该是促进创造和使用函数的；</p>
+</blockquote>
+<p>2，applicative 编程：</p>
+<blockquote>
+<p>函数A作为参数提供给函数B；</p>
+</blockquote>
+<p>3，JavaScript对象的键只能是字符串；</p>
+<h1 id="章三"><a href="#章三" class="headerlink" title="章三"></a>章三</h1><p>词法作用域：</p>
+<blockquote>
+<p>指一个变量的可见性，及其文本表述的模拟值；变量查找从最内层范围向外扩展。</p>
+</blockquote>
+<p>动态作用域：</p>
+<blockquote>
+<p>1，维护一张”值“的全局表（维护一个命名绑定栈的全局映射）；<br>2，并使用一个函数来查询绑定的值；<br>3，缺点：任何给定的绑定值，在确定调用其函数前，都是不可知的。</p>
+</blockquote>
+<p>闭包：</p>
+<blockquote>
+<p>闭包就是一个函数，捕获作用域内的外部绑定（例如，不是自己的参数）。这些绑定是为了之后使用（即使在该作用域已经结束）而被定义的。<br>如果一个变量的引用同时存在于闭包的内外部，则它的变化可以跨越看似私有的界限，因此JavaScript经常使用如下模式，把捕获的变量作为私有数据：</p>
+</blockquote>
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> pingpong = (<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+     <span class="hljs-keyword">var</span> private = <span class="hljs-number">0</span>;
+     <span class="hljs-keyword">return</span> &#123;     
+         <span class="hljs-attr">inc</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">n</span>) &#123;
+                    <span class="hljs-keyword">return</span> private += n;
+          &#125;
+          <span class="hljs-attr">dec</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">n</span>) &#123;
+                    <span class="hljs-keyword">return</span> private -= n;
+          &#125;
+     &#125;;
+ &#125;)();
+ pingpong.<span class="hljs-title function_">inc</span>(<span class="hljs-number">10</span>);
+ pingpong.<span class="hljs-title function_">dec</span>(<span class="hljs-number">7</span>);</code></pre>
+
+<h1 id="章四"><a href="#章四" class="headerlink" title="章四"></a>章四</h1><p>高阶函数：</p>
+<blockquote>
+<p>1，它是一等公民；<br>2，以一个函数作为参数；<br>3，以一个函数作为返回结果； </p>
+</blockquote>
+<p>闭包：</p>
+<blockquote>
+<p>1，闭包会捕获一个值（或引用），并多次返回相同的值；<br>2，每一个新的闭包都会捕获不一样的值； </p>
+</blockquote>
+<h1 id="章五"><a href="#章五" class="headerlink" title="章五"></a>章五</h1><p>柯里化函数：</p>
+<blockquote>
+<p>逐渐返回消耗参数的函数，直到所有参数耗尽；</p>
+</blockquote>
+<p>部分应用函数：</p>
+<blockquote>
+<p>是一个部分执行，等待接收剩余的参数立即执行的函数；</p>
+</blockquote>
+<p>组合函数：</p>
+<blockquote>
+<p>_.compose: 从右往左执行，最右边的函数的结果会被送入其左侧的函数，一个接着一个。</p>
+</blockquote>
+<h1 id="章六"><a href="#章六" class="headerlink" title="章六"></a>章六</h1><p>尾递归：</p>
+<blockquote>
+<p>函数（除了停止条件返回值）的最后一个动作是递归调用；</p>
+</blockquote>
+<p>递归和组合函数：</p>
+<blockquote>
+<p>andify与orify；</p>
+</blockquote>
+<p>相互关联函数：</p>
+<blockquote>
+<p>两个或多个函数相互调用会被称为相互递归，通过相互递归调用来回反弹彼此之间递减某个绝对值，直到一方或另一方达到零；</p>
+</blockquote>
+<p>蹦床原理：</p>
+<blockquote>
+<p>通过打包调用，而不是直接调用；trampoline函数：不断调用函数的返回值，直到它不再是一个函数。</p>
+</blockquote>
+<h1 id="章七"><a href="#章七" class="headerlink" title="章七"></a>章七</h1><p>纯函数：</p>
+<blockquote>
+<p>1，其结果只能从它的参数的值来计算；<br>2，不能依赖于能被外部操作改变的数据；<br>3，不能改变外部状态。</p>
+</blockquote>
+<p>幂等性：</p>
+<blockquote>
+<p>对同一的参数运行一次函数应该与连续两次运行是一个结果。</p>
+</blockquote>
+<p>不变性：</p>
+<blockquote>
+<p>例如字符串；</p>
+</blockquote>
+<p>对象的不变性：</p>
+<blockquote>
+<p>1，不可变对象应该在构造时固定它们的值之后不能再修改；<br>2，不可变对象操作并返回新对象。</p>
+</blockquote>
+<h1 id="章八"><a href="#章八" class="headerlink" title="章八"></a>章八</h1><p>惰性链：</p>
+<blockquote>
+<p>在调用value之前，_.chain是惰性的，什么都不会发生；</p>
+</blockquote>
+<p>thunk：</p>
+<blockquote>
+<p>封装了一些行为的函数；</p>
+</blockquote>
+<p>管道； </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2015/11/18/%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">实习总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2015/09/14/%E4%BB%8Eline-height%E5%88%B00-5px/">
+                        <span class="hidden-mobile">从 line-height 到 0.5 px</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Javascript 函数式编程の书摘&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

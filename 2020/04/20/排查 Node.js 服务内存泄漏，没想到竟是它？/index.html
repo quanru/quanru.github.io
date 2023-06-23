@@ -1,0 +1,797 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>排查 Node.js 服务内存泄漏，没想到竟是它？ - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-20 14:01" pubdate>
+        2020年4月20日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      42
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">排查 Node.js 服务内存泄漏，没想到竟是它？</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>团队最近将两个项目迁移至 <code>degg 2.0</code> 中，两个项目均出现比较严重的内存泄漏问题，此处以本人维护的埋点服务为例进行排查。服务上线后内存增长如下图，其中红框为 <code>degg 2.0</code> 线上运行的时间窗口，在短短 36 小时内，内存已经增长到 50%，而平时内存稳定在 20%-30%，可知十之八九出现了内存泄漏。</strong></p>
+<span id="more"></span>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>团队最近将两个项目迁移至 <code>degg 2.0</code> 中，两个项目均出现比较严重的内存泄漏问题，此处以本人维护的埋点服务为例进行排查。服务上线后内存增长如下图，其中红框为 <code>degg 2.0</code> 线上运行的时间窗口，在短短 36 小时内，内存已经增长到 50%，而平时内存稳定在 20%-30%，可知十之八九出现了内存泄漏。</p>
+<p><img src="/post-img/node-leak1.jpg" srcset="/img/loading.gif" alt="泄漏"></p>
+<h2 id="排查思路"><a href="#排查思路" class="headerlink" title="排查思路"></a>排查思路</h2><p>由于两个接入 <code>degg 2.0</code> 的服务均出现内存泄漏问题，因此初步将排查范围锁定在 <code>degg 2.0</code> 引入或重写的基础组件上，重点怀疑对象为 <code>nodex-logger</code> 组件；同时为了排查内存泄漏，我们需要获取服务运行进程的堆快照（<strong>heapsnapshot</strong>），获取方式可参看文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/36340263">Node 案发现场揭秘 —— 快速定位线上内存泄漏</a>。</p>
+<h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><h4 id="一、获取堆快照"><a href="#一、获取堆快照" class="headerlink" title="一、获取堆快照"></a>一、获取堆快照</h4><p>使用 <a target="_blank" rel="noopener" href="http://alinode.aliyun.com/">alinode</a> 获取堆快照，服务启动后，使用小流量预热一两分钟便记录第1份堆快照（2020-4-16-16:52），接着设置 qps 为 125 对服务进行施压，经过大约一个小时（2020-4-16-15:46）获取第2份堆快照。使用 Chrome dev 工具载入两份堆快照，如下图所示，发现服务仅短短运行一小时，其堆快照文件就增大了 45MB，而初始大小也不过 39.7MB；我们按 <code>Retained Size</code> 列进行排序，很快就发现了一个『嫌疑犯』，即 generator；该项占用了 55% 的大小，同时 <code>Shallow Size</code> 却为 0%，一项一项地展开，锁定到了图中高亮的这行，但是继续展开却提示 0%，线索突然断了。</p>
+<p><img src="/post-img/node-leak2.jpg" srcset="/img/loading.gif" alt="快照"></p>
+<p>盯着 generator 进入思考，我的服务代码并没有 generator 语法，为什么会出现 generator 对象的内存泄漏呢？此时我把注意力转到 <code>node_modules</code> 目录中，由于最近一直在优化 <code>nodex-kafka</code> 组件，有时直接在 <code>node_modules</code> 目录中修改该组件的代码进行调试，因此几乎每个文件头部都有的一段代码引起了我的注意：</p>
+<pre><code class="hljs js"><span class="hljs-meta">&quot;use strict&quot;</span>;
+<span class="hljs-keyword">var</span> __awaiter = (<span class="hljs-variable language_">this</span> &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">__awaiter</span>) || <span class="hljs-keyword">function</span> (<span class="hljs-params">thisArg, _arguments, P, generator</span>) &#123;
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">adopt</span>(<span class="hljs-params">value</span>) &#123; <span class="hljs-keyword">return</span> value <span class="hljs-keyword">instanceof</span> P ? value : <span class="hljs-keyword">new</span> <span class="hljs-title function_">P</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">resolve</span>) &#123; <span class="hljs-title function_">resolve</span>(value); &#125;); &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> (P || (P = <span class="hljs-title class_">Promise</span>))(<span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) &#123;
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">fulfilled</span>(<span class="hljs-params">value</span>) &#123; <span class="hljs-keyword">try</span> &#123; <span class="hljs-title function_">step</span>(generator.<span class="hljs-title function_">next</span>(value)); &#125; <span class="hljs-keyword">catch</span> (e) &#123; <span class="hljs-title function_">reject</span>(e); &#125; &#125;
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">rejected</span>(<span class="hljs-params">value</span>) &#123; <span class="hljs-keyword">try</span> &#123; <span class="hljs-title function_">step</span>(generator[<span class="hljs-string">&quot;throw&quot;</span>](value)); &#125; <span class="hljs-keyword">catch</span> (e) &#123; <span class="hljs-title function_">reject</span>(e); &#125; &#125;
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">step</span>(<span class="hljs-params">result</span>) &#123; result.<span class="hljs-property">done</span> ? <span class="hljs-title function_">resolve</span>(result.<span class="hljs-property">value</span>) : <span class="hljs-title function_">adopt</span>(result.<span class="hljs-property">value</span>).<span class="hljs-title function_">then</span>(fulfilled, rejected); &#125;
+        <span class="hljs-title function_">step</span>((generator = generator.<span class="hljs-title function_">apply</span>(thisArg, _arguments || [])).<span class="hljs-title function_">next</span>());
+    &#125;);
+&#125;;</code></pre>
+
+<p>这个代码是 typescript 源码编译后的产出，由于代码使用了 <code>async/await</code> 语法，因此都编译成 <code>__awaiter</code> 的形式，在源码中使用 async 函数的地方，在编译后都使用 <code>__awaiter</code> 进行包裹：</p>
+<pre><code class="hljs js"><span class="hljs-comment">// 编译前</span>
+(<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">1</span>);
+  <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">2</span>);
+&#125;)()
+
+<span class="hljs-comment">// 编译后</span>
+(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-title function_">__awaiter</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>, <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>, <span class="hljs-keyword">function</span>* () &#123;
+    <span class="hljs-keyword">yield</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">yield</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">2</span>);
+  &#125;);
+&#125;)();</code></pre>
+
+
+
+<p>同时一个关于 generator 内存泄漏的 <a target="_blank" rel="noopener" href="https://github.com/nodejs/node/issues/30753">#30753 generator functions - memory leak</a> 也引起了我的注意，该 issue 遇到的问题无论从 Node.js 的版本和内存泄漏的表现都和我遇到的问题十分相似。所以我在工程的 <code>node_modules</code> 中搜索所有 <code>__awaiter</code> 字符串，发现了 3 个模块编译出了上述代码，分别是：</p>
+<ol>
+<li><code>nodex-logger</code></li>
+<li><code>nodex-kafka</code></li>
+<li><code>nodex-apollo</code></li>
+</ol>
+<p>由于模块的 tsconfig.json 的 target 字段将目标产出为 <code>es6</code>，因此才会使用 generator 去模拟 <code>async/await</code> 语法，但是从 Node.js v8.10.0 开始已经 100% 支持了 <code>ES2017</code> 的所有特性，所以本不该编译  <code>async/await</code> 语法，此处遂将这 3 个模块的目标产出配置改为 <code>es2017</code>，这样 tsc 就不会编译 <code>async/await</code> 语法。</p>
+<h4 id="二、验证"><a href="#二、验证" class="headerlink" title="二、验证"></a>二、验证</h4><p>重复之前获取堆快照的步骤，惊奇地发现即使过了一天，内存也没有增长，而且 generator 也没有持有未释放的内存：</p>
+<p><img src="/post-img/node-leak3.jpg" srcset="/img/loading.gif" alt="验证"></p>
+<p>至此，内存泄漏问题已经解决！那么如何避免遇到这个问题呢？</p>
+<h2 id="如何避免"><a href="#如何避免" class="headerlink" title="如何避免"></a>如何避免</h2><h4 id="一、解决步骤"><a href="#一、解决步骤" class="headerlink" title="一、解决步骤"></a>一、解决步骤</h4><h5 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h5><p>该问题仅在特定的 Node.js 版本中存在，请使用版本区间 [<code>v11.0.0</code> - <code>v12.16.0</code>) 之外的 Node.js，从而防止二方 npm 组件、三方 npm 组件的 generator 语法使你的服务出问题</p>
+<h5 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h5><p>将自己的 typescript 的目标环境（target）编译为 <code>es2017</code> 及以上，同时应尽量使用 <code>async/await</code> 语法而不是 generator 语法，从而防止别人使用 [<code>v11.0.0</code> - <code>v12.16.0</code>) 版本时，引入你的 npm 组件而导致内存泄漏</p>
+<h4 id="二、详细说明"><a href="#二、详细说明" class="headerlink" title="二、详细说明"></a>二、详细说明</h4><p>前文说了从 <a target="_blank" rel="noopener" href="https://github.com/nodejs/node/releases/tag/v8.10.0">Node.js v8.10.0</a> 开始就已经支持了 <code>async/await</code> 语法，经查该版本于 2018-03-06 发布，由于所有服务也不可能一下全切换到新版本，因此为了兼容 Node.js v6 版本的环境，需要将代码编译到 <code>es6</code>。但是站在现在这个 LTS 版本已经是 <code>v12</code> 的时间节点，完全可以排查现有使用 typescript 的 npm 组件是否都编译到 <code>es2017</code>，甚至探讨编译到 <code>es2019</code> 的可能。</p>
+<p>此外这个内存泄漏问题是从哪个版本开始有的，现在是否解决了呢？编写可验证的内存泄漏的代码如下：</p>
+<pre><code class="hljs js"><span class="hljs-comment">// node-leak.js</span>
+<span class="hljs-keyword">const</span> heapdump = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;heapdump&#x27;</span>)
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Async</span> &#123;
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">run</span>(<span class="hljs-params"></span>) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+  &#125;
+&#125;
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">run</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>; index &lt; <span class="hljs-number">10000000</span>; index++) &#123;
+      <span class="hljs-keyword">if</span> (index % <span class="hljs-number">1000000</span> === <span class="hljs-number">0</span>)
+          <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(process.<span class="hljs-title function_">memoryUsage</span>().<span class="hljs-property">heapUsed</span> / <span class="hljs-number">10000</span>), index);
+      <span class="hljs-keyword">const</span> doer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Async</span>();
+      <span class="hljs-keyword">await</span> doer.<span class="hljs-title function_">run</span>();
+  &#125;
+  heapdump.<span class="hljs-title function_">writeSnapshot</span>(<span class="hljs-function">(<span class="hljs-params">err, filename</span>) =&gt;</span> &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;Heap dump written to&quot;</span>, filename);
+  &#125;);
+&#125;;
+<span class="hljs-title function_">run</span>();</code></pre>
+
+<pre><code class="hljs js"><span class="hljs-comment">// leak.js 由 node-leak.js 编译得来</span>
+<span class="hljs-keyword">var</span> __awaiter = (<span class="hljs-variable language_">this</span> &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">__awaiter</span>) || <span class="hljs-keyword">function</span> (<span class="hljs-params">thisArg, _arguments, P, generator</span>) &#123;
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">adopt</span>(<span class="hljs-params">value</span>) &#123; <span class="hljs-keyword">return</span> value <span class="hljs-keyword">instanceof</span> P ? value : <span class="hljs-keyword">new</span> <span class="hljs-title function_">P</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">resolve</span>) &#123; <span class="hljs-title function_">resolve</span>(value); &#125;); &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> (P || (P = <span class="hljs-title class_">Promise</span>))(<span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) &#123;
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">fulfilled</span>(<span class="hljs-params">value</span>) &#123; <span class="hljs-keyword">try</span> &#123; <span class="hljs-title function_">step</span>(generator.<span class="hljs-title function_">next</span>(value)); &#125; <span class="hljs-keyword">catch</span> (e) &#123; <span class="hljs-title function_">reject</span>(e); &#125; &#125;
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">rejected</span>(<span class="hljs-params">value</span>) &#123; <span class="hljs-keyword">try</span> &#123; <span class="hljs-title function_">step</span>(generator[<span class="hljs-string">&quot;throw&quot;</span>](value)); &#125; <span class="hljs-keyword">catch</span> (e) &#123; <span class="hljs-title function_">reject</span>(e); &#125; &#125;
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">step</span>(<span class="hljs-params">result</span>) &#123; result.<span class="hljs-property">done</span> ? <span class="hljs-title function_">resolve</span>(result.<span class="hljs-property">value</span>) : <span class="hljs-title function_">adopt</span>(result.<span class="hljs-property">value</span>).<span class="hljs-title function_">then</span>(fulfilled, rejected); &#125;
+        <span class="hljs-title function_">step</span>((generator = generator.<span class="hljs-title function_">apply</span>(thisArg, _arguments || [])).<span class="hljs-title function_">next</span>());
+    &#125;);
+&#125;;
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Async</span> &#123;
+    <span class="hljs-title function_">run</span>(<span class="hljs-params"></span>) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">__awaiter</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>, <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>, <span class="hljs-keyword">function</span>* () &#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+        &#125;);
+    &#125;
+&#125;
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">run</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title function_">__awaiter</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>, <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>, <span class="hljs-keyword">function</span>* () &#123;
+    <span class="hljs-keyword">const</span> now = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;循环总次数: &#x27;</span>, <span class="hljs-number">10000000</span>);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>; index &lt; <span class="hljs-number">10000000</span>; index++) &#123;
+        <span class="hljs-keyword">if</span> (index % <span class="hljs-number">1000000</span> === <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;第 %d 次循环，此时内存为 %d&#x27;</span>, index, <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(process.<span class="hljs-title function_">memoryUsage</span>().<span class="hljs-property">heapUsed</span> / <span class="hljs-number">1000000</span>));
+        &#125;
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Async</span>();
+        <span class="hljs-keyword">yield</span> instance.<span class="hljs-title function_">run</span>();
+    &#125;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;总耗时: %d 秒&#x27;</span>, (<span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>() - now) / <span class="hljs-number">1000</span>);
+&#125;);
+<span class="hljs-title function_">run</span>();</code></pre>
+
+<p>经过二分排查，发现该泄漏问题从 <code>v11.0.0</code> 引入，在 <a target="_blank" rel="noopener" href="https://github.com/nodejs/node/pull/31691">v12.16.0</a> 解决；内存泄漏版本执行脚本时，内存占用逐步递增直到 crash，而未泄漏版本则会及时回收内存。</p>
+<p><img src="/post-img/node-leak4.jpg" srcset="/img/loading.gif" alt="对比"></p>
+<h2 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h2><p>根本原因是 v8 的一个 bug，相关链接：</p>
+<ol>
+<li><p>v8 issue: <a target="_blank" rel="noopener" href="https://bugs.chromium.org/p/v8/issues/detail?id=10031">https://bugs.chromium.org/p/v8/issues/detail?id=10031</a></p>
+</li>
+<li><p>v8 commit: <a target="_blank" rel="noopener" href="https://chromium.googlesource.com/v8/v8.git/+/d3a1a5b6c4916f22e076e3349ed3619bfb014f29">https://chromium.googlesource.com/v8/v8.git/+/d3a1a5b6c4916f22e076e3349ed3619bfb014f29</a></p>
+</li>
+<li><p>node issue: <a target="_blank" rel="noopener" href="https://github.com/nodejs/node/issues/30753">https://github.com/nodejs/node/issues/30753</a></p>
+</li>
+<li><p>node commit: <a target="_blank" rel="noopener" href="https://github.com/nodejs/node/pull/31005/files">https://github.com/nodejs/node/pull/31005/files</a></p>
+</li>
+</ol>
+<p>改进后的代码，在分配新增 <code>WeakArrayList</code> 数组时，即使返回没有空闲数组的标记（ <code>kNoEmptySlotsMarker</code> ），仍需要调用 <code>ScanForEmptySlots</code> 方法重新扫描一次数组，因为该数组元素有可能有被 GC 回收，这些被回收的元素是可以重复使用的；仅当返回 <code>kNoEmptySlotsMarker</code> 且数组中没有被 GC 回收的元素，才真正执行新增逻辑：</p>
+<pre><code class="hljs cpp"><span class="hljs-comment">// https://github.com/targos/node/blob/cceb2a87295724b7aa843363460ffcd10cda05b5/deps/v8/src/objects/objects.cc#L4042</span>
+<span class="hljs-comment">// static</span>
+<span class="hljs-function">Handle&lt;WeakArrayList&gt; <span class="hljs-title">PrototypeUsers::Add</span><span class="hljs-params">(Isolate* isolate,</span></span>
+<span class="hljs-params"><span class="hljs-function">                                          Handle&lt;WeakArrayList&gt; array,</span></span>
+<span class="hljs-params"><span class="hljs-function">                                          Handle&lt;Map&gt; value,</span></span>
+<span class="hljs-params"><span class="hljs-function">                                          <span class="hljs-type">int</span>* assigned_index)</span> </span>&#123;
+  <span class="hljs-type">int</span> length = array-&gt;<span class="hljs-built_in">length</span>();
+  <span class="hljs-keyword">if</span> (length == <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-comment">// Uninitialized WeakArrayList; need to initialize empty_slot_index.</span>
+    array = WeakArrayList::<span class="hljs-built_in">EnsureSpace</span>(isolate, array, kFirstIndex + <span class="hljs-number">1</span>);
+    <span class="hljs-built_in">set_empty_slot_index</span>(*array, kNoEmptySlotsMarker);
+    array-&gt;<span class="hljs-built_in">Set</span>(kFirstIndex, HeapObjectReference::<span class="hljs-built_in">Weak</span>(*value));
+    array-&gt;<span class="hljs-built_in">set_length</span>(kFirstIndex + <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">if</span> (assigned_index != <span class="hljs-literal">nullptr</span>) *assigned_index = kFirstIndex;
+    <span class="hljs-keyword">return</span> array;
+  &#125;
+
+  <span class="hljs-comment">// If the array has unfilled space at the end, use it.</span>
+  <span class="hljs-keyword">if</span> (!array-&gt;<span class="hljs-built_in">IsFull</span>()) &#123;
+    array-&gt;<span class="hljs-built_in">Set</span>(length, HeapObjectReference::<span class="hljs-built_in">Weak</span>(*value));
+    array-&gt;<span class="hljs-built_in">set_length</span>(length + <span class="hljs-number">1</span>);
+    <span class="hljs-keyword">if</span> (assigned_index != <span class="hljs-literal">nullptr</span>) *assigned_index = length;
+    <span class="hljs-keyword">return</span> array;
+  &#125;
+
+  <span class="hljs-comment">// If there are empty slots, use one of them.</span>
+  <span class="hljs-type">int</span> empty_slot = Smi::<span class="hljs-built_in">ToInt</span>(<span class="hljs-built_in">empty_slot_index</span>(*array));
+
+  <span class="hljs-keyword">if</span> (empty_slot == kNoEmptySlotsMarker) &#123;
+    <span class="hljs-comment">// GCs might have cleared some references, rescan the array for empty slots.</span>
+    PrototypeUsers::<span class="hljs-built_in">ScanForEmptySlots</span>(*array);
+    empty_slot = Smi::<span class="hljs-built_in">ToInt</span>(<span class="hljs-built_in">empty_slot_index</span>(*array));
+  &#125;
+
+  <span class="hljs-keyword">if</span> (empty_slot != kNoEmptySlotsMarker) &#123;
+    <span class="hljs-built_in">DCHECK_GE</span>(empty_slot, kFirstIndex);
+    <span class="hljs-built_in">CHECK_LT</span>(empty_slot, array-&gt;<span class="hljs-built_in">length</span>());
+    <span class="hljs-type">int</span> next_empty_slot = array-&gt;<span class="hljs-built_in">Get</span>(empty_slot).<span class="hljs-built_in">ToSmi</span>().<span class="hljs-built_in">value</span>();
+
+    array-&gt;<span class="hljs-built_in">Set</span>(empty_slot, HeapObjectReference::<span class="hljs-built_in">Weak</span>(*value));
+    <span class="hljs-keyword">if</span> (assigned_index != <span class="hljs-literal">nullptr</span>) *assigned_index = empty_slot;
+
+    <span class="hljs-built_in">set_empty_slot_index</span>(*array, next_empty_slot);
+    <span class="hljs-keyword">return</span> array;
+  &#125; <span class="hljs-keyword">else</span> &#123;
+    <span class="hljs-built_in">DCHECK_EQ</span>(empty_slot, kNoEmptySlotsMarker);
+  &#125;
+
+  <span class="hljs-comment">// Array full and no empty slots. Grow the array.</span>
+  array = WeakArrayList::<span class="hljs-built_in">EnsureSpace</span>(isolate, array, length + <span class="hljs-number">1</span>);
+  array-&gt;<span class="hljs-built_in">Set</span>(length, HeapObjectReference::<span class="hljs-built_in">Weak</span>(*value));
+  array-&gt;<span class="hljs-built_in">set_length</span>(length + <span class="hljs-number">1</span>);
+  <span class="hljs-keyword">if</span> (assigned_index != <span class="hljs-literal">nullptr</span>) *assigned_index = length;
+  <span class="hljs-keyword">return</span> array;
+&#125;
+
+<span class="hljs-comment">// static</span>
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">PrototypeUsers::ScanForEmptySlots</span><span class="hljs-params">(WeakArrayList array)</span> </span>&#123;
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = kFirstIndex; i &lt; array.<span class="hljs-built_in">length</span>(); i++) &#123;
+    <span class="hljs-keyword">if</span> (array.<span class="hljs-built_in">Get</span>(i)-&gt;<span class="hljs-built_in">IsCleared</span>()) &#123;
+      PrototypeUsers::<span class="hljs-built_in">MarkSlotEmpty</span>(array, i);
+    &#125;
+  &#125;
+&#125;</code></pre>
+
+
+
+<h2 id="不止内存泄漏"><a href="#不止内存泄漏" class="headerlink" title="不止内存泄漏"></a>不止内存泄漏</h2><p>在我测试内存泄漏时，有一个发现，执行发生内存泄漏时的代码（前文的 leak.js）和未发生内存泄漏时的代码（前文的 node-leak.js）时，即使在已经修复该问题的 <code>Node.js v12.16.2</code> 版本下，generator 语法仍然有两个问题：</p>
+<ol>
+<li>内存回收效率低，导致执行完后，仍有相当大的内存占用；</li>
+<li>执行效率非常慢，<code>async/await</code> 版本仅需要 0.953 秒，而 generator 却需要 17.754 秒；</li>
+</ol>
+<p><img src="/post-img/node-leak5.jpg" srcset="/img/loading.gif" alt="对比"></p>
+<p>这说明，相比 generator 语法，<code>async/await</code> 语法无论从执行效率还是内存占用方面都有压倒性优势。那么执行效率对比如何呢？上 <code>benchmark</code> 工具比划比划：</p>
+<pre><code class="hljs js"><span class="hljs-comment">// benchmark.js</span>
+<span class="hljs-keyword">const</span> __awaiter = (<span class="hljs-variable language_">this</span> &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">__awaiter</span>) || <span class="hljs-keyword">function</span> (<span class="hljs-params">thisArg, _arguments, P, generator</span>) &#123;
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">adopt</span>(<span class="hljs-params">value</span>) &#123; <span class="hljs-keyword">return</span> value <span class="hljs-keyword">instanceof</span> P ? value : <span class="hljs-keyword">new</span> <span class="hljs-title function_">P</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">resolve</span>) &#123; <span class="hljs-title function_">resolve</span>(value); &#125;); &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> (P || (P = <span class="hljs-title class_">Promise</span>))(<span class="hljs-keyword">function</span> (<span class="hljs-params">resolve, reject</span>) &#123;
+      <span class="hljs-keyword">function</span> <span class="hljs-title function_">fulfilled</span>(<span class="hljs-params">value</span>) &#123; <span class="hljs-keyword">try</span> &#123; <span class="hljs-title function_">step</span>(generator.<span class="hljs-title function_">next</span>(value)); &#125; <span class="hljs-keyword">catch</span> (e) &#123; <span class="hljs-title function_">reject</span>(e); &#125; &#125;
+      <span class="hljs-keyword">function</span> <span class="hljs-title function_">rejected</span>(<span class="hljs-params">value</span>) &#123; <span class="hljs-keyword">try</span> &#123; <span class="hljs-title function_">step</span>(generator[<span class="hljs-string">&quot;throw&quot;</span>](value)); &#125; <span class="hljs-keyword">catch</span> (e) &#123; <span class="hljs-title function_">reject</span>(e); &#125; &#125;
+      <span class="hljs-keyword">function</span> <span class="hljs-title function_">step</span>(<span class="hljs-params">result</span>) &#123; result.<span class="hljs-property">done</span> ? <span class="hljs-title function_">resolve</span>(result.<span class="hljs-property">value</span>) : <span class="hljs-title function_">adopt</span>(result.<span class="hljs-property">value</span>).<span class="hljs-title function_">then</span>(fulfilled, rejected); &#125;
+      <span class="hljs-title function_">step</span>((generator = generator.<span class="hljs-title function_">apply</span>(thisArg, _arguments || [])).<span class="hljs-title function_">next</span>());
+  &#125;);
+&#125;;
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Benchmark</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;benchmark&#x27;</span>);
+<span class="hljs-keyword">const</span> suite = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Benchmark</span>.<span class="hljs-property">Suite</span>;
+
+suite
+  .<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;generator&#x27;</span>, &#123;
+    <span class="hljs-attr">defer</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">fn</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">deferred</span>) &#123;
+      (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">__awaiter</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>, <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>, <span class="hljs-keyword">function</span>* () &#123;
+            <span class="hljs-keyword">yield</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">1</span>);
+            <span class="hljs-keyword">yield</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">2</span>);
+            <span class="hljs-comment">// 测试完成</span>
+            deferred.<span class="hljs-title function_">resolve</span>();
+        &#125;);
+      &#125;)();
+    &#125;
+  &#125;)
+  .<span class="hljs-title function_">add</span>(<span class="hljs-string">&#x27;async/await&#x27;</span>, &#123;
+    <span class="hljs-attr">defer</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">fn</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">deferred</span>) &#123;
+      (<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+        <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">1</span>);
+        <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-number">2</span>);
+
+        <span class="hljs-comment">// 测试完成</span>
+        deferred.<span class="hljs-title function_">resolve</span>();
+      &#125;)()
+    &#125;
+  &#125;)
+  .<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;cycle&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">String</span>(event.<span class="hljs-property">target</span>));
+  &#125;)
+  .<span class="hljs-title function_">run</span>(&#123;
+    <span class="hljs-string">&#x27;async&#x27;</span>: <span class="hljs-literal">false</span>
+  &#125;);</code></pre>
+
+<p><code>Node.js v12.16.2</code> 的结果：</p>
+<pre><code class="hljs cmd">generator x <span class="hljs-number">443</span>,<span class="hljs-number">891</span> ops/sec ±<span class="hljs-number">4</span>.<span class="hljs-number">12</span>% (<span class="hljs-number">75</span> runs sampled)
+async/await x <span class="hljs-number">4</span>,<span class="hljs-number">567</span>,<span class="hljs-number">163</span> ops/sec ±<span class="hljs-number">1</span>.<span class="hljs-number">96</span>% (<span class="hljs-number">79</span> runs sampled)</code></pre>
+
+<p>generator 每秒执行了 516,178 次操作，而 <code>async/await</code> 每秒执行了 4,531,357 次操作，后者是前者的 10 倍多！我们看看其它 Node.js 版本表现如何：</p>
+<p>电脑配置：MacBook Pro (13-inch, 2017, Two Thunderbolt 3 ports)</p>
+<table>
+<thead>
+<tr>
+<th>Node.js 版本</th>
+<th>generator</th>
+<th>async/await</th>
+<th>倍数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12.16.2</td>
+<td>443,891</td>
+<td>4,567,163</td>
+<td>10.29</td>
+</tr>
+<tr>
+<td>11.15.0</td>
+<td>424,073</td>
+<td>680,795</td>
+<td>1.60</td>
+</tr>
+<tr>
+<td>10.20.1</td>
+<td>427,799</td>
+<td>669,910</td>
+<td>1.57</td>
+</tr>
+<tr>
+<td>9.11.2</td>
+<td>275,526</td>
+<td>500,487</td>
+<td>1.82</td>
+</tr>
+<tr>
+<td>8.17.0</td>
+<td>281,571</td>
+<td>535,317</td>
+<td>1.90</td>
+</tr>
+</tbody></table>
+<p>二者执行效率和 Node.js 版本成正比，而 Node.js v12 来了一次大跃进，直接高了一个数量级，这个得益于 v8 7.2 的一个<a target="_blank" rel="noopener" href="https://v8.dev/blog/v8-release-72#async%2Fawait">新特性</a>，官网用了整整一篇<a target="_blank" rel="noopener" href="https://v8.dev/blog/fast-async#await-under-the-hood">文章</a>说明，有兴趣的可以看看。</p>
+<h2 id="Chrome-也中招了吗？"><a href="#Chrome-也中招了吗？" class="headerlink" title="Chrome 也中招了吗？"></a>Chrome 也中招了吗？</h2><blockquote>
+<p>目前最新版：<code>版本 81.0.4044.113（正式版本） （64 位）</code> 已经修复这个问题</p>
+</blockquote>
+<p>既然是 v8 的问题，那么 chrome 浏览器也是有这个问题的，打开空白标签页，执行前文给出的 <code>leak.js</code> 代码：</p>
+<p><img src="/post-img/node-leak6.jpg" srcset="/img/loading.gif" alt="chrome"></p>
+<p>可发现，chrome 下也会有内存泄漏问题，只不过 chrome 页面上的代码运行一般不会有密集地、重复地执行某段『导致内存泄漏』的代码，因此该问题在 chrome 端不容易被察觉。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>没想到一个小小的语法转译也会造成如此严重的内存泄漏问题，且一个 V8 底层小小的 bug 在上层使用时会被放大得如此严重。但是只要我们不放过每一个可疑点，深入排查总会有意想不到的收获！</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Node-js-%E6%9C%8D%E5%8A%A1%E7%AB%AF/">Node.js 服务端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/">内存泄漏</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/30/React%20%E7%8A%B6%E6%80%81%E7%9A%84%E9%80%BB%E8%BE%91%E5%A4%8D%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">React 状态的逻辑复用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2019/07/21/%E4%B8%BA%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3%20mock%20%E6%9C%8D%E5%8A%A1/">
+                        <span class="hidden-mobile">为前端应用开发一个本地接口 mock 服务</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "排查 Node.js 服务内存泄漏，没想到竟是它？&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

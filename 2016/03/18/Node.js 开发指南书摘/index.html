@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>Node.js 开发指南の书摘 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-03-18 16:31" pubdate>
+        2016年3月18日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Node.js 开发指南の书摘</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h3 id="章三"><a href="#章三" class="headerlink" title="章三"></a>章三</h3><p>1，单次加载：</p>
+<blockquote>
+<p>require不会重复加载模块，无论调用多少次require，获得的模块都是同一个；</p>
+</blockquote>
+<p>2，覆盖exports：</p>
+<blockquote>
+<p>当将一个对象封装到模块中时，exports.Hello = Hello,则需使用require(‘./singleobject’).Hello来获取对象，可简化如下：module.exports = Hello; 此时就可以直接获取这个对象了，var Hello = require(‘./hello’); hello = new Hello();</p>
+</blockquote>
+<p>3，创建全局链接：</p>
+<blockquote>
+<p>npm link express；从而在当前目录使用全局安装的express；</p>
+</blockquote>
+<p>4，</p>
+<blockquote>
+<p>通过使用npm init交互式初始化一个符合标准的package.json；<br>发布包：npm publish；<br>更改json文件中的version字段后，重新发布，达到更新版本的目的；<br>取消发布：npm unpublish；</p>
+</blockquote>
+<span id="more"></span>
+
+<h1 id="章三-1"><a href="#章三-1" class="headerlink" title="章三"></a>章三</h1><p>1，单次加载：</p>
+<blockquote>
+<p>require不会重复加载模块，无论调用多少次require，获得的模块都是同一个；</p>
+</blockquote>
+<p>2，覆盖exports：</p>
+<blockquote>
+<p>当将一个对象封装到模块中时，exports.Hello = Hello,则需使用require(‘./singleobject’).Hello来获取对象，可简化如下：module.exports = Hello; 此时就可以直接获取这个对象了，var Hello = require(‘./hello’); hello = new Hello();</p>
+</blockquote>
+<p>3，创建全局链接：</p>
+<blockquote>
+<p>npm link express；从而在当前目录使用全局安装的express；</p>
+</blockquote>
+<p>4，</p>
+<blockquote>
+<p>通过使用npm init交互式初始化一个符合标准的package.json；<br>发布包：npm publish；<br>更改json文件中的version字段后，重新发布，达到更新版本的目的；<br>取消发布：npm unpublish；</p>
+</blockquote>
+<h1 id="章四"><a href="#章四" class="headerlink" title="章四"></a>章四</h1><p>1，process：</p>
+<blockquote>
+<p>process.argv: 命令行参数数组，第一个元素是node，以此类推；<br>process.nextTick(callback): 为事件循环设置一项任务，Node.js会在下次事件循环响应时调用callback（一般用于拆分事件，从而减少每个事件的执行时间）；</p>
+</blockquote>
+<p>2，console：</p>
+<blockquote>
+<p>console.trace(): 向标准错误流输出当前的调用栈；</p>
+</blockquote>
+<p>3，util：</p>
+<blockquote>
+<p>util.inherits(constructor, superConstructor): 仅仅继承superConstructor在其原型中定义的函数，而构造函数内部创造的属性和函数都没有被继承；<br>util.inspect(object, [showHidden], [depth], [colors]): 将任意对象转换为字符串的方法，通常用于调试和错误输出；</p>
+</blockquote>
+<p>4，events：</p>
+<pre><code class="hljs javascript">events.<span class="hljs-property">EventEmitter</span>:
+     <span class="hljs-keyword">var</span> events = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;events&quot;</span>);
+     <span class="hljs-keyword">var</span> emitter = <span class="hljs-keyword">new</span> events.<span class="hljs-title class_">EventEmitter</span>();
+      emitter.<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;someEvent&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">arg1, arg2</span>) &#123;
+               <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">lgo</span>(<span class="hljs-string">&quot;listener1&quot;</span>, arg1, arg2);
+     &#125;);
+emitter.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&quot;someEvent&quot;</span>, <span class="hljs-string">&quot;byvoid&quot;</span>, <span class="hljs-number">1991</span>);</code></pre>
+
+<p>result:</p>
+<blockquote>
+<p>listener1 byvoid 1991            </p>
+</blockquote>
+<p>emitter.emit(“error”);退出程序并打印调用栈。<br>只要是支持事件响应的核心模块都是EventEmitter的子类，例如fs、net、http。</p>
+<p>5，fs:</p>
+<blockquote>
+<p>fs.readFile(filename, [encoding], [callback(err, data)];<br>fs.readFileSync(filename, [encoding]);<br>与同步I/O函数不同，node.js中异步函数大多没有返回值。</p>
+</blockquote>
+<p>6, HTTP服务器:</p>
+<blockquote>
+<p>var http = requitr(‘http’);</p>
+</blockquote>
+<p>http.Server是一个基于事件的HTTP服务器,主要有以下几个事件:</p>
+<blockquote>
+<p>1,request: 当客户端请求到来时触发,提供两个参数req与res,分别是http.ServerRequest和http.ServerResponse的实例.<br>2,connection: 当TCP连接建立时触发,提供一个参数socket,是net.Socket的实例。该事件粒度大于request。<br>3,close: 当服务器关闭时触发,而不是用户连接断开时。<br>由于最常用的是request，因此http提供了一个捷径：http.createServer([requestListener])，其功能是创建一个HTTP服务器并将requestListener作为request事件的监听函数。</p>
+</blockquote>
+<p>而http.ServerRequest提供了以下三个事件用于控制传输：</p>
+<blockquote>
+<p>1，data：当请求体到来时触发，并提供一个参数chunk，表示接收到的数据。<br>2，end：当请求体数据传输完成时，该事件被触发。<br>3，close：用户当前请求结束时触发。</p>
+</blockquote>
+<p>http.ServerResponse是返回给客户端的信息：</p>
+<blockquote>
+<p>1，response.WriteHead(statusCode, [headers]): 向客户端发送响应头。<br>2，response.write(data, [encoding]): 向请求的客户端发送响应内容。<br>3，response.end([data], [encoding]): 结束响应，告知客户端所有发送已经完成。如果不调用，客户端将永远处于等待状态。</p>
+</blockquote>
+<h1 id="章五"><a href="#章五" class="headerlink" title="章五"></a>章五</h1><p>1，建立网站基本结构：</p>
+<blockquote>
+<p>express -t ejs microblog</p>
+</blockquote>
+<p>2，创建应用实例：</p>
+<blockquote>
+<p>express.createServer()</p>
+</blockquote>
+<p>3，控制权转移：</p>
+<blockquote>
+<p>express在处理路由规则时，会优先匹配先定义的路由规则，后面的规则将会被屏蔽，可使用next()进行转移。</p>
+</blockquote>
+<p>4，路径匹配：</p>
+<blockquote>
+<p>app.get(‘/user/:username’, function(req, res) { res.send(‘user: ‘ + req.params.username);</p>
+</blockquote>
+<p>5，模板引擎ejs，有如下三种标签：</p>
+<pre><code class="hljs html">&lt;% code %&gt;：JavaScript代码；
+&lt;%= code %&gt;：显示替换过html特殊字符的内容；
+&lt;%- code %&gt;：显示原始html内容。</code></pre>
+
+<p>6，关闭layout：</p>
+<blockquote>
+<p>app.set(‘view options’, { layout: false });<br>指定layout：<br>function(req, res) { res.render(‘userlist’, { title: ‘后台管理系统’, layout: ‘admin’ }); }; 从而指定admin.ejs作为页面布局。</p>
+</blockquote>
+<p>7，片段视图：</p>
+<blockquote>
+<p>partials。</p>
+</blockquote>
+<p>8，视图助手：</p>
+<blockquote>
+<p>静态视图助手可以是任何类型的对象，包括接受任意参数的函数，并且访问到的对象必须是与用户请求无关的；<br>动态视图助手只能是一个函数，这个函数不能接受参数，但可以访问req合res对象；</p>
+</blockquote>
+<h1 id="章六"><a href="#章六" class="headerlink" title="章六"></a>章六</h1><p>1，在不显式指定文件模块扩展名的时候，Node.js会分别试图加上.js、.json和.node扩展名。.js是JavaScript代码，.json是JSON格式的文本，.node是编译好的C/C++代码。</p>
+<p>2，当require遇到一个既不是核心模块，又不是以路径形式表示的模块名称时，会试图在当前目录下的node_modules目录中来查找。如果没有找到，则会在当前目录的上一层中的node_modules目录中继续查找，反复执行这一过程，直到遇到根目录为止。</p>
+<p>3，加载缓存：</p>
+<blockquote>
+<p>Node.js模块不会被重复加载，这是因为Node.js通过文件名缓存所有加载过的文件模块，所以以后再访问到时就不会重新加载了。注意，Node.js是根据实际文件名缓存的，加载两次，也不会重复加载，解析到的文件是同一个。</p>
+</blockquote>
+<p>4，控制流问题：</p>
+<blockquote>
+<p>循环陷阱，可用forEach、闭包、let解决。</p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/03/18/Node.js%20%E7%9A%84%20Morgan%20%E6%A8%A1%E5%9D%97%E4%B8%8E%20Cluster%20%E6%A8%A1%E5%9D%97/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Node.js 的 Morgan 模块与 Cluster 模块</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2015/11/18/%E5%AE%9E%E4%B9%A0%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">实习总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Node.js 开发指南の书摘&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

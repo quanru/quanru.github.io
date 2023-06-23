@@ -1,0 +1,839 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>深入浅出 Node.js の笔记 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-12-25 21:09" pubdate>
+        2016年12月25日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      58
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">深入浅出 Node.js の笔记</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>前端开发人员上手 Node.js 还是需要课补一些服务端知识的。</p>
+<span id="more"></span>
+
+<h1 id="章一，章二"><a href="#章一，章二" class="headerlink" title="章一，章二"></a>章一，章二</h1><ol>
+<li>单线程，使得 Node 不需要像多线程编程那样处处在意状态的同步问题（没有死锁，没有线程上下文交换）</li>
+<li>exports 对象用于导出当前模块的方法或变量，此外，在模块中还存在一个 module 对象，它代表模块自身，而 exports 是 module 的属性</li>
+<li>exports 和 module.exports 的区别:<ol>
+<li>module.exports 初始值为一个空对象 {}</li>
+<li>exports 是指向的 module.exports 的引用</li>
+<li>require() 返回的是 module.exports 而不是 exports</li>
+</ol>
+</li>
+<li>require 模块时优先从缓存中加载，而 Node 缓存的是编译和执行之后的对象</li>
+<li>require 模块时，可省略扩展名，Node 会依次补足 .js, .json, .node 进行尝试，建议后缀为 .json 和 .node 时带上扩展名</li>
+<li>在模块编译过程中，Node 对获取的 JavaScript 文件进行了头尾包装，使其执行在一个包含特定变量（exports，require，module，__filename，__dirname）的闭包中，该闭包返回模块的 exports 属性</li>
+</ol>
+<h1 id="章三"><a href="#章三" class="headerlink" title="章三"></a>章三</h1><ol>
+<li><p>阻塞 IO: 等到系统内核层面完成所有操作之后，调用随之结束</p>
+</li>
+<li><p>非阻塞 IO: 调用之后立即返回（不携带处理完成的数据，因为尚未生成），之后还得通过文件描述符再次读取数据</p>
+</li>
+<li><p>非阻塞 IO 返回之后，CPU 时间片可以用于处理其它事务，但为了获取完整数据需要轮询，以判断操作是否完成</p>
+</li>
+<li><p>轮询满足了非阻塞 IO 确保获取完整数据的需求，但是对于应用程序而言，它仍然是一种同步，因为应用程序仍然需要等待 IO 完全返回</p>
+</li>
+<li><p>Node 的单线程仅仅是指 JavaScript 执行在单线程中，内部另有线程池完成 IO 任务</p>
+</li>
+<li><p>Node 经典的调用方式: 从 JavaScript 调用 Node 的核心模块；核心模块调用 C++ 内建模块；内建模块通过 libuv 进行系统调用（其中 libuv 作为封装层，有两个平台的实现）</p>
+</li>
+<li><p>Node 的异步:</p>
+<p>第一部分：JavaScript 调用立即返回；接着在进行系统调用过程中，创建了一个请求对象，该对象包含了从JavaScript 层传入的参数和当前方法，以及回调函数；接着将该对象推入系统的线程池中等待执行，而不用在乎该操作是否阻塞 IO</p>
+<p>第二部分：线程池中的 IO 操作调用完毕之后，将 IO 结果通知并归还线程；此时在每次 Tick 的执行中，会调用特定方法检查线程池中是否有执行完的请求；若存在则将请求对象加入到 IO 观察者的队列中，然后将其当做事件处理</p>
+</li>
+<li><p>setTimeout 与 setInterval 的定时并不精确，相比 process.nextTick 更为浪费性能</p>
+</li>
+<li><p>process.nextTick 在每轮循环中将数组中的回调函数全部执行完毕，而 setImmediate 则在每轮循环中执行链表中的一个回调函数</p>
+</li>
+</ol>
+<h1 id="章四"><a href="#章四" class="headerlink" title="章四"></a>章四</h1><ol>
+<li>雪崩: 在高访问量，大并发量的情况下缓存失效的情景，此时大量的请求同时涌入数据库中数据库无法同时承受如此大的查询请求，进而往前影响到网站整体的响应速度</li>
+<li>使用 once 解决雪崩问题:</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> proxy = <span class="hljs-keyword">new</span> events.<span class="hljs-title class_">EventEmitter</span>();
+<span class="hljs-keyword">let</span> status = <span class="hljs-string">&#x27;ready&#x27;</span>;
+<span class="hljs-keyword">const</span> select = <span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) &#123;
+  proxy.<span class="hljs-title function_">once</span>(<span class="hljs-string">&#x27;selected&#x27;</span>, callback);
+  <span class="hljs-keyword">if</span>(status === <span class="hljs-string">&#x27;ready&#x27;</span>) &#123;
+    status = <span class="hljs-string">&#x27;pending&#x27;</span>;
+    db.<span class="hljs-title function_">select</span>(<span class="hljs-string">&#x27;SQL&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">ret</span>) =&gt;</span> &#123;
+      proxy.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;selected&#x27;</span>, ret);
+      status = <span class="hljs-string">&#x27;ready&#x27;</span>;
+    &#125;);
+  &#125;&#125;;</code></pre>
+
+<p>将所有请求回调都压入事件队列中，使用 once 保证每个回调只会被执行一次，对于相同的 SQL 语句，保证只查询一次；SQL 在进行查询时，新到来的相同调用只需在队列中等待就绪即可，一旦查询结束，得到的结果可以被这些调用共同使用（因为都监听了 ‘selected’ 事件）</p>
+<ol start="3">
+<li>尾触发: next() 机制</li>
+</ol>
+<h1 id="章五"><a href="#章五" class="headerlink" title="章五"></a>章五</h1><ol>
+<li><p>解除引用：delete 操作和重新赋值具有相同的效果，在 V8 中通过 delete 删除对象的属性有可能干扰V8的优化，所以建议使用赋值方式。</p>
+</li>
+<li><p>无法立即回收的内存有闭包和全局变量引用这两种情况。由于V8的内存限制，要十分小心此类变量是否无限制地增加，因为它会导致老生代中的对象增多。</p>
+</li>
+<li><p>堆中的内存总是小于进程的内存，这意味着 Node 中的内存使用并非都是通过 V8 进行分配的。那些不是通过 V8 分配的内存称为堆外内存。例如 Buffe r对象，它不经过V8的内存分配机制，所以也不会有堆内存的大小限制。</p>
+</li>
+<li><p>由于模块的缓存机制，模块是常驻老生代的。在设计模块时，要十分小心内存泄漏的出现。在下面的代码，每次调用 leak() 方法时，都导致局部变量 leakArray 不停增加内存的占用，且不被释放：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> leakArray = [];
+<span class="hljs-built_in">exports</span>.<span class="hljs-property">leak</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  leakArray.<span class="hljs-title function_">push</span>(<span class="hljs-string">&quot;leak&quot;</span> + <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">random</span>());
+&#125;;</code></pre>
+
+<p>如果模块不可避免地需要这么设计，那么请添加清空队列的相应接口，以供调用者释放内存。</p>
+<p>​</p>
+<p>深度的解决方案应该是监控队列的长度，一旦堆积，应当通过监控系统产生报警并通知相关人员。</p>
+<p>另一个解决方案是任意异步调用都应该包含超时机制，一旦在限定的时间内未完成响应，通过回调函数传递超时异常，使得任意异步调用的回调都具备可控的响应时间，给消费速度一个下限值。</p>
+</li>
+<li><p>由于V8的内存限制，我们无法通过fs.readFile()和fs.writeFile()直接进行大文件的操作，而改用fs.createReadStream()和fs.createWriteStream()方法通过流的方式实现对大文件的操作。</p>
+</li>
+</ol>
+<h1 id="章六"><a href="#章六" class="headerlink" title="章六"></a>章六</h1><ol>
+<li><p>如果需要超过 8 KB 的 Buffer 对象，将会直接分配一个 SlowBuffer 对象作为 slab 单元，这个 slab 单元将会被这个大 Buffer 对象独占。</p>
+</li>
+<li><p>上面提到的 Buffer 对象都是 JavaScript 层面的，能够被 V8 的垃圾回收标记回收。但是其内部的 parent 属性指向的 SlowBuffer 对象却来自于 Node 中 C++ 层面上的 Buffe r对象，所用内存不在 V8 的堆中。</p>
+</li>
+<li><p>当进行小而频繁的 Buffer 操作时，采用 slab 的机制进行预先申请和事后分配，使得 JavaScript 到操作系统之间不必有过多的内存申请方面的系统调用。对于大块的 Buffer 而言，则直接使用 C++ 层面提供的内存，而无需细腻的分配操作。</p>
+</li>
+<li><p>buffer += chunk; 这句代码里隐藏了 toString() 操作，它等价于如下的代码：</p>
+<pre><code class="hljs js">buffer = buffer.<span class="hljs-title function_">toString</span>() + chunk.<span class="hljs-title function_">toString</span>();</code></pre></li>
+<li><p>通过预先转换静态内容为 Buffer 对象，可以有效地减少 CPU 的重复使用，节省服务器资源。在 Node 构建的 Web 应用中，可以选择将页面中的动态内容和静态内容分离，静态内容部分可以通过预先转换为 Buffer 的方式，使性能得到提升。由于文件自身是二进制数据，所以在不需要改变内容的场景下，尽量只读取 Buffer，然后直接传输，不做额外的转换，避免损耗。</p>
+</li>
+</ol>
+<h1 id="章七"><a href="#章七" class="headerlink" title="章七"></a>章七</h1><ol>
+<li><p>TCP 针对网络中的小数据包有一定的优化策略：Nagle算法。Nagle算法要求缓冲区的数据达到一定数量或者一定时间后才将其发出，所以小数据包将会被Nagle算法合并，以此来优化网络。这种优化虽然使网络带宽被有效地使用，但是数据有可能被延迟发送。</p>
+</li>
+<li><p>在 Node 中，TCP 默认启用了 Nagle 算法，调用 socket.setNoDelay(true) 关闭 Nagle 算法，使得write() 可以立即发送数据到网络中。<br>另一个需要注意的是，尽管在网络的一端调用 write() 会触发另一端的 data 事件，但是并不意味着每次 write() 都会触发一次 data 事件，在关闭掉 Nagle 算法后，另一端可能会将接收到的多个小数据包合并，然后只触发一次 data 事件。</p>
+</li>
+<li><p>UDP 与 TCP 同属于网络传输层。TCP 中连接一旦建立，所有的会话都基于连接完成，客户端如果要与另一个 TCP 服务通信，需要另创建一个套接字来完成连接。但在 UDP 中，一个套接字可以与多个 UDP 服务通信，常常应用在那种偶尔丢一两个数据包也不会产生重大影响的场景，比如音频、视频等。UDP 目前应用很广泛，DNS 服务即是基于它实现的。</p>
+</li>
+<li><p>报文体部分则抽象为一个只读流对象，如果业务逻辑需要读取报文体中的数据，则要在这个数据流结束后才能进行操作，如下所示：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) &#123;
+  <span class="hljs-comment">// console.log(req.headers);</span>
+    <span class="hljs-keyword">var</span> buffers = [];
+    req.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">trunk</span>) &#123;
+    buffers.<span class="hljs-title function_">push</span>(trunk);
+  &#125;).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;end&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">var</span> buffer = <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">concat</span>(buffers);
+    <span class="hljs-comment">// TODO</span>
+    res.<span class="hljs-title function_">end</span>(<span class="hljs-string">&#x27;Hello world&#x27;</span>);
+  &#125;);
+&#125;
+</code></pre></li>
+<li><p>HTTP响应对象：它封装了对底层连接的写操作，可以将其看成一个可写的流对象。它影响响应报文头部信息的 API 为 res.setHeader() 和 res.writeHead()。在上述示例中：<br>  res.writeHead(200, {‘Content-Type’: ‘text/plain’});</p>
+<p>其分为 setHeader() 和 writeHead() 两个步骤。它在 http 模块的封装下，实际生成如下报文：</p>
+<p>&lt; HTTP/1.1 200 OK<br>&lt; Content-Type: text/plain</p>
+<p>我们可以调用 setHeader 进行多次设置，但只有调用 writeHead 后，报头才会写入到连接中。除此之外，http模块会自动帮你设置一些头信息，如下所示：</p>
+<p>&lt; Date: Sat, 06 Apr 2013 08:01:44 GMT<br>&lt; Connection: keep-alive<br>&lt; Transfer-Encoding: chunked<br>​</p>
+</li>
+<li><p>报文体部分则是调用 res.write() 和 res.end() 方法实现，差别在于 res.end() 会先调用 write() 发送数据，然后发送信号告知服务器这次响应结束。</p>
+</li>
+<li><p>响应结束后，HTTP 服务器可能会将当前的连接用于下一个请求，或者关闭连接。值得注意的是，报头是在报文体发送前发送的，一旦开始了数据的发送，writeHead() 和 setHeader() 将不再生效。<br>另外，无论服务器端在处理业务逻辑时是否发生异常，务必在结束时调用res.end()结束请求，否则客户端将一直处于等待的状态。</p>
+</li>
+<li><p>同时 http 模块提供了一个底层 API：http.request(options, connect)，用于构造 HTTP 客户端。</p>
+</li>
+<li><p>为了重用 TCP 连接，http 模块包含一个默认的客户端代理对象 http.globalAgent。它对每个服务器端（host + port）创建的连接进行了管理，默认情况下，通过 ClientRequest 对象对同一个服务器端发起的 HTTP 请求最多可以创建 5 个连接。</p>
+</li>
+<li><p>除此之外，WebSocket 与传统 HTTP 有如下好处：</p>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li>客户端与服务器端只建立一个TCP连接，可以使用更少的连接。</li>
+<li>WebSocket服务器端可以推送数据到客户端，这远比HTTP请求响应模式更灵活、更高效。</li>
+<li>有更轻量级的协议头，减少数据传送量。</li>
+</ol>
+</blockquote>
+<h1 id="章八"><a href="#章八" class="headerlink" title="章八"></a>章八</h1><h3 id="基础功能与数据上传"><a href="#基础功能与数据上传" class="headerlink" title="基础功能与数据上传"></a>基础功能与数据上传</h3><ol>
+<li><p>RESTful 类 Web 服务中请求方法：</p>
+<blockquote>
+<ol>
+<li>PUT 代表新建一个资源</li>
+<li>POST 表示要更新一个资源</li>
+<li>GET 表示查看一个资源</li>
+<li>而 DELETE 表示删除一个资源</li>
+</ol>
+</blockquote>
+<p>我们可以通过请求方法来决定响应行为，如下所示：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) &#123;
+  <span class="hljs-keyword">switch</span> (req.<span class="hljs-property">method</span>) &#123;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;POST&#x27;</span>:
+  	<span class="hljs-title function_">update</span>(req, res);
+  	<span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;DELETE&#x27;</span>:
+  	<span class="hljs-title function_">remove</span>(req, res);
+  	<span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;PUT&#x27;</span>:
+  	<span class="hljs-title function_">create</span>(req, res);
+  	<span class="hljs-keyword">break</span>;
+  <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;GET&#x27;</span>:
+  	<span class="hljs-attr">default</span>:
+  	<span class="hljs-title function_">get</span>(req, res);
+  &#125;
+&#125;</code></pre>
+
+<p>​</p>
+</li>
+<li><p>```js<br>var url = require(‘url’);<br>var querystring = require(‘querystring’);<br>var query = querystring.parse(url.parse(req.url).query);</p>
+<p>//更简洁的方法是给url.parse()传递第二个参数，如下所示：<br>var query = url.parse(req.url, true).query;</p>
+<p>// 它会将foo=bar&amp;baz=val解析为一个JSON对象，如下所示：<br>{<br>  foo: ‘bar’,<br>  baz: ‘val’<br>}</p>
+<pre><code class="hljs awk">
+<span class="hljs-number">3</span>. 要注意的点是，如果查询字符串中的键出现多次，那么它的值会是一个数组，如下所示：
+
+   ```js
+   <span class="hljs-regexp">//</span> foo=bar&amp;foo=baz
+   var query = url.parse(req.url, true).query;
+
+   <span class="hljs-regexp">//</span> &#123;
+   <span class="hljs-regexp">//</span> foo: [<span class="hljs-string">&#x27;bar&#x27;</span>, <span class="hljs-string">&#x27;baz&#x27;</span>]
+   <span class="hljs-regexp">//</span> &#125;
+</code></pre>
+
+<p>业务的判断一定要检查值是数组还是字符串，否则可能出现TypeError异常的情况。</p>
+</li>
+<li><p>Cookie 的处理分为如下几步：</p>
+<blockquote>
+<ol>
+<li>服务器向客户端发送 Cookie。</li>
+<li>浏览器将 Cookie 保存。</li>
+<li>之后每次浏览器都会将 Cookie 发向服务器端。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>HTTP_Parser 会将所有的报文字段解析到 req.headers 上，那么 Cookie 就是 req.headers.cookie。</p>
+</li>
+<li><p>响应的 Cookie 值在 Set-Cookie 字段中，规范中对它的定义如下所示：<br>Set-Cookie: name=value; Path=/; Expires=Sun, 23-Apr-23 09:01:35 GMT; Domain=.domain.com;<br>其中 name=value 是必须包含的部分，其余部分皆是可选参数。</p>
+<blockquote>
+<ol>
+<li>path 表示这个 Cookie 影响到的路径，当前访问的路径不满足该匹配时，浏览器则不发送这个 Cookie。</li>
+<li>HttpOnly 告知浏览器不允许通过脚本 document.cookie 去更改这个 Cookie 值，事实上，设置HttpOnly 之后，这个值在 document.cookie 中不可见。但是在 HTTP 请求的过程中，依然会发送这个Cookie到服务器端。</li>
+<li>Secure，当Secure值为true时，在HTTP中是无效的，在HTTPS中才有效，表示创建的Cookie只能在HTTPS连接中被浏览器传递到服务器端进行会话验证，如果是HTTP连接则不会传递该信息，所以很难被窃听到。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>如果在域名的根节点设置 Cookie，将使得几乎所有子路径下的请求都会带上这些Cookie。</p>
+<p>解决方法：为静态组件使用不同的域名</p>
+<blockquote>
+<ol>
+<li>为不需要 Cookie 的组件换个域名减少无效 Cookie 的传输。</li>
+<li>同时还可以突破浏览器下载线程数量的限制，因为域名不同，可以将下载线程数翻倍。</li>
+<li>缺点是域名转换为 IP 需要进行 DNS 查询，多一个域名就多一次 DNS 查询。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>为了解决 Cookie 敏感数据的问题，Session 的数据只保留在服务器端，使数据的安全性得到一定的保障。</p>
+<p>两种方式：</p>
+<blockquote>
+<ol>
+<li>第一种：基于Cookie来实现用户和数据的映射</li>
+<li>第二种：通过查询字符串来实现浏览器端和服务器端数据的对应</li>
+</ol>
+<p>注: 用户访问 <a target="_blank" rel="noopener" href="http://localhost/pathname">http://localhost/pathname</a> 时，如果服务器端发现查询字符串中不带 session_id 参数，就会将用户跳转到 <a target="_blank" rel="noopener" href="http://localhost/pathname?session_id=12344567">http://localhost/pathname?session_id=12344567</a> 这样一个类似的地址。如果浏览器收到302状态码和Location报头，就会重新发起新的请求。</p>
+<p>有的服务器在客户端禁用Cookie时，会采用这种方案实现退化。通过这种方案，无须在响应时设置Cookie。但是这种方案带来的风险远大于基于Cookie实现的风险，因为只要将地址栏中的地址发给另外一个人，那么他就拥有跟你相同的身份。Cookie的方案在换了浏览器或者换了电脑之后无法生效，相对较为安全。</p>
+</blockquote>
+</li>
+<li><p>为了解决性能问题和 Session 数据无法跨进程共享的问题，常用的方案是将 Session 集中化，将原本可能分散在多个进程里的数据，统一转移到集中的数据存储中。工具有 Redis、Memcached 等，通过这些高效的缓存，Node 进程无须在内部维护数据对象，垃圾回收问题和内存限制问题都可以迎刃而解，并且这些高速缓存设计的缓存过期策略更合理更高效，比在Node中自行设计缓存策略更好。</p>
+</li>
+<li><p>采用第三方缓存来存储 Session 引起的一个问题是会引起网络访问。理论上来说访问网络中的数据要比访问本地磁盘中的数据速度要慢，因为涉及到握手、传输以及网络终端自身的磁盘I/O等，尽管如此但依然会采用这些高速缓存的理由有以下几条：</p>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li>Node 与缓存服务保持长连接，而非频繁的短连接，握手导致的延迟只影响初始化。</li>
+<li>高速缓存直接在内存中进行数据存储和访问。</li>
+<li>缓存服务通常与Node进程运行在相同的机器上或者相同的机房里，网络速度受到的影响较小。</li>
+</ol>
+</blockquote>
+<ol start="11">
+<li>ETag: 由服务端生成，服务端还可以决定它的生成规则，例如根据文件内容生成 Hash 值</li>
+<li>数据上传与安全：</li>
+</ol>
+<blockquote>
+<p>内存限制：1. 限制上传内容的大小，一旦超过限制，停止并响应 400 状态码；2. 通过流式解析，将数据流导向磁盘中，Node 只保留文件路径等小数据</p>
+</blockquote>
+<blockquote>
+<p>CSRF：跨站请求伪造，可为每个请求的用户在 Session 中赋予一个随机值</p>
+</blockquote>
+<h3 id="路由解析与中间件"><a href="#路由解析与中间件" class="headerlink" title="路由解析与中间件"></a>路由解析与中间件</h3><ol>
+<li>MVC</li>
+</ol>
+<blockquote>
+<p>Controller，一组行为的集合</p>
+<p>Model，数据相关的操作和封装</p>
+<p>View，视图的渲染</p>
+</blockquote>
+<ol start="2">
+<li>require 的缓存机制使得只有在首次 require 时是阻塞的</li>
+<li>RESTful：将服务器端提供的内容看做一个资源，对该资源的操作只要体现在 HTTP 请求方法上：</li>
+</ol>
+<blockquote>
+<p>POST  /user/tihu</p>
+<p>DELETE /user/tihu</p>
+<p>PUT /user/tihu</p>
+<p>GET /user/tihu</p>
+</blockquote>
+<ol start="4">
+<li>Connect 中间件使用 next() 进行尾触发</li>
+<li>中间件与性能：</li>
+</ol>
+<blockquote>
+<ol>
+<li>编写高效的中间件：提高单个处理单元的处理速度，以尽早调用 next()；缓存需要重复计算的结果；避免不必要的计算</li>
+<li>合理使用路由：例如只处理静态资源的中间件，可限定路由（app.use(‘/public’, statcFile))，从而避免对整站都处理</li>
+</ol>
+</blockquote>
+<h1 id="章九"><a href="#章九" class="headerlink" title="章九"></a>章九</h1><ol>
+<li>创建子进程：child_process 模块的四种方法</li>
+</ol>
+<blockquote>
+<ol>
+<li>spawn() 启动一个子进程来执行命令</li>
+<li>exec() 与 spawn 不同，它多了一个用于获知子进程状况的回调</li>
+<li>execFile() 启动一个子进程来执行可执行文件</li>
+<li>fork() 与 spawn 类似，不同点在于创建的子进程只需指定 JavaScript 文件模块</li>
+</ol>
+<p>注：其中 2，3 可设置超时</p>
+</blockquote>
+<ol start="2">
+<li>子进程对象的 send() 方法支持发送以下五种类型的句柄</li>
+</ol>
+<blockquote>
+<ol>
+<li>net.Socket，TCP 套接字</li>
+<li>net.Server， TCP 服务器</li>
+<li>net.Native， C++ 层面的 TCP 套接字或 IPC 管道</li>
+<li>dgram.Socket，UDP 套接字</li>
+<li>dgram.Native， C++ 层面的 UDP 套接字</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li>多个应用监听相同端口时，文件描述符同一时间只能被某个进程所用，即抢占式的，因此只有一个进程能够抢到连接</li>
+<li>除了 send() 外，还能通过 kill() 方法给子进程发送消息，kill() 方法只是给子进程发送了一个系统信号，进程在收到这些系统信号时，做出约定的行为</li>
+<li>自杀信号：当所有进程都处于等待退出状态，并停止接收新连接，如果等到进程退出才重启，则此时新来的请求可能存在没有工作进程为新用户服务的情景，从而丢失请求；解决方法是在子进程决定退出前主动向父进程发送一个 “自杀信号” 通知父进程，使得父进程能够及时创建新进程。</li>
+<li>限量重启：当重启过于频繁时，主动通知进程放弃重启</li>
+<li>状态共享，使用第三方进行数据存储，比如数据库，磁盘文件，缓存服务（如 Redis），因此需要一种机制通知各个子进程：各个子进程向第三方进行定时轮询</li>
+<li>状态共享，主动通知，可设计一个进程只进行轮询和通知，如果想跨越多台服务器，可采用 UDP 或 TCP 方案</li>
+</ol>
+<h1 id="章十"><a href="#章十" class="headerlink" title="章十"></a>章十</h1><ol>
+<li>单测原则</li>
+</ol>
+<blockquote>
+<ol>
+<li>单一职责</li>
+<li>接口抽象</li>
+<li>层次分离</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li>TDD：测试驱动开发；BDD：行为驱动开发；二者差别：</li>
+</ol>
+<blockquote>
+<ol>
+<li>关注点不同，TDD 关注所有功能是否被正确实现，每个功能对应一个测试用例；BDD 关注整体行为是否符合预期，适合自顶向下的设计方式</li>
+<li>表达方式不同，TDD 偏向于功能说明书风格，而 BDD 更接近与自然语言的习惯</li>
+</ol>
+</blockquote>
+<ol start="3">
+<li><p>BDD：before 与 after 分别在进入和退出 describe 时触发，beforeEach 与 afterEach 分别在 describe 中的每个测试用例执行前和执行后触发</p>
+</li>
+<li><p>性能测试</p>
+<blockquote>
+<ol>
+<li>基准测试，统计在多少时间内执行了多少次某个方法</li>
+<li>压力测试，对网络接口进行压测的指标主要有吞吐率，响应时间和并发数</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/03/18/%E7%BC%96%E5%86%99%20redux%20%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">redux 中间件入门到编写，到改进，到出门</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/12/24/%E7%AC%AC%E5%8D%81%E4%B8%80%E5%B1%8A%20D2%20%E4%BC%9A%E8%AE%AE%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">第十一届 D2 会议的观后感与总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "深入浅出 Node.js の笔记&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

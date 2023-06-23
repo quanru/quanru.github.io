@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>排查守候在零点两分的 bug - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-18 14:00" pubdate>
+        2020年9月18日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">排查守候在零点两分的 bug</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>最近接手泛前端团队的服务稳定性治理，遇到一些很有特点的线上问题，这边记录一次『有趣的 bug』排查</strong></p>
+<span id="more"></span>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>故事的开始是由老板的一个艾特开始的：</p>
+<p><img src="/post-img/2am1.jpg" srcset="/img/loading.gif"></p>
+<p>当时排查了下没啥思路，就放弃了（以为偶现，过几天它能自己好起来！）。直到某一天我又收到了同样的告警，我回想了下最近好几天都有这个告警。</p>
+<p>抬头一看：</p>
+<p><img src="/post-img/2am2.jpg" srcset="/img/loading.gif"></p>
+<p>心里一惊：别搞出事故啊！就开始了我的排查之路。</p>
+<h2 id="排查思路"><a href="#排查思路" class="headerlink" title="排查思路"></a>排查思路</h2><p>根据告警错误栈显示，这是一个 “unhandledRejection”：</p>
+<pre><code class="hljs gradle">[ERROR][<span class="hljs-number">2020</span>-<span class="hljs-number">09</span>-<span class="hljs-number">16</span>T23:<span class="hljs-number">59</span>:<span class="hljs-number">59.582</span>+<span class="hljs-number">0800</span>][<span class="hljs-keyword">default</span>:process.&lt;anonymous&gt;  at <span class="hljs-regexp">/home/</span>xxx<span class="hljs-regexp">/xxx/</span>xxx<span class="hljs-regexp">/lib/</span>app.js:<span class="hljs-number">49</span>:<span class="hljs-number">10</span>] _undef||traceid=<span class="hljs-number">64594</span>b155f6231298ae0e2b114a1a02||spanid=<span class="hljs-number">38197</span>e8a96a6d96a||pid=<span class="hljs-number">1431</span>||msg=on unhandledRejection, error: &#123; Error: ERR invalid expire time in set
+    at JavascriptReplyParser.parseResult (<span class="hljs-regexp">/home/</span>xxx<span class="hljs-regexp">/xxx/</span>xxx<span class="hljs-regexp">/node_modules/</span>redis-parser<span class="hljs-regexp">/lib/</span>javascript.js:<span class="hljs-number">90</span>:<span class="hljs-number">16</span>)
+    at JavascriptReplyParser.tryParsing (<span class="hljs-regexp">/home/</span>xxx<span class="hljs-regexp">/xxx/</span>xxx<span class="hljs-regexp">/node_modules/</span>redis-parser<span class="hljs-regexp">/lib/</span>javascript.js:<span class="hljs-number">117</span>:<span class="hljs-number">21</span>)
+    at JavascriptReplyParser.run (<span class="hljs-regexp">/home/</span>xxx<span class="hljs-regexp">/xxx/</span>xxx<span class="hljs-regexp">/node_modules/</span>redis-parser<span class="hljs-regexp">/lib/</span>javascript.js:<span class="hljs-number">131</span>:<span class="hljs-number">22</span>)
+    at JavascriptReplyParser.execute (<span class="hljs-regexp">/home/</span>xxx<span class="hljs-regexp">/xxx/</span>xxx<span class="hljs-regexp">/node_modules/</span>redis-parser<span class="hljs-regexp">/lib/</span>javascript.js:<span class="hljs-number">112</span>:<span class="hljs-number">10</span>)
+    at Socket.&lt;anonymous&gt; (<span class="hljs-regexp">/home/</span>xxx<span class="hljs-regexp">/xxx/</span>xxx<span class="hljs-regexp">/node_modules/</span>redis/index.js:<span class="hljs-number">223</span>:<span class="hljs-number">27</span>)
+    at emitOne (events.js:<span class="hljs-number">116</span>:<span class="hljs-number">13</span>)
+    at Socket.emit (events.js:<span class="hljs-number">211</span>:<span class="hljs-number">7</span>)
+    at addChunk (_stream_readable.js:<span class="hljs-number">263</span>:<span class="hljs-number">12</span>)
+    at readableAddChunk (_stream_readable.js:<span class="hljs-number">250</span>:<span class="hljs-number">11</span>)
+    at Socket.Readable.<span class="hljs-keyword">push</span> (_stream_readable.js:<span class="hljs-number">208</span>:<span class="hljs-number">10</span>) command: <span class="hljs-string">&#x27;SET&#x27;</span>, code: <span class="hljs-string">&#x27;ERR&#x27;</span> &#125;</code></pre>
+
+<p>所以一层一层往上找，是找不到抛错的源头的！猜测了一通无果，于是我去翻告警群的记录，我发现了一个惊人的规律，该告警只要出现，必定是每天凌晨 00:02：</p>
+<p><img src="/post-img/2am3.jpg" srcset="/img/loading.gif"></p>
+<p>因此排查思路锁定在以下几个：</p>
+<ol>
+<li>存在每天定时任务设置某个 redis 值的超时时间？</li>
+<li>服务器时间存在误差？</li>
+</ol>
+<h2 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h2><p>剧透下，并不是上述两个原因。</p>
+<p>经过多番搜索代码，发现了几处设置 redis 值的代码，同时结合 Google，有人指出 Redis 设置的超时时间不能为小于 0。经过本地验证，的确发现超时时间不能为 0：</p>
+<p><img src="/post-img/2am4.jpg" srcset="/img/loading.gif"></p>
+<p>于是排查方向转为代码中哪里出现了设置超时时间小于 0 的逻辑。可疑代码如下：</p>
+<pre><code class="hljs js"><span class="hljs-title function_">setRedisKey</span>(
+  redisTeamKey,
+  data,
+  <span class="hljs-number">24</span> * <span class="hljs-number">3600</span> - <span class="hljs-title function_">getPastTimeOfToday</span>() / <span class="hljs-number">1000</span>,
+)</code></pre>
+
+
+
+<p>那么这个值 <code>24*3600 - getPastTimeOfToday() / 1000</code> 可能为 0 或者负数吗？我们来看看完整逻辑：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">getPastTimeOfToday</span> = (<span class="hljs-params"></span>) =&gt; &#123;
+  <span class="hljs-keyword">const</span> date = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()
+  <span class="hljs-keyword">const</span> year = date.<span class="hljs-title function_">getFullYear</span>()
+  <span class="hljs-keyword">const</span> month = <span class="hljs-title function_">strPadding</span>(date.<span class="hljs-title function_">getMonth</span>() + <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-number">2</span>)
+  <span class="hljs-keyword">const</span> day = <span class="hljs-title function_">strPadding</span>(date.<span class="hljs-title function_">getDate</span>(), <span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-number">2</span>)
+  <span class="hljs-keyword">const</span> todayStartTs = +<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;year&#125;</span>/<span class="hljs-subst">$&#123;month&#125;</span>/<span class="hljs-subst">$&#123;day&#125;</span> 00:00:00`</span>)
+  <span class="hljs-keyword">return</span> +<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>() - +<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(todayStartTs)
+&#125;</code></pre>
+
+
+
+<p>这个值代表当前这个时间点，离今天结束还有多少秒的时间。可是这个值不可能小于 0，我甚至猜测是否执行上述代码第二行时是昨天，而第七行的时候是今天，这样能验证我们的猜测，即这个函数返回的值大于 <code>24*3600</code>，那 <code>24*3600 - getPastTimeOfToday() / 1000</code> 就小于 0 了。不过这个可能性比较低，于是我转而去服务器复现这个 bug，编写如下代码并执行：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> &#123; setRedisKey &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./lib/xxx/xxx/redis&#x27;</span>)
+
+process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;unhandledRejection&#x27;</span>, <span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span>)
+
+<span class="hljs-title function_">setRedisKey</span>(<span class="hljs-string">&#x27;abc&#x27;</span>, <span class="hljs-string">&#x27;value&#x27;</span>, <span class="hljs-number">0</span>)</code></pre>
+
+
+
+<p>执行结果如下，与告警的错误栈一致：</p>
+<p><img src="/post-img/2am5.jpg" srcset="/img/loading.gif"></p>
+<p>既然复现了错误，回头继续找 bug，深入到 <code>setRedisKey</code> 代码：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">setRedisKey</span> = (<span class="hljs-params">key, value, expireTime = DEFAULT_EXPIRETIME</span>) =&gt; &#123;
+  <span class="hljs-keyword">return</span> redis.<span class="hljs-title function_">set</span>(key, value, <span class="hljs-string">&#x27;EX&#x27;</span>, <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(expireTime))
+&#125;</code></pre>
+
+
+
+<p>过期时间 <code>expireTime</code> 被 Math.floor 包裹，也就是说当 <code>0 &lt; expireTime  &lt; 1</code> 时，<code>Math.floor(expireTime)</code> 的值为 0。那么当服务器时间到无限接近 00:00:00 时，<code>getPastTimeOfToday</code> 将返回 <code>(24*3600-x)*1000</code> ，因为无限接近 00:00:00，因此 x 的值介于 0 - 1 之间（毕竟时间戳的最小单位是毫秒，想象下『当天剩余毫秒数』还有不到 1000 的情况）。</p>
+<h2 id="为什么-unhandledRejection"><a href="#为什么-unhandledRejection" class="headerlink" title="为什么 unhandledRejection"></a>为什么 unhandledRejection</h2><p>对了，为什么该错误没有被捕获？如果一开始被捕获，也就有完整的错误栈，那么排查过程肯定会顺利很多。业务代码如下（已脱敏）：</p>
+<pre><code class="hljs js"><span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;出错了！&#x27;</span>))
+&#125;).<span class="hljs-title function_">catch</span>(<span class="hljs-variable language_">console</span>.<span class="hljs-property">error</span>)</code></pre>
+
+<p>大家发现了吧，then 中的 Promise 没有返回，那么我返回了就一定会被捕获吗？在这种写法下是会的，大家可以尝试下，但是你写成下面这样，还是会 <code>unhandledRejection</code>：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">if</span> (<span class="hljs-literal">false</span>) &#123;
+    <span class="hljs-title function_">resolve</span>(<span class="hljs-string">&#x27;对了！&#x27;</span>)
+  &#125;
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;出错了！&#x27;</span>))
+  &#125;
+
+  
+  <span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;兜底逻辑！&#x27;</span>))
+&#125;).<span class="hljs-title function_">catch</span>(<span class="hljs-variable language_">console</span>.<span class="hljs-property">warn</span>)</code></pre>
+
+<p>为什么呢？因为需要手动调用 reject 才可抛错，这就需要层层将 resolve 和 reject 传入可能报错的 Promise 才行，珍爱生命远离 Promise，大家还是尽量用 <code>async/await</code> 语法（相同功能下）。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>原因既然依旧找到，解决方式也就出来了：</p>
+<ol>
+<li>向下取整 Math.floor 改为向上取整 Math.ceil（不过极端情况下还是存在当天剩余毫秒数恰好为 0 的情况）</li>
+<li>判断  <code>expireTime</code> 值小于等于 0 时，赋值为 1（续一秒，蛤蛤蛤），同时记录 warn 警告日志</li>
+<li>排查未 return 的 Promise，统一返回</li>
+</ol>
+<p>尝试找了下 typescript 限制 number 为正整数的方式，没有找到，有的话求大神告知？</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Node-js-%E6%9C%8D%E5%8A%A1%E7%AB%AF/">Node.js 服务端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BA%BF%E4%B8%8A-Bug-%E6%8E%92%E6%9F%A5/">线上 Bug 排查</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/27/%E7%BB%99%E4%BD%A0%E5%BF%83%E7%88%B1%E7%9A%84%20npm%20%E5%8C%85%E4%B8%8A%E4%B8%AA%E5%8C%97%E4%BA%AC%E6%88%B7%E5%8F%A3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">给你心爱的 npm 包上个『北京户口』</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/11/Chrome%20%E8%B0%9C%E4%B8%80%E6%A0%B7%E5%8D%A1%E6%AD%BB%E7%9A%84%E6%8E%92%E6%9F%A5%E6%96%B9%E6%B3%95/">
+                        <span class="hidden-mobile">Chrome 谜一样卡死的排查方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "排查守候在零点两分的 bug&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

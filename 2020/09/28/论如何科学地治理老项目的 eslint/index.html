@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>论如何科学地治理老项目的 eslint - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-28 12:50" pubdate>
+        2020年9月28日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">论如何科学地治理老项目的 eslint</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>行之有效，可行性高的治理方式</strong></p>
+<span id="more"></span>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>总有那么些老项目，当老板叫你上去开发需求时，你会有一种不祥的预感，生怕改完一发布，线上就崩了。但是你还是慌兮兮的介入开发，想着开发完马上抽身。这些除了一些贴药膏式的业务逻辑外，让你十分缺乏安全感的就是项目没有接入 eslint，一不小心就是一个低级语法造成 crash；更可怕的是接入了大家都不遵守，想象下编辑器满屏红色错误，黄色警告的画面，此时的你，已经对报错不敏感，以致同流合污。有一个犯罪心理学上的理论可以套用在软件工程中，即『破窗效应』：</p>
+<blockquote>
+<p>此理论认为环境中的不良现象如果被放任存在，会诱使人们仿效，甚至变本加厉。以一幢有少许破窗的建筑为例，如果那些窗不被修理好，可能将会有破坏者破坏更多的窗户。最终他们甚至会闯入建筑内，如果发现无人居住，也许就在那里定居或者纵火。一面墙，如果出现一些涂鸦没有被清洗掉，很快的，墙上就布满了乱七八糟、不堪入目的东西；一条人行道有些许纸屑，不久后就会有更多垃圾，最终人们会视若理所当然地将垃圾顺手丢弃在地上。</p>
+</blockquote>
+<p>因此，随着时间的推移，此类项目会变得愈发难以维护。当然，这种难以维护不仅仅是 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint">eslint</a> 的问题，会有一系列约定和规范的问题，约定和规范制定很简单，但是如何保证这些约定和规范执行才是关键。本文聚焦 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint">eslint</a> 治理，将以一个仍然在持续维护的项目为例，阐述如何治理这种老项目。</p>
+<h2 id="现状描述"><a href="#现状描述" class="headerlink" title="现状描述"></a>现状描述</h2><p>当前存在的 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint">eslint</a> 错误数和告警数：</p>
+<p><img src="/post-img/eslint1.png" srcset="/img/loading.gif"></p>
+<p>其中 5697 个错误和 65 个警告可被自动修复，修复后仍剩余 6468 个。经发现，原有项目使用 Airbnb 等规则集，由于该规则十分严格，且本身没有可靠手段阻止不符合规范的代码入库，使得开发更不愿意遵守，错误数有越来越多的趋势，即使自动修复，也仍有 6000+ 的错误。因此选择和制定一个大家都能良好遵守的规则集就很重要，切忌进入『越严格越牛逼』的误区，时刻记住我们的目的是保证代码符合一定的规范，从而避免低级错误。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><p>最后经过调研和讨论，我们采用如下的规则集：</p>
+<pre><code class="hljs js"><span class="hljs-attr">extends</span>: [
+    <span class="hljs-string">&#x27;standard&#x27;</span>,
+    <span class="hljs-string">&#x27;plugin:@typescript-eslint/recommended&#x27;</span>,
+    <span class="hljs-string">&#x27;plugin:react/recommended&#x27;</span>,
+    <span class="hljs-string">&#x27;plugin:react-native/all&#x27;</span>,
+    <span class="hljs-string">&#x27;prettier&#x27;</span>,
+    <span class="hljs-string">&#x27;prettier/@typescript-eslint&#x27;</span>,
+  ]</code></pre>
+
+
+
+<p>此处我们接入了 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/prettier">prettier</a> 和 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/lint-staged">lint-staged</a>，前者用于保证同一份代码仅输出一个确定的格式；后者用于保证不会有新的 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint">eslint</a> 错误引入，并对修改过的文件强制校验，从而逐步减少错误数。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>eslint 默认的结果仅支持文件维度的统计，这在错误数非常多的项目是不适合的，几乎所有文件都有相当数量的错误。此处使用工具 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/eslint-formatter-stats">eslint-formatter-stats</a>，使得我们可以从错误类型的维度进行分析。运行结果如下：</p>
+<h3 id="接入后未修复的-eslint-结果"><a href="#接入后未修复的-eslint-结果" class="headerlink" title="接入后未修复的 eslint 结果"></a>接入后未修复的 eslint 结果</h3><p><img src="/post-img/eslint2.png" srcset="/img/loading.gif"></p>
+<p>10959 个错误和警告</p>
+<h3 id="接入并修复的-eslint-结果"><a href="#接入并修复的-eslint-结果" class="headerlink" title="接入并修复的 eslint 结果"></a>接入并修复的 eslint 结果</h3><p><img src="/post-img/eslint3.jpg" srcset="/img/loading.gif"></p>
+<p>837 个错误和警告</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="错误数"><a href="#错误数" class="headerlink" title="错误数"></a>错误数</h3><p>接入并修复之后，错误数仅有 800+，老板说对，放低点要求，我们 eslint 做得还挺好。</p>
+<h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><p>错误数量排名靠前的大部分是一些不影响程序功能的，而且为了保证线上代码的稳定性，除了自动修复以外，本次治理尽量不去更改其它错误。因此决定重点看看几个造成影响或可能造成影响的高危错误：</p>
+<ol>
+<li><code>no-undef</code>，即使用了未定义的变量，这种错误极有可能造成 crash，目前有 13 处</li>
+<li><code>import-no-unresolved</code>，即导入了不存在的模块，目前有 6 处</li>
+<li><code>react-no-key</code>，即数组元素未使用 key，可能造成卡顿，目前有 4 处</li>
+<li><code>react-native-no-unused-styles</code>，即存在未使用的样式，造成应用体积变大，目前有 45 处</li>
+<li><code>no-dupe-keys</code> 和 <code>no-duplicate-case</code>，即重复定义的对象 key 或者 switch case，增加了不确定性，目前有 7 处</li>
+<li><code>react/no-direct-muttion-state</code>，即直接修改 this.state，有可能导致状态更新不生效，目前有 21 处</li>
+</ol>
+<p>此外，诸如变量驼峰，双等号这种错误如果数量巨大，建议改成 warn 级别或者直接关闭，毕竟无关痛痒。经过上述修复之后，剩余的就交给 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/lint-staged">lint-staged</a> 即可。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/">工作记录</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%A1%B9%E7%9B%AE%E6%B2%BB%E7%90%86/">项目治理</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/02/%E4%BD%BF%E7%94%A8%20Node.js%20%E5%B0%86%E7%8F%8D%E8%97%8F%E7%9A%84%20bash%20%E8%84%9A%E6%9C%AC%E5%B0%81%E8%A3%85%E6%88%90%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用 Node.js 将珍藏的 bash 脚本封装成命令行工具</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/27/%E7%BB%99%E4%BD%A0%E5%BF%83%E7%88%B1%E7%9A%84%20npm%20%E5%8C%85%E4%B8%8A%E4%B8%AA%E5%8C%97%E4%BA%AC%E6%88%B7%E5%8F%A3/">
+                        <span class="hidden-mobile">给你心爱的 npm 包上个『北京户口』</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "论如何科学地治理老项目的 eslint&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

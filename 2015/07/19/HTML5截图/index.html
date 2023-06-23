@@ -1,0 +1,656 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>HTML5 截图 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-07-19 10:41" pubdate>
+        2015年7月19日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">HTML5 截图</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>实现一个类似于QQ截图的小东西，点击载入按钮，则载入图片，长按图片，弹出截图框，截图框右下角能够调整大小，并在右边的截图预览区域实时显示</strong></p>
+<span id="more"></span>
+
+<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>实现一个类似于QQ截图的小东西，点击载入按钮，则载入图片，长按图片，弹出截图框，截图框右下角能够调整大小，并在右边的截图预览区域实时显示，其最终效果图如下：<br><img src="/post-img/screenShot.png" srcset="/img/loading.gif" alt="示意图"></p>
+<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><p>需要注意canvas的设置，主要结构如下：</p>
+<pre><code class="hljs HTML"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;clearfix&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;origin&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;originImg&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;500&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;500&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;shotRect&quot;</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;resizeBR&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">canvas</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;showPre&quot;</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;500&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;500&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">canvas</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span></code></pre>
+<h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><p>截图框初始大小为50px<em>50px,右下角设置了一个不可见的调节区域,此处大小设置为12px</em>12px，并在之后为其注册调整大小的事件。</p>
+<pre><code class="hljs CSS"><span class="hljs-selector-id">#shotRect</span> &#123;
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">display</span>: none;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">50px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;
+    <span class="hljs-attribute">opacity</span>: .<span class="hljs-number">5</span>;
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid <span class="hljs-number">#2d2d2d</span>;
+&#125;
+
+<span class="hljs-selector-class">.resizeBR</span> &#123;
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">right</span>: -<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">5px</span>;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">12px</span>;
+    <span class="hljs-attribute">cursor</span>: nw-resize;
+    <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">background</span>: <span class="hljs-number">#000</span>;
+    <span class="hljs-attribute">background</span>: <span class="hljs-number">#ff0</span>;
+&#125;</code></pre>
+<p>其中原始图片的canvas大小与预览区的大小一致。</p>
+<h1 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h1><h2 id="载入图片，并绘制canvas"><a href="#载入图片，并绘制canvas" class="headerlink" title="载入图片，并绘制canvas"></a>载入图片，并绘制canvas</h2><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">loadImg</span>(<span class="hljs-params">event</span>) &#123; <span class="hljs-comment">//载入图片</span>
+    cOri = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;originImg&quot;</span>);
+    imgOri = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Image</span>();
+    ctxOri = cOri.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&quot;2d&quot;</span>);
+    imgOri.<span class="hljs-property">src</span> = <span class="hljs-string">&quot;vegetable.jpg&quot;</span>;
+    imgOri.<span class="hljs-property">onload</span>=<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;
+        ctxOri.<span class="hljs-title function_">drawImage</span>(imgOri,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">500</span>,<span class="hljs-number">500</span>);<span class="hljs-comment">//将图片绘制到canvas上</span>
+    &#125;;
+&#125;</code></pre>
+
+<h2 id="长按待截图区域-弹出截图框"><a href="#长按待截图区域-弹出截图框" class="headerlink" title="长按待截图区域,弹出截图框"></a>长按待截图区域,弹出截图框</h2><pre><code class="hljs javaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">longClick</span>(<span class="hljs-params">event</span>) &#123; <span class="hljs-comment">//长按弹出截图框</span>
+    event = event || <span class="hljs-variable language_">window</span>.<span class="hljs-property">event</span>;
+    <span class="hljs-keyword">var</span> shotRect = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;shotRect&quot;</span>);
+    timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+        shotRect.<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">&quot;block&quot;</span>;
+        <span class="hljs-keyword">var</span> disX = event.<span class="hljs-property">clientX</span> - shotRect.<span class="hljs-property">offsetWidth</span> + <span class="hljs-number">10</span>,
+            disY = event.<span class="hljs-property">clientY</span> - shotRect.<span class="hljs-property">offsetHeight</span> + <span class="hljs-number">10</span>;
+        shotRect.<span class="hljs-property">style</span>.<span class="hljs-property">left</span> = disX + <span class="hljs-string">&#x27;px&#x27;</span>;
+        shotRect.<span class="hljs-property">style</span>.<span class="hljs-property">top</span> = disY + <span class="hljs-string">&#x27;px&#x27;</span>;
+        <span class="hljs-title function_">initCanvas</span>();
+        <span class="hljs-title function_">updateRect</span>(disX, disY, shotRect.<span class="hljs-property">offsetWidth</span>, shotRect.<span class="hljs-property">offsetHeight</span>);
+    &#125;, <span class="hljs-number">1000</span>);
+&#125;</code></pre>
+<p>释放鼠标时,需要清除timeout。</p>
+<h3 id="初始化预览canvas"><a href="#初始化预览canvas" class="headerlink" title="初始化预览canvas"></a>初始化预览canvas</h3><pre><code class="hljs javaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">initCanvas</span>(<span class="hljs-params"></span>) &#123;<span class="hljs-comment">//初始化预览画布</span>
+    cPre = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;showPre&quot;</span>);
+    ctxPre = cPre.<span class="hljs-title function_">getContext</span>(<span class="hljs-string">&quot;2d&quot;</span>);
+    img = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;originImg&quot;</span>);
+&#125;</code></pre>
+<h3 id="更新预览canvas"><a href="#更新预览canvas" class="headerlink" title="更新预览canvas"></a>更新预览canvas</h3><p>根据原始图片,在预览区域上使用drawImage方法画出预览图,其中x,y为截图框左上角相对于原始图片左上角的坐标;而w,h为截图框的长与宽;这四个参数提取出了截图框内的图像数据,而之后(0,0)这个坐标代表在画布上放置该图像数据的坐标位置,(0,0)意味着将该图像数据的左上角与预览区域的左上角重合。</p>
+<pre><code class="hljs javaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">updateRect</span>(<span class="hljs-params">x, y, w, h</span>) &#123;<span class="hljs-comment">//更新画布</span>
+    ctxPre.<span class="hljs-title function_">clearRect</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">500</span>, <span class="hljs-number">500</span>); <span class="hljs-comment">//清空画布</span>
+    ctxPre.<span class="hljs-title function_">drawImage</span>(img, x, y, w, h, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">500</span>, <span class="hljs-number">500</span>);
+&#125;</code></pre>
+<h3 id="调整截图框大小"><a href="#调整截图框大小" class="headerlink" title="调整截图框大小"></a>调整截图框大小</h3><p>计算截图框左上角的坐标，并根据调整大小后鼠标的坐标，并据此重新设置截图框的大小，然后调用更新截图预览的函数updateRect，注意限制截图框的边界不能超过原始图片的大小。</p>
+<pre><code class="hljs javaScript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">resizeDown</span>(<span class="hljs-params">event</span>) &#123;
+    event = event || <span class="hljs-variable language_">window</span>.<span class="hljs-property">event</span>;
+    <span class="hljs-keyword">var</span> shotRect = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;shotRect&quot;</span>),
+        <span class="hljs-comment">//计算Rect左上角的坐标</span>
+        x = shotRect.<span class="hljs-property">offsetLeft</span>,
+        y = shotRect.<span class="hljs-property">offsetTop</span> ;
+        <span class="hljs-comment">//console.log(&quot;x=&quot; +  x+ &quot; &quot; + &quot;y=&quot; +  y);</span>
+    <span class="hljs-comment">//绑定事件</span>
+    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;mousemove&quot;</span>, mouseMove);
+    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;mouseup&quot;</span>, mouseUp);
+    <span class="hljs-comment">//移动鼠标</span>
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">mouseMove</span>(<span class="hljs-params">event</span>) &#123;
+        event = event || <span class="hljs-variable language_">window</span>.<span class="hljs-property">event</span>;
+        <span class="hljs-keyword">var</span> finalX = event.<span class="hljs-property">clientX</span>,
+                finalY = event.<span class="hljs-property">clientY</span>;
+        <span class="hljs-comment">//防止超过边界</span>
+        <span class="hljs-keyword">if</span> (event.<span class="hljs-property">clientX</span> &gt;= <span class="hljs-number">488</span>) &#123;
+            finalX = <span class="hljs-number">488</span>;
+        &#125;
+        <span class="hljs-keyword">if</span> (event.<span class="hljs-property">clientY</span> &gt;= <span class="hljs-number">488</span>) &#123;
+            finalY = <span class="hljs-number">488</span>;
+        &#125;
+        <span class="hljs-comment">//console.log( (event.clientX) + &quot; &quot; + (event.clientY));</span>
+        xy = (finalX - x + <span class="hljs-number">10</span>) &lt; (finalY - y +<span class="hljs-number">10</span>) ? (finalX -x + <span class="hljs-number">10</span>) : (finalY - y + <span class="hljs-number">10</span>);
+        <span class="hljs-comment">//计算移动后的Rect新大小</span>
+        shotRect.<span class="hljs-property">style</span>.<span class="hljs-property">width</span> = xy + <span class="hljs-string">&#x27;px&#x27;</span>;
+        shotRect.<span class="hljs-property">style</span>.<span class="hljs-property">height</span> = xy + <span class="hljs-string">&#x27;px&#x27;</span>;
+        <span class="hljs-title function_">updateRect</span>(x, x, shotRect.<span class="hljs-property">offsetWidth</span>, shotRect.<span class="hljs-property">offsetHeight</span>);
+    &#125;
+    <span class="hljs-comment">//停止事件</span>
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">mouseUp</span>(<span class="hljs-params"></span>) &#123;
+        <span class="hljs-comment">//卸载事件</span>
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mousemove&quot;</span>, mouseMove);
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mouseup&quot;</span>, mouseUp);
+    &#125;
+&#125;</code></pre>
+<h3 id="移动截图框"><a href="#移动截图框" class="headerlink" title="移动截图框"></a>移动截图框</h3><p>详看注释吧~</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">dragDown</span>(<span class="hljs-params">event</span>) &#123;
+    event = event || <span class="hljs-variable language_">window</span>.<span class="hljs-property">event</span>;
+    <span class="hljs-keyword">if</span> (event.<span class="hljs-property">target</span> !== event.<span class="hljs-property">currentTarget</span>) <span class="hljs-keyword">return</span>; <span class="hljs-comment">//如果是从子元素冒上来的，返回</span>
+    <span class="hljs-keyword">var</span> shotRect = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;shotRect&quot;</span>),
+        disX = event.<span class="hljs-property">clientX</span> - shotRect.<span class="hljs-property">offsetLeft</span>, <span class="hljs-comment">// 光标按下时光标相对截图框的坐标</span>
+        disY = event.<span class="hljs-property">clientY</span> - shotRect.<span class="hljs-property">offsetTop</span>;
+    <span class="hljs-comment">//绑定事件</span>
+    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;mousemove&quot;</span>, mouseMove);
+    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&quot;mouseup&quot;</span>, mouseUp);
+
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">mouseMove</span>(<span class="hljs-params">event</span>) &#123;
+        event = event || <span class="hljs-variable language_">window</span>.<span class="hljs-property">event</span>;
+        <span class="hljs-keyword">var</span> disL = event.<span class="hljs-property">clientX</span> - disX, <span class="hljs-comment">//截图框左边界与左侧边界的距离</span>
+            disT = event.<span class="hljs-property">clientY</span> - disY, <span class="hljs-comment">//截图框上边界与上侧边界的距离</span>
+            maxW = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;originImg&quot;</span>).<span class="hljs-property">clientWidth</span> - shotRect.<span class="hljs-property">offsetWidth</span>, <span class="hljs-comment">//最大宽度</span>
+            maxH = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;originImg&quot;</span>).<span class="hljs-property">clientHeight</span> - shotRect.<span class="hljs-property">offsetHeight</span>; <span class="hljs-comment">//最大高度</span>
+        <span class="hljs-comment">//超过边界则重置</span>
+        <span class="hljs-keyword">if</span> (disL &lt; <span class="hljs-number">0</span>) &#123;
+            disL = <span class="hljs-number">0</span>;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (disL &gt; maxW) &#123;
+            disL = maxW + <span class="hljs-number">1</span>;
+        &#125;
+        <span class="hljs-keyword">if</span> (disT &lt; <span class="hljs-number">0</span>) &#123;
+            disT = <span class="hljs-number">0</span>;
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (disT &gt; maxH) &#123;
+            disT = maxH + <span class="hljs-number">1</span>;
+        &#125;
+        shotRect.<span class="hljs-property">style</span>.<span class="hljs-property">left</span> = disL + <span class="hljs-string">&#x27;px&#x27;</span>; <span class="hljs-comment">//重新计算截图框的相对位置</span>
+        shotRect.<span class="hljs-property">style</span>.<span class="hljs-property">top</span> = disT + <span class="hljs-string">&#x27;px&#x27;</span>;
+        <span class="hljs-title function_">updateRect</span>(disL, disT, shotRect.<span class="hljs-property">offsetWidth</span>, shotRect.<span class="hljs-property">offsetHeight</span>);
+    &#125;
+
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">mouseUp</span>(<span class="hljs-params">event</span>) &#123;
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mousemove&quot;</span>, mouseMove);
+        <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">&quot;mouseup&quot;</span>, mouseUp);
+    &#125;
+&#125;</code></pre>
+<h2 id="保存图片"><a href="#保存图片" class="headerlink" title="保存图片"></a>保存图片</h2><p>由于跨域问题,保存在chrome无效,在firefox中有效:</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">saveImg</span>(<span class="hljs-params">event</span>) &#123;
+    <span class="hljs-keyword">var</span> image = cPre.<span class="hljs-title function_">toDataURL</span>(<span class="hljs-string">&quot;image/png&quot;</span>);
+    <span class="hljs-keyword">var</span> w = <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">open</span>(<span class="hljs-string">&#x27;about:blank&#x27;</span>, <span class="hljs-string">&#x27;image from canvas&#x27;</span>);
+    w.<span class="hljs-property">document</span>.<span class="hljs-title function_">write</span>(<span class="hljs-string">&quot;&lt;img src=&#x27;&quot;</span> + image + <span class="hljs-string">&quot;&#x27; alt=&#x27;from canvas&#x27;/&gt;&quot;</span>);
+&#125;</code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/quanru/screenShot">完整代码</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B0%8F%E4%BB%BB%E5%8A%A1/">小任务</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/canvas/">canvas</a>
+                    
+                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2015/08/16/Schema%E4%B8%8E%E4%B8%8B%E8%BD%BD%E6%9D%A1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Schema 与下载条</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2015/06/16/16%E5%AE%AB%E6%A0%BC%E6%8B%96%E6%8B%BD/">
+                        <span class="hidden-mobile">16宫格拖拽</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "HTML5 截图&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

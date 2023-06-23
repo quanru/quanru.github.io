@@ -1,0 +1,705 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>基于 Gitlab Web Hook 的自动 Eslint 语法检查 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-10-02 15:11" pubdate>
+        2016年10月2日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">基于 Gitlab Web Hook 的自动 Eslint 语法检查</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong><a target="_blank" rel="noopener" href="http://eslint.org/">Eslint</a>, 一个插件化的 Javascript 语法检查工具, 如何将其结合 Gitlab 并应用于开发呢?</strong></p>
+<span id="more"></span>
+
+<h1 id="Gitlab-Web-Hook"><a href="#Gitlab-Web-Hook" class="headerlink" title="Gitlab Web Hook"></a>Gitlab Web Hook</h1><p><a target="_blank" rel="noopener" href="https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md">Gitlab Web Hook</a> 提供如下事件的 Hook:</p>
+<ol>
+<li>Push events</li>
+<li>Tag push events</li>
+<li>Comments</li>
+<li>Issues events</li>
+<li>Merge Request events<br>…</li>
+</ol>
+<p>当对应事件发生时, 将触发预设的 URL (即 Web Hook), 并向其发送一个包含该事件详细信息的 POST 请求, 正是通过该 POST 请求从而对各个事件进行处理的.</p>
+<p>例如 Merge Requests events:</p>
+<pre><code class="hljs js"><span class="hljs-comment">//Request body:</span>
+&#123;
+  <span class="hljs-string">&quot;object_kind&quot;</span>: <span class="hljs-string">&quot;merge_request&quot;</span>,
+  <span class="hljs-string">&quot;user&quot;</span>: &#123;
+    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Administrator&quot;</span>,
+    <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;root&quot;</span>,
+    <span class="hljs-string">&quot;avatar_url&quot;</span>: <span class="hljs-string">&quot;http://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=40\u0026d=identicon&quot;</span>
+  &#125;,
+  <span class="hljs-string">&quot;object_attributes&quot;</span>: &#123;
+    <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">99</span>,
+    <span class="hljs-string">&quot;target_branch&quot;</span>: <span class="hljs-string">&quot;master&quot;</span>,
+    <span class="hljs-string">&quot;source_branch&quot;</span>: <span class="hljs-string">&quot;ms-viewport&quot;</span>,
+    <span class="hljs-string">&quot;source_project_id&quot;</span>: <span class="hljs-number">14</span>,
+    <span class="hljs-string">&quot;author_id&quot;</span>: <span class="hljs-number">51</span>,
+    <span class="hljs-string">&quot;assignee_id&quot;</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-string">&quot;title&quot;</span>: <span class="hljs-string">&quot;MS-Viewport&quot;</span>,
+    <span class="hljs-string">&quot;created_at&quot;</span>: <span class="hljs-string">&quot;2013-12-03T17:23:34Z&quot;</span>,
+    <span class="hljs-string">&quot;updated_at&quot;</span>: <span class="hljs-string">&quot;2013-12-03T17:23:34Z&quot;</span>,
+    <span class="hljs-string">&quot;st_commits&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-string">&quot;st_diffs&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-string">&quot;milestone_id&quot;</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-string">&quot;state&quot;</span>: <span class="hljs-string">&quot;opened&quot;</span>,
+    <span class="hljs-string">&quot;merge_status&quot;</span>: <span class="hljs-string">&quot;unchecked&quot;</span>,
+    <span class="hljs-string">&quot;target_project_id&quot;</span>: <span class="hljs-number">14</span>,
+    <span class="hljs-string">&quot;iid&quot;</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+    <span class="hljs-string">&quot;source&quot;</span>:&#123;
+      <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;Awesome Project&quot;</span>,
+      <span class="hljs-string">&quot;description&quot;</span>:<span class="hljs-string">&quot;Aut reprehenderit ut est.&quot;</span>,
+      <span class="hljs-string">&quot;web_url&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project&quot;</span>,
+      <span class="hljs-string">&quot;avatar_url&quot;</span>:<span class="hljs-literal">null</span>,
+      <span class="hljs-string">&quot;git_ssh_url&quot;</span>:<span class="hljs-string">&quot;git@example.com:awesome_space/awesome_project.git&quot;</span>,
+      <span class="hljs-string">&quot;git_http_url&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project.git&quot;</span>,
+      <span class="hljs-string">&quot;namespace&quot;</span>:<span class="hljs-string">&quot;Awesome Space&quot;</span>,
+      <span class="hljs-string">&quot;visibility_level&quot;</span>:<span class="hljs-number">20</span>,
+      <span class="hljs-string">&quot;path_with_namespace&quot;</span>:<span class="hljs-string">&quot;awesome_space/awesome_project&quot;</span>,
+      <span class="hljs-string">&quot;default_branch&quot;</span>:<span class="hljs-string">&quot;master&quot;</span>,
+      <span class="hljs-string">&quot;homepage&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project&quot;</span>,
+      <span class="hljs-string">&quot;url&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project.git&quot;</span>,
+      <span class="hljs-string">&quot;ssh_url&quot;</span>:<span class="hljs-string">&quot;git@example.com:awesome_space/awesome_project.git&quot;</span>,
+      <span class="hljs-string">&quot;http_url&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project.git&quot;</span>
+    &#125;,
+    <span class="hljs-string">&quot;target&quot;</span>: &#123;
+      <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;Awesome Project&quot;</span>,
+      <span class="hljs-string">&quot;description&quot;</span>:<span class="hljs-string">&quot;Aut reprehenderit ut est.&quot;</span>,
+      <span class="hljs-string">&quot;web_url&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project&quot;</span>,
+      <span class="hljs-string">&quot;avatar_url&quot;</span>:<span class="hljs-literal">null</span>,
+      <span class="hljs-string">&quot;git_ssh_url&quot;</span>:<span class="hljs-string">&quot;git@example.com:awesome_space/awesome_project.git&quot;</span>,
+      <span class="hljs-string">&quot;git_http_url&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project.git&quot;</span>,
+      <span class="hljs-string">&quot;namespace&quot;</span>:<span class="hljs-string">&quot;Awesome Space&quot;</span>,
+      <span class="hljs-string">&quot;visibility_level&quot;</span>:<span class="hljs-number">20</span>,
+      <span class="hljs-string">&quot;path_with_namespace&quot;</span>:<span class="hljs-string">&quot;awesome_space/awesome_project&quot;</span>,
+      <span class="hljs-string">&quot;default_branch&quot;</span>:<span class="hljs-string">&quot;master&quot;</span>,
+      <span class="hljs-string">&quot;homepage&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project&quot;</span>,
+      <span class="hljs-string">&quot;url&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project.git&quot;</span>,
+      <span class="hljs-string">&quot;ssh_url&quot;</span>:<span class="hljs-string">&quot;git@example.com:awesome_space/awesome_project.git&quot;</span>,
+      <span class="hljs-string">&quot;http_url&quot;</span>:<span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project.git&quot;</span>
+    &#125;,
+    <span class="hljs-string">&quot;last_commit&quot;</span>: &#123;
+      <span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;da1560886d4f094c3e6c9ef40349f7d38b5d27d7&quot;</span>,
+      <span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;fixed readme&quot;</span>,
+      <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;2012-01-03T23:36:29+02:00&quot;</span>,
+      <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://example.com/awesome_space/awesome_project/commits/da1560886d4f094c3e6c9ef40349f7d38b5d27d7&quot;</span>,
+      <span class="hljs-string">&quot;author&quot;</span>: &#123;
+        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;GitLab dev user&quot;</span>,
+        <span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;gitlabdev@dv6700.(none)&quot;</span>
+      &#125;
+    &#125;,
+    <span class="hljs-string">&quot;work_in_progress&quot;</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-string">&quot;url&quot;</span>: <span class="hljs-string">&quot;http://example.com/diaspora/merge_requests/1&quot;</span>,
+    <span class="hljs-string">&quot;action&quot;</span>: <span class="hljs-string">&quot;open&quot;</span>,
+    <span class="hljs-string">&quot;assignee&quot;</span>: &#123;
+      <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;User1&quot;</span>,
+      <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;user1&quot;</span>,
+      <span class="hljs-string">&quot;avatar_url&quot;</span>: <span class="hljs-string">&quot;http://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=40\u0026d=identicon&quot;</span>
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+
+<p>从这个请求体中可知该 Merge Request 的创建者, 分支, 源分支信息, 目标分支信息, 最近一次 Commit, 分配给哪个用户, 对应的状态等信息.</p>
+<h1 id="Eslint"><a href="#Eslint" class="headerlink" title="Eslint"></a>Eslint</h1><p>作为插件化的 lint 方案, 逐渐打败了原有的 JSLint 和 JSHint, 并’吞并’了 JSCS, 其最大的优势就是标榜的可插件化, 并且有各种插件可以扩展, 使得开发人员能够灵活的配置规则, 如果这还不满足你的需求, 你还能方便的开发针对自己需求的插件, 此外它还支持 Es6, Jsx 语法, 前端程序员真是一群追求’时尚’的猿, 你不能阻止一个前端使用新工具 ……</p>
+<h2 id="编写自己的-config-plugin-npm-package"><a href="#编写自己的-config-plugin-npm-package" class="headerlink" title="编写自己的 config/plugin npm package"></a>编写自己的 config/plugin npm package</h2><p>两种方式:</p>
+<ol>
+<li>第一种是类似于 <a target="_blank" rel="noopener" href="https://github.com/google/eslint-config-google/blob/master/index.js">eslint-google-config</a> 的方式, 通过编写配置文件 npm package, 具体详见<a target="_blank" rel="noopener" href="http://eslint.org/docs/developer-guide/shareable-configs.html">官方教程</a>;</li>
+<li>第二种以插件形式, 类似于<a target="_blank" rel="noopener" href="https://github.com/Intellicode/eslint-plugin-react-native/blob/master/index.js">eslint-plugin-react-native</a>, 通过编写独立的 Eslint 插件;</li>
+</ol>
+<p>本文采用第二种方式, 不仅方便配置现有的 rules, 也方便未来添加自己的 rules:</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactEslint</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;eslint-plugin-react&#x27;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactNativeEslint</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;eslint-plugin-react-native&#x27;</span>;
+
+<span class="hljs-keyword">const</span> reactRules = <span class="hljs-title class_">ReactEslint</span>.<span class="hljs-property">rules</span>;
+<span class="hljs-keyword">const</span> reactNativeRules = <span class="hljs-title class_">ReactNativeEslint</span>.<span class="hljs-property">rules</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">ReactNativeDemo</span> = &#123;
+  <span class="hljs-attr">rules</span>: &#123;
+    <span class="hljs-string">&#x27;split-platform-components&#x27;</span>: reactNativeRules[<span class="hljs-string">&#x27;split-platform-components&#x27;</span>],
+    <span class="hljs-string">&#x27;no-inline-styles&#x27;</span>: reactNativeRules[<span class="hljs-string">&#x27;no-inline-styles&#x27;</span>],
+    <span class="hljs-string">&#x27;no-did-mount-set-state&#x27;</span>: reactRules[<span class="hljs-string">&#x27;no-did-mount-set-state&#x27;</span>],
+    <span class="hljs-string">&#x27;no-did-update-set-state&#x27;</span>: reactRules[<span class="hljs-string">&#x27;no-did-update-set-state&#x27;</span>]
+  &#125;,
+  <span class="hljs-attr">configs</span>: &#123;
+    <span class="hljs-attr">recommended</span>: &#123;
+      <span class="hljs-attr">parserOptions</span>: &#123;
+        <span class="hljs-attr">ecmaFeatures</span>: &#123;
+          <span class="hljs-attr">jsx</span>: <span class="hljs-literal">true</span>
+        &#125;
+      &#125;,
+      <span class="hljs-attr">rules</span>: &#123;
+        <span class="hljs-string">&#x27;react-native-demo/split-platform-components&#x27;</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-string">&#x27;react-native-demo/no-inline-styles&#x27;</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-string">&#x27;react-native-demo/no-did-mount-set-state&#x27;</span>: <span class="hljs-number">2</span>,
+        <span class="hljs-string">&#x27;react-native-demo/no-did-update-set-state&#x27;</span>: <span class="hljs-number">2</span>
+      &#125;
+    &#125;
+  &#125;
+&#125;;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">MyEslinPlugin</span>;</code></pre>
+
+<p>假设你的插件叫做: eslint-react-demo, 那么通过安装该插件(前提是你 npm publish了这个插件):</p>
+<pre><code class="hljs maxima">npm install eslint-react-<span class="hljs-built_in">demo</span> babel-eslint eslint --<span class="hljs-built_in">save</span>-dev</code></pre>
+
+<p>并在项目根目录配置如下 .eslintrc 文件即可:</p>
+<pre><code class="hljs prolog">&#123;
+  <span class="hljs-string">&quot;parser&quot;</span>: <span class="hljs-string">&quot;babel-eslint&quot;</span>,
+  <span class="hljs-string">&quot;plugins&quot;</span>: [
+    <span class="hljs-string">&quot;react-demo&quot;</span>,
+  ],
+  <span class="hljs-string">&quot;extends&quot;</span>: [<span class="hljs-string">&quot;plugin:react-demo/recommended&quot;</span>]
+&#125;</code></pre>
+
+<h1 id="使用-Node-编写-Gitlab-Web-Hook-接口"><a href="#使用-Node-编写-Gitlab-Web-Hook-接口" class="headerlink" title="使用 Node 编写 Gitlab Web Hook 接口"></a>使用 Node 编写 Gitlab Web Hook 接口</h1><p>现在插件有了, 还是聊聊怎么实现自动化 Eslint 检查吧, 由于目前采用 Issue 方式开发, 当猿们最终写完功能, 需要合并到 master 分支时, 必须提一个 Merge Request, 此时通过监听拦截 Merge Request 事件, 对应的 Web Hook 需要完成以下任务:</p>
+<ol>
+<li>判断 Merge Request 事件的触发动作, 若为 open 或者 reopen, 则执行 Eslint 检查</li>
+<li>通过 POST 请求体获取对应事件的 git 地址, 分支等信息, 将对应仓库拉到本地</li>
+<li>执行 Eslint 检查</li>
+<li>如果通过 Eslint 检查, 则什么都不做, 否则将 Eslint 检查结果作为评论回复在该 Merge Request 页面, 并关闭该 Merge Request(当然, 你也可以发邮件给对应的开发人员);</li>
+</ol>
+<p>关键代码如下:</p>
+<pre><code class="hljs js"><span class="hljs-title function_">check</span>(<span class="hljs-params">mr</span>) &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;
+      <span class="hljs-comment">// TODO fs.chmodSync(shellFilePath, 755);</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-title function_">execFile</span>(shellFilePath, [mr.<span class="hljs-property">author</span>, mr.<span class="hljs-property">project_path</span>, mr.<span class="hljs-property">source_branch</span>, mr.<span class="hljs-property">repo</span>], &#123; <span class="hljs-attr">cwd</span>: rootPath &#125;, <span class="hljs-function">(<span class="hljs-params">err, stdout, stderr</span>) =&gt;</span> &#123;
+        <span class="hljs-comment">// 此处不处理 err, 因为 eslint 不通过也算一种 err......</span>
+        <span class="hljs-title function_">resolve</span>(stdout);
+      &#125;);
+    &#125;)
+    .<span class="hljs-title function_">then</span>(<span class="hljs-title function_">async</span>(ret) =&gt; &#123;
+      <span class="hljs-keyword">const</span> projectService = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProjectService</span>();
+      <span class="hljs-keyword">if</span>(ret) &#123;
+        <span class="hljs-keyword">await</span> projectService.<span class="hljs-title function_">createMrNotes</span>(mr, <span class="hljs-string">`\`\`\`\n <span class="hljs-subst">$&#123;ret&#125;</span> \`\`\`\n`</span>);
+        <span class="hljs-keyword">await</span> projectService.<span class="hljs-title function_">updateMr</span>(mr, <span class="hljs-string">&#x27;close&#x27;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-literal">false</span>);
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-literal">true</span>);
+      &#125;
+    &#125;)
+&#125;</code></pre>
+
+<p>其中用到的 shell 脚本内容如下:</p>
+<pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span>
+if [ ! -d eslint ]; then
+mkdir eslint
+fi
+
+cd eslint
+
+if [ ! -d $1 ]; then
+mkdir $1
+fi
+
+cd $1
+
+if [ ! -d $2 ]; then
+git clone -b $3 $4 &gt; /dev/null
+cd $2
+else
+cd $2
+git checkout $3 &gt; /dev/null
+git pull &gt; /dev/null
+fi
+
+../../.././node_modules/eslint/bin/eslint.js .</code></pre>
+
+<h1 id="剧终"><a href="#剧终" class="headerlink" title="剧终"></a>剧终</h1>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Node-js-%E6%9C%8D%E5%8A%A1%E7%AB%AF/">Node.js 服务端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Git/">Git</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Hook/">Hook</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/10/04/git%20checkout%20%E4%B8%8E%20git%20reset%20%E5%A4%87%E5%BF%98%E5%BD%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">git checkout 与 git reset 备忘录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/10/02/%E8%AE%B0%E4%B8%80%E6%AC%A1%20Webview%20Jsbridge%20%E6%8E%A5%E5%8F%A3%E5%B0%81%E8%A3%85/">
+                        <span class="hidden-mobile">记一次 Webview Jsbridge 接口封装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "基于 Gitlab Web Hook 的自动 Eslint 语法检查&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

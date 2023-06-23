@@ -1,0 +1,796 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>一种实用新型 Obsidian 实践之构建我的第二大脑 🧠 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-06-18 05:17" pubdate>
+        2023年6月18日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      36
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">一种实用新型 Obsidian 实践之构建我的第二大脑 🧠</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>本文将以 <a target="_blank" rel="noopener" href="https://obsidian.md/">Obsidian</a> 为例，分享我使用 Obsidian 构建第二大脑的实践！</strong></p>
+<span id="more"></span>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="什么是-Obsidian？"><a href="#什么是-Obsidian？" class="headerlink" title="什么是 Obsidian？"></a>什么是 Obsidian？</h3><p><img src="/post-img/LifeOS-%E7%A4%BA%E4%BE%8B-%E6%A0%87%E6%B3%A8.png" srcset="/img/loading.gif"></p>
+<p>官网上它是这么自我介绍的：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://obsidian.md/">Obsidian</a> is the private and flexible note‑taking app that adapts to the way you think.</li>
+<li><a target="_blank" rel="noopener" href="https://obsidian.md/">Obsidian</a> 是一款私密且灵活的笔记应用程序，可以适应您的思维方式。</li>
+</ul>
+<p>我主要看中它丰富的插件生态，你如果喜欢 Vscode，那你大概率也会喜欢 Obsidian，只不过 Vscode 用于写代码，而 Obsidian 用于记笔记。</p>
+<h3 id="第一大脑-VS-第二大脑"><a href="#第一大脑-VS-第二大脑" class="headerlink" title="第一大脑 VS 第二大脑"></a>第一大脑 VS 第二大脑</h3><p>第一大脑即我们的真实大脑，只要我们还活着，那这个大脑就不停地在运转，执行的任务比如知识管理、任务管理、目标管理等，大多数时候我们并不能一脑多用，因此第一大脑更像是一个 CPU，各式各样的任务在抢占 CPU 分片。当需要处理的任务多起来的时候，大脑将不堪重负，因为大脑既要处理当前的任务，又要保持其它任务的上下文，用以切换任务，使得我们无法专注于当前任务的执行，此时需要一个外置的系统来辅助第一大脑，它就是第二大脑。</p>
+<p>第二大脑即一个外置的系统，如果把第一大脑比作 CPU 的话，第二大脑更像是存储系统，它就像第一大脑与真实世界之间的一道缓存，减轻了第一大脑的负担，使其能够专注于当前事项。它可以类比为内存和硬盘，只不过内存相对于硬盘，它与 CPU（第一大脑）沟通更加频繁，读取速度也更快。这个存储系统存放当前第一大脑无需时刻关注的事物，当然，这些事物得由第一大脑思考决-定是否有存放的必要，内容可以是记录、待办、流程，载体可以是文本、图片、视频。</p>
+<p>举一个例子，当我们使用第二大脑进行任务管理的时候，重要紧急的事项存放在内存，不重要不紧急的事项存放在硬盘；本周任务存放在内存，本月任务可能就存放在硬盘；因此通过借助第二大脑，我们就能够无压力专注在当下，在有必要的时候再切换上下文。</p>
+<p>本文将以 Obsidian 为例，分享我构建第二大脑的实践！你说它是第二大脑，但是从不同角度审视这个大脑，我也可以称它为『LifeOS』，因为无论从生活还是工作，我都记录在上面；我也可以称它为『可编程个人生产力系统』，我在上面写了不少代码，用来做一些查询和自动化的事情，也是我用来管理任务和目标的生产力系统；甚至它还有点像『Monorepo 工程』，每个文件夹就是一个项目，项目中的 README.md 就像是 Package.json 一样描述了当前项目的元信息。</p>
+<p>📢 注意：这套系统不是那种自上而下、先有这套流程而去实现的，是我在使用 Obsidian 过程中逐渐形成的，而且也一直在迭代中，姑且把当前的版本定为 1.0，现在分享出来是想给大家一点点灵感，去完善自己的系统！此外，可能需要有编程基础，因为我写了不少自定义的 JavaScript 脚本（不排除抽成插件的可能），但是你如果完全遵循我这套系统，那也不需要懂代码，下载使用即可！</p>
+<h2 id="我的实践"><a href="#我的实践" class="headerlink" title="我的实践"></a>我的实践</h2><p>我采用两套系统，一个是知识管理系统，另一个是周期笔记，前者以项目/领域/资源为维度，进行知识管理，后者以时间为维度，进行任务/目标/时间管理。</p>
+<h3 id="两套系统"><a href="#两套系统" class="headerlink" title="两套系统"></a>两套系统</h3><p><img src="/post-img/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91%E7%B3%BB%E7%BB%9F%E5%9B%BE.png" srcset="/img/loading.gif"></p>
+<ul>
+<li>知识管理：采用 <a target="_blank" rel="noopener" href="https://fortelabs.com/blog/para/">PARA</a> 系统<ul>
+<li>Projects -&gt; 项目是与目标相关的一系列任务，有截止日期</li>
+<li>Areas -&gt; 领域是一种活动领域，需要在一定时间内保持一定的标准</li>
+<li>Resources -&gt; 资源是持续感兴趣的话题或主题</li>
+<li>Archives -&gt; 存档是来自上述三个类别的非活动条目</li>
+</ul>
+</li>
+<li>周期笔记<ul>
+<li>长期：自顶向下，专注于长期的目标<ul>
+<li>三年记</li>
+<li>年记</li>
+<li>季记</li>
+</ul>
+</li>
+<li>短期：自底向上，专注于短期的任务<ul>
+<li>月记</li>
+<li>周记</li>
+</ul>
+</li>
+<li>日常：捕捉想法洞见，实现自我觉察；耗时统计，确保聚焦于项目<ul>
+<li>日记</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>其中 PARA 越靠近 Projects，它的可操作性就越高；周期笔记越长期，它的可预测性就越低；</p>
+<p>这两套系统相当于制造了两个上下文，让我保持聚焦</p>
+<ul>
+<li>一个是基于时间的（周期笔记），即我到达某个时间节点，我就基于对应周期笔记作业，且笔记中有足够的上下文；</li>
+<li>另一个是基于主题的（PARA），即我想对某个主题进行调查研究的时候，我就基于对应主题的索引（README.md）作业，且笔记中已经收集了不少上线文；</li>
+</ul>
+<h3 id="切面子系统"><a href="#切面子系统" class="headerlink" title="切面子系统"></a>切面子系统</h3><p>在上述两套系统之下，隐藏着任务/目标/时间管理子系统，我主要通过『周期笔记』来管理：</p>
+<ul>
+<li>任务管理<ul>
+<li>通过日记/周记来收集</li>
+<li>通过周记/月记来整理</li>
+</ul>
+</li>
+<li>目标管理<ul>
+<li>通过年记规划年度目标</li>
+<li>通过季记分拆年度目标</li>
+<li>通过月记拆解待办事项<ul>
+<li>自上而下整理（通过目标拆解）</li>
+<li>自下而上整理（通过收集拆解 -&gt; 日记/周记）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>时间管理<ul>
+<li>通过日记手动统计各个项目的耗时和占比，反馈和调整时间开销</li>
+<li>通过日记、周记、月记、季记、年记使用脚本自动统计各个项目的耗时和占比，用于复盘时间开销</li>
+</ul>
+</li>
+</ul>
+<p>你也许会好奇，上述子系统似乎只使用了『周期笔记』，实际上两个父系统之间通过两种方式将各个子系统连接起来。</p>
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><blockquote>
+<p>系统之间如何关联</p>
+</blockquote>
+<h4 id="标签连接"><a href="#标签连接" class="headerlink" title="标签连接"></a>标签连接</h4><p><img src="/post-img/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91%E7%B3%BB%E7%BB%9F%E5%9B%BE-%E8%BF%9E%E6%8E%A5.png" srcset="/img/loading.gif"></p>
+<p>将 PARA 下的一级文件夹作为一种特殊的标签（不一定要与文件名完全一致），在『周期笔记』中使用，那么便可在各个一级文件夹中，以相同的方式进行统一的索引。这样能保证每个 PARA 文件夹下的 README.md 索引有当前主题的所有上下文：</p>
+<p><img src="/post-img/LifeOS-%E7%A4%BA%E4%BE%8B-%E6%A0%87%E6%B3%A8.png" srcset="/img/loading.gif"></p>
+<h4 id="项目连接"><a href="#项目连接" class="headerlink" title="项目连接"></a>项目连接</h4><p>通过在『知识管理』中立项来生成项目，为了增加对项目的关注，在每类『周期笔记』中均设置有『要事列表』或『项目列表』，比如</p>
+<ul>
+<li>日记中的『项目列表』，它是一份当前项目列表的快照，用于统计当天花费在各个项目中的耗时及其占比，确保把足够的时间花在项目上</li>
+<li>周记和月记中的『要事维度』，是从本周和本月的日记中自动合并去重得到的一个列表，用于安排项目维度的任务和后续的复盘</li>
+<li>季记的『要事维度』，它是一份当前领域列表的快照，用于安排要事维度的目标和后续的复盘</li>
+<li>年记中的『要事维度』，是从本年的季记中自动合并去重得到的一个列表，用于设置领域维度的目标和后续的复盘</li>
+</ul>
+<p><img src="/post-img/LifeOS-%E7%A4%BA%E4%BE%8B.png" srcset="/img/loading.gif"></p>
+<h3 id="检索"><a href="#检索" class="headerlink" title="检索"></a>检索</h3><ul>
+<li>标签<ul>
+<li>比如，日记的<a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/PeriodicNotes/2023/Daily/06/2023-06-01.md#L3">节日</a>、<a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/PeriodicNotes/2023/Daily/06/2023-06-11.md#L4">休假</a>标签</li>
+</ul>
+</li>
+<li>索引文件<ul>
+<li>比如，每个项目的 <a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md">README.md</a> 索引本项目的任务、日志、上下文</li>
+</ul>
+</li>
+<li>文件夹<ul>
+<li>比如，每个 PARA 目录使用一致的目录结构</li>
+</ul>
+</li>
+</ul>
+<h3 id="复盘"><a href="#复盘" class="headerlink" title="复盘"></a>复盘</h3><ul>
+<li>复盘主要针对本周期内的项目，复盘的同时规划下个周期的任务</li>
+<li>周记复盘本周日记，月记复盘每周复盘，季记复盘每月复盘</li>
+</ul>
+<h2 id="演示说明"><a href="#演示说明" class="headerlink" title="演示说明"></a>演示说明</h2><h3 id="『日记』与『项目-README』"><a href="#『日记』与『项目-README』" class="headerlink" title="『日记』与『项目 README』"></a>『日记』与『项目 README』</h3><ul>
+<li>用于日常管理，包括项目列表、日常记录、习惯打卡、精力分配、今日完成等模块</li>
+<li>日记中的『项目列表』是一份当前项目（即 Projects 目录下）的快照</li>
+</ul>
+<p><img src="/post-img/LifeOS-%E7%A4%BA%E4%BE%8B.png" srcset="/img/loading.gif"></p>
+<h3 id="『周记』与『月记』"><a href="#『周记』与『月记』" class="headerlink" title="『周记』与『月记』"></a>『周记』与『月记』</h3><ul>
+<li>用于安排周度和月度任务，包括任务和复盘模块</li>
+<li>在周记和月记中，『要事维度』是一份本周期日记『项目列表』的快照合集（自动生成）</li>
+<li>在周记和月记中，『复盘』主要针对本周期内的项目进行</li>
+</ul>
+<p><img src="/post-img/LifeOS-%E7%A4%BA%E4%BE%8B2.png" srcset="/img/loading.gif"></p>
+<h3 id="『季记』与『年记』"><a href="#『季记』与『年记』" class="headerlink" title="『季记』与『年记』"></a>『季记』与『年记』</h3><ul>
+<li>用于制定季度和年度目标，包括目标和复盘模块</li>
+<li>在季记中，『要事维度』是一份当前领域（即 Areas 目录下）的快照</li>
+<li>在年记中，『要事维度』是一份本周期季记『要事维度』的快照合集（自动生成）</li>
+<li>在季记和年记中，『复盘』主要针对本周期内的领域进行</li>
+</ul>
+<p><img src="/post-img/LifeOS-%E7%A4%BA%E4%BE%8B3.png" srcset="/img/loading.gif"></p>
+<h3 id="『PARA-索引』与『任务索引』"><a href="#『PARA-索引』与『任务索引』" class="headerlink" title="『PARA 索引』与『任务索引』"></a>『PARA 索引』与『任务索引』</h3><p><img src="/post-img/LifeOS-%E7%A4%BA%E4%BE%8B4.png" srcset="/img/loading.gif"></p>
+<h2 id="如何打造？"><a href="#如何打造？" class="headerlink" title="如何打造？"></a>如何打造？</h2><blockquote>
+<p>拉取 <a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS">Demo</a> 工程，即可体验</p>
+</blockquote>
+<ul>
+<li>插件安装<ul>
+<li>周期笔记<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/liamcain/obsidian-calendar-plugin">https://github.com/liamcain/obsidian-calendar-plugin</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/liamcain/obsidian-periodic-notes">https://github.com/liamcain/obsidian-periodic-notes</a></li>
+</ul>
+</li>
+<li>任务管理：<a target="_blank" rel="noopener" href="https://github.com/obsidian-tasks-group/obsidian-tasks">https://github.com/obsidian-tasks-group/obsidian-tasks</a></li>
+<li>查询工具：<a target="_blank" rel="noopener" href="https://github.com/blacksmithgu/obsidian-dataview">https://github.com/blacksmithgu/obsidian-dataview</a></li>
+<li>自定义逻辑：<a target="_blank" rel="noopener" href="https://github.com/saml-dev/obsidian-custom-js">https://github.com/saml-dev/obsidian-custom-js</a></li>
+<li>笔记模版：<a target="_blank" rel="noopener" href="https://github.com/SilentVoid13/Templater">https://github.com/SilentVoid13/Templater</a></li>
+</ul>
+</li>
+<li>脚本编写 - <a target="_blank" rel="noopener" href="https://github.com/saml-dev/obsidian-custom-js">https://github.com/saml-dev/obsidian-custom-js</a><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/date.js">date</a><ul>
+<li>根据周期笔记的文件名，解析出日期</li>
+<li>根据解析出的日期，获取日期范围</li>
+<li>根据解析出的日期，获取文件列表</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/task.js">task</a><ul>
+<li>根据日期范围，获取任务列表</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/project.js">project</a><ul>
+<li>获取当前项目列表的快照</li>
+<li>根据日期范围内，获取项目列表</li>
+<li>计算日期范围内，项目的耗时及其占比</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/area.js">area</a><ul>
+<li>获取当前领域列表的快照</li>
+<li>根据日期范围内，获取领域列表</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Dataview 视图 - <a target="_blank" rel="noopener" href="https://github.com/blacksmithgu/obsidian-dataview">https://github.com/blacksmithgu/obsidian-dataview</a><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/taskDoneList.js">taskDoneList</a><ul>
+<li>放到周期笔记中，可获取当前日期范围内完成的任务列表</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/taskRecordList.js">taskRecordList</a><ul>
+<li>放到周期笔记中，可获取当前日期范围内收集的任务列表</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/projectList.js">projectList</a><ul>
+<li>放到周期笔记中，可获取当前日期范围内项目耗时的占比</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/areaList.js">areaList</a><ul>
+<li>放到周期笔记中，可获取当前日期范围内领域列表</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>周期笔记模版 - <a target="_blank" rel="noopener" href="https://github.com/SilentVoid13/Templater">https://github.com/SilentVoid13/Templater</a><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Daily.md">Daily</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Weekly.md">Weekly</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Monthly.md">Monthly</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Quarterly.md">Quarterly</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Yearly.md">Yearly</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="实践中的小-Tips"><a href="#实践中的小-Tips" class="headerlink" title="实践中的小 Tips"></a>实践中的小 Tips</h2><h3 id="缓存区机制"><a href="#缓存区机制" class="headerlink" title="缓存区机制"></a>缓存区机制</h3><p>把不重要不紧急的事情，通过创建任务，快速放到缓存区，把大部分注意力保持在『项目』中</p>
+<h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><p>任务的记录不要有太大的心里压力，记下的不代表一定要做；记下了能够减轻你的心里负担，不用老想着这个事，也不怕忘记这个事；我有非常多的任务记下来了，后续经过评估也确实没实现。</p>
+<p>我们只要保证一定的机制能回顾到这些被记下的任务即可，比如</p>
+<ul>
+<li>使用 tasks 插件来做一些任务列表的<a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/TASK.md">查询视图</a></li>
+<li>每份周期笔记中都有当前周期收集的<a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/PeriodicNotes/2023/Weekly/2023-W22.md#%E6%9C%AC%E5%91%A8%E6%94%B6%E9%9B%86">任务列表</a></li>
+<li>项目索引文件中的<a target="_blank" rel="noopener" href="https://github.com/quanru/obsidian-example-LifeOS/blob/main/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md#%E4%BB%BB%E5%8A%A1">任务列表</a></li>
+</ul>
+<h3 id="任务提醒"><a href="#任务提醒" class="headerlink" title="任务提醒"></a>任务提醒</h3><p>我认为任务有三种提醒方式</p>
+<ul>
+<li>强提醒，比如抢茅台、抢演唱会门票这种，到点就要进行，就需要强提醒</li>
+<li>弱提醒，某天需要完成，比如信用卡还款、贷款还款之类的，通过 GTD 软件设置提醒即可</li>
+<li>列表类，用于记录任务，让你后续统筹安排的，根据需要可以转成强提醒或者弱提醒事件，有点类似 GTD 里的收件箱</li>
+</ul>
+<h3 id="微习惯"><a href="#微习惯" class="headerlink" title="微习惯"></a>微习惯</h3><p><img src="/post-img/%E7%A6%8F%E6%A0%BC%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%9E%8B.png" srcset="/img/loading.gif"></p>
+<ul>
+<li><p>我会在日记中列一些微习惯，切记不是任务，完不完成都行，主要用来提醒『这些微习惯，你今天考虑做一下吗？』，即在我有『能力』和『动机』的时候，起到『提示』的作用，比如：</p>
+<ul>
+<li>微习惯<ul>
+<li>一听到闹钟响就起床喝水</li>
+<li>一下车就戴耳机听小宇宙</li>
+<li>一上地铁就打开微信读书</li>
+<li>一到工位就写下三件待办</li>
+<li>一到十点半就开始干正事</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="易于重构"><a href="#易于重构" class="headerlink" title="易于重构"></a>易于重构</h3><p>在每份周期笔记中，相同功能的模块都使用同一个语句，比如『本周期收集的任务』，都是通过插入如下查询语句，而『本周期』的变量是当前的文件名提供，这就使得批量重构所有周期文件变得十分方便，只需要批量替换即可：</p>
+<pre><code class="hljs dataviewjs">await dv.view(&quot;Templates/PeriodicNotes/views/taskRecordList&quot;)</code></pre>
+
+<h3 id="善用快捷键"><a href="#善用快捷键" class="headerlink" title="善用快捷键"></a>善用快捷键</h3><p>设置全局一致的快捷键，使得无论在哪个软件都能使用同一个快捷键唤起同一个功能，如下是我的部分设置：</p>
+<ul>
+<li><p>光标移动</p>
+<ul>
+<li>规律：Control + 方向首字母/VIM方向</li>
+<li>示例：<ul>
+<li>A: Head of line</li>
+<li>E: End of line</li>
+<li>F/L: Forward</li>
+<li>B/H: Backward</li>
+<li>N/J: Next line</li>
+<li>P/K: Previous line</li>
+<li>W: Delete a word(Backward)</li>
+<li>D: Delete a character(Forward)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>窗口管理</p>
+<ul>
+<li>规律：Command + Option + 首字母</li>
+<li>示例：<ul>
+<li>L: 左侧半屏</li>
+<li>R: 右侧半屏</li>
+<li>C: 居中</li>
+<li>M: 最大化</li>
+<li><code>[</code>: 显示/隐藏左侧栏</li>
+<li><code>]</code>: 显示隐藏右侧栏</li>
+<li>‘: 显示/隐藏底栏</li>
+<li>T: 新建 Tab(更具体的窗口下，顶层 Tab 使用 Command + T)</li>
+<li>W: 关闭 Tab(更具体的窗口下，顶层 Tab 使用 Command + W)</li>
+<li>J: 下一个 Tab</li>
+<li>K: 上一个 Tab</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>文档编辑</p>
+<ul>
+<li>规律1：Command + Option + 数字/符号</li>
+<li>示例：<ul>
+<li>1: Markdown 一级标题</li>
+<li>2: Markdown 二级标题</li>
+<li>3: Markdown 三级标题</li>
+<li>4: Markdown 四级标题</li>
+<li>5: Markdown 五级标题</li>
+<li>6: Markdown 六级标题</li>
+<li>无序列表: ~</li>
+<li>删除线: -</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>功能类</p>
+<ul>
+<li>规律：Control + 首字母</li>
+<li>示例：<ul>
+<li>C: Copy link(Obsidian block link, Arc browser link, Vscode git link)</li>
+<li>D: Download</li>
+<li>I: Add to inbox</li>
+<li>K: Quick Search</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91/">第二大脑</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/LifeOS/">LifeOS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/">知识管理</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%91%A8%E6%9C%9F%E7%AC%94%E8%AE%B0/">周期笔记</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86/">任务管理</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%9B%AE%E6%A0%87%E7%AE%A1%E7%90%86/">目标管理</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/">时间管理</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/06/17/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/">
+                        <span class="hidden-mobile">字节跳动的前端工程化实践</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "一种实用新型 Obsidian 实践之构建我的第二大脑 🧠&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

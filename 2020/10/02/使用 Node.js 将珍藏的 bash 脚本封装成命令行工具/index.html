@@ -1,0 +1,640 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>使用 Node.js 将珍藏的 bash 脚本封装成命令行工具 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-02 00:19" pubdate>
+        2020年10月2日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">使用 Node.js 将珍藏的 bash 脚本封装成命令行工具</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>阐述如何将一个常用的 bash 脚本融入 npm 生态之中，此处以最近遇到的一个 CR 提交脚本为例。</p>
+<span id="more"></span>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>作为程序猿，大家或多或少地都用过 GitHub 上的 merge request 功能。当然，除了这类 Code Review 方式，不少公司都有自己的 Code Review 平台，我司也不例外，我们使用了类似 <a target="_blank" rel="noopener" href="https://www.gerritcodereview.com/">Gerrit</a> 的工具，此处我们暂且以 Gerrit 指代。由于最近在治理工程时，需要全面切（要）到（求）使用 Gerrit 进行 CR 提交。发现 Gerrit 提交命令不是那么好记，经常需要先 git push，接着被拦截报错之后，再根据提示复制命令行，再次执行方可成功提交 Gerrit 。作为攻城狮，这有点难以忍受了！！！</p>
+<h2 id="诉求"><a href="#诉求" class="headerlink" title="诉求"></a>诉求</h2><h3 id="一、有没有单独的命令让我直接提交-Gerrit？"><a href="#一、有没有单独的命令让我直接提交-Gerrit？" class="headerlink" title="一、有没有单独的命令让我直接提交 Gerrit？"></a>一、有没有单独的命令让我直接提交 Gerrit？</h3><h3 id="二、有没有命令行工具，我直接安装就能使用？"><a href="#二、有没有命令行工具，我直接安装就能使用？" class="headerlink" title="二、有没有命令行工具，我直接安装就能使用？"></a>二、有没有命令行工具，我直接安装就能使用？</h3><h3 id="三、在-git-push-后，经由-git-hook-拦截后按需提交-Gerrit？"><a href="#三、在-git-push-后，经由-git-hook-拦截后按需提交-Gerrit？" class="headerlink" title="三、在 git push 后，经由 git hook 拦截后按需提交 Gerrit？"></a>三、在 git push 后，经由 git hook 拦截后按需提交 Gerrit？</h3><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><h3 id="一、有没有单独的命令让我直接提交-Gerrit？-1"><a href="#一、有没有单独的命令让我直接提交-Gerrit？-1" class="headerlink" title="一、有没有单独的命令让我直接提交 Gerrit？"></a>一、有没有单独的命令让我直接提交 Gerrit？</h3><blockquote>
+<p>答：有的，有次同事见我提交 Gerrit 不顺畅，转发了一个 bash 脚本给我：你把它复制到 /usr/local/bin 目录下，就能直接使用 gerrit 执行了，珍藏脚本如下（gerrit）：</p>
+</blockquote>
+  <pre><code class="hljs bash">branch=$(git symbolic-ref --short -q HEAD)
+git push origin HEAD:refs/for/<span class="hljs-variable">$&#123;branch&#125;</span></code></pre>
+
+<h3 id="二、有没有命令行工具，我直接安装就能使用？-1"><a href="#二、有没有命令行工具，我直接安装就能使用？-1" class="headerlink" title="二、有没有命令行工具，我直接安装就能使用？"></a>二、有没有命令行工具，我直接安装就能使用？</h3><blockquote>
+<p>答：有的，既然都有脚本了，作为前端开发，必须用心爱的 Node.js 封装一个命令行工具，只需两步即可使用：首先执行 npm i @dd/gerrit-cli -g ；接着在工程目录下执行 gerrit 即可使用。</p>
+</blockquote>
+<h3 id="三、在-git-push-后，经由-git-hook-拦截后按需提交-Gerrit？-1"><a href="#三、在-git-push-后，经由-git-hook-拦截后按需提交-Gerrit？-1" class="headerlink" title="三、在 git push 后，经由 git hook 拦截后按需提交 Gerrit？"></a>三、在 git push 后，经由 git hook 拦截后按需提交 Gerrit？</h3><blockquote>
+<p>答：有的，如果你还觉得全局安装命令行太麻烦，或者害怕新人来了一脸懵逼。那么，还可以借助 git hook 进行拦截，用户只需要『无脑地』执行 git push 即可。当然前端这块有现成的 git hook 神器，它就是人见人爱的<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/husky">哈士奇</a>，至于其它语言生态，大家找找应该有的。</p>
+</blockquote>
+<p><strong>我们来看看如何封装上述脚本吧！</strong></p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h3 id="1-配置命令"><a href="#1-配置命令" class="headerlink" title="1.配置命令"></a>1.配置命令</h3><p>如何能让别人安装你的 npm 包时，就能在终端中执行命令行呢？只需对你的 npm 包的 package.json 添加 bin 字段：</p>
+<pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span>
+  <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;your-first-cli-package&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1.0.0&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;description&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;你的第一个命令行工具&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;main&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;index.js&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;bin&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+    <span class="hljs-attr">&quot;yourCommand&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;index.js&quot;</span>
+  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-punctuation">&#125;</span></code></pre>
+
+<p>之后别人使用 npm i -g your-first-cli-package 时，即可在终端中执行 yourCommand 调用你的 index.js 的逻辑啦。如果使用局部安装的方式，即 npm i your-first-cli-package，命令行将被安装到 node_modules/.bin/yourCommand 下，其内容正是 index.js 的内容。此时可编辑 npm scripts 调用。</p>
+<h3 id="2-调用声明"><a href="#2-调用声明" class="headerlink" title="2.调用声明"></a>2.调用声明</h3><p>由于我们使用 Node.js 实现，因此命令行对应的入口 js 文件（此处即 index.js）需要声明当前文件使用 node 执行：</p>
+<pre><code class="hljs js"><span class="hljs-meta">#!/usr/bin/env node</span>
+<span class="hljs-comment">// 此处编写 yourCommand 命令的逻辑</span></code></pre>
+
+<h3 id="3-编写逻辑"><a href="#3-编写逻辑" class="headerlink" title="3.编写逻辑"></a>3.编写逻辑</h3><p>此处实现得比较粗糙，目前就一个命令，因此未引入 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/args">args</a> 这类包。</p>
+<pre><code class="hljs js"><span class="hljs-meta">#!/usr/bin/env node</span>
+
+<span class="hljs-keyword">const</span> execa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;execa&#x27;</span>)
+<span class="hljs-keyword">const</span> chalk = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;chalk&#x27;</span>)
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">run</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;
+  <span class="hljs-keyword">let</span> branch = <span class="hljs-string">&#x27;&#x27;</span>
+  <span class="hljs-keyword">let</span> result = <span class="hljs-string">&#x27;&#x27;</span>
+
+  <span class="hljs-keyword">try</span> &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">gray</span>(<span class="hljs-string">`获取当前分支...`</span>))
+    <span class="hljs-keyword">const</span> &#123; stdout &#125; = <span class="hljs-keyword">await</span> execa.<span class="hljs-title function_">command</span>(<span class="hljs-string">&#x27;git symbolic-ref --short -q HEAD&#x27;</span>)
+
+    branch = stdout
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">gray</span>(<span class="hljs-string">`当前分支为: <span class="hljs-subst">$&#123;branch&#125;</span>`</span>))
+  &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">red</span>(<span class="hljs-string">`获取分支失败：<span class="hljs-subst">$&#123;error.message&#125;</span>`</span>))
+    process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// 以失败码退出，用于 git hooks 拦截识别</span>
+  &#125;
+
+  <span class="hljs-keyword">try</span> &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">gray</span>(<span class="hljs-string">`检查当前分支是否推送过远程仓库...`</span>))
+    <span class="hljs-keyword">await</span> execa.<span class="hljs-title function_">command</span>(<span class="hljs-string">`git rev-parse --abbrev-ref <span class="hljs-subst">$&#123;branch&#125;</span>@&#123;upstream&#125;`</span>)
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">gray</span>(<span class="hljs-string">`当前分支存在于 <span class="hljs-subst">$&#123;branch&#125;</span> 远程仓库...`</span>))
+  &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(
+      chalk.<span class="hljs-title function_">yellow</span>(<span class="hljs-string">`当前分支 <span class="hljs-subst">$&#123;branch&#125;</span> 未推送远程仓库 <span class="hljs-subst">$&#123;error.message&#125;</span>`</span>),
+    )
+
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">green</span>(<span class="hljs-string">`尝试推送分支 <span class="hljs-subst">$&#123;branch&#125;</span> 至远程仓库`</span>))
+      <span class="hljs-keyword">const</span> &#123; stderr &#125; = <span class="hljs-keyword">await</span> execa.<span class="hljs-title function_">command</span>(
+        <span class="hljs-string">`git push --set-upstream origin <span class="hljs-subst">$&#123;branch&#125;</span> --no-verify`</span>,
+      )
+
+      result = stderr
+    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">red</span>(<span class="hljs-string">`提交 gerrit 失败：<span class="hljs-subst">$&#123;error.message&#125;</span>`</span>))
+      process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>)
+    &#125;
+  &#125;
+
+  <span class="hljs-keyword">try</span> &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">gray</span>(<span class="hljs-string">`对分支 <span class="hljs-subst">$&#123;branch&#125;</span> 提交 gerrit ...`</span>))
+    <span class="hljs-keyword">const</span> &#123; stderr &#125; = <span class="hljs-keyword">await</span> execa.<span class="hljs-title function_">command</span>(
+      <span class="hljs-string">`git push origin HEAD:refs/for/<span class="hljs-subst">$&#123;branch&#125;</span> --no-verify`</span>,
+    )
+
+    result = stderr
+  &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">red</span>(<span class="hljs-string">`提交 gerrit 失败：<span class="hljs-subst">$&#123;error.message&#125;</span>`</span>))
+    process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>)
+  &#125;
+
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chalk.<span class="hljs-title function_">green</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;branch&#125;</span> 提交 gerrit 成功，信息如下：\n<span class="hljs-subst">$&#123;result&#125;</span>`</span>))
+
+  process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">0</span>) <span class="hljs-comment">// 以成功码退出，用于 git hooks 通过识别</span>
+&#125;
+
+<span class="hljs-title function_">run</span>()</code></pre>
+
+<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><h3 id="全局使用（非前端工程推荐使用）"><a href="#全局使用（非前端工程推荐使用）" class="headerlink" title="全局使用（非前端工程推荐使用）"></a>全局使用（非前端工程推荐使用）</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p><code>npm i @dd/gerrit-cli -g</code></p>
+<h4 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h4><blockquote>
+<p>确保在 git 工程目录下</p>
+</blockquote>
+<p><code>gerrit</code></p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><p><img src="/post-img/gerrit1.jpg" srcset="/img/loading.gif"></p>
+<h3 id="JavaScript-工程局部使用（前端工程推荐使用）"><a href="#JavaScript-工程局部使用（前端工程推荐使用）" class="headerlink" title="JavaScript 工程局部使用（前端工程推荐使用）"></a>JavaScript 工程局部使用（前端工程推荐使用）</h3><h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><p><code>npm i @dd/gerrit-cli --save-dev</code></p>
+<h4 id="在-package-json-中新增-gerrit-scripts"><a href="#在-package-json-中新增-gerrit-scripts" class="headerlink" title="在 package.json 中新增 gerrit scripts"></a>在 package.json 中新增 gerrit scripts</h4><pre><code class="hljs json"><span class="hljs-attr">&quot;scripts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+    ...
+    <span class="hljs-attr">&quot;cr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;gerrit&quot;</span>
+    ...
+  <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span></code></pre>
+
+<h4 id="执行-1"><a href="#执行-1" class="headerlink" title="执行"></a>执行</h4><blockquote>
+<p>确保在 git 工程目录下</p>
+</blockquote>
+<p><code>npm run cr</code></p>
+<h4 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h4><p><img src="/post-img/gerrit2.jpg" srcset="/img/loading.gif"></p>
+<h3 id="和-husky-配合使用"><a href="#和-husky-配合使用" class="headerlink" title="和 husky 配合使用"></a>和 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/husky">husky</a> 配合使用</h3><h4 id="在-package-json-中新增-gerrit-scripts-1"><a href="#在-package-json-中新增-gerrit-scripts-1" class="headerlink" title="在 package.json 中新增 gerrit scripts"></a>在 package.json 中新增 gerrit scripts</h4><pre><code class="hljs json"><span class="hljs-attr">&quot;scripts&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+  ...
+  <span class="hljs-attr">&quot;cr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;gerrit&quot;</span>
+  ...
+<span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;husky&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+  <span class="hljs-attr">&quot;hooks&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span>
+    <span class="hljs-attr">&quot;pre-push&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;npm run cr&quot;</span>
+  <span class="hljs-punctuation">&#125;</span>
+<span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span></code></pre>
+
+<h4 id="执行-2"><a href="#执行-2" class="headerlink" title="执行"></a>执行</h4><blockquote>
+<p>确保在 git 工程目录下</p>
+</blockquote>
+<p><code>git push</code></p>
+<h4 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h4><p><img src="/post-img/gerrit3.jpg" srcset="/img/loading.gif"></p>
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
+<li>新增子命令支持生成 gerrit 的配置文件</li>
+<li>打印对应的 CR 规范的文档链接，否则新人会懵逼</li>
+<li>封装成 SDK 供其它工具调用</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们多多少少会遇到类似的场景，以工程化的视角去封装它，让原本 npm 生态之外的 bash 脚本也能融于无形！</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/">工程化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">命令行工具</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/05/%E5%A6%82%E4%BD%95%E6%89%93%E9%80%A0%E4%B8%80%E4%B8%AA%E6%BB%A1%E8%B6%B3%E5%BF%AB%E9%80%9F%E5%AE%9A%E5%88%B6%E8%83%BD%E5%8A%9B%E7%9A%84%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2%E7%B3%BB%E7%BB%9F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">如何打造一个满足快速定制能力的私有化部署系统？</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/28/%E8%AE%BA%E5%A6%82%E4%BD%95%E7%A7%91%E5%AD%A6%E5%9C%B0%E6%B2%BB%E7%90%86%E8%80%81%E9%A1%B9%E7%9B%AE%E7%9A%84%20eslint/">
+                        <span class="hidden-mobile">论如何科学地治理老项目的 eslint</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "使用 Node.js 将珍藏的 bash 脚本封装成命令行工具&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

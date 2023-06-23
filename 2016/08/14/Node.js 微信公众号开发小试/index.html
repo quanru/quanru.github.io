@@ -1,0 +1,635 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>Node.js 微信公众号开发小试 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-08-14 13:10" pubdate>
+        2016年8月14日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Node.js 微信公众号开发小试</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>申请服务器: 微信公众号的开发需要使用一台用于接收并处理消息的服务器, 此处推荐申请腾讯的免费云主机, <a target="_blank" rel="noopener" href="https://www.qcloud.com/act/try?t=cvm">点我去申请吧</a>, 每天九点半开抢, 我选择的服务器镜像是Ubuntu, 关于如何在服务器上配置Node环境, 可参考我另一篇博客<a href="http://quanru.github.io/2016/04/17/%E4%BD%BF%E7%94%A8%20Linux%20%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91Web%E5%89%8D%E7%AB%AF/">使用 Linux 系统开发Web前端</a>. 公众号开发的原理就是通过设置一个接收接口, 一旦开启开发者模式, 微信服务器将转发消息至该接口.</strong></p>
+<span id="more"></span>
+
+<h2 id="申请服务器"><a href="#申请服务器" class="headerlink" title="申请服务器"></a>申请服务器</h2><p>微信公众号的开发需要使用一台用于接收并处理消息的服务器, 此处推荐申请腾讯的免费云主机, <a target="_blank" rel="noopener" href="https://www.qcloud.com/act/try?t=cvm">点我去申请吧</a>, 每天九点半开抢, 我选择的服务器镜像是Ubuntu, 关于如何在服务器上配置Node环境, 可参考我另一篇博客<a href="http://quanru.github.io/2016/04/17/%E4%BD%BF%E7%94%A8%20Linux%20%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91Web%E5%89%8D%E7%AB%AF/">使用 Linux 系统开发Web前端</a>. 公众号开发的原理就是通过设置一个接收接口, 一旦开启开发者模式, 微信服务器将转发消息至该接口.</p>
+<h2 id="接入开发步骤"><a href="#接入开发步骤" class="headerlink" title="接入开发步骤"></a>接入开发步骤</h2><h3 id="填写服务器配置"><a href="#填写服务器配置" class="headerlink" title="填写服务器配置"></a>填写服务器配置</h3><p><img src="https://quanru.github.io/share/post-img/2016-07-29/1.png" srcset="/img/loading.gif"></p>
+<h3 id="验证服务器地址的有效性"><a href="#验证服务器地址的有效性" class="headerlink" title="验证服务器地址的有效性"></a>验证服务器地址的有效性</h3><p>完成配置后, 服务器将收到来自微信的GET验证请求, 该请求包括如下参数:</p>
+<blockquote>
+<ol>
+<li>signature 微信加密签名, 使用开发者填写的token参数和请求中的timestamp参数、nonce参数进行加密</li>
+<li>timestamp 时间戳</li>
+<li>nonce 随机数</li>
+<li>echostr 随机字符串, 当验证通过时, 返回该字符串给微信服务器, 从而完成验证</li>
+</ol>
+</blockquote>
+<p>验证流程</p>
+<blockquote>
+<ol>
+<li>将token、timestamp、nonce三个参数进行字典序排序</li>
+<li>将三个参数字符串拼接成一个字符串进行sha1加密</li>
+<li>开发者获得加密后的字符串可与signature对比，标识该请求来源于微信</li>
+</ol>
+</blockquote>
+<p>验证有效性的代码</p>
+<pre><code class="hljs js">app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/wechat&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">var</span> token = <span class="hljs-string">&quot;quanru&quot;</span>;
+  <span class="hljs-keyword">var</span> signature = req.<span class="hljs-property">query</span>.<span class="hljs-property">signature</span>;
+  <span class="hljs-keyword">var</span> timestamp = req.<span class="hljs-property">query</span>.<span class="hljs-property">timestamp</span>;
+  <span class="hljs-keyword">var</span> echostr = req.<span class="hljs-property">query</span>.<span class="hljs-property">echostr</span>;
+  <span class="hljs-keyword">var</span> nonce = req.<span class="hljs-property">query</span>.<span class="hljs-property">nonce</span>;
+
+  <span class="hljs-keyword">var</span> oriArray = [nonce, timestamp, token];
+  oriArray.<span class="hljs-title function_">sort</span>();
+  <span class="hljs-keyword">var</span> original = oriArray.<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;&#x27;</span>);
+
+  <span class="hljs-keyword">var</span> shaObj = <span class="hljs-keyword">new</span> <span class="hljs-title function_">jsSHA</span>(original, <span class="hljs-string">&#x27;TEXT&#x27;</span>);
+  <span class="hljs-keyword">var</span> scyptoString = shaObj.<span class="hljs-title function_">getHash</span>(<span class="hljs-string">&#x27;SHA-1&#x27;</span>, <span class="hljs-string">&#x27;HEX&#x27;</span>);
+  <span class="hljs-keyword">if</span> (signature == scyptoString) &#123;
+    <span class="hljs-comment">//验证成功</span>
+    res.<span class="hljs-title function_">send</span>(echostr);
+  &#125; <span class="hljs-keyword">else</span> &#123;
+    <span class="hljs-comment">//验证失败</span>
+    res.<span class="hljs-title function_">send</span>(<span class="hljs-literal">false</span>);
+  &#125;
+&#125;);</code></pre>
+
+<h3 id="依据接口文档实现业务逻辑"><a href="#依据接口文档实现业务逻辑" class="headerlink" title="依据接口文档实现业务逻辑"></a>依据接口文档实现业务逻辑</h3><p>以文本消息为例, 如下为微信转发至服务器的文本消息:<br>    <pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">xml</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ToUserName</span>&gt;</span>&lt;![CDATA[toUser]]&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">ToUserName</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">FromUserName</span>&gt;</span>&lt;![CDATA[fromUser]]&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">FromUserName</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">CreateTime</span>&gt;</span>1348831860<span class="hljs-tag">&lt;/<span class="hljs-name">CreateTime</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">MsgType</span>&gt;</span>&lt;![CDATA[text]]&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">MsgType</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">Content</span>&gt;</span>&lt;![CDATA[this is a test]]&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">Content</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">MsgId</span>&gt;</span>1234567890123456<span class="hljs-tag">&lt;/<span class="hljs-name">MsgId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">xml</span>&gt;</span></code></pre></p>
+<p>消息处理:</p>
+<pre><code class="hljs js">  app.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/wechat&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;
+    res.<span class="hljs-title function_">writeHead</span>(<span class="hljs-number">200</span>, &#123;<span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/xml&#x27;</span>&#125;);
+
+    <span class="hljs-keyword">var</span> content = req.<span class="hljs-property">body</span>.<span class="hljs-property">xml</span>.<span class="hljs-property">content</span>;
+
+    <span class="hljs-title function_">turingRobot</span>(<span class="hljs-built_in">encodeURI</span>(content)).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123;
+      <span class="hljs-keyword">var</span> response = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(data);
+      <span class="hljs-keyword">var</span> resMsg = <span class="hljs-title function_">autoReply</span>(req.<span class="hljs-property">body</span>.<span class="hljs-property">xml</span>, response.<span class="hljs-property">text</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(resMsg);
+      res.<span class="hljs-title function_">end</span>(resMsg);
+    &#125;);
+&#125;);</code></pre>
+
+<p>其中turingRobot用于向图灵机器人发送用户消息:<br>    <pre><code class="hljs js"><span class="hljs-keyword">const</span> request = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;request&#x27;</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">getTuringResponse</span>(<span class="hljs-params">info</span>) &#123;
+  <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> info !== <span class="hljs-string">&#x27;string&#x27;</span>) &#123;
+    info = info.<span class="hljs-title function_">toString</span>();
+  &#125;
+  <span class="hljs-keyword">let</span> options = &#123;
+    <span class="hljs-attr">method</span>:<span class="hljs-string">&#x27;GET&#x27;</span>,
+    <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;http://www.tuling123.com/openapi/api?key=13a74dbd0f6b45d69ac49334e7027742&amp;info=&#x27;</span>+info
+  &#125;;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;
+    <span class="hljs-title function_">request</span>(options,  <span class="hljs-function">(<span class="hljs-params">err, res, body</span>) =&gt;</span> &#123;
+      <span class="hljs-keyword">if</span> (res) &#123;
+        <span class="hljs-title function_">resolve</span>(body);
+      &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-title function_">reject</span>(err);
+      &#125;
+    &#125;);
+  &#125;)
+&#125;
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = getTuringResponse;</code></pre></p>
+<p>自动回复模块autoReply:</p>
+<pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">autoReply</span>(<span class="hljs-params">requestData, info</span>) &#123;
+    <span class="hljs-keyword">if</span>(requestData.<span class="hljs-property">msgtype</span> == <span class="hljs-string">&#x27;text&#x27;</span>) &#123;
+      <span class="hljs-keyword">var</span> resMsg = <span class="hljs-string">&#x27;&lt;xml&gt;&#x27;</span> +
+        <span class="hljs-string">&#x27;&lt;ToUserName&gt;&lt;![CDATA[&#x27;</span> + requestData.<span class="hljs-property">fromusername</span> + <span class="hljs-string">&#x27;]]&gt;&lt;/ToUserName&gt;&#x27;</span> +
+        <span class="hljs-string">&#x27;&lt;FromUserName&gt;&lt;![CDATA[&#x27;</span> + requestData.<span class="hljs-property">tousername</span> + <span class="hljs-string">&#x27;]]&gt;&lt;/FromUserName&gt;&#x27;</span> +
+        <span class="hljs-string">&#x27;&lt;CreateTime&gt;&#x27;</span> + <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">valueOf</span>() / <span class="hljs-number">1000</span>) + <span class="hljs-string">&#x27;&lt;/CreateTime&gt;&#x27;</span> +
+        <span class="hljs-string">&#x27;&lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;&#x27;</span> +
+        <span class="hljs-string">&#x27;&lt;Content&gt;&lt;![CDATA[&#x27;</span>+info+<span class="hljs-string">&#x27;]]&gt;&lt;/Content&gt;&#x27;</span> +
+        <span class="hljs-string">&#x27;&lt;/xml&gt;&#x27;</span>;
+  &#125;
+  <span class="hljs-keyword">return</span> resMsg;
+&#125;
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = autoReply;</code></pre>
+
+<h2 id="One-More-Thing"><a href="#One-More-Thing" class="headerlink" title="One More Thing"></a>One More Thing</h2><p>使用微信的官方的Node中间件, 可更方便高效地开发公众号<br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/wechat">传送门</a></p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> turingRobot = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./turingRobot&#x27;</span>);
+<span class="hljs-keyword">const</span> autoReply = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./autoReply&#x27;</span>);
+<span class="hljs-keyword">const</span> wechat = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;wechat&#x27;</span>);
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">app</span>) &#123;
+  <span class="hljs-comment">//使用中间件</span>
+  <span class="hljs-comment">//传入这三个配置, 自动帮你验证</span>
+  <span class="hljs-keyword">var</span> config = &#123;
+    <span class="hljs-attr">token</span>: <span class="hljs-string">&#x27;quanru&#x27;</span>,
+    <span class="hljs-attr">appid</span>: <span class="hljs-string">&#x27;wxdc6410f1001d787b&#x27;</span>,
+    <span class="hljs-attr">encodingAESKey</span>: <span class="hljs-string">&#x27;IJwymet3h2KzGSTPxMnITc25pGiSzSlWCXHUhcvQRzc&#x27;</span>
+  &#125;;
+  app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/wechat&#x27;</span>, <span class="hljs-title function_">wechat</span>(config, <span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> &#123;
+  <span class="hljs-comment">//用户的消息以对象的形式返回到该变量</span>
+    <span class="hljs-keyword">var</span> message = req.<span class="hljs-property">weixin</span>;
+    <span class="hljs-keyword">var</span> content = message.<span class="hljs-property">Content</span>;
+    <span class="hljs-title function_">turingRobot</span>(<span class="hljs-built_in">encodeURI</span>(content))
+      .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123;
+        <span class="hljs-keyword">var</span> response = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(data);
+        <span class="hljs-comment">//默认回复文本消息, 支持多种格式回复, 如图像, 音乐</span>
+        res.<span class="hljs-title function_">reply</span>(response.<span class="hljs-property">text</span>);
+      &#125;);
+  &#125;));
+&#125;</code></pre>
+
+<p><a href="https://quanru.github.io/share/2016-07-29.html#/">附上精美PPT地址</a><br><a target="_blank" rel="noopener" href="https://github.com/quanru/share/tree/2016-07-29">附上精美代码地址</a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000005861026">nodejs微信开发—自动回复的实现</a><br><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/wiki">微信公众平台开发概述—接入指南(需要登录)</a><br><a href="http://quanru.github.io/2016/04/17/%E4%BD%BF%E7%94%A8%20Linux%20%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91Web%E5%89%8D%E7%AB%AF/">使用 Linux 系统开发Web前端</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Node-js-%E6%9C%8D%E5%8A%A1%E7%AB%AF/">Node.js 服务端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/">公众号</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/10/02/%E8%AE%B0%E4%B8%80%E6%AC%A1%20Webview%20Jsbridge%20%E6%8E%A5%E5%8F%A3%E5%B0%81%E8%A3%85/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">记一次 Webview Jsbridge 接口封装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/04/17/%E6%B6%88%E5%A4%B1%E7%9A%841px/">
+                        <span class="hidden-mobile">消失的 1px</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Node.js 微信公众号开发小试&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

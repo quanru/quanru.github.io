@@ -1,0 +1,616 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>使用 Linux 系统开发Web前端 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-04-17 13:15" pubdate>
+        2016年4月17日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">使用 Linux 系统开发Web前端</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>为什么使用 Linux? Mac纵有千千万万的好，作为学生党来说，毕竟其较高的价格让的确让许多我”党“人士望而却步，去年刚进公司实习的时候，使用的是Win7，对于Windows下的命令行体验真是无力吐槽，特别是对于Web前端来说，非常多的工具都运行在终端内，比如不计其数的Node.js工具，后来改用Linux就舒畅多了。</strong></p>
+<span id="more"></span>
+
+<h2 id="为什么使用-Linux"><a href="#为什么使用-Linux" class="headerlink" title="为什么使用 Linux"></a>为什么使用 Linux</h2><p>Mac纵有千千万万的好，作为学生党来说，毕竟其较高的价格让的确让许多我”党“人士望而却步，去年刚进公司实习的时候，使用的是Win7，对于Windows下的命令行体验真是无力吐槽，特别是对于Web前端来说，非常多的工具都运行在终端内，比如不计其数的Node.js工具，后来改用Linux就舒畅多了。</p>
+<h2 id="发行版本选择"><a href="#发行版本选择" class="headerlink" title="发行版本选择"></a>发行版本选择</h2><p>发行版本个人还是推荐主流之一的Ubuntu，建议使用<a target="_blank" rel="noopener" href="https://ubuntugnome.org/">Gnome Flavor</a>版本，简洁优雅的Gnome3桌面，使用起来相当顺手，Ubuntu自带的Unity界面丑到我想哭。也可使用Fedora，它默认就是Gnome3，二者主要是包管理器不一样，前者使用apt-get，后者使用yum。</p>
+<h2 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h2><p>建议使用U盘刻录安装，推荐刻录软件<a target="_blank" rel="noopener" href="https://unetbootin.github.io/">UNetbootin</a>，将下载好的ISO文件通过UNetbootin烧进U盘，安装前记得空出一块磁盘，系统本身占用很小，10G虽然够，还是建议20G吧。安装过程不细说了，网上教程一大堆，建议第一次安装还是对着教程来吧，记得备份重要文件。这是我安装后的桌面：<br><img src="/post-img/gnome-shell.png" srcset="/img/loading.gif" alt="Gnome-shell"></p>
+<h2 id="开发软件"><a href="#开发软件" class="headerlink" title="开发软件"></a>开发软件</h2><p>前端开发所需的软件大都有对应的Linux版本，比如Sublime、Atom、Charles、WebStorm、Chrome，大家可自行Google下载。</p>
+<h4 id="安装Git："><a href="#安装Git：" class="headerlink" title="安装Git："></a>安装Git：</h4><pre><code>sudo apt-get install git
+</code></pre>
+<p>配置github(如果你使用的话，否则可略过)：</p>
+<ol>
+<li><p>配置git用户名和邮箱</p>
+<pre><code> git config user.name &quot;用户名&quot;
+ git config user.email &quot;邮箱&quot;
+</code></pre>
+</li>
+</ol>
+<p>在config后加参数 –global 可设置全局用户名和邮箱。</p>
+<ol start="2">
+<li><p>生成ssh key</p>
+<pre><code> ssh-keygen -t rsa -C &quot;邮箱&quot;
+</code></pre>
+</li>
+</ol>
+<p>然后根据提示连续回车即可在~/.ssh目录下得到id_rsa和id_rsa.pub两个文件，id_rsa.pub文件里存放的就是公钥。</p>
+<ol start="3">
+<li>上传公钥到github</li>
+</ol>
+<p>复制公钥内容，接着登录github，进入Settings，选择 SSH and GPG keys，点击 New SSH key。</p>
+<ol start="4">
+<li><p>测试是否配置成功</p>
+<pre><code> ssh -T git@github.com
+</code></pre>
+</li>
+</ol>
+<p>如果配置成功，则会显示：</p>
+<pre><code>Hi username! You’ve successfully authenticated, but GitHub does not provide shell access.
+</code></pre>
+<h4 id="安装Node-js："><a href="#安装Node-js：" class="headerlink" title="安装Node.js："></a>安装Node.js：</h4><p>方法零：使用apt安装</p>
+<pre><code>    sudo apt-get install nodejs npm
+    ln -s nodejs /usr/bin
+    sudo apt-get install openjdk-9-jdk
+    sudo npm i -g wnpm
+    sudo wnpm i -g wac-cli
+</code></pre>
+<p>方法一：使用包管理器安装（推荐新手使用）<br>安装 5.x 版本：</p>
+<pre><code>    sudo apt-get install curl
+    curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
+    sudo apt-get install nodejs
+</code></pre>
+<p>方法二：使用 NVM 安装并管理 node，建议有一定 Linux 命令行和 Node.js 经验的人使用：</p>
+<pre><code>    https://github.com/creationix/nvm
+</code></pre>
+<p>方法三：也可采用编译源码的方式安装，打开终端，其步骤如下。</p>
+<ol start="0">
+<li><p>安装 build-essential，即软件编译工具集，用于从源代码编译和安装软件。</p>
+<pre><code> sudo apt-get update
+ sudo apt-get install build-essential
+</code></pre>
+</li>
+<li><p>克隆分支并进入node目录：</p>
+<pre><code> git clone https://github.com/nodejs/node.git &amp;&amp; cd node
+</code></pre>
+</li>
+<li><p>切换到一个你需要的稳定分支：</p>
+<pre><code> git checkout v4.0.0-rc  
+</code></pre>
+</li>
+<li><p>编译并安装：</p>
+<pre><code> ./configure
+ make
+ sudo make install
+</code></pre>
+</li>
+<li><p>查看node安装位置并添加软连接：</p>
+<pre><code> whereis node
+ sudo ln -s /usr/local/bin/node /usr/bin/node
+ sudo ln -s /usr/local/bin/npm /usr/bin/npm
+</code></pre>
+</li>
+<li><p>查看node版本</p>
+<p> node -v</p>
+</li>
+</ol>
+<h4 id="PlayOnLinux-amp-amp-PhotoShop"><a href="#PlayOnLinux-amp-amp-PhotoShop" class="headerlink" title="PlayOnLinux &amp;&amp; PhotoShop"></a>PlayOnLinux &amp;&amp; PhotoShop</h4><p>令人头疼的PhotoShop，Adobe没有对应的Linux版本，此处使用Wine方案，推荐安装PlayOnLinux，你只要有exe文件就好了，Wine的环境配置不需要你操心，PlayOnLinux帮你搞定。安装PlayOnLinux只需输入一条命令搞定：</p>
+<pre><code>sudo apt-get install playonlinux
+</code></pre>
+<p>装好后，打开PlayOnLinux，如何安装请看下图：</p>
+<p><img src="/post-img/playonlinux.png" srcset="/img/loading.gif" alt="PlayOnLinux"></p>
+<p>再往后就是下一步、下一步、下一步、完成。</p>
+<p><img src="/post-img/photoshop.png" srcset="/img/loading.gif" alt="PhotoShop"></p>
+<p>wine软件可能出现中文乱码，可参看<a target="_blank" rel="noopener" href="http://www.wuwenhui.cn/2692.html">彻底消除wine中文乱码</a></p>
+<h4 id="Zsh终端："><a href="#Zsh终端：" class="headerlink" title="Zsh终端："></a>Zsh终端：</h4><ol>
+<li><p>首先安装zsh：</p>
+<p> sudo apt-get install zsh</p>
+</li>
+<li><p>切换shell：</p>
+<p> chsh -s <code>which zsh</code></p>
+</li>
+<li><p>重启系统即可生效</p>
+</li>
+<li><p>安装主题，本人推荐主题<a target="_blank" rel="noopener" href="https://github.com/caiogondim/bullet-train-oh-my-zsh-theme">bullet-train-oh-my-zsh-theme</a></p>
+</li>
+</ol>
+<p><img src="/post-img/zsh.png" srcset="/img/loading.gif" alt="bullet-train-oh-my-zsh-theme"></p>
+<h2 id="其它软件"><a href="#其它软件" class="headerlink" title="其它软件"></a>其它软件</h2><p><a target="_blank" rel="noopener" href="https://github.com/XX-net/XX-Net">越过长城</a></p>
+<p><a target="_blank" rel="noopener" href="http://pinyin.sogou.com/linux/?r=pinyin">搜狗输入法</a></p>
+<p><a target="_blank" rel="noopener" href="http://linux.wps.cn/">WPS</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.longene.org/forum/viewtopic.php?f=6&t=30516">QQ</a></p>
+<p>easystroke鼠标手势：</p>
+<pre><code>    sudo apt-get install easystroke
+</code></pre>
+<p>audacious听歌：</p>
+<pre><code>sudo apt-get install audacious
+</code></pre>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/04/17/%E6%B6%88%E5%A4%B1%E7%9A%841px/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">消失的 1px</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/03/18/Node.js%20%E7%9A%84%20Morgan%20%E6%A8%A1%E5%9D%97%E4%B8%8E%20Cluster%20%E6%A8%A1%E5%9D%97/">
+                        <span class="hidden-mobile">Node.js 的 Morgan 模块与 Cluster 模块</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "使用 Linux 系统开发Web前端&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

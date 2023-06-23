@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>Javascript 语言精粹の笔记 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2016-11-20 23:11" pubdate>
+        2016年11月20日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Javascript 语言精粹の笔记</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>最近买了几本书，这本《JavaScript 语言精粹》果真精粹，篇幅很少，而附录较多，作者是 JSON 的发明者 Douglas Crockford ，听起来屌屌的，其中的干货也是不少的，看完受益匪浅！</p>
+<span id="more"></span>
+<h1 id="JavaScript-语言精粹"><a href="#JavaScript-语言精粹" class="headerlink" title="JavaScript 语言精粹"></a>JavaScript 语言精粹</h1><h2 id="章四-五"><a href="#章四-五" class="headerlink" title="章四,五"></a>章四,五</h2><blockquote>
+<p>函数、继承</p>
+</blockquote>
+<ol>
+<li><p>  如果在一个函数前面带上 new 来调用，则背地里会创建一个链接到该函数的 prototype 成员的新对象</p>
+<blockquote>
+<p>a. <strong>通过 <strong>proto</strong> 进行链接，使得新对象上的 <strong>proto</strong> 属性拥有 prototype 上的所有属性与方法</strong></p>
+<p>b. <strong>同时 this 将会被绑定到这个新对象上，此时若返回值不是一个对象，则返回 this</strong></p>
+</blockquote>
+</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> that = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+<span class="hljs-keyword">var</span> other = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">apply</span>(that, <span class="hljs-variable language_">arguments</span>);
+<span class="hljs-keyword">return</span> (<span class="hljs-keyword">typeof</span> outer === <span class="hljs-string">&#x27;object&#x27;</span> &amp;&amp; other) || that;</code></pre>
+
+
+
+<ol start="2">
+<li>new 运算符创建一个新对象（继承自其运算数原型），然后调用该运算数，把新创建的对象绑定到 this 上；使得运算符（即构造器函数）在返回给调用者前能够自定义新创建的对象。</li>
+<li>因为 JavaScript 原型继承的动态本质，使得新的方法立刻被赋予到所有对象的实例上，哪怕在将方法增加到对应类的 prototype 属性之前就已经创建的对象实例。</li>
+<li>function A() {}, 类 A 的构造函数位于 A 的原型 prototype 之上，因此使用如下方式继承时，最后一步需要重置子类的构造器为自身：</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-comment">// Shape - superclass</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Shape</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = <span class="hljs-number">0</span>;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = <span class="hljs-number">0</span>;
+&#125;
+
+<span class="hljs-comment">// superclass method</span>
+<span class="hljs-title class_">Shape</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">move</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> += x;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> += y;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">info</span>(<span class="hljs-string">&#x27;Shape moved.&#x27;</span>);
+&#125;;
+
+<span class="hljs-comment">// Rectangle - subclass</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Rectangle</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-title class_">Shape</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>); <span class="hljs-comment">// call super constructor.</span>
+&#125;
+
+<span class="hljs-comment">// subclass extends superclass</span>
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Shape</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">constructor</span> = <span class="hljs-title class_">Rectangle</span>;</code></pre>
+
+<ol start="5">
+<li>关于 Object.create</li>
+</ol>
+<blockquote>
+<p>The <code>**Object.create()**</code> method creates a new object with the specified prototype object and properties.</p>
+<p>该方法根据指定的原型对象和属性生成一个新对象</p>
+</blockquote>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> o;
+
+<span class="hljs-comment">// create an object with null as prototype</span>
+o = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-literal">null</span>);
+
+o = &#123;&#125;;
+<span class="hljs-comment">// is equivalent to:</span>
+o = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+
+<span class="hljs-comment">// o -&gt; Object:&#123;__proto__: Object&#125;</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Constructor</span>(<span class="hljs-params"></span>) &#123;&#125;
+o = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Constructor</span>();
+<span class="hljs-comment">// is equivalent to:</span>
+o = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Constructor</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+<span class="hljs-comment">// Of course, if there is actual initialization code in the</span>
+<span class="hljs-comment">// Constructor function, the Object.create() cannot reflect it</span>
+
+<span class="hljs-comment">// o -&gt; Constructor:&#123;__proto__: Object&#125;</span>
+</code></pre>
+
+
+
+<h1 id="章六"><a href="#章六" class="headerlink" title="章六"></a>章六</h1><blockquote>
+<p>数组</p>
+</blockquote>
+<ol>
+<li>JavaScript 的数组是一种拥有一些类数组特性的对象</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> arr = [];
+<span class="hljs-keyword">var</span> obj = &#123;&#125;;
+
+<span class="hljs-keyword">typeof</span> arr === <span class="hljs-keyword">typeof</span> obj <span class="hljs-comment">// true，皆为 &#x27;object&#x27;</span>
+
+arr <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Array</span> <span class="hljs-comment">// true</span>
+arr <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Object</span> <span class="hljs-comment">// true</span>
+</code></pre>
+
+<ol start="2">
+<li>为数组设置更大的 length 不会分配更多空间，而把 length 设小，则将所下标大于等于新 length 的属性删除</li>
+<li>由于数组就是对象，因此可使用 delete 运算符移除元素</li>
+</ol>
+<pre><code class="hljs js"><span class="hljs-keyword">var</span> arr = [<span class="hljs-string">&#x27;one&#x27;</span>, <span class="hljs-string">&#x27;two&#x27;</span>, <span class="hljs-string">&#x27;three&#x27;</span>];
+<span class="hljs-keyword">delete</span> arr[<span class="hljs-number">1</span>]; <span class="hljs-comment">// [&#x27;one&#x27;, undefined, &#x27;three&#x27;]</span>
+
+<span class="hljs-comment">// 使用 splice 方法</span>
+arr.<span class="hljs-title function_">splice</span>(<span class="hljs-number">1</span>,<span class="hljs-number">1</span>); <span class="hljs-comment">// [&#x27;one&#x27;, &#x27;three&#x27;]</span></code></pre>
+
+<ol start="4">
+<li>数组是个对象，因此可以给其增添属性，当属性不为数字时，并不会增加 length</li>
+</ol>
+<h1 id="章七"><a href="#章七" class="headerlink" title="章七"></a>章七</h1><blockquote>
+<p>正则</p>
+</blockquote>
+<ol>
+<li><p>如果拿不准一个特殊字符是否需要转义，可统一加上转义符  ‘&#39;</p>
+</li>
+<li><p>```js<br>\d [0-9] \D<br>\s Unicode 字符 \S<br>\w [0-9A-Z_a-Z] \W<br>. 除结束符以外的任意字符</p>
+<pre><code class="hljs awk">
+<span class="hljs-number">3</span>. 正则表达式分组：()，正则表达式字符集：[]
+
+<span class="hljs-number">4</span>. 量词：
+
+```js
+<span class="hljs-regexp">//</span>如果只有一个量词(形如 &#123;<span class="hljs-number">1</span>,&#125; ) 则表示进行贪婪性匹配
+let reg = <span class="hljs-regexp">/w&#123;3,&#125;/</span>;
+<span class="hljs-string">&#x27;wwwww&#x27;</span>.match(reg); <span class="hljs-regexp">//</span> <span class="hljs-string">&#x27;wwwww&#x27;</span>
+
+<span class="hljs-regexp">//</span> 通过 ？ 进行非贪婪性匹配
+let reg2 = <span class="hljs-regexp">/w&#123;3,&#125;?/</span>;
+<span class="hljs-string">&#x27;wwwww&#x27;</span>.match(reg2); <span class="hljs-regexp">//</span> <span class="hljs-string">&#x27;www&#x27;</span>
+</code></pre></li>
+</ol>
+<h1 id="章八"><a href="#章八" class="headerlink" title="章八"></a>章八</h1><blockquote>
+<p>方法</p>
+</blockquote>
+<ol>
+<li>array.pop 与 array.shift pop 的位置不同，一个在头部，一个在尾部</li>
+<li>array.push 与 array.unshift push 的位置不同，一个在尾部，一个在头部</li>
+<li>array.slice(start, end) 潜复制，array.splice(start, deleteCount, item…) 移除若干个元素，并使用 item 替换</li>
+<li>regexp.exec(string)、regexp.test(string)</li>
+<li>string.lastIndexOf(searchString, position)、string.charAt(position)、string.match(regexp)、string.search(regex)</li>
+</ol>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><ol>
+<li><p>```js<br>1 + 0.2 // 0.30000000000000004<br>0.1 + 0.2 == 0.3 // false</p>
+<pre><code class="hljs pgsql">
+<span class="hljs-number">2.</span> ```js
+   typeof <span class="hljs-keyword">NaN</span> === <span class="hljs-string">&#x27;number&#x27;</span> // <span class="hljs-keyword">true</span>
+   <span class="hljs-keyword">Nan</span> === <span class="hljs-keyword">NaN</span> // <span class="hljs-keyword">false</span>
+   <span class="hljs-keyword">NaN</span> !== <span class="hljs-keyword">NaN</span> // <span class="hljs-keyword">true</span>
+
+   isNaN(<span class="hljs-keyword">NaN</span>) // <span class="hljs-keyword">true</span>  ES6 将其归到 Number.isNaN</code></pre></li>
+<li><p>判断数组：</p>
+</li>
+</ol>
+<pre><code class="hljs js">arr &amp;&amp; <span class="hljs-keyword">typeof</span> arr === <span class="hljs-string">&#x27;object&#x27;</span> &amp;&amp; arr.<span class="hljs-property">constructor</span> === <span class="hljs-title class_">Array</span>
+</code></pre>
+
+<p>加强版:</p>
+<pre><code class="hljs js"><span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">apply</span>(arr) === <span class="hljs-string">&#x27;[object Array]&#x27;</span>
+</code></pre>
+
+<ol start="4">
+<li>位运算符在 JavaScript 中执行效率非常慢</li>
+<li>建议使用 var foo = function foo() {}; 而不是 function foo() {};</li>
+<li>避免使用类型包装器：new Boolean(false)、new Number(1)、new String(‘abc’)</li>
+<li>避免使用 new Object 与 new Array</li>
+<li>HTML 中，字面上的 ‘&lt;’ 符号必须使用 ‘&amp;lt ;’</li>
+</ol>
+<h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><ol>
+<li>JSON 有六种类型值： 对象、数组、字符串、数字、布尔值、null</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/11/27/%E7%BC%96%E5%86%99%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84%20JavaScript%20%E3%81%AE%E7%AC%94%E8%AE%B0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">编写可维护的 JavaScriptの笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/10/06/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%9F%AF%E9%87%8C%E5%8C%96%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%EF%BC%9F/">
+                        <span class="hidden-mobile">函数式编程中的柯里化到底有什么用？</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Javascript 语言精粹の笔记&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

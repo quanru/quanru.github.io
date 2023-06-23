@@ -1,0 +1,717 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>命令行工具的监控告警建设 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-05 12:42" pubdate>
+        2021年12月5日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">命令行工具的监控告警建设</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>本人五年的工作经验，历经三份工作，竟然每份都开发维护过前端命令行工具，大家对前端页面和服务端应用有监控告警这件事习以为常，其实这类工具也需要监控告警，本文将从错误处理到上报排查进行分享。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>作为前端大家其实都习惯了前端页面有 sentry 类的应用进行错误监控；Node.js 应用打印日志，并在需要的时候使用类 kibana 的应用进行日志查询，且往往配套监控告警。而前端开发几乎每天都会打交道的命令行工具，却在每次报错时，要么联系开发者，要么去用户群咨询。</p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>我们先来看看命令行工具的几个特点：</p>
+<ol>
+<li>在用户的终端中执行，像一个客户端</li>
+<li>运行在 Node.js 环境中，像服务端应用</li>
+<li>用户是开发者，往往不能像一个真实产品一样被运营</li>
+</ol>
+<p>基于如上几个特点，命令行工具的监控告警需要有上报处理；错误处理需要借鉴 Node.js 应用；开发者对 bug 的容忍度比较高，善于自行排查，命令行工具的维护者需要主动解决某一类问题，以减少开发者在排查中浪费时间；需要一个反馈机制，使得工具能够越来越 bug less。</p>
+<p>作为命令行的维护者，借助监控告警的目的主要有：</p>
+<ol>
+<li>主动发现异常，提前介入处理，而不是积累到一定程度，用户主动上门时才介入</li>
+<li>大部分用户往往不会主动上门，如果有替代品或者不是必须使用的话，用户就流失了</li>
+<li>即使用户没有流失，一个经常出错的命令行工具，会使得用户变得不信任</li>
+<li>接入监控告警重点是发现『重复类』的错误，解决一批错误而不是偶现错误，从而迅速收敛错误</li>
+</ol>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>在阐述监控告警之前，有必要重点说明下如何科学地处理程序出现的错误。如果程序侧无法很好地处理和上报错误，那么监控告警将起不到有效的作用。</p>
+<h3 id="错误分类"><a href="#错误分类" class="headerlink" title="错误分类"></a>错误分类</h3><p>正确地区分错误分类，有助于我们分别采取不同的方式处理错误，错误主要分为：</p>
+<ol>
+<li>操作性的错误(预期内)</li>
+<li>程序员的错误(预期外)</li>
+</ol>
+<p>这两类错误的区别：</p>
+<ol>
+<li>『操作性的错误』是程序正常操作的一部分</li>
+<li>『程序员的错误』是 Bug，往往由于程序员没有正确处理导致</li>
+</ol>
+<p>举几个例子：</p>
+<ul>
+<li><p><strong>操作性的错误</strong></p>
+<ul>
+<li>连接不到服务器</li>
+<li>无法解析主机名</li>
+<li>无效的用户输入</li>
+<li>请求超时</li>
+<li>服务器返回500</li>
+<li>套接字被挂起</li>
+</ul>
+</li>
+<li><p><strong>程序员的错误</strong></p>
+<ul>
+<li>读取 undefined 的一个属性</li>
+<li>调用异步函数没有指定回调</li>
+<li>该传对象的时候传了一个字符串</li>
+<li>该传IP地址的时候传了一个对象</li>
+</ul>
+</li>
+</ul>
+<h3 id="不同类别的错误如何处理？"><a href="#不同类别的错误如何处理？" class="headerlink" title="不同类别的错误如何处理？"></a>不同类别的错误如何处理？</h3><h4 id="操作性的错误"><a href="#操作性的错误" class="headerlink" title="操作性的错误"></a>操作性的错误</h4><ul>
+<li>直接处理（处理完成后，继续执行）</li>
+<li>向上层传错（及时向上层抛错，由上层处理）</li>
+<li>重试操作（尝试重试，比如重发请求）</li>
+<li>直接崩溃（崩溃退出进程，比如内存不足）</li>
+<li>记录错误（仅记录或上报错误）</li>
+</ul>
+<h4 id="程序员的错误"><a href="#程序员的错误" class="headerlink" title="程序员的错误"></a>程序员的错误</h4><ul>
+<li>无法处理（log &amp; crash）</li>
+</ul>
+<h2 id="错误上报"><a href="#错误上报" class="headerlink" title="错误上报"></a>错误上报</h2><p>我们往往能妥善地处理大部分『操作性的错误』，但是一旦出现无能为力的『操作性的错误』或者『程序员的错误』，此时我们能做的一般只有打印错误告知用户后退出应用，同时将错误上报。接着在服务端根据错误信息区分监控和告警，那么什么样的错误属于告警，什么样的错误属于监控呢？</p>
+<p><strong>告警</strong></p>
+<ul>
+<li>当程序出现『程序员的错误』，需要紧急介入时，比如用户初始化模版时，进程异常退出</li>
+<li>当程序出现『操作性的错误』，且最终无法被处理时，比如用户创建 gitlab 时，重试次数达到上限，且仍未成功时</li>
+</ul>
+<p><strong>监控</strong></p>
+<ul>
+<li>当程序出现『操作性的错误』，需要引起足够重视，比如用户输入了不合法的路径、用户创建 gitlab 时经常需要重试 2 次才能成功</li>
+<li>当程序进入需要引起足够重视的逻辑（可以不是错误），比如出现了新用户、新部门、新工程</li>
+</ul>
+<h3 id="哪些地方需要上报"><a href="#哪些地方需要上报" class="headerlink" title="哪些地方需要上报"></a>哪些地方需要上报</h3><h4 id="预期外的错误"><a href="#预期外的错误" class="headerlink" title="预期外的错误"></a>预期外的错误</h4><pre><code class="hljs js">process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;unhandledRejection&#x27;</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;
+  <span class="hljs-title function_">reportAlarm</span>(&#123; error &#125;);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Unhandled Rejection Error: &#x27;</span>, error);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>), <span class="hljs-number">1000</span>);
+&#125;);
+process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;uncaughtException&#x27;</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;
+  <span class="hljs-title function_">reportAlarm</span>(&#123; error &#125;);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Unhandled Exception Error: &#x27;</span>, error);
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>), <span class="hljs-number">1000</span>);
+&#125;);</code></pre>
+
+<h4 id="预期内的错误"><a href="#预期内的错误" class="headerlink" title="预期内的错误"></a>预期内的错误</h4><pre><code class="hljs js"><span class="hljs-keyword">try</span> &#123;
+  <span class="hljs-comment">// 命令行处理逻辑</span>
+&#125; <span class="hljs-keyword">catch</span> (error) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">&#x27;Handled Error: &#x27;</span>, error);
+  <span class="hljs-keyword">await</span> <span class="hljs-title function_">reportAlarm</span>(&#123; error &#125;);
+  process.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>);
+&#125;</code></pre>
+
+<h2 id="错误排查"><a href="#错误排查" class="headerlink" title="错误排查"></a>错误排查</h2><p>有效的错误上报，对错误的监控告警处理起到了决定性的作用，我们来看看两则上报消息：</p>
+<h3 id="Bad-case"><a href="#Bad-case" class="headerlink" title="Bad case"></a>Bad case</h3><pre><code class="hljs js">错误模块：模版初始化
+错误信息：输入路径非法
+错误栈：/<span class="hljs-title class_">Users</span>/linleyang/code/temp/<span class="hljs-keyword">case</span>.<span class="hljs-property">js</span>:<span class="hljs-number">2</span>
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;输入路径非法&#x27;</span>);
+  ^
+<span class="hljs-title class_">Error</span>: 输入路径非法
+    at init (<span class="hljs-regexp">/Users/</span>linleyang/code/temp/<span class="hljs-keyword">case</span>.<span class="hljs-property">js</span>:<span class="hljs-number">2</span>:<span class="hljs-number">9</span>)
+    at <span class="hljs-title class_">Object</span>.&lt;anonymous&gt; (<span class="hljs-regexp">/Users/</span>linleyang/code/temp/<span class="hljs-keyword">case</span>.<span class="hljs-property">js</span>:<span class="hljs-number">5</span>:<span class="hljs-number">1</span>)
+    at <span class="hljs-title class_">Module</span>.<span class="hljs-property">_compile</span> (internal/modules/cjs/loader.<span class="hljs-property">js</span>:<span class="hljs-number">999</span>:<span class="hljs-number">30</span>)
+    at <span class="hljs-title class_">Object</span>.<span class="hljs-property">Module</span>.<span class="hljs-property">_extensions</span>..<span class="hljs-property">js</span> (internal/modules/cjs/loader.<span class="hljs-property">js</span>:<span class="hljs-number">1027</span>:<span class="hljs-number">10</span>)
+    at <span class="hljs-title class_">Module</span>.<span class="hljs-property">load</span> (internal/modules/cjs/loader.<span class="hljs-property">js</span>:<span class="hljs-number">863</span>:<span class="hljs-number">32</span>)
+    at <span class="hljs-title class_">Function</span>.<span class="hljs-property">Module</span>.<span class="hljs-property">_load</span> (internal/modules/cjs/loader.<span class="hljs-property">js</span>:<span class="hljs-number">708</span>:<span class="hljs-number">14</span>)
+    at <span class="hljs-title class_">Function</span>.<span class="hljs-property">executeUserEntryPoint</span> [<span class="hljs-keyword">as</span> runMain] (internal/modules/run_main.<span class="hljs-property">js</span>:<span class="hljs-number">60</span>:<span class="hljs-number">12</span>)
+    at internal/main/run_main_module.<span class="hljs-property">js</span>:<span class="hljs-number">17</span>:<span class="hljs-number">47</span></code></pre>
+
+<h3 id="Good-case"><a href="#Good-case" class="headerlink" title="Good case"></a>Good case</h3><pre><code class="hljs js">错误模块：模版初始化
+错误信息：输入路径非法
+错误栈：/<span class="hljs-title class_">Users</span>/linleyang/code/temp/<span class="hljs-keyword">case</span>.<span class="hljs-property">js</span>:<span class="hljs-number">2</span>
+  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;输入路径非法&#x27;</span>);
+  ^
+<span class="hljs-title class_">Error</span>: 输入路径非法
+    at init (<span class="hljs-regexp">/Users/</span>linleyang/code/temp/<span class="hljs-keyword">case</span>.<span class="hljs-property">js</span>:<span class="hljs-number">2</span>:<span class="hljs-number">9</span>)
+    at <span class="hljs-title class_">Object</span>.&lt;anonymous&gt; (<span class="hljs-regexp">/Users/</span>linleyang/code/temp/<span class="hljs-keyword">case</span>.<span class="hljs-property">js</span>:<span class="hljs-number">5</span>:<span class="hljs-number">1</span>)
+    at <span class="hljs-title class_">Module</span>.<span class="hljs-property">_compile</span> (internal/modules/cjs/loader.<span class="hljs-property">js</span>:<span class="hljs-number">999</span>:<span class="hljs-number">30</span>)
+    at <span class="hljs-title class_">Object</span>.<span class="hljs-property">Module</span>.<span class="hljs-property">_extensions</span>..<span class="hljs-property">js</span> (internal/modules/cjs/loader.<span class="hljs-property">js</span>:<span class="hljs-number">1027</span>:<span class="hljs-number">10</span>)
+    at <span class="hljs-title class_">Module</span>.<span class="hljs-property">load</span> (internal/modules/cjs/loader.<span class="hljs-property">js</span>:<span class="hljs-number">863</span>:<span class="hljs-number">32</span>)
+    at <span class="hljs-title class_">Function</span>.<span class="hljs-property">Module</span>.<span class="hljs-property">_load</span> (internal/modules/cjs/loader.<span class="hljs-property">js</span>:<span class="hljs-number">708</span>:<span class="hljs-number">14</span>)
+    at <span class="hljs-title class_">Function</span>.<span class="hljs-property">executeUserEntryPoint</span> [<span class="hljs-keyword">as</span> runMain] (internal/modules/run_main.<span class="hljs-property">js</span>:<span class="hljs-number">60</span>:<span class="hljs-number">12</span>)
+    at internal/main/run_main_module.<span class="hljs-property">js</span>:<span class="hljs-number">17</span>:<span class="hljs-number">47</span>
+输入值：$/home/linleyang
+触发用户：林宜丙</code></pre>
+
+<p>这两个示例，下面那个除了上报错误消息和错误栈之外，还上报了足够多的错误上下文，我们称之为错误现场，有了错误现场，我们便可能自行复现，或者阅读源码就能解决问题，错误现场既然如此重要，我们来看看一般可以上报哪些现场信息：</p>
+<ol>
+<li>错误发生时的入参</li>
+<li>错误发生时的状态（关键变量）</li>
+<li>触发人</li>
+<li>错误信息/错误栈</li>
+<li>环境信息（SCM，CI，本地）<br>……</li>
+</ol>
+<p>我们正确处理了错误，正确上报了现场，这样服务端便可根据这些信息将错误分发到各个模块负责人，示例如下：</p>
+<pre><code class="hljs awk">模版初始化 | 载入模版失败 | 错误报警
+
+模块负责人
+@林宜丙
+
+基本信息
+Version: <span class="hljs-number">1.0</span>.<span class="hljs-number">1</span> Node: v12.<span class="hljs-number">22.5</span> Env: local
+Project: https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/quanru/</span>bagu
+
+用户信息
+姓名: @林某某
+首次使用的时间: <span class="hljs-number">2021</span>-<span class="hljs-number">08</span>-<span class="hljs-number">31</span> <span class="hljs-number">05</span>:<span class="hljs-number">00</span>:<span class="hljs-number">29</span>
+最近使用的时间: <span class="hljs-number">2021</span>-<span class="hljs-number">11</span>-<span class="hljs-number">23</span> <span class="hljs-number">06</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>
+历史执行次数: <span class="hljs-number">111</span>
+
+部门信息
+名称: XX部门
+首次使用的时间: <span class="hljs-number">2021</span>-<span class="hljs-number">05</span>-<span class="hljs-number">24</span> <span class="hljs-number">04</span>:<span class="hljs-number">03</span>:<span class="hljs-number">43</span>
+使用的总人数: <span class="hljs-number">21</span>
+信息链接: https:<span class="hljs-regexp">//</span>quanru.github.io/
+
+错误信息
+级别: 未设置
+信息:
+Cannot read property <span class="hljs-string">&#x27;replace&#x27;</span> of undefined
+近 <span class="hljs-number">24</span> 小时内该用户出现该错误信息的次数: <span class="hljs-number">4</span>
+近 <span class="hljs-number">24</span> 小时内该用户出现所有错误信息的次数: <span class="hljs-number">4</span>
+近三个月该用户出现该错误信息的次数: <span class="hljs-number">4</span>
+近三个月所有用户出现该错误信息的次数: <span class="hljs-number">26</span>
+
+错误栈:
+Error: 输入路径非法
+    at init (<span class="hljs-regexp">/Users/</span>linleyang<span class="hljs-regexp">/code/</span>temp/case.js:<span class="hljs-number">2</span>:<span class="hljs-number">9</span>)
+    at Object.&lt;anonymous&gt; (<span class="hljs-regexp">/Users/</span>linleyang<span class="hljs-regexp">/code/</span>temp/case.js:<span class="hljs-number">5</span>:<span class="hljs-number">1</span>)
+    at Module._compile (internal<span class="hljs-regexp">/modules/</span>cjs/loader.js:<span class="hljs-number">999</span>:<span class="hljs-number">30</span>)
+    at Object.Module._extensions..js (internal<span class="hljs-regexp">/modules/</span>cjs/loader.js:<span class="hljs-number">1027</span>:<span class="hljs-number">10</span>)
+    at Module.load (internal<span class="hljs-regexp">/modules/</span>cjs/loader.js:<span class="hljs-number">863</span>:<span class="hljs-number">32</span>)
+    at Function.Module._load (internal<span class="hljs-regexp">/modules/</span>cjs/loader.js:<span class="hljs-number">708</span>:<span class="hljs-number">14</span>)
+    at Function.executeUserEntryPoint [as runMain] (internal<span class="hljs-regexp">/modules/</span>run_main.js:<span class="hljs-number">60</span>:<span class="hljs-number">12</span>)
+    at internal<span class="hljs-regexp">/main/</span>run_main_module.js:<span class="hljs-number">17</span>:<span class="hljs-number">47</span>
+
+上下文信息
+输入值：$<span class="hljs-regexp">/home/</span>linleyang
+
+附加信息
+command: cra init hello-world
+</code></pre>
+
+<h2 id="上报策略"><a href="#上报策略" class="headerlink" title="上报策略"></a>上报策略</h2><p>为了让命令行维护者更聚焦的处理错误，请切记『监控告警』：</p>
+<ol>
+<li>只提供一个通道，用户需要酌情上报</li>
+<li>都上报和都不上报区别不大</li>
+</ol>
+<p>服务侧需提供默认的上报策略：</p>
+<blockquote>
+<p>这些策略提供参数供上报侧设置</p>
+</blockquote>
+<ol>
+<li>同一个人，半小时内仅上报一次</li>
+<li>同一个人，首次无需上报</li>
+<li>不存在上下文信息和附加信息的降级为监控</li>
+</ol>
+<p>上报侧需要考虑：</p>
+<ul>
+<li>调试流量/测试版本不上报</li>
+<li>上报侧应主动区分监控和告警（比如：npm start）<ul>
+<li>用户目录下的代码改动，可以是监控</li>
+<li>我们的模块代码出错，应该是告警</li>
+</ul>
+</li>
+<li>尽量主动处理预期内错误，减少抛到兜底处理（比如：某个 npm 包未安装）</li>
+<li>按需配置『上报策略』</li>
+<li>发生主动异常退出 (process.exit(1)) 时，使用 console.error 而不是 console.log，这样父进程能获取到 stderr 标准错误输出</li>
+<li>spawnSync 子进程时，将标准错误 pipe 到父进程进行处理</li>
+</ul>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.joyent.com/node-js/production/design/errors">https://www.joyent.com/node-js/production/design/errors</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/">工作记录</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/">监控告警</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/31/Monorepo%20%E4%B8%8B%20Git%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Monorepo 下 Git 工作流的最佳实践</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/06/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%E7%9F%A5%E8%AF%86%E7%82%B9-%E9%80%9F%E8%AE%B0%E8%84%91%E5%9B%BE/">
+                        <span class="hidden-mobile">前端八股知识点-速记脑图</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "命令行工具的监控告警建设&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

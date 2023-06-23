@@ -1,0 +1,979 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>redux 中间件入门到编写，到改进，到出门 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-03-18 20:15" pubdate>
+        2017年3月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      44
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">redux 中间件入门到编写，到改进，到出门</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>春江花月夜调 bug，孤独寂寞日著 blog。吾母昨夜托梦，吾儿只身在外，读书撩妹两手要抓，前端知识切莫荒废。如无对象可面向，可以学学函数式。多写代码少睡觉，还有周五的周报。redux 要会，middleware 能写，有空记得写博客，写好发给我看看。</strong></p>
+<p><strong>惊醒之余，其敦敦教诲不敢忘，乃正襟危坐，挑灯写下这篇博客，感动~</strong></p>
+<span id="more"></span>
+
+<h2 id="redux-中间件"><a href="#redux-中间件" class="headerlink" title="redux 中间件"></a>redux 中间件</h2><p>redux 提供了类似 Web 开发的中间件机制，Web 中经过中间件的是一个个请求，而 redux 中经过中间件的是一个个 action，使得开发人员能够在中间件中针对特定 action 进行各种统一的处理，比如日志打印，数据请求，错误处理等。</p>
+<h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>redux 提供 applyMiddleware 方法，通过如下方式即可应用中间件：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123;
+  createStore,
+  applyMiddleware,
+  compose,
+&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;redux&#x27;</span>
+<span class="hljs-keyword">import</span> nextAndRequest <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./middleware/redux-next-and-request&#x27;</span>
+<span class="hljs-keyword">import</span> errorCatcher <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./middleware/redux-error-catcher&#x27;</span>
+<span class="hljs-keyword">import</span> reducer <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../reducer&#x27;</span>
+
+<span class="hljs-keyword">const</span> createStoreWithMiddleware = <span class="hljs-title function_">compose</span>(
+  <span class="hljs-title function_">applyMiddleware</span>(
+    nextAndRequest,
+    errorCatcher,
+  ),
+  <span class="hljs-title class_">DevTools</span>.<span class="hljs-title function_">instrument</span>(),
+  <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">devToolsExtension</span>(),
+)(createStore)</code></pre>
+
+<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h3 id="compose-函数"><a href="#compose-函数" class="headerlink" title="compose 函数"></a>compose 函数</h3><p>此处有个神奇的函数，即 compose，该函数在 applyMiddleware 中也是核心代码，正是它实现了 redux 中间件的机制，我们来看看 compose 的源码：</p>
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Composes single-argument functions from right to left. The rightmost</span>
+<span class="hljs-comment"> * function can take multiple arguments as it provides the signature for</span>
+<span class="hljs-comment"> * the resulting composite function.</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">...Function</span>&#125; funcs The functions to compose.</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">Function</span>&#125; A function obtained by composing the argument functions</span>
+<span class="hljs-comment"> * from right to left. For example, compose(f, g, h) is identical to doing</span>
+<span class="hljs-comment"> * (...args) =&gt; f(g(h(...args))).</span>
+<span class="hljs-comment"> */</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">compose</span>(<span class="hljs-params">...funcs</span>) &#123;
+  <span class="hljs-keyword">if</span> (funcs.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> arg
+  &#125;
+
+  <span class="hljs-keyword">if</span> (funcs.<span class="hljs-property">length</span> === <span class="hljs-number">1</span>) &#123;
+    <span class="hljs-keyword">return</span> funcs[<span class="hljs-number">0</span>]
+  &#125;
+
+  <span class="hljs-keyword">return</span> funcs.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> <span class="hljs-title function_">a</span>(<span class="hljs-title function_">b</span>(...args)))
+&#125;</code></pre>
+
+<p>从注释中可知，它的作用是从右到左将多个函数组合成一个新函数，其中最右边的函数消耗了该新函数的参数，并逐级向左作为参数依次执行；</p>
+<p>执行 compose(f1, f2, f3) 可得 (…args) =&gt; f1(f2(f3(…args)))；核心操作为 reduce，详细使用方式可参看<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">文档</a></p>
+<pre><code class="hljs js">第一次 reduce
+  <span class="hljs-attr">previousValue</span>: f1;
+  <span class="hljs-attr">currentValue</span>: f2;
+  <span class="hljs-attr">returnValue</span>: <span class="hljs-function">(<span class="hljs-params">...args1</span>) =&gt;</span> <span class="hljs-title function_">f1</span>(<span class="hljs-title function_">f2</span>(...args1)) <span class="hljs-comment">// 记为 R1</span>
+
+第二次 reduce
+  <span class="hljs-attr">previousValue</span>: <span class="hljs-variable constant_">R1</span>
+  <span class="hljs-attr">currentValue</span>: f3;
+  <span class="hljs-attr">returnValue</span>: <span class="hljs-function">(<span class="hljs-params">...args2</span>) =&gt;</span> <span class="hljs-title function_">R1</span>(<span class="hljs-title function_">f3</span>(...args2)) <span class="hljs-comment">// 记为 R2</span>
+
+其中 <span class="hljs-attr">R2</span>:
+<span class="hljs-function">(<span class="hljs-params">...args2</span>) =&gt;</span> (<span class="hljs-function">(<span class="hljs-params">...args1</span>) =&gt;</span> <span class="hljs-title function_">f1</span>(<span class="hljs-title function_">f2</span>(...args1)))(<span class="hljs-title function_">f3</span>(...args2))
+
+此时传入 args 执行 <span class="hljs-variable constant_">R2</span>：
+第一步： 得到 (<span class="hljs-function">(<span class="hljs-params">...args1</span>) =&gt;</span> <span class="hljs-title function_">f1</span>(<span class="hljs-title function_">f2</span>(...args1)))(<span class="hljs-title function_">f3</span>(args)) <span class="hljs-comment">// 记为 R3</span>
+第二步：<span class="hljs-title function_">f3</span>(args) 即是 <span class="hljs-variable constant_">R3</span> 的参数 (...args1)，继续执行可得 <span class="hljs-title function_">f1</span>(<span class="hljs-title function_">f2</span>(<span class="hljs-title function_">f3</span>(args)))</code></pre>
+
+<p>其实之前这个 compose 方法不是使用 reduce 实现的，而是使用 reduceRight 实现 composeRight，因此对比新版实现，比较好理解，原来的版本为：</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/reactjs/redux/commit/44dfc39c3f8e5e8b51eeab7c44057da6c1086752">新版 Merge Request</a><br>新版的方式使用惰性求值，性能有提升</p>
+</blockquote>
+<pre><code class="hljs js"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Composes single-argument functions from right to left. The rightmost</span>
+<span class="hljs-comment"> * function can take multiple arguments as it provides the signature for</span>
+<span class="hljs-comment"> * the resulting composite function.</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">...Function</span>&#125; funcs The functions to compose.</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">Function</span>&#125; A function obtained by composing the argument functions</span>
+<span class="hljs-comment"> * from right to left. For example, compose(f, g, h) is identical to doing</span>
+<span class="hljs-comment"> * (...args) =&gt; f(g(h(...args))).</span>
+<span class="hljs-comment"> */</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">compose</span>(<span class="hljs-params">...funcs</span>) &#123;
+  <span class="hljs-keyword">if</span> (funcs.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> arg
+  &#125;
+
+  funcs = funcs.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">func</span> =&gt;</span> <span class="hljs-keyword">typeof</span> func === <span class="hljs-string">&#x27;function&#x27;</span>)
+
+  <span class="hljs-keyword">if</span> (funcs.<span class="hljs-property">length</span> === <span class="hljs-number">1</span>) &#123;
+    <span class="hljs-keyword">return</span> funcs[<span class="hljs-number">0</span>]
+  &#125;
+
+  <span class="hljs-keyword">const</span> last = funcs[funcs.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>]
+  <span class="hljs-keyword">const</span> rest = funcs.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>)
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> rest.<span class="hljs-title function_">reduceRight</span>(<span class="hljs-function">(<span class="hljs-params">composed, f</span>) =&gt;</span> <span class="hljs-title function_">f</span>(composed), <span class="hljs-title function_">last</span>(...args))
+&#125;</code></pre>
+
+<p>让我们回到：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> createStoreWithMiddleware = <span class="hljs-title function_">compose</span>(
+  <span class="hljs-title function_">applyMiddleware</span>(
+    nextAndRequest,
+    errorCatcher,
+  ),
+  <span class="hljs-title class_">DevTools</span>.<span class="hljs-title function_">instrument</span>(),
+  <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">devToolsExtension</span>(),
+)(createStore)</code></pre>
+
+<p>createStoreWithMiddleware 的最终值为：</p>
+<pre><code class="hljs js"><span class="hljs-title function_">applyMiddleware</span>(nextAndRequest,errorCatcher)(<span class="hljs-title class_">DevTools</span>.<span class="hljs-title function_">instrument</span>()(<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">devToolsExtension</span>()(createStore)))</code></pre>
+
+<h3 id="applyMiddleware-函数"><a href="#applyMiddleware-函数" class="headerlink" title="applyMiddleware 函数"></a>applyMiddleware 函数</h3><p>其源码如下：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> compose <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./compose&#x27;</span>
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Creates a store enhancer that applies middleware to the dispatch method</span>
+<span class="hljs-comment"> * of the Redux store. This is handy for a variety of tasks, such as expressing</span>
+<span class="hljs-comment"> * asynchronous actions in a concise manner, or logging every action payload.</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * See `redux-thunk` package as an example of the Redux middleware.</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * Because middleware is potentially asynchronous, this should be the first</span>
+<span class="hljs-comment"> * store enhancer in the composition chain.</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * Note that each middleware will be given the `dispatch` and `getState` functions</span>
+<span class="hljs-comment"> * as named arguments.</span>
+<span class="hljs-comment"> *</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">...Function</span>&#125; middlewares The middleware chain to be applied.</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">Function</span>&#125; A store enhancer applying the middleware.</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">applyMiddleware</span>(<span class="hljs-params">...middlewares</span>) &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">createStore</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">reducer, preloadedState, enhancer</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">const</span> store = <span class="hljs-title function_">createStore</span>(reducer, preloadedState, enhancer)
+    <span class="hljs-keyword">let</span> dispatch = store.<span class="hljs-property">dispatch</span>
+    <span class="hljs-keyword">let</span> chain = []
+
+    <span class="hljs-keyword">const</span> middlewareAPI = &#123;
+      <span class="hljs-attr">getState</span>: store.<span class="hljs-property">getState</span>,
+      <span class="hljs-attr">dispatch</span>: <span class="hljs-function">(<span class="hljs-params">action</span>) =&gt;</span> <span class="hljs-title function_">dispatch</span>(action)
+    &#125;
+    chain = middlewares.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">middleware</span> =&gt;</span> <span class="hljs-title function_">middleware</span>(middlewareAPI))
+    dispatch = <span class="hljs-title function_">compose</span>(...chain)(store.<span class="hljs-property">dispatch</span>)
+
+    <span class="hljs-keyword">return</span> &#123;
+      ...store,
+      dispatch
+    &#125;
+  &#125;
+&#125;</code></pre>
+
+<p>一个 redux 中间件的结构：</p>
+<pre><code class="hljs js">store =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> &#123;
+  <span class="hljs-comment">// 中间件逻辑代码</span>
+&#125;</code></pre>
+
+<p>假设有三个中间件 M1, M2, M3，应用 applyMiddleware(M1, M2, M3) 将返回一个闭包函数，该函数接受 createStore 函数作为参数，使得创建状态树 store 的步骤在这个闭包函数内执行;<br>接着将 store 重新组装成 middlewareAPI 作为新的 store，也就是我们编写的中间件最外层函数的参数 store，这样中间件就可以根据状态树进行各种操作了。</p>
+<p>可以发现重新组装之后的 store 只有两个方法，一个是用户获取 state 的 getState 方法，另一个是用于分发 action 的 dispatch，而 setState、subscribe、replaceReducer 等方法则不提供，setState 在设置状态时重新 render 可能会触发新的 action 而导致死循环；setState 本身就是用于订阅每个 dispatch 操作，此时 dispatch 就在你手上（next)，根本不需要订阅；replaceReducer 用于动态加载新的 reducer，我猜你用不到。</p>
+<p>将中间件数组中的函数逐一传入参数 middlewareAPI 并执行，从而得到 chain 数组，此时 chain 数组中的每个函数长这样：</p>
+<pre><code class="hljs js">next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> &#123;
+  <span class="hljs-comment">// 中间件逻辑代码</span>
+&#125;</code></pre>
+
+<p><em><strong>核心代码解读</strong></em></p>
+<blockquote>
+<p> dispatch = compose(…chain)(store.dispatch)</p>
+</blockquote>
+<p>假设 chain 是包含 C1, C2, C3 三个函数的数组，那么 compose(…chain)(store.dispatch) 即是 C1(C2(C3(store.dispatch))), 因此易知：</p>
+<ol>
+<li>applyMiddleware 的最后一个中间件 M3 中的 next 就是原始的 store.dispatch;</li>
+<li>M2 中的 next 为 C3(store.dispatch);</li>
+<li>M1 中的 next 为 C2(C3(store.dispatch));</li>
+</ol>
+<p>最终将 C1(C2(C3(store.dispatch))) 作为新的 dispatch 挂在 store 上返回给用户，因此这就是用户切实调到的 dispatch 方法，既然层层执行了 C3，C2, C1，那么一个中间件已经被拆解为：</p>
+<pre><code class="hljs js">action =&gt; &#123;
+
+&#125;</code></pre>
+
+<h4 id="触发-action-的完整流程"><a href="#触发-action-的完整流程" class="headerlink" title="触发 action 的完整流程"></a>触发 action 的完整流程</h4><p>有了这个 dispatch 方法和被扒光的中间件，我们来梳理一遍当用户触发一个 action 的完整流程：</p>
+<ol>
+<li>手动触发一个 action：store.dispatch(action)；</li>
+<li>即调用 C1(C2(C3(store.dispatch)))(action)；</li>
+<li>执行 C1 中的代码，直到遇到 next(action)，此时 next 为 M1 中的 next，即：C2(c3(store.dispatch))；</li>
+<li>执行 C2(c3(store.dispatch))(action)，直到遇到 next(action)，此时 next 为 M2 中的 next，即：C3(store.dispatch)；</li>
+<li>执行 C3(store.dispatch)(action)，直到遇到 next(action)，此时 next 为 M3 中的 next，即：store.dispatch；</li>
+<li>执行 store.dispatch(action)，store.dispatch 内部调用 root reducer 更新当前 state；</li>
+<li>执行 C3 中 next(action) 之后的代码</li>
+<li>执行 C2 中 next(action) 之后的代码</li>
+<li>执行 C1 中 next(action) 之后的代码</li>
+</ol>
+<p>即：C1 -&gt; C2 -&gt; C3 -&gt; store.dispatch -&gt; C3 -&gt; C2 -&gt; C1</p>
+<p>洋葱模型有没有!!!</p>
+<h2 id="如何编写"><a href="#如何编写" class="headerlink" title="如何编写"></a>如何编写</h2><p>讲了这么多，终于切入正题，开始写中间件了，目标是实现中间件，使得异步请求，错误处理都能经由中间件处理；而不需要每次手动繁琐的发起异步请求，同时每个异步请求语句之后都手动处理错误代码。</p>
+<p>先从简单的错误处理中间件开始~</p>
+<h3 id="错误处理中间件"><a href="#错误处理中间件" class="headerlink" title="错误处理中间件"></a>错误处理中间件</h3><p>通过检测 action 上是否存在 error 字段，来决定是否抛出错误</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; notification &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-keyword">async</span> action =&gt; &#123;
+  <span class="hljs-keyword">try</span> &#123;
+    <span class="hljs-keyword">if</span>(action.<span class="hljs-property">error</span>) &#123;
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(action.<span class="hljs-property">error</span>)
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-title function_">next</span>(action)
+    &#125;
+  &#125; <span class="hljs-keyword">catch</span> (err) &#123;
+    notification.<span class="hljs-title function_">error</span>(&#123;
+      <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;错误信息&#x27;</span>,
+      <span class="hljs-attr">description</span>: err.<span class="hljs-property">message</span>
+    &#125;);
+    <span class="hljs-keyword">throw</span> err
+  &#125;
+&#125;</code></pre>
+
+<p>当发现 action 中有 error 字段，则抛出错误，这个字段可由上游中间件出错后，将对应的错误信息挂在 action.error 上，使得本中间件能够处理这个错误，由于项目基于 antd，此处将所有错误都通过 notification 组件在右上角弹窗显示；</p>
+<p>如果做成通用的错误处理的话，可以再包一层函数，传入错误处理函数，便能够自定义错误处理函数了：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> handler =&gt; <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> &#123;
+  <span class="hljs-keyword">try</span> &#123;
+    <span class="hljs-keyword">if</span>(action.<span class="hljs-property">error</span>) &#123;
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(action.<span class="hljs-property">error</span>)
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-title function_">next</span>(action)
+    &#125;
+  &#125; <span class="hljs-keyword">catch</span> (err) &#123;
+    handler &amp;&amp; <span class="hljs-title function_">handler</span>(err)
+    <span class="hljs-keyword">throw</span> err
+  &#125;
+&#125;</code></pre>
+
+<p>则使用方式变为：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> createStoreWithMiddleware = <span class="hljs-title function_">compose</span>(
+  <span class="hljs-title function_">applyMiddleware</span>(
+    nextAndRequest,
+    <span class="hljs-title function_">errorHandler</span>(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;
+      notification.<span class="hljs-title function_">error</span>(&#123;
+        <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;错误信息&#x27;</span>,
+        <span class="hljs-attr">description</span>: err.<span class="hljs-property">message</span>
+      &#125;)
+    &#125;),
+  ),
+  <span class="hljs-variable language_">window</span>.<span class="hljs-property">devToolsExtension</span>
+)(createStore)</code></pre>
+
+<h3 id="异步请求处理中间件"><a href="#异步请求处理中间件" class="headerlink" title="异步请求处理中间件"></a>异步请求处理中间件</h3><h4 id="版本一"><a href="#版本一" class="headerlink" title="版本一"></a>版本一</h4><p>通过判断 action 字段上是否用 url 字段来判断是否需要发起异步请求，同时将请求结果挂在 action 的 result 字段上，供下一个中间件或 reducer 使用。</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./request&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-keyword">async</span> action =&gt; &#123;
+  <span class="hljs-keyword">if</span> (action.<span class="hljs-property">url</span>) &#123;
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-keyword">const</span> <span class="hljs-title function_">execAction</span> = <span class="hljs-keyword">async</span> act =&gt; &#123;
+
+        <span class="hljs-keyword">if</span>(act.<span class="hljs-property">url</span>) &#123;
+          <span class="hljs-keyword">const</span> &#123;
+            code,
+            data,
+            error,
+          &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">request</span>(&#123;
+            <span class="hljs-attr">url</span>: act.<span class="hljs-property">url</span>,
+            <span class="hljs-attr">method</span>: act.<span class="hljs-property">method</span> || <span class="hljs-string">&#x27;get&#x27;</span>,
+            <span class="hljs-attr">data</span>: act.<span class="hljs-property">data</span> || &#123;&#125;,
+          &#125;)
+
+          <span class="hljs-keyword">if</span> (code !== <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(error || <span class="hljs-string">&#x27;未知错误！&#x27;</span>)
+          &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">return</span> data
+          &#125;
+        &#125;
+      &#125;
+
+      <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(action)
+
+      <span class="hljs-title function_">next</span>(&#123;
+        result,
+        ...action
+      &#125;)
+
+    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+      <span class="hljs-title function_">next</span>(&#123;
+        <span class="hljs-attr">error</span>: error.<span class="hljs-property">message</span>,
+      &#125;)
+    &#125;
+  &#125; <span class="hljs-keyword">else</span> &#123;
+    <span class="hljs-title function_">next</span>(action)
+  &#125;
+&#125;</code></pre>
+
+
+
+<h4 id="版本二"><a href="#版本二" class="headerlink" title="版本二"></a>版本二</h4><p>由于本项目大部分情况需要在执行一个异步 action 之后，再重新执行一个异步 action，达到更新当前列表的目的。</p>
+<blockquote>
+<p>例如删除或添加一条记录后，希望更新当前列表信息</p>
+</blockquote>
+<p>因此做如下更改，在 action 上增加一个 nextAction 字段，使得能够在执行当前 action 之后，接着执行一个 action：</p>
+<pre><code class="hljs js"><span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./request&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-keyword">async</span> action =&gt; &#123;
+  <span class="hljs-keyword">if</span> (action.<span class="hljs-property">url</span> || action.<span class="hljs-property">nextAction</span>) &#123;
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-keyword">const</span> <span class="hljs-title function_">execAction</span> = <span class="hljs-keyword">async</span> act =&gt; &#123;
+
+        <span class="hljs-keyword">if</span>(act.<span class="hljs-property">url</span>) &#123;
+          <span class="hljs-keyword">const</span> &#123;
+            code,
+            data,
+            error,
+          &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">request</span>(&#123;
+            <span class="hljs-attr">url</span>: act.<span class="hljs-property">url</span>,
+            <span class="hljs-attr">method</span>: act.<span class="hljs-property">method</span> || <span class="hljs-string">&#x27;get&#x27;</span>,
+            <span class="hljs-attr">data</span>: act.<span class="hljs-property">data</span> || &#123;&#125;,
+          &#125;)
+
+          <span class="hljs-keyword">if</span> (code !== <span class="hljs-number">0</span>) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(error || <span class="hljs-string">&#x27;未知错误！&#x27;</span>)
+          &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">return</span> data
+          &#125;
+        &#125;
+      &#125;
+
+      <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(action)
+
+      <span class="hljs-title function_">next</span>(&#123;
+        result,
+        ...action
+      &#125;)
+
+      <span class="hljs-keyword">if</span> (action.<span class="hljs-property">nextAction</span>) &#123;
+        <span class="hljs-keyword">const</span> act = action.<span class="hljs-property">nextAction</span>
+        <span class="hljs-keyword">const</span> nextAction = <span class="hljs-keyword">typeof</span> act === <span class="hljs-string">&#x27;function&#x27;</span> ? <span class="hljs-keyword">await</span> <span class="hljs-title function_">act</span>(result, action) : act
+        <span class="hljs-keyword">const</span> nextResult = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(nextAction)
+
+        <span class="hljs-title function_">next</span>(&#123;
+          <span class="hljs-attr">result</span>: nextResult,
+          <span class="hljs-attr">lastResult</span>: result,
+          ...nextAction
+        &#125;)
+      &#125;
+
+    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+      <span class="hljs-title function_">next</span>(&#123;
+        <span class="hljs-attr">error</span>: error.<span class="hljs-property">message</span>,
+      &#125;)
+    &#125;
+  &#125; <span class="hljs-keyword">else</span> &#123;
+    <span class="hljs-title function_">next</span>(action)
+  &#125;
+&#125;</code></pre>
+
+<p>为了方便执行一些额外的操作，此处 nextAction 也可以是一个函数，该函数必须返回一个 action，同时将当前 action 的返回值作为回调传入这个函数，nextAction 执行之后，除了将请求结果作为 result 字段挂在 action 之外，还加入了一个 lastResult 字段保存首次 action 的值。</p>
+<h4 id="版本三"><a href="#版本三" class="headerlink" title="版本三"></a>版本三</h4><p>目前只能支持一级 nextAction，如果要支持多级的话，可以传入数组，数组中可以是一个普通的 action，也可以是返回一个 action 的函数，完整代码如下：</p>
+<pre><code class="hljs js"><span class="hljs-comment">// index.js</span>
+
+<span class="hljs-keyword">import</span> execAction <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./exec-action&#x27;</span>
+<span class="hljs-keyword">import</span> execNextAction <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./exec-next-action&#x27;</span>
+<span class="hljs-keyword">import</span> isFunction <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./is-function&#x27;</span>
+<span class="hljs-keyword">import</span> isArray <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./is-array&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-keyword">async</span> action =&gt; &#123;
+  <span class="hljs-keyword">if</span> (action.<span class="hljs-property">url</span> || action.<span class="hljs-property">nextAction</span>) &#123;
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(action)
+
+      <span class="hljs-title function_">next</span>(&#123;
+        result,
+        ...action
+      &#125;)
+
+      <span class="hljs-keyword">if</span> (action.<span class="hljs-property">nextAction</span>) &#123;
+        <span class="hljs-keyword">let</span> nextAction = action.<span class="hljs-property">nextAction</span>
+        <span class="hljs-keyword">let</span> lastResult = result
+        <span class="hljs-keyword">let</span> lastAction = action
+
+        <span class="hljs-keyword">if</span>(<span class="hljs-title function_">isFunction</span>(nextAction)) &#123;
+          nextAction = <span class="hljs-keyword">await</span> <span class="hljs-title function_">nextAction</span>(lastResult, lastAction)
+          <span class="hljs-keyword">await</span> <span class="hljs-title function_">execNextAction</span>(nextAction, lastResult, next)
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-title function_">isArray</span>(nextAction)) &#123;
+          <span class="hljs-keyword">let</span> currentAction
+          <span class="hljs-keyword">for</span>( <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; nextAction.<span class="hljs-property">length</span>; i++ ) &#123;
+            lastAction = nextAction[i - <span class="hljs-number">1</span>] ? nextAction[i - <span class="hljs-number">1</span>] : lastAction
+            currentAction = <span class="hljs-title function_">isFunction</span>(nextAction[i]) ? <span class="hljs-keyword">await</span> nextAction[i](lastResult, lastAction) : nextAction[i]
+            <span class="hljs-keyword">await</span> <span class="hljs-title function_">execNextAction</span>(currentAction, lastResult, next)
+          &#125;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+          <span class="hljs-keyword">await</span> <span class="hljs-title function_">execNextAction</span>(nextAction, lastResult, next)
+        &#125;
+      &#125;
+
+    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+      <span class="hljs-title function_">next</span>(&#123;
+        <span class="hljs-attr">error</span>: error.<span class="hljs-property">message</span>,
+      &#125;)
+    &#125;
+  &#125; <span class="hljs-keyword">else</span> &#123;
+    <span class="hljs-title function_">next</span>(action)
+  &#125;
+&#125;</code></pre>
+
+<pre><code class="hljs js"><span class="hljs-comment">// is-array.js</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> param =&gt; <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(param)</code></pre>
+
+<pre><code class="hljs js"><span class="hljs-comment">// is-function.js</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> param =&gt; <span class="hljs-keyword">typeof</span> param === <span class="hljs-string">&#x27;function&#x27;</span></code></pre>
+
+<pre><code class="hljs js"><span class="hljs-comment">// request.js</span>
+
+<span class="hljs-keyword">import</span> reqwest <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;reqwest&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> opts =&gt; &#123;
+  <span class="hljs-keyword">const</span> defaultOpts = &#123;
+    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;json&#x27;</span>,
+    <span class="hljs-attr">url</span>: <span class="hljs-string">`/routers<span class="hljs-subst">$&#123;opts.url&#125;</span>`</span>,
+  &#125;
+
+  <span class="hljs-keyword">const</span> finalOpts = &#123;
+    ...opts,
+    ...defaultOpts,
+  &#125;
+
+  <span class="hljs-keyword">let</span> ret
+  <span class="hljs-keyword">try</span> &#123;
+    ret = <span class="hljs-keyword">await</span> <span class="hljs-title function_">reqwest</span>(finalOpts)
+    <span class="hljs-keyword">return</span> ret
+  &#125; <span class="hljs-keyword">catch</span> (e) &#123;
+    <span class="hljs-keyword">try</span> &#123;
+      ret = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(e.<span class="hljs-property">response</span>)
+    &#125; <span class="hljs-keyword">catch</span> (e) &#123;
+      ret = e.<span class="hljs-property">message</span>
+    &#125;
+
+    <span class="hljs-keyword">return</span> ret
+  &#125;
+&#125;</code></pre>
+
+<pre><code class="hljs js"><span class="hljs-comment">// exec-action.js</span>
+
+<span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./request&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> act =&gt; &#123;
+
+  <span class="hljs-keyword">if</span>(act.<span class="hljs-property">url</span>) &#123;
+    <span class="hljs-keyword">const</span> &#123;
+      code,
+      data,
+      error,
+    &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">request</span>(&#123;
+      <span class="hljs-attr">url</span>: act.<span class="hljs-property">url</span>,
+      <span class="hljs-attr">method</span>: act.<span class="hljs-property">method</span> || <span class="hljs-string">&#x27;get&#x27;</span>,
+      <span class="hljs-attr">data</span>: act.<span class="hljs-property">data</span> || &#123;&#125;,
+    &#125;)
+
+    <span class="hljs-keyword">if</span> (code !== <span class="hljs-number">0</span>) &#123;
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(error || <span class="hljs-string">&#x27;未知错误！&#x27;</span>)
+    &#125; <span class="hljs-keyword">else</span> &#123;
+      <span class="hljs-keyword">return</span> data
+    &#125;
+  &#125;
+&#125;</code></pre>
+
+<pre><code class="hljs js"><span class="hljs-comment">// exec-next-action.js</span>
+
+<span class="hljs-keyword">import</span> execAction <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./exec-action&#x27;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> (nextAct, lastResult, next) =&gt; &#123;
+  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(nextAct)
+
+  <span class="hljs-title function_">next</span>(&#123;
+    result,
+    lastResult,
+    ...nextAct
+  &#125;)
+&#125;</code></pre>
+
+<p>如此这般，便能开心的写页面了~<br>好了，我要发给我妈看看。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">源码解析</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Redux/">Redux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/08/15/Node.js%20%E8%B0%83%E8%AF%95%E6%96%B9%E5%BC%8F%E9%9B%86%E9%94%A6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Node.js 调试方式集锦</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/12/25/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20Node.js%20%E3%81%AE%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">深入浅出 Node.js の笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "redux 中间件入门到编写，到改进，到出门&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

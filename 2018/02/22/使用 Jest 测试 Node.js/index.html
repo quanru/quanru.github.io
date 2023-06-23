@@ -1,0 +1,1029 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>使用 Jest 测试 Node.js - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-02-22 18:13" pubdate>
+        2018年2月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      42
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">使用 Jest 测试 Node.js</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>使用 Jest 测试你的 Node.js 应用</p>
+<span id="more"></span>
+
+
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>增强代码的健壮性</li>
+<li>及时发现未被覆盖的代码逻辑</li>
+<li>项目交接或重构更加放心</li>
+</ul>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h3><pre><code class="hljs mipsasm">npm <span class="hljs-keyword">install </span>--save-dev <span class="hljs-keyword">jest </span>supertest</code></pre>
+
+
+
+<h3 id="2-配置-package-json"><a href="#2-配置-package-json" class="headerlink" title="2. 配置 package.json"></a>2. 配置 <code>package.json</code></h3><pre><code class="hljs js"><span class="hljs-string">&quot;scripts&quot;</span>: &#123;
+    <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;NODE_ENV=development jest&quot;</span>,
+    <span class="hljs-string">&quot;test-watch&quot;</span>: <span class="hljs-string">&quot;npm test -- --watch&quot;</span>,
+&#125;,
+<span class="hljs-string">&quot;jest&quot;</span>: &#123;
+    <span class="hljs-string">&quot;verbose&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">&quot;notify&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">&quot;collectCoverage&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-string">&quot;testEnvironment&quot;</span>: <span class="hljs-string">&quot;node&quot;</span>,
+    <span class="hljs-string">&quot;modulePaths&quot;</span>: [
+      <span class="hljs-string">&quot;&lt;rootDir&gt;/server&quot;</span>
+    ],
+    <span class="hljs-string">&quot;roots&quot;</span>: [
+      <span class="hljs-string">&quot;&lt;rootDir&gt;/__tests__&quot;</span>
+    ],
+    <span class="hljs-string">&quot;testPathIgnorePatterns&quot;</span>: [
+      <span class="hljs-string">&quot;__tests__/(fixtures|__mocks__)/&quot;</span>
+    ],
+    <span class="hljs-string">&quot;coverageReporters&quot;</span>: [
+      <span class="hljs-string">&quot;html&quot;</span>,
+      <span class="hljs-string">&quot;text&quot;</span>,
+      <span class="hljs-string">&quot;text-summary&quot;</span>
+    ]
+  &#125;</code></pre>
+
+
+
+<h3 id="3-添加-gitignore"><a href="#3-添加-gitignore" class="headerlink" title="3. 添加 gitignore"></a>3. 添加 gitignore</h3><ol>
+<li>在 .gitignore 配置文件中增加忽略 <code>coverage</code> 目录</li>
+</ol>
+<h3 id="4-运行"><a href="#4-运行" class="headerlink" title="4. 运行"></a>4. 运行</h3><pre><code class="hljs bash">npm <span class="hljs-built_in">test</span> <span class="hljs-comment"># 全部测试</span>
+npm run test-watch <span class="hljs-comment"># 开启 watch 模式, 只运行修改的测试文件</span></code></pre>
+
+
+
+<h3 id="5-jest-命令的实用参数"><a href="#5-jest-命令的实用参数" class="headerlink" title="5. jest  命令的实用参数"></a>5. <code>jest</code>  命令的实用参数</h3><ul>
+<li><code>npm test -- fileName</code>  文件名支持正则，比如 <code>npm test -- server/*</code>；支持部分匹配，比如 <code>npm run test -- controllers/login</code></li>
+<li><code>npm test --bail [-- fileName]</code> 当遇到失败的用例时，立马退出，方便查看报错信息</li>
+<li><code>npm test --watch [-- fileName]</code> 监听测试文件修改，仅重新执行所修改的测试用例</li>
+<li><code>npm test --watchAll [-- fileName]</code> 监听测试修改，重新执行所有测试用例</li>
+</ul>
+<h3 id="6-目录结构约定"><a href="#6-目录结构约定" class="headerlink" title="6. 目录结构约定"></a>6. 目录结构约定</h3><ol>
+<li>测试文件：<code>__tests__</code></li>
+<li>mock 模块：<code>__mocks__</code></li>
+<li>辅助工具：<code>__test__/fixtures</code></li>
+</ol>
+<pre><code class="hljs bash">__tests__
+├── fixtures
+├── __mocks__
+│   └── request.js
+└── server
+    ├── controllers
+    │   └── thread
+    │       └── index.test.js
+    └── server.test.js</code></pre>
+
+
+
+<h2 id="测试维度"><a href="#测试维度" class="headerlink" title="测试维度"></a>测试维度</h2><ol>
+<li>正向测试：这个函数是否按照其声明的那样实现了非常基本的功能？</li>
+<li>负向测试：代码是否可以处理非期待值？</li>
+</ol>
+<h2 id="测试覆盖率"><a href="#测试覆盖率" class="headerlink" title="测试覆盖率"></a>测试覆盖率</h2><p>源代码被测试的比例, 有四个测量维度</p>
+<ul>
+<li>行覆盖率（line coverage）：是否每一行都执行了？</li>
+<li>函数覆盖率（function coverage）：是否每个函数都调用了？</li>
+<li>分支覆盖率（branch coverage）：是否每个if代码块都执行了？</li>
+<li>语句覆盖率（statement coverage）：是否每个语句都执行了？</li>
+</ul>
+<pre><code class="hljs bash">-----------|----------|----------|----------|----------|----------------|
+File       |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+-----------|----------|----------|----------|----------|----------------|
+All files  |      100 |    85.71 |      100 |      100 |                |
+ logger.js |      100 |    85.71 |      100 |      100 |                |
+-----------|----------|----------|----------|----------|----------------|
+Test Suites: 1 passed, 1 total
+Tests:       9 passed, 9 total
+Snapshots:   0 total
+Time:        0.836s, estimated 1s
+Ran all <span class="hljs-built_in">test</span> suites.</code></pre>
+
+<blockquote>
+<p>附：<a target="_blank" rel="noopener" href="https://github.com/yangyubo/zh-unit-testing-guidelines/blob/master/readme.rst">单元测试准则</a> 文档较长，建议饭后查看</p>
+</blockquote>
+<h2 id="测哪些东西"><a href="#测哪些东西" class="headerlink" title="测哪些东西"></a>测哪些东西</h2><ul>
+<li>server - 启动是否正常</li>
+<li>middlewares - 加载正常，请求时正常工作</li>
+<li>controllers - 请求特定路由，看响应是否是符合预期</li>
+<li>services - 调用特定方法，返回结果符合预期，边界情况</li>
+<li>routes、lib  - 普通测试</li>
+</ul>
+<h2 id="测试用例撰写"><a href="#测试用例撰写" class="headerlink" title="测试用例撰写"></a>测试用例撰写</h2><h4 id="一个普通且完备的单测文件"><a href="#一个普通且完备的单测文件" class="headerlink" title="一个普通且完备的单测文件"></a>一个普通且完备的单测文件</h4>  <pre><code class="hljs js"><span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;api 映射模块&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-comment">// 在所有单测运行前执行，用于准备当前 describe 模块所需要的环境准备，比如全局的数据库；</span>
+  <span class="hljs-title function_">beforeAll</span>(<span class="hljs-function">() =&gt;</span> &#123;
+
+  &#125;)
+
+  <span class="hljs-comment">// 在每个单测运行前执行，用于准备每个用例（it）所需要的操作，比如重置 server app 操作</span>
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> &#123;
+
+  &#125;)
+
+  <span class="hljs-comment">// 在每个单测运行后执行，用于清理每个用例（it）的相关变量，比如重置所有模块的缓存</span>
+  <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> &#123;
+    jest.<span class="hljs-title function_">resetModules</span>()
+  &#125;)
+
+  <span class="hljs-comment">// 在所有单测运行后执行，用于清理环境，比如清理一些为了单测而生成的“环境准备”</span>
+  <span class="hljs-title function_">afterAll</span>(<span class="hljs-function">() =&gt;</span> &#123;
+
+  &#125;)
+
+  <span class="hljs-comment">// 注：以上四个方法均支持返回一个 Promise，此时 Jest 将等待该 Promise resolve 后继续</span>
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;当 env 为默认的 development 环境时，返回 localhost 地址&#x27;</span>, <span class="hljs-title function_">async</span>() =&gt; &#123;
+    process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> = <span class="hljs-string">&#x27;&#x27;</span>
+
+    <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">API</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lib/api&#x27;</span>)
+
+    <span class="hljs-title function_">expect</span>(<span class="hljs-variable constant_">API</span>).<span class="hljs-title function_">toThrow</span>() <span class="hljs-comment">// 期望 API 抛错</span>
+    <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">API</span>(<span class="hljs-string">&#x27;&#x27;</span>)).<span class="hljs-title function_">toMatch</span>(<span class="hljs-regexp">/localhost/</span>) <span class="hljs-comment">// 期望返回包含 &#x27;localhost&#x27; 字段</span>
+  &#125;)
+
+  it.<span class="hljs-title function_">only</span>(<span class="hljs-string">&#x27;当 env 为测试环境时，返回测试环境地址&#x27;</span>, <span class="hljs-title function_">async</span>() =&gt; &#123; <span class="hljs-comment">// 仅执行本测试用例，常用于调试当前用例</span>
+    process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> = <span class="hljs-string">&#x27;test&#x27;</span>
+
+    <span class="hljs-keyword">const</span> <span class="hljs-variable constant_">API</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;lib/api&#x27;</span>)
+
+    <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">API</span>(<span class="hljs-string">&#x27;get_items&#x27;</span>)).<span class="hljs-title function_">toMatch</span>(<span class="hljs-regexp">/test.baidu.info/</span>)
+  &#125;)
+&#125;)
+</code></pre>
+<p>  ​</p>
+<blockquote>
+<p> 附：expect 常用语句，更多请查看<a target="_blank" rel="noopener" href="http://facebook.github.io/jest/docs/en/expect.html#content">官方 expect 文档</a></p>
+</blockquote>
+  <pre><code class="hljs js">.<span class="hljs-title function_">toBe</span>(value) <span class="hljs-comment">// 期望值为 value</span>
+.<span class="hljs-title function_">toEqual</span>(value) <span class="hljs-comment">// 期望两个对象内容完全相等</span>
+.<span class="hljs-title function_">toBeDefined</span>() <span class="hljs-comment">// 期望被定义</span>
+.<span class="hljs-title function_">toBeFalsy</span>() <span class="hljs-comment">// 期望为 Falsy</span>
+.<span class="hljs-title function_">toBeTruthy</span>() <span class="hljs-comment">// 期望 Truthy</span>
+.<span class="hljs-title function_">toMatch</span>() <span class="hljs-comment">// 期望符合，支持字符串和正则对象</span>
+.<span class="hljs-title function_">toThrow</span>() <span class="hljs-comment">// 期望抛错</span>
+
+.<span class="hljs-title function_">toHaveBeenCalled</span>() <span class="hljs-comment">// 方法被调用</span>
+.<span class="hljs-title function_">toHaveBeenCalledWith</span>(arg1, arg2, ...) <span class="hljs-comment">// 方法被以参数 arg1, arg2, ... 调用</span>
+.<span class="hljs-title function_">toHaveBeenCalledTimes</span>(number) <span class="hljs-comment">// 方法被调用次数为 number 次</span>
+
+<span class="hljs-comment">// 以上 expect 语句均可取非，形式如下：not.toBe()</span></code></pre>
+
+
+
+<h2 id="mock-示例"><a href="#mock-示例" class="headerlink" title="mock 示例"></a>mock 示例</h2><h3 id="jest-中-mock-主要有两种作用："><a href="#jest-中-mock-主要有两种作用：" class="headerlink" title="jest 中 mock 主要有两种作用："></a>jest 中 mock 主要有两种作用：</h3><h4 id="屏蔽外部影响："><a href="#屏蔽外部影响：" class="headerlink" title="屏蔽外部影响："></a>屏蔽外部影响：</h4><pre><code class="hljs js"><span class="hljs-comment">// number-add.js</span>
+...
+<span class="hljs-keyword">const</span> debug = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;debug&#x27;</span>)
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> &#123;
+  <span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;value a: &#x27;</span>, a)
+  <span class="hljs-title function_">debug</span>(<span class="hljs-string">&#x27;value b: &#x27;</span>, b)
+
+  <span class="hljs-keyword">return</span> a + b
+&#125;
+
+...
+
+<span class="hljs-comment">// number-add.test.js</span>
+<span class="hljs-comment">// mock debug 模块，使得每次 require 该模块时，返回自动生成的 mock 实例</span>
+jest.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;debug&#x27;</span>)
+...
+<span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;返回 a 和 b 的和&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-keyword">const</span> add = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;utils/number-add&#x27;</span>)
+  <span class="hljs-keyword">const</span> total = <span class="hljs-title function_">add</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
+
+  <span class="hljs-title function_">expect</span>(total).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">3</span>)
+&#125;)
+...</code></pre>
+
+<h4 id="模拟外部调用："><a href="#模拟外部调用：" class="headerlink" title="模拟外部调用："></a>模拟外部调用：</h4><pre><code class="hljs js"><span class="hljs-comment">// string-add-async.js</span>
+<span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>)
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-keyword">async</span> (apiA, apiB) =&gt; &#123;
+  <span class="hljs-keyword">const</span> stringA = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(apiA)
+  <span class="hljs-keyword">const</span> stringB = <span class="hljs-keyword">await</span> <span class="hljs-title function_">fetch</span>(apiB)
+
+  <span class="hljs-keyword">return</span> stringA + stringB
+&#125;
+
+<span class="hljs-comment">// string-add-async.test.js</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;测试 string-add-async 模块&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;返回接口 a 和 接口 b 所返回的字符串拼接&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-comment">// mock node-fetch 模块</span>
+    jest.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+      <span class="hljs-keyword">return</span> jest
+        .<span class="hljs-title function_">fn</span>()
+        .<span class="hljs-title function_">mockImplementationOnce</span>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-string">&#x27;Hello &#x27;</span>) <span class="hljs-comment">// 首次调用时返回 &#x27;Hello &#x27;</span>
+        .<span class="hljs-title function_">mockImplementationOnce</span>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-string">&#x27;world!&#x27;</span>) <span class="hljs-comment">// 第二次调用时返回 &#x27; world!&#x27;</span>
+    &#125;)
+
+    <span class="hljs-keyword">const</span> addAsync = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;utils/string-add-async&#x27;</span>)
+    <span class="hljs-keyword">const</span> string = <span class="hljs-keyword">await</span> <span class="hljs-title function_">addAsync</span>(<span class="hljs-string">&#x27;apiA&#x27;</span>, <span class="hljs-string">&#x27;apiB&#x27;</span>)
+
+    <span class="hljs-title function_">expect</span>(string).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;Hello world!&#x27;</span>)
+  &#125;)
+&#125;)</code></pre>
+
+
+<h3 id="如何正确的-mock-一个模块"><a href="#如何正确的-mock-一个模块" class="headerlink" title="如何正确的 mock 一个模块"></a>如何正确的 mock 一个模块</h3><blockquote>
+<p>此处以 string-add-async 模块为例</p>
+</blockquote>
+<pre><code class="hljs js"><span class="hljs-comment">// 方式一</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;测试 string-add-async 模块&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;返回接口 a 和 接口 b 所返回的字符串拼接&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-comment">// mock node-fetch 模块</span>
+    jest.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+      <span class="hljs-keyword">return</span> jest
+        .<span class="hljs-title function_">fn</span>()
+        .<span class="hljs-title function_">mockImplementationOnce</span>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-string">&#x27;Hello &#x27;</span>) <span class="hljs-comment">// 首次调用时返回 &#x27;Hello &#x27;</span>
+        .<span class="hljs-title function_">mockImplementationOnce</span>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-string">&#x27;world!&#x27;</span>) <span class="hljs-comment">// 第二次调用时返回 &#x27; world!&#x27;</span>
+    &#125;)
+
+    <span class="hljs-keyword">const</span> addAsync = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;utils/string-add-async&#x27;</span>)
+    <span class="hljs-keyword">const</span> string = <span class="hljs-keyword">await</span> <span class="hljs-title function_">addAsync</span>(<span class="hljs-string">&#x27;apiA&#x27;</span>, <span class="hljs-string">&#x27;apiB&#x27;</span>)
+
+    <span class="hljs-title function_">expect</span>(string).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;Hello world!&#x27;</span>)
+  &#125;)
+&#125;)
+
+<span class="hljs-comment">// 方式二</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;测试 string-add-async 模块 2&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;返回接口 a 和 接口 b 所返回的字符串拼接&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-comment">// mock node-fetch 模块，使得每次 require 该模块时，返回 mock 实例</span>
+    jest.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>)
+
+    <span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;node-fetch&#x27;</span>)
+
+    fetch
+      .<span class="hljs-title function_">mockImplementationOnce</span>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-string">&#x27;Hello &#x27;</span>) <span class="hljs-comment">// 首次调用时返回 &#x27;Hello &#x27;</span>
+      .<span class="hljs-title function_">mockImplementationOnce</span>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-string">&#x27;world!&#x27;</span>) <span class="hljs-comment">// 第二次调用时返回 &#x27; world!&#x27;</span>
+
+    <span class="hljs-keyword">const</span> addAsync = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;utils/string-add-async&#x27;</span>)
+    <span class="hljs-keyword">const</span> string = <span class="hljs-keyword">await</span> <span class="hljs-title function_">addAsync</span>(<span class="hljs-string">&#x27;apiA&#x27;</span>, <span class="hljs-string">&#x27;apiB&#x27;</span>)
+
+    <span class="hljs-title function_">expect</span>(string).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;Hello world!&#x27;</span>)
+  &#125;)
+&#125;)
+
+<span class="hljs-comment">// 方式三</span>
+<span class="hljs-comment">// __tests__/__mocks__/node-fetch.js</span>
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-keyword">async</span> apiUrl =&gt; &#123;
+  <span class="hljs-keyword">return</span> apiUrl
+&#125;
+</code></pre>
+
+<blockquote>
+<p>注：强烈不建议使用方式三，因为该方式影响范围比较大，不过适合 <code>屏蔽外部影响</code> 的情况</p>
+</blockquote>
+<h3 id="mock-实例"><a href="#mock-实例" class="headerlink" title="mock 实例"></a>mock 实例</h3><blockquote>
+<p>当一个模块被 mock 之后，便返回了一个 mock 实例，该实例上有丰富的方法可以用来进一步 mock；且还给出了丰富的属性用以断言</p>
+</blockquote>
+<ol>
+<li><code>mockImplementation(fn)</code> 其中 fn 就是所 mock 模块的实现</li>
+<li><code>mockImplementationOnce(fn)</code> 与 1 类似，但是仅生效一次，可链式调用，使得每次 mock 的返回都不一样</li>
+<li><code>mockReturnValue(value)</code> 直接定义一个 mock 模块的返回值</li>
+<li><code>mockReturnValueOnce(value)</code> 直接定义一个 mock 模块的返回值（一次性）</li>
+<li><code>mock.calls</code> 调用属性，比如一个 mock 函数 fun 被调用两次：<code>fun(arg1, arg2); fun(arg3, arg4);</code>，则  mock.calls 值为 <code>[[&#39;arg1&#39;, &#39;arg2&#39;], [&#39;arg3&#39;, &#39;arg4&#39;]]</code></li>
+</ol>
+<blockquote>
+<p>附：更多 mock 实例属性与方法详见<a target="_blank" rel="noopener" href="http://facebook.github.io/jest/docs/en/mock-function-api.html#content">官方文档</a></p>
+</blockquote>
+<h2 id="测试示例"><a href="#测试示例" class="headerlink" title="测试示例"></a>测试示例</h2><h4 id="完整代码暂不提供"><a href="#完整代码暂不提供" class="headerlink" title="完整代码暂不提供"></a>完整代码暂不提供</h4><h3 id="工具模块的测试方法"><a href="#工具模块的测试方法" class="headerlink" title="工具模块的测试方法"></a>工具模块的测试方法</h3><h4 id="参看本文档-mock-示例-部分"><a href="#参看本文档-mock-示例-部分" class="headerlink" title="参看本文档 mock 示例 部分"></a>参看本文档 <code>mock 示例</code> 部分</h4><h3 id="服务启动的测试方法"><a href="#服务启动的测试方法" class="headerlink" title="服务启动的测试方法"></a>服务启动的测试方法</h3><pre><code class="hljs js"><span class="hljs-keyword">const</span> supertest = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;supertest&#x27;</span>)
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;server 服务&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-keyword">let</span> app, server
+
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-keyword">async</span> () =&gt; &#123;
+    app = <span class="hljs-keyword">await</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;server&#x27;</span>)
+
+    <span class="hljs-comment">// 禁用 koa-logger 日志输出</span>
+    app.<span class="hljs-property">log</span>.<span class="hljs-title function_">level</span>(<span class="hljs-string">&#x27;fatal&#x27;</span>)
+  &#125;)
+
+  <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (server) &#123;
+      server.<span class="hljs-title function_">close</span>()
+    &#125;
+
+    app = <span class="hljs-literal">null</span>
+    server = <span class="hljs-literal">null</span>
+  &#125;)
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">request</span> = (<span class="hljs-params"></span>) =&gt; &#123;
+    <span class="hljs-keyword">if</span> (!server) &#123;
+      server = app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">0</span>)
+    &#125;
+
+    <span class="hljs-keyword">return</span> supertest(server)
+  &#125;
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;启动正常&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-title function_">expect</span>(request).<span class="hljs-property">not</span>.<span class="hljs-title function_">toThrow</span>()
+  &#125;)
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;app 抛出异常处理&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">async</span> ctx =&gt; &#123;
+      app.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;app error&#x27;</span>), ctx)
+      ctx.<span class="hljs-property">body</span> = <span class="hljs-string">&#x27;ok&#x27;</span>
+    &#125;)
+
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">request</span>()
+      .<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/throw-error&#x27;</span>)
+      .<span class="hljs-title function_">expect</span>(<span class="hljs-number">200</span>)
+      .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">text</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;ok&#x27;</span>)
+      &#125;)
+  &#125;)
+&#125;)
+</code></pre>
+
+<h3 id="中间件测试的方法"><a href="#中间件测试的方法" class="headerlink" title="中间件测试的方法"></a>中间件测试的方法</h3><pre><code class="hljs js"><span class="hljs-keyword">const</span> supertest = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;supertest&#x27;</span>)
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;错误中间件&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-keyword">let</span> app, server
+
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-keyword">async</span> () =&gt; &#123;
+    app = <span class="hljs-keyword">await</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;server&#x27;</span>)
+
+    <span class="hljs-comment">// 可以试试取消注释这一句，可以发现由于没有重置模块缓存，导致测试用例 3 使用了用例 2 中的 server 实例</span>
+    jest.<span class="hljs-title function_">resetModules</span>()
+  &#125;)
+
+  <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (server) &#123;
+      server.<span class="hljs-title function_">close</span>()
+    &#125;
+
+    app = <span class="hljs-literal">null</span>
+    server = <span class="hljs-literal">null</span>
+  &#125;)
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">request</span> = (<span class="hljs-params"></span>) =&gt; &#123;
+    <span class="hljs-keyword">if</span> (!server) &#123;
+      server = app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">0</span>)
+    &#125;
+
+    <span class="hljs-keyword">return</span> supertest(server)
+  &#125;
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;抛出异常-中间件出错（自定义错误）&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;
+      <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;中间件出错&#x27;</span>))
+      <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+    &#125;)
+
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">request</span>()
+      .<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/throw-error&#x27;</span>)
+      .<span class="hljs-title function_">expect</span>(<span class="hljs-number">200</span>)
+      .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">body</span>.<span class="hljs-property">error</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;中间件出错&#x27;</span>)
+      &#125;)
+  &#125;)
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;app 抛出异常-系统异常，请稍后再试（默认错误）&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;
+      <span class="hljs-keyword">await</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;&#x27;</span>))
+      <span class="hljs-keyword">await</span> <span class="hljs-title function_">next</span>()
+    &#125;)
+
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">request</span>()
+      .<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/throw-error&#x27;</span>)
+      .<span class="hljs-title function_">expect</span>(<span class="hljs-number">200</span>)
+      .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-title function_">expect</span>(res.<span class="hljs-property">body</span>.<span class="hljs-property">error</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;系统异常，请稍后再试&#x27;</span>)
+      &#125;)
+  &#125;)
+&#125;)
+</code></pre>
+
+<h3 id="接口测试的方法"><a href="#接口测试的方法" class="headerlink" title="接口测试的方法"></a>接口测试的方法</h3><p>// add-api.js</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">AddService</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./add-service&#x27;</span>)
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-keyword">async</span> router =&gt; &#123;
+  router.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/add&#x27;</span>, <span class="hljs-keyword">async</span> ctx =&gt; &#123;
+    <span class="hljs-keyword">const</span> &#123; a, b &#125; = ctx.<span class="hljs-property">query</span>
+    <span class="hljs-keyword">const</span> numberA = <span class="hljs-title class_">Number</span>(a)
+    <span class="hljs-keyword">const</span> numberB = <span class="hljs-title class_">Number</span>(b)
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Number</span>.<span class="hljs-built_in">isNaN</span>(numberA) || <span class="hljs-title class_">Number</span>.<span class="hljs-built_in">isNaN</span>(numberB)) &#123;
+      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;参数必须为数字！&#x27;</span>)
+    &#125;
+
+    <span class="hljs-keyword">const</span> projectService = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AddService</span>(ctx)
+    <span class="hljs-keyword">const</span> ret = <span class="hljs-keyword">await</span> projectService.<span class="hljs-title function_">add</span>(numberA, numberB)
+
+    <span class="hljs-comment">// 处理请求成功后的数据</span>
+    ctx.<span class="hljs-property">body</span> = <span class="hljs-string">`接口计算结果：<span class="hljs-subst">$&#123;ret&#125;</span>`</span>
+  &#125;)
+&#125;
+</code></pre>
+
+<p>// add.test.js</p>
+<pre><code class="hljs js">jest.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;./add-service&#x27;</span>)
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Service</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./add-service&#x27;</span>)
+<span class="hljs-keyword">const</span> addApi = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;add-api&#x27;</span>)
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Router</span> = <span class="hljs-keyword">class</span> &#123;
+  <span class="hljs-title function_">constructor</span> (ctx) &#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(&#123;&#125;,
+      &#123;
+        get (target, name) &#123;
+          <span class="hljs-keyword">return</span> <span class="hljs-keyword">async</span> (path, callback) =&gt; &#123;
+            <span class="hljs-title function_">callback</span>(ctx)
+          &#125;
+        &#125;
+      &#125;)
+  &#125;
+&#125;
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;测试 add 接口&#x27;</span>, <span class="hljs-function">() =&gt;</span> &#123;
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">`当 a=1 且 b=2，返回 &#x27;接口计算结果：1 + 2 = 3&#x27;`</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-keyword">const</span> mockedAdd = jest.<span class="hljs-title function_">fn</span>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-string">&#x27;1 + 2 = 3&#x27;</span>)
+    <span class="hljs-keyword">const</span> ctx = &#123;
+      <span class="hljs-attr">query</span>: &#123;
+        <span class="hljs-attr">a</span>: <span class="hljs-string">&#x27;1&#x27;</span>,
+        <span class="hljs-attr">b</span>: <span class="hljs-string">&#x27;2&#x27;</span>
+      &#125;
+    &#125;
+
+    <span class="hljs-title class_">Service</span>.<span class="hljs-title function_">mockImplementation</span>(<span class="hljs-function">() =&gt;</span> &#123;
+      <span class="hljs-keyword">return</span> &#123;
+        <span class="hljs-attr">add</span>: mockedAdd
+      &#125;
+    &#125;)
+
+    <span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Router</span>(ctx)
+
+    <span class="hljs-keyword">await</span> <span class="hljs-title function_">addApi</span>(router)
+    <span class="hljs-title function_">expect</span>(mockedAdd).<span class="hljs-title function_">toBeCalledWith</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
+    <span class="hljs-comment">// or expect(mockedAdd.mock.calls).toEqual([[1, 2]])</span>
+    <span class="hljs-title function_">expect</span>(ctx.<span class="hljs-property">body</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;接口计算结果：1 + 2 = 3&#x27;</span>)
+  &#125;)
+
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">`当 a=1 且 b=xxx，接口报错`</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    <span class="hljs-keyword">const</span> mockedAdd = jest.<span class="hljs-title function_">fn</span>(<span class="hljs-keyword">async</span> () =&gt; <span class="hljs-string">&#x27;1 + 2 = 3&#x27;</span>)
+    <span class="hljs-keyword">const</span> ctx = &#123;
+      <span class="hljs-attr">query</span>: &#123;
+        <span class="hljs-attr">a</span>: <span class="hljs-string">&#x27;1&#x27;</span>,
+        <span class="hljs-attr">b</span>: <span class="hljs-string">&#x27;xxx&#x27;</span>
+      &#125;
+    &#125;
+
+    <span class="hljs-title class_">Service</span>.<span class="hljs-title function_">mockImplementation</span>(<span class="hljs-function">() =&gt;</span> &#123;
+      <span class="hljs-keyword">return</span> &#123;
+        <span class="hljs-attr">add</span>: mockedAdd
+      &#125;
+    &#125;)
+
+    <span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Router</span>(ctx)
+
+    <span class="hljs-keyword">try</span> &#123;
+      <span class="hljs-keyword">await</span> <span class="hljs-title function_">addApi</span>(router)
+    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+      <span class="hljs-title function_">expect</span>(error).<span class="hljs-title function_">toBeEqual</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;参数必须为数字！&#x27;</span>))
+    &#125;
+    <span class="hljs-title function_">expect</span>(mockedAdd).<span class="hljs-property">not</span>.<span class="hljs-title function_">toBeCalled</span>()
+  &#125;)
+&#125;)
+</code></pre>
+
+<h3 id="服务层的测试方法"><a href="#服务层的测试方法" class="headerlink" title="服务层的测试方法"></a>服务层的测试方法</h3><p>// project-service.js</p>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> add = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;utils/number-add&#x27;</span>)
+
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = <span class="hljs-keyword">class</span> &#123;
+  add (a, b) &#123;
+    <span class="hljs-keyword">const</span> ret = <span class="hljs-title function_">add</span>(a, b)
+
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;a&#125;</span> + <span class="hljs-subst">$&#123;b&#125;</span> = <span class="hljs-subst">$&#123;ret&#125;</span>`</span>
+  &#125;
+&#125;
+</code></pre>
+
+<p>// project-service.test.js</p>
+<pre><code class="hljs js"><span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;测试 project service&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">&#x27;测试 service 的 add 方法&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; &#123;
+    jest.<span class="hljs-title function_">mock</span>(<span class="hljs-string">&#x27;utils/number-add&#x27;</span>)
+
+    <span class="hljs-keyword">const</span> add = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;utils/number-add&#x27;</span>)
+    <span class="hljs-keyword">const</span> <span class="hljs-title class_">Service</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;project-service&#x27;</span>)
+    <span class="hljs-keyword">const</span> service = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Service</span>()
+
+    add.<span class="hljs-title function_">mockImplementation</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-number">100</span>)
+
+    <span class="hljs-keyword">const</span> ret = <span class="hljs-keyword">await</span> service.<span class="hljs-title function_">add</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)
+
+    <span class="hljs-title function_">expect</span>(ret).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;1 + 2 = 100&#x27;</span>)
+  &#125;)
+&#125;)
+</code></pre>
+
+<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><h4 id="console-log-有时无效"><a href="#console-log-有时无效" class="headerlink" title="console.log 有时无效"></a>console.log 有时无效</h4><blockquote>
+<p>试试 console.warn</p>
+</blockquote>
+<h4 id="mock-没起作用"><a href="#mock-没起作用" class="headerlink" title="mock 没起作用"></a>mock 没起作用</h4><blockquote>
+<p>mock 模块是否在多个测试用例中相互影响了；</p>
+<p>mock 操作是否在 require 之后；</p>
+<p>是否需要在 <code>beforeEach</code> 中执行 <code>jest.resetModules()</code> 或 <code>jest.resetAllMocks()</code>；</p>
+<p>是否需要单独执行 mock 的实例方法<code>mockReset</code>；</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://facebook.github.io/jest/docs/getting-started.html#content">Jest - Getting Started</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Node-js-%E6%9C%8D%E5%8A%A1%E7%AB%AF/">Node.js 服务端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">单元测试</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Jest/">Jest</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/07/21/%E4%B8%BA%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3%20mock%20%E6%9C%8D%E5%8A%A1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">为前端应用开发一个本地接口 mock 服务</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/02/05/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%20Functor/">
+                        <span class="hidden-mobile">函数式编程之 Functor</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "使用 Jest 测试 Node.js&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

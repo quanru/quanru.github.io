@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>如何打造一个满足快速定制能力的私有化部署系统？ - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-05 20:14" pubdate>
+        2021年4月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">如何打造一个满足快速定制能力的私有化部署系统？</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>打造私有化部署系统过程中的一些和总结</strong></p>
+<span id="more"></span>
+
+
+
+<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>我们来看一个场景，一个『规模不大』或者『精力有限』的中小型公司，接入三方公司的效率工具，比如 IM 工具（企业微信）、文档协作系统（语雀）、问卷系统（问卷星）、绩效系统等等。三方公司提供接入的主流方式为 SASS，通过用户分级的方式（普通用户、会员用户、企业用户）售卖自身的产品，这对三方公司来说，易于统一维护。</p>
+<p>然而我这边举的几个例子往往关系到公司内部的敏感信息，比如高层员工间的对话、核心战略文档、eNps 调研数据、绩效信息等。这些数据如果保存在三方公司维护的服务器里，多少会有一些安全问题；此外『用户分级』的方式就像套餐，难以满足各类用户的定制需求。因此目前越来越多的三方公司支持私有化部署的方式，将自身的服务部署在客户指定的服务器上，比如企业内部机房、公有云和专有云（阿里云、华为云）。目前，我们对外提供的一款服务也遇到此类问题，当客户不满足于我们提供的『用户分级』套餐，且对『数据存储』十分敏感时，我们如何快速定制并私有化部署服务呢？</p>
+<h2 id="现有问题"><a href="#现有问题" class="headerlink" title="现有问题"></a>现有问题</h2><p>直接将现有的系统，打包部署到客户指定的服务器上不就完事了？事情没有这么简单，它存在如下3个关键的问题：</p>
+<h3 id="一、依赖内部环境"><a href="#一、依赖内部环境" class="headerlink" title="一、依赖内部环境"></a>一、依赖内部环境</h3><p>在公司内部维护了多年的系统，不少能力都强依赖了内部提供的基础设施，比如 CDN、数据库、缓存服务、动态配置、用户体系等。这些基础设施可能在用户指定的服务器上不一致，甚至不存在。</p>
+<h3 id="二、缺乏定制能力"><a href="#二、缺乏定制能力" class="headerlink" title="二、缺乏定制能力"></a>二、缺乏定制能力</h3><p>当开放用户对系统的定制能力后，现有的系统仅仅支持『用户分级』的方式，是难以支持用户『变幻莫测』的定制需求的，如何快速响应用户的定制需求，是需要全新的一套『模块组织方式』。</p>
+<h3 id="三、-并行维护成本"><a href="#三、-并行维护成本" class="headerlink" title="三、 并行维护成本"></a>三、 并行维护成本</h3><p>如果支持用户私有化部署，那么不得不面临一个这样的问题，当 N 个公司接入时，我们会同时维护 N 套系统，那涉及到一系列在多套系统之间同步 bug 和 feature 的规范、多个版本并行『开发调试构建部署』的研发流程。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>那么，如何打造一个满足快速定制能力的私有化部署系统呢？依旧从上述三点问题出发：</p>
+<h3 id="一、摆脱依赖内部环境"><a href="#一、摆脱依赖内部环境" class="headerlink" title="一、摆脱依赖内部环境"></a>一、摆脱依赖内部环境</h3><h4 id="配置化"><a href="#配置化" class="headerlink" title="配置化"></a>配置化</h4><p>为了摆脱对内部环境的依赖，我们需要对现有系统进行配置化改造，支持对涉及到的基础设施进行配置，这些配置可以手动写在配置文件里、可构建时生成、运行时动态修改。最终做到根据 N 份配置，即可产出针对 N 个公司的部署包。</p>
+<h3 id="二、满足需求定制能力"><a href="#二、满足需求定制能力" class="headerlink" title="二、满足需求定制能力"></a>二、满足需求定制能力</h3><h4 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h4><p>抽离功能模块，通过『开关』、『配置』进行设置。那模块如何拆分和维护呢？拆分可考虑从『垂直』角度，比如『投放功能』、『个人中心』等；或者从『水平』角度，比如『登录』、『权限』等。</p>
+<h3 id="三、降低并行维护成本"><a href="#三、降低并行维护成本" class="headerlink" title="三、降低并行维护成本"></a>三、降低并行维护成本</h3><h4 id="系统融合"><a href="#系统融合" class="headerlink" title="系统融合"></a>系统融合</h4><p>对现存的系统进行融合，维护一个基线版本的『基础版』，这个所谓的『基础版』有两个目的：</p>
+<ol>
+<li>当有新的企业需要接入时，可使用本『基础版』快速定制开发</li>
+<li>作为所有并行系统的上游代码分支（master），下游代码分支（各企业分支）定期从该分支 pick bugfix &amp; feature</li>
+</ol>
+<h4 id="流程改造"><a href="#流程改造" class="headerlink" title="流程改造"></a>流程改造</h4><p>我们的服务比较特殊（参考页面搭建类服务），有负责配置的 B 端，以及由 B 端生成的 C 端页面。这样我们就有 4 个工程，每次功能开发都可能涉及到 4 个工程的开发、调试、联调、构建、发布，同时 C 端的静态资源版本和服务地址又是自身决定的。这两点无疑增加了开发人员的心智负担。</p>
+<p>首先，将 BC 两端的前后端各放入一个工程中维护，每次发布最大仅需要发布两次。同时 B 端既然作为配置侧，那么不仅 C 端页面本身的功能需要由 B 端决定，我们完全可以将诸如静态资源版本和服务地址这类配置也交由 B 端获取和设置。</p>
+<p>接着，对应用初始化、开发、调试、联调、构建、发布进行规范，规范是一种约定，为了更好地将规范落地，有必要实现一套命令行工具或页面流程作为规范的载体。更进一步，可抽象应用概念，这样所有的流程都围绕着这类应用开展； BC 两端可以是这类应用，同时拆分的模块也可以是这类应用，此时我们的所有流程都是围绕着这个应用概念，也就是说，<strong>BC 两端以及拆分出的几十甚至上百的模块都共用一套初始化、开发、调试、联调、构建、发布流程</strong>。</p>
+<h4 id="配置化-1"><a href="#配置化-1" class="headerlink" title="配置化"></a>配置化</h4><p>此外，配置化也有助于降低并行维护成本，我们通过维护配置而不是维护各类代码逻辑。避免诸如『如果是A公司，就执行B逻辑』这类逻辑，配置更关注功能，比如 A 公司的配置开启了『B逻辑』。</p>
+<p>除了降低成本之外，配置化还用于应对未来的规划，由于目前所有的企业『定制需求』都是通过人工方式去组装 BC 端应用。在未来当我们接入的企业越来越多，沉淀出大量的『模块』应用之时，便可去探索如何摆脱手工组装，也即通过在线页面通过搭积木的方式组装，借助于配置化，我们的设计可以很好地满足这个需求。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>此处仅简单讨论了下一个私有化部署系统所需要的改造，步骤三中的流程改造涉及到大量前端工程化相关的能力，还需进一步展开~</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/">工程化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Node-js/">Node.js</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/">私有化部署</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/06/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1%E7%9F%A5%E8%AF%86%E7%82%B9-%E9%80%9F%E8%AE%B0%E8%84%91%E5%9B%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端八股知识点-速记脑图</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/02/%E4%BD%BF%E7%94%A8%20Node.js%20%E5%B0%86%E7%8F%8D%E8%97%8F%E7%9A%84%20bash%20%E8%84%9A%E6%9C%AC%E5%B0%81%E8%A3%85%E6%88%90%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/">
+                        <span class="hidden-mobile">使用 Node.js 将珍藏的 bash 脚本封装成命令行工具</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "如何打造一个满足快速定制能力的私有化部署系统？&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

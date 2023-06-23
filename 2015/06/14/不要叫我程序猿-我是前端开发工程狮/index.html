@@ -1,0 +1,536 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>不要叫我程序猿,我是前端开发工程狮 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-06-14 21:35" pubdate>
+        2015年6月14日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">不要叫我程序猿,我是前端开发工程狮</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p><strong>上学期期末开始了解到前端开发，当时忙于做实验、写论文、投文章，也就没深入了解，当时觉得挺好玩的，所以屁颠屁颠的去借了一本《HTML与CSS入门经典》，当时那个迷茫啊。一开始是借了《Java编程思想》和《Android 4.X从入门到精通》，想着复习下Java，然后动手写写安卓，然后毕业搞安卓开发，后来也没看下去。那本入门经典是很基础的那种，看起来轻轻松松地，兴趣也慢慢培养起来。</strong></p>
+<span id="more"></span>
+
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>上学期期末开始了解到前端开发，当时忙于做实验、写论文、投文章，也就没深入了解，当时觉得挺好玩的，所以屁颠屁颠的去借了一本《HTML与CSS入门经典》，当时那个迷茫啊。一开始是借了《Java编程思想》和《Android 4.X从入门到精通》，想着复习下Java，然后动手写写安卓，然后毕业搞安卓开发，后来也没看下去。那本入门经典是很基础的那种，看起来轻轻松松地，兴趣也慢慢培养起来。之后隔了一个寒假回来，论文却被拒了。差不多也是那时开始决心好好学习前端，所以借了一些特别经典的前端书籍，例如：《CSS权威指南》、《精通CSS:高级Web标准解决方案》、《JavaScript编程精解》、《JavaScript权威指南》。</p>
+<h1 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h1><p>当时满腔热情的学着，一开始先看的《JavaScript编程精解》，看起来真是费劲，后来看犀牛书就通顺多了，本来有编程基础的程序猿，上手JavaScript是挺快的。然后配合网上的视频，动手做一些小例程，进步非常快，好在导师也没烦我，完全放羊状态，更能全心全意地学习。期间还写了一篇论文，跟之前被拒绝的一起再投出去了，好在这两篇都中了，毕业要求达到了，就更有底气学自己喜欢的东西。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/quanru/2048">2048网页版</a></p>
+</blockquote>
+<h1 id="面试-amp-笔试"><a href="#面试-amp-笔试" class="headerlink" title="面试&amp;笔试"></a>面试&amp;笔试</h1><ul>
+<li><p>一直想出去实习，俗话说：“纸上得来终觉浅”，之前从来没有找过工作，没什么经验。注册了智联招聘，隔三差五就有人打电话，不是了解情况就是让我去面试，可见前端需求还是相当大的。其中我去了两家，一家是GXG男装，想想也好玩，我竟然去了，我同学问我是不是去应聘模特？哈哈。面试官问我有做过什么项目没，我说没有，都是自己在看书；还各种给我灌输，打杂是应该的，而且几乎不问前端的知识点，真心觉得好坑。另一个公司我忘了叫什么，从事体检方面的公司，也是找人打杂，也不问我学到的知识点。</p>
+</li>
+<li><p>跟同学一起去杭州参加了蘑菇街的宣讲会，笔试被虐得很惨，都是基础的算法题，太久没接触，考完研都忘光了。在杭州呆了一晚，跟爹娘会合去乌镇玩了。回来报名参加了一个网上的在线面试，50RMB。一共有两个面试官跟我视频，简直一问三不知，打击真的太大了，之后针对他问的一些缺漏，有针对的研究了一阵子，进步跟打击一样大哈。</p>
+</li>
+<li><p>实验室的同学介绍了一个打算出来创业做旅游网站的程序员给我，说是需要前端工程师，联系之后才知道，项目还没启动呢。不过他给我布置了个小任务，实现一个网页版的微信，写了一周。又说要适配移动端，用响应式媒体查询语句，真是麻烦到死，适配移动端这种需求应该一开始就要考虑到，反正改得很难受。之后也没联系了，不过通过这次也学到了很多。</p>
+</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/quanru/wechat">网页版微信</a></p>
+</blockquote>
+<ul>
+<li>本人作为知乎脑残粉，在一个关于前端入门的回答里，偶然发现了百度推出的一个公益性质的前端学院。该项目托管在github上，第一次看到github，挺惊奇的，之前备份都是直接备份整个目录，然后才敢改代码。在百度的这个项目上，做了三个任务，学了很多细致入微的知识点，虽然最后一个“待办事项”的任务由于一开始没发现要本地存储的这个需求，就屁颠屁颠的写起来，后来这个需求也就不了了之了。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/quanru/myIfe">百度前端学院任务</a></p>
+</blockquote>
+<ul>
+<li><p>短信收到挖财的在线笔试通知，这在线笔试还要求摄像头常开，这逼格也是够了。笔试做起来很顺利，开放题也是惊奇。笔试自我感觉挺好的，可就是一直等不到面试通知，某一天又在各大招聘网站闲逛，突然挖财就来电话通知面试了，真是“没有一点点防备，也没有一丝丝…”。订了隔天的票就奔向省城了，面试也挺顺利的，都是基础问题，期间换了一个面试官。这位面试官问了稍微深入的一些问题，末了，给了两个任务让我回去做，一个是实现截图实时显示，另一个任务则是给你一个psd，让你照着做，要求适配移动端的网页。</p>
+</li>
+<li><p>任务一、任务二也遇到了一些问题，不过后来都解决了，面试官挺满意的，说是确定要我。又问我有没有兴趣再做一题，“又是没有一点点防备”。我能说没兴趣么？当然，任务三也完成了。</p>
+</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/quanru/screenShot">任务一</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/quanru/mobiWeb">任务二</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/quanru/dragThem">任务三</a></p>
+</blockquote>
+<h1 id="实习"><a href="#实习" class="headerlink" title="实习"></a>实习</h1><p>打算端午过后去杭州实习，好喜欢杭州啊，也算是正式入了前端这个坑了，对这几个月认真学习有了个交代。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%81%8C%E4%B8%9A%E9%81%93%E8%B7%AF/">职业道路</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%87%AA%E5%AD%A6%E5%8E%86%E7%A8%8B/">自学历程</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2015/06/15/JavaScript%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E3%81%AE%E7%AC%94%E8%AE%B0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaScript 权威指南の笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "不要叫我程序猿,我是前端开发工程狮&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>

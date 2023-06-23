@@ -1,0 +1,632 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="林宜丙">
+  <meta name="keywords" content="">
+  <title>Monorepo 下 Git 工作流的最佳实践 - 林宜丙的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-12-31 16:48" pubdate>
+        2022年12月31日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Monorepo 下 Git 工作流的最佳实践</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>没有哪一种 Git 工作流是银弹，合适的 Git 工作流往往取决于项目的代码规模、协作人数、应用场景等；本次分享先从适合小型 Monorepo 的 Feature branch 工作流开始分享，接着分享适用于中大型 Monorepo 的 Trunk-based 工作流，并给出一些选型标准供同学们参考，希望通过本次分享，大家能找到合适自己 Monorepo 工程的 Git 工作流！</p>
+<span id="more"></span>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>没有哪一种 Git 工作流是银弹，合适的 Git 工作流往往取决于项目的代码规模、协作人数、应用场景等；本次分享先从适合小型 Monorepo 的 Feature branch 工作流开始分享，接着分享适用于中大型 Monorepo 的 Trunk-based 工作流，并给出一些<strong>选型标准</strong>供同学们参考，<strong>希望通过本次分享，大家能找到合适自己</strong> <strong>Monorepo 工程的 Git 工作流！</strong></p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>我们最熟悉的 Git 工作流莫过于 Git flow, Gilab flow, Github flow，而对于 feature branch 和 trunk-based 比较陌生，那么以上几种 flow 有什么关系呢？</p>
+<ol>
+<li>Feature branch 和 Trunk-based 工作流是比较新晋的概念，二者是相对的、互斥的，它们组成一个全集；</li>
+<li>Git flow, Gilab flow, Github flow 都属于 feature branch development，它们有一个共同点：都采用『功能驱动式开发』，即：需求是开发的起点，先有需求再有功能分支（feature branch）或者补丁分支（hotfix branch）；</li>
+</ol>
+<p><img src="/post-img/mono-git1.png" srcset="/img/loading.gif" alt="图片"></p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>在 Monorepo 工程中，使用 feature branch development 开发模式时，随着代码库复杂性和团队规模的增长，并行的『长期分支』也会越来越多，这些分支在合入主干时，将会频繁遇到冲突或者不兼容的情况，而手动解决代码冲突往往会引入 Bug。</p>
+<p>而 trunk-based development 鼓励开发者可以通过一些小的提交创建『短期分支』，从而大大缓解冲突问题，有助于保持生产版本的流畅。</p>
+<p><strong>总的来说，选择一个工作流不仅仅是一系列操作工具的流程，我们往往还需要对它背后的思想买单；下面的表格是两种工作流模式在各个维度的适用情况：</strong></p>
+<p><img src="/post-img/mono-git2.png" srcset="/img/loading.gif" alt="图片"></p>
+<blockquote>
+<p>目前大部分业务场景使用的都是 feature branch 的开发模式，如果你的业务是多人开发一个巨型应用（如抖音主站、飞书文档等），应该尝试使用 Trunk based 开发模式，这会提高仓库整体工程质量和管理水平。</p>
+</blockquote>
+<h2 id="展开说说"><a href="#展开说说" class="headerlink" title="展开说说"></a>展开说说</h2><h2 id="Feature-branch-development"><a href="#Feature-branch-development" class="headerlink" title="Feature branch development"></a>Feature branch development</h2><p><strong>什么是 feature branch development？</strong></p>
+<ul>
+<li><strong>定义</strong></li>
+</ul>
+<p>『功能分支开发模式』的核心思想是所有特性开发都应该在专用的分支，而不是主分支中进行。这种封装使多个开发人员，可以轻松地在不干扰主代码库的情况下处理特定功能。这也意味着主分支永远不会包含损坏的代码，这对于持续集成环境来说是一个巨大的优势。– Git Feature Branch Workflow | Atlassian Git Tutorial</p>
+<p><img src="/post-img/mono-git3.png" srcset="/img/loading.gif" alt="图片"></p>
+<ul>
+<li><h4 id="上线模式"><a href="#上线模式" class="headerlink" title="上线模式"></a><strong>上线模式</strong></h4></li>
+</ul>
+<ol>
+<li><p><strong>从 master 分支</strong>创建一个功能分支（Feature Branch）</p>
+</li>
+<li><p>开发者们在功能分支中完成开发工作</p>
+</li>
+<li><p>构建功能分支，并通知 QA 进行验证</p>
+</li>
+<li><p>如果发现任何问题</p>
+</li>
+<li><p>开发者创建一个<strong>基于功能分支</strong>的修复 MR</p>
+</li>
+<li><p>经过代码审阅和合并过程将修复 MR 合入功能分支</p>
+</li>
+<li><p>再重新构建部署，并通知 QA 进行验证</p>
+</li>
+<li><p>QA 验证通过后，将功能分支发布至线上，然后将其合并入主干后删除</p>
+</li>
+</ol>
+<h3 id="为什么使用-feature-branch-development？"><a href="#为什么使用-feature-branch-development？" class="headerlink" title="为什么使用 feature branch development？"></a><strong>为什么使用 feature branch development？</strong></h3><ul>
+<li><h4 id="多功能并行开发"><a href="#多功能并行开发" class="headerlink" title="多功能并行开发"></a><strong>多功能并行开发</strong></h4></li>
+</ul>
+<p>使多个开发人员可以轻松地在不干扰主代码库的情况下处理特定功能。</p>
+<ul>
+<li><h4 id="保持主分支稳定"><a href="#保持主分支稳定" class="headerlink" title="保持主分支稳定"></a><strong>保持主分支稳定</strong></h4></li>
+</ul>
+<p>主分支永远不会包含损坏的代码，这对于持续集成环境来说是一个巨大的优势。</p>
+<ul>
+<li><h4 id="心智负担低"><a href="#心智负担低" class="headerlink" title="心智负担低"></a><strong>心智负担低</strong></h4></li>
+</ul>
+<p>仅需了解简单的操作即可实践，无需了解 cherry-pick, feature flag 等概念。</p>
+<h2 id="Trunk-based-development"><a href="#Trunk-based-development" class="headerlink" title="Trunk-based development"></a>Trunk-based development</h2><h3 id="什么是-trunk-based-development？"><a href="#什么是-trunk-based-development？" class="headerlink" title="什么是 trunk-based development？"></a><strong>什么是 trunk-based development？</strong></h3><ul>
+<li><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a><strong>定义</strong></h4></li>
+</ul>
+<p>『基于主干的开发模式』是一种版本控制管理实践，开发者将小而频繁的更新合并到核心『主干』（通常是 master 分支）。</p>
+<p>这是 DevOps 团队中的一种常见做法，也是 DevOps 生命周期的一部分，因为它简化了合并和集成阶段。事实上，它也是 CI/CD 的必备实践。</p>
+<p>与其它存在『长期分支』的功能分支策略相比，开发者可以通过一些小的提交创建『短期分支』。随着代码库复杂性和团队规模的增长，『基于主干的开发模式』有助于保持生产版本的流畅。– Trunk-based Development | Atlassian</p>
+<p><img src="/post-img/mono-git4.png" srcset="/img/loading.gif" alt="图片"></p>
+<ul>
+<li><h4 id="上线模式-1"><a href="#上线模式-1" class="headerlink" title="上线模式"></a><strong>上线模式</strong></h4></li>
+</ul>
+<h5 id="从部署分支上线"><a href="#从部署分支上线" class="headerlink" title="从部署分支上线"></a><strong>从部署分支上线</strong></h5><p>半自动化流程，适用于低频率部署，以及自动化测试不全面的项目</p>
+<p><img src="/post-img/mono-git5.png" srcset="/img/loading.gif" alt="图片"></p>
+<p>(A dot represents an MR merged into master. Green dots means good commits that passed e2e tests, and red dot means a buggy commit which should be avoided when deploying/rollback)</p>
+<ol>
+<li><p><strong>从 master 分支</strong>创建一个部署分支（RC）</p>
+</li>
+<li><p>构建部署分支（RC），并通知 QA 进行验证</p>
+</li>
+<li><p>如果发现任何问题</p>
+</li>
+<li><p>开发者创建一个<strong>基于 master 分支</strong>的修复 MR</p>
+</li>
+<li><p>经过代码审阅和合并过程将修复 MR 合入 master</p>
+</li>
+<li><p>将 commits cherrypick 到部署分支（RC），再重新构建部署，并通知 QA 进行验证</p>
+</li>
+<li><p>QA 验证通过后，将部署分支（RC）发布至线上，然后删除该分支（RC）</p>
+</li>
+</ol>
+<h5 id="从主干分支上线"><a href="#从主干分支上线" class="headerlink" title="从主干分支上线"></a><strong>从主干分支上线</strong></h5><p>全自动化流程，适用于需要高频率部署，以及自动化测试较为全面的项目</p>
+<p><img src="/post-img/mono-git6.png" srcset="/img/loading.gif" alt="图片"></p>
+<p>(A dot represents an MR merged into master. Green dots means good commits that passed e2e tests, and red dot means a buggy commit which should be avoided when deploying/rollback)</p>
+<ol>
+<li><strong>定时部署：</strong> 每天或者每小时到了特定时间，部署机器人自动找到当前最新通过全部端到端测试的代码(特定的 commit hash)，然后将之部署上线。</li>
+<li><strong>持续部署：</strong> 每当有新代码合并进主干分支时，部署机器人自动验证新代码是否通过所有端到端测试，以及是否与该项目相关，如果是则自动部署上线</li>
+</ol>
+<h3 id="为什么使用-trunk-based-development？"><a href="#为什么使用-trunk-based-development？" class="headerlink" title="为什么使用 trunk-based development？"></a><strong>为什么使用 trunk-based development？</strong></h3><ul>
+<li><h4 id="允许持续的代码集成（CI）"><a href="#允许持续的代码集成（CI）" class="headerlink" title="允许持续的代码集成（CI）"></a><strong>允许持续的代码集成（CI）</strong></h4></li>
+</ul>
+<p>在『基于主干的开发模式』中，源源不断的提交合入主干分支。为每个提交添加自动化测试套件和代码覆盖率监控可以实现持续集成。当新代码合并到主干中时，会运行自动集成和代码覆盖测试以验证代码质量。</p>
+<ul>
+<li><h4 id="确保持续的代码审查（CR）"><a href="#确保持续的代码审查（CR）" class="headerlink" title="确保持续的代码审查（CR）"></a><strong>确保持续的代码审查（CR）</strong></h4></li>
+</ul>
+<p>『基于主干的开发模式』的快速、小型提交使代码审查成为一个更有效的过程。借助小型分支，开发人员可以快速查看和审查小的更改。与评审者阅读大面积代码变更的长期功能分支相比，这要容易得多。</p>
+<ul>
+<li><h4 id="支持连续的生产代码发布（CD）"><a href="#支持连续的生产代码发布（CD）" class="headerlink" title="支持连续的生产代码发布（CD）"></a><strong>支持连续的生产代码发布（CD）</strong></h4></li>
+</ul>
+<p>团队应该每天频繁地合并到主分支。『基于主干的开发模式』努力使主干分支保持“绿色”，这意味着它可以在每次提交合并后进行部署。自动化测试、代码收敛和代码审查，保证了基于主干的项目可以随时部署到生产环境中。</p>
+<ul>
+<li><h4 id="更适用于大型-Monorepo-下的多人协作场景（scalable）"><a href="#更适用于大型-Monorepo-下的多人协作场景（scalable）" class="headerlink" title="更适用于大型 Monorepo 下的多人协作场景（scalable）"></a><strong>更适用于大型 Monorepo 下的多人协作场景（scalable）</strong></h4></li>
+</ul>
+<p>大型 Monorepo 下的多人协作场景更易出现代码冲突，不仅消耗的大量的人力解决冲突，还增加了『长期分支』合入『主干分支』引入 bug 的可能性。与其它存在『长期分支』的功能分支策略相比，开发者可以通过一些小提交创建『短期分支』进行快速迭代。因此，随着代码库复杂性和团队规模的增长，『基于主干的开发模式』也能保证顺畅的多人协作。</p>
+<ul>
+<li><h4 id="线性的提交历史（Linear-history）"><a href="#线性的提交历史（Linear-history）" class="headerlink" title="线性的提交历史（Linear history）"></a><strong>线性的提交历史（Linear history）</strong></h4></li>
+</ul>
+<p>Trunk-based development 更容易做到线性的 commit 历史，它有如下几个好处：</p>
+<ol>
+<li>方便查看和跟踪历史记录</li>
+<li>方便回溯变更，比如：Feature A 是在 Bugfix B 之前或者之后引入的？</li>
+<li>方便排查 bug，比如：使用 Git bisect 二分排查，而非线性历史则难以操作</li>
+<li>撤销变更，比如：当你发现一个有问题的 commit，简单的 revert 对应的 commit 即可，而非线性的历史会有很多跨分支的合并，使 revert 变得困难</li>
+</ol>
+<p><img src="/post-img/mono-git7.jpg" srcset="/img/loading.gif" alt="图片"></p>
+<h3 id="有效的两个前提"><a href="#有效的两个前提" class="headerlink" title="有效的两个前提"></a><strong>有效的两个前提</strong></h3><ul>
+<li><h4 id="持续集成和测试"><a href="#持续集成和测试" class="headerlink" title="持续集成和测试"></a><strong>持续集成和测试</strong></h4></li>
+</ul>
+<p>在每次代码合并前后，开发者都需要知道自己的代码对主干带来了什么影响，因此持续集成和测试的能力必不可少。</p>
+<ul>
+<li><h4 id="功能开关"><a href="#功能开关" class="headerlink" title="功能开关"></a><strong>功能开关</strong></h4></li>
+</ul>
+<p>因为在基于主干开发时，大的功能被分解为小改动，因此对于还未完成而之后部分合并进主干的功能，我们需要功能开关来不让他们过早地暴露给用户。</p>
+<p>功能开关通常是一套独立的控制系统，线上的代码有两套逻辑，然后通过实时读取功能开关的取值来决定是否隐藏或暴露某个功能。通常，我们在部署完一个功能相关的所有代码之后打开某个功能开关。然后当此功能已经稳定并且被永久加入产品后，会把功能开关和相关的逻辑代码删除掉。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>A tidy, linear Git history：<a target="_blank" rel="noopener" href="https://www.bitsnbites.eu/a-tidy-linear-git-history/">https://www.bitsnbites.eu/a-tidy-linear-git-history/</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E7%A8%8B%E6%B2%BB%E7%90%86/">工程治理</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Monorepo/">Monorepo</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/31/%E5%89%8D%E7%AB%AF%20Monorepo%20%E5%9C%A8%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%AE%9E%E8%B7%B5/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端 Monorepo 在字节跳动的实践</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/05/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E7%9A%84%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6%E5%BB%BA%E8%AE%BE/">
+                        <span class="hidden-mobile">命令行工具的监控告警建设</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Monorepo 下 Git 工作流的最佳实践&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="quanru/quanru.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
+        data-category="Announcements"
+        data-category-id="DIC_kwDOBG193c4CQ8si"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+</body>
+</html>
