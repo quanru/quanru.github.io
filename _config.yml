@@ -105,4 +105,4 @@ theme: fluid
 deploy:
   type: git
   repo: git@github.com:quanru/quanru.github.io.git
-  branch: master
+  branch: gh-pages
