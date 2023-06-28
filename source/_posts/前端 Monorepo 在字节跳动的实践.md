@@ -6,6 +6,10 @@ tags:
 - Monorepo
 ---
 
+受邀参加第十一届 Top100 峰会，更多详情见文章[年底了，看看这100位技术创新带头人如何做复盘？](https://mp.weixin.qq.com/s/-fPJ3KsNGDRxgIJoBAOGmw)
+
+<!-- more -->
+
 ## 分享会背景
 
 受邀参加第十一届 Top100 峰会，更多详情见文章[年底了，看看这100位技术创新带头人如何做复盘？](https://mp.weixin.qq.com/s/-fPJ3KsNGDRxgIJoBAOGmw)

@@ -16,11 +16,11 @@ tags:
 
 ## 前置知识
 
-我们最熟悉的 Git 工作流莫过于 Git flow, Gilab flow, Github flow，而对于 feature branch 和 trunk-based 比较陌生，那么以上几种 flow 有什么关系呢？
+我们最熟悉的 Git 工作流莫过于 Git flow, Gitlab flow, Github flow，而对于 feature branch 和 trunk-based 比较陌生，那么以上几种 flow 有什么关系呢？
 
 1. Feature branch 和 Trunk-based 工作流是比较新晋的概念，二者是相对的、互斥的，它们组成一个全集；
   
-2. Git flow, Gilab flow, Github flow 都属于 feature branch development，它们有一个共同点：都采用『功能驱动式开发』，即：需求是开发的起点，先有需求再有功能分支（feature branch）或者补丁分支（hotfix branch）；
+2. Git flow, Gitlab flow, Github flow 都属于 feature branch development，它们有一个共同点：都采用『功能驱动式开发』，即：需求是开发的起点，先有需求再有功能分支（feature branch）或者补丁分支（hotfix branch）；
   
 
 ![图片](/post-img/mono-git1.png)
