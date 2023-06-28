@@ -267,6 +267,35 @@ widgets:
         collapsed: true
         # Maximum level of headings to show (1-6)
         depth: 3
+    # Google FeedBurner email subscription widget configurations
+    # -
+    #     # Where should the widget be placed, left sidebar or right sidebar
+    #     position: left
+    #     type: subscribe_email
+    #     # Hint text under the email input
+    #     description: 
+    #     # Feedburner ID
+    #     feedburner_id: ''
+    # Google AdSense unit configurations
+    # -
+    #     # Where should the widget be placed, left sidebar or right sidebar
+    #     position: left
+    #     type: adsense
+    #     # AdSense client ID
+    #     client_id: ''
+    #     # AdSense AD unit ID
+    #     slot_id: ''
+    # Follow.it email subscription widget configurations
+    -
+        # Where should the widget be placed, left sidebar or right sidebar
+        position: left
+        type: followit
+        # Hint text under the email input
+        description: 
+        # Subscription form action URL
+        action_url: 'https://api.follow.it/subscription-form/WklsOUszYmN3Vi9OdElyWjliaThEQ0x4bTNoZG56YTUvY2QzMjg5RDdEa256Z3NSUitqMWJwaFVtbzlRMWozUWhpa0o4L290WkpYeUcwSVp3WHVVUlhhUW1KVFVyUHQ0cnphNEJiVmZsVGNKOGdsaStQWnRrcTlwYzhTNFBYRzV8S3BDQ2Uyem1ZQlBZcXFQdDZ5VktBZDNadlUydng0QUpRTDNHRXMvYnN2bz0=/8'
+        # Feed claiming verification code
+        verification_code: 'L1RpaQjCaMfGQ2QX42KT'
     # Recent posts widget configurations
     -
         # Where should the widget be placed, left sidebar or right sidebar
@@ -302,35 +331,6 @@ widgets:
         amount: 
         # Whether to show tags count, i.e. number of posts in the tag.
         show_count: true
-    # Google FeedBurner email subscription widget configurations
-    # -
-    #     # Where should the widget be placed, left sidebar or right sidebar
-    #     position: left
-    #     type: subscribe_email
-    #     # Hint text under the email input
-    #     description: 
-    #     # Feedburner ID
-    #     feedburner_id: ''
-    # Google AdSense unit configurations
-    # -
-    #     # Where should the widget be placed, left sidebar or right sidebar
-    #     position: left
-    #     type: adsense
-    #     # AdSense client ID
-    #     client_id: ''
-    #     # AdSense AD unit ID
-    #     slot_id: ''
-    # Follow.it email subscription widget configurations
-    -
-        # Where should the widget be placed, left sidebar or right sidebar
-        position: left
-        type: followit
-        # Hint text under the email input
-        description: 
-        # Subscription form action URL
-        action_url: 'https://api.follow.it/subscription-form/WklsOUszYmN3Vi9OdElyWjliaThEQ0x4bTNoZG56YTUvY2QzMjg5RDdEa256Z3NSUitqMWJwaFVtbzlRMWozUWhpa0o4L290WkpYeUcwSVp3WHVVUlhhUW1KVFVyUHQ0cnphNEJiVmZsVGNKOGdsaStQWnRrcTlwYzhTNFBYRzV8S3BDQ2Uyem1ZQlBZcXFQdDZ5VktBZDNadlUydng0QUpRTDNHRXMvYnN2bz0=/8'
-        # Feed claiming verification code
-        verification_code: 'L1RpaQjCaMfGQ2QX42KT'
 # Plugin configurations
 # https://ppoffice.github.io/hexo-theme-icarus/categories/Plugins/
 plugins:
