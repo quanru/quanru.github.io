@@ -1,390 +1,75 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>redux 中间件入门到编写，到改进，到出门 - 林宜丙的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="林宜丙的博客"><meta name="msapplication-TileImage" content="/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="林宜丙的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="春江花月夜调 bug，孤独寂寞日著 blog。吾母昨夜托梦，吾儿只身在外，读书撩妹两手要抓，前端知识切莫荒废。如无对象可面向，可以学学函数式。多写代码少睡觉，还有周五的周报。redux 要会，middleware 能写，有空记得写博客，写好发给我看看。 惊醒之余，其敦敦教诲不敢忘，乃正襟危坐，挑灯写下这篇博客，感动~"><meta property="og:type" content="blog"><meta property="og:title" content="redux 中间件入门到编写，到改进，到出门"><meta property="og:url" content="http://quanru.github.io/2017/03/18/%E7%BC%96%E5%86%99%20redux%20%E4%B8%AD%E9%97%B4%E4%BB%B6/"><meta property="og:site_name" content="林宜丙的博客"><meta property="og:description" content="春江花月夜调 bug，孤独寂寞日著 blog。吾母昨夜托梦，吾儿只身在外，读书撩妹两手要抓，前端知识切莫荒废。如无对象可面向，可以学学函数式。多写代码少睡觉，还有周五的周报。redux 要会，middleware 能写，有空记得写博客，写好发给我看看。 惊醒之余，其敦敦教诲不敢忘，乃正襟危坐，挑灯写下这篇博客，感动~"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://quanru.github.io/img/og_image.png"><meta property="article:published_time" content="2017-03-18T20:15:09.000Z"><meta property="article:modified_time" content="2023-06-28T11:58:43.757Z"><meta property="article:author" content="林宜丙"><meta property="article:tag" content="JavaScript"><meta property="article:tag" content="Redux"><meta property="article:tag" content="中间件"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://quanru.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://quanru.github.io/2017/03/18/%E7%BC%96%E5%86%99%20redux%20%E4%B8%AD%E9%97%B4%E4%BB%B6/"},"headline":"redux 中间件入门到编写，到改进，到出门","image":["http://quanru.github.io/img/og_image.png"],"datePublished":"2017-03-18T20:15:09.000Z","dateModified":"2023-06-28T11:58:43.757Z","author":{"@type":"Person","name":"林宜丙"},"publisher":{"@type":"Organization","name":"林宜丙的博客","logo":{"@type":"ImageObject","url":"http://quanru.github.io/img/avatar.png"}},"description":"春江花月夜调 bug，孤独寂寞日著 blog。吾母昨夜托梦，吾儿只身在外，读书撩妹两手要抓，前端知识切莫荒废。如无对象可面向，可以学学函数式。多写代码少睡觉，还有周五的周报。redux 要会，middleware 能写，有空记得写博客，写好发给我看看。 惊醒之余，其敦敦教诲不敢忘，乃正襟危坐，挑灯写下这篇博客，感动~"}</script><link rel="canonical" href="http://quanru.github.io/2017/03/18/%E7%BC%96%E5%86%99%20redux%20%E4%B8%AD%E9%97%B4%E4%BB%B6/"><link rel="icon" href="/img/favicon.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
 
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
 
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
 
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="author" content="林宜丙">
-  <meta name="keywords" content="">
-  <title>redux 中间件入门到编写，到改进，到出门 - 林宜丙的博客</title>
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
-
-
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
-
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
-    
-  
-
-  
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_pf9vaxs7x7b.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.2"></head>
-
-
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>林宜丙</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-    <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="container page-header text-center fade-in-up">
-            <span class="h2" id="subtitle">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2017-03-18 20:15" pubdate>
-        2017年3月18日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      3k 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      44
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
-          
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-md">
-      <div class="container nopadding-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto" id="post">
-            <!-- SEO header -->
-            <h1 style="display: none">redux 中间件入门到编写，到改进，到出门</h1>
-            
-            <div class="markdown-body" id="post-body">
-              <p><strong>春江花月夜调 bug，孤独寂寞日著 blog。吾母昨夜托梦，吾儿只身在外，读书撩妹两手要抓，前端知识切莫荒废。如无对象可面向，可以学学函数式。多写代码少睡觉，还有周五的周报。redux 要会，middleware 能写，有空记得写博客，写好发给我看看。</strong></p>
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.png" alt="林宜丙的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/quanru/quanru.github.io"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2017-03-18T20:15:09.000Z" title="3/18/2017, 8:15:09 PM">2017-03-18</time>发表</span><span class="level-item"><time dateTime="2023-06-28T11:58:43.757Z" title="6/28/2023, 11:58:43 AM">2023-06-28</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">源码解析</a></span><span class="level-item">19 分钟读完 (大约2882个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">redux 中间件入门到编写，到改进，到出门</h1><div class="content"><p><strong>春江花月夜调 bug，孤独寂寞日著 blog。吾母昨夜托梦，吾儿只身在外，读书撩妹两手要抓，前端知识切莫荒废。如无对象可面向，可以学学函数式。多写代码少睡觉，还有周五的周报。redux 要会，middleware 能写，有空记得写博客，写好发给我看看。</strong></p>
 <p><strong>惊醒之余，其敦敦教诲不敢忘，乃正襟危坐，挑灯写下这篇博客，感动~</strong></p>
 <span id="more"></span>
 
 <h2 id="redux-中间件"><a href="#redux-中间件" class="headerlink" title="redux 中间件"></a>redux 中间件</h2><p>redux 提供了类似 Web 开发的中间件机制，Web 中经过中间件的是一个个请求，而 redux 中经过中间件的是一个个 action，使得开发人员能够在中间件中针对特定 action 进行各种统一的处理，比如日志打印，数据请求，错误处理等。</p>
 <h2 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h2><p>redux 提供 applyMiddleware 方法，通过如下方式即可应用中间件：</p>
-<pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123;
-  createStore,
-  applyMiddleware,
-  compose,
-&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;redux&#x27;</span>
-<span class="hljs-keyword">import</span> nextAndRequest <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./middleware/redux-next-and-request&#x27;</span>
-<span class="hljs-keyword">import</span> errorCatcher <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./middleware/redux-error-catcher&#x27;</span>
-<span class="hljs-keyword">import</span> reducer <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../reducer&#x27;</span>
-
-<span class="hljs-keyword">const</span> createStoreWithMiddleware = <span class="hljs-title function_">compose</span>(
-  <span class="hljs-title function_">applyMiddleware</span>(
-    nextAndRequest,
-    errorCatcher,
-  ),
-  <span class="hljs-title class_">DevTools</span>.<span class="hljs-title function_">instrument</span>(),
-  <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">devToolsExtension</span>(),
-)(createStore)</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  createStore,</span><br><span class="line">  applyMiddleware,</span><br><span class="line">  compose,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span></span><br><span class="line"><span class="keyword">import</span> nextAndRequest <span class="keyword">from</span> <span class="string">&#x27;./middleware/redux-next-and-request&#x27;</span></span><br><span class="line"><span class="keyword">import</span> errorCatcher <span class="keyword">from</span> <span class="string">&#x27;./middleware/redux-error-catcher&#x27;</span></span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">&#x27;../reducer&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createStoreWithMiddleware = <span class="title function_">compose</span>(</span><br><span class="line">  <span class="title function_">applyMiddleware</span>(</span><br><span class="line">    nextAndRequest,</span><br><span class="line">    errorCatcher,</span><br><span class="line">  ),</span><br><span class="line">  <span class="title class_">DevTools</span>.<span class="title function_">instrument</span>(),</span><br><span class="line">  <span class="variable language_">window</span>.<span class="title function_">devToolsExtension</span>(),</span><br><span class="line">)(createStore)</span><br></pre></td></tr></table></figure>
 
 <h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><h3 id="compose-函数"><a href="#compose-函数" class="headerlink" title="compose 函数"></a>compose 函数</h3><p>此处有个神奇的函数，即 compose，该函数在 applyMiddleware 中也是核心代码，正是它实现了 redux 中间件的机制，我们来看看 compose 的源码：</p>
-<pre><code class="hljs js"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * Composes single-argument functions from right to left. The rightmost</span>
-<span class="hljs-comment"> * function can take multiple arguments as it provides the signature for</span>
-<span class="hljs-comment"> * the resulting composite function.</span>
-<span class="hljs-comment"> *</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">...Function</span>&#125; funcs The functions to compose.</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">Function</span>&#125; A function obtained by composing the argument functions</span>
-<span class="hljs-comment"> * from right to left. For example, compose(f, g, h) is identical to doing</span>
-<span class="hljs-comment"> * (...args) =&gt; f(g(h(...args))).</span>
-<span class="hljs-comment"> */</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">compose</span>(<span class="hljs-params">...funcs</span>) &#123;
-  <span class="hljs-keyword">if</span> (funcs.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> arg
-  &#125;
-
-  <span class="hljs-keyword">if</span> (funcs.<span class="hljs-property">length</span> === <span class="hljs-number">1</span>) &#123;
-    <span class="hljs-keyword">return</span> funcs[<span class="hljs-number">0</span>]
-  &#125;
-
-  <span class="hljs-keyword">return</span> funcs.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> <span class="hljs-title function_">a</span>(<span class="hljs-title function_">b</span>(...args)))
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Composes single-argument functions from right to left. The rightmost</span></span><br><span class="line"><span class="comment"> * function can take multiple arguments as it provides the signature for</span></span><br><span class="line"><span class="comment"> * the resulting composite function.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">...Function</span>&#125; funcs The functions to compose.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span> &#123;<span class="type">Function</span>&#125; A function obtained by composing the argument functions</span></span><br><span class="line"><span class="comment"> * from right to left. For example, compose(f, g, h) is identical to doing</span></span><br><span class="line"><span class="comment"> * (...args) =&gt; f(g(h(...args))).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">compose</span>(<span class="params">...funcs</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (funcs.<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">arg</span> =&gt;</span> arg</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (funcs.<span class="property">length</span> === <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> funcs[<span class="number">0</span>]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> funcs.<span class="title function_">reduce</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> <span class="title function_">a</span>(<span class="title function_">b</span>(...args)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>从注释中可知，它的作用是从右到左将多个函数组合成一个新函数，其中最右边的函数消耗了该新函数的参数，并逐级向左作为参数依次执行；</p>
-<p>执行 compose(f1, f2, f3) 可得 (…args) =&gt; f1(f2(f3(…args)))；核心操作为 reduce，详细使用方式可参看<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">文档</a></p>
-<pre><code class="hljs js">第一次 reduce
-  <span class="hljs-attr">previousValue</span>: f1;
-  <span class="hljs-attr">currentValue</span>: f2;
-  <span class="hljs-attr">returnValue</span>: <span class="hljs-function">(<span class="hljs-params">...args1</span>) =&gt;</span> <span class="hljs-title function_">f1</span>(<span class="hljs-title function_">f2</span>(...args1)) <span class="hljs-comment">// 记为 R1</span>
-
-第二次 reduce
-  <span class="hljs-attr">previousValue</span>: <span class="hljs-variable constant_">R1</span>
-  <span class="hljs-attr">currentValue</span>: f3;
-  <span class="hljs-attr">returnValue</span>: <span class="hljs-function">(<span class="hljs-params">...args2</span>) =&gt;</span> <span class="hljs-title function_">R1</span>(<span class="hljs-title function_">f3</span>(...args2)) <span class="hljs-comment">// 记为 R2</span>
-
-其中 <span class="hljs-attr">R2</span>:
-<span class="hljs-function">(<span class="hljs-params">...args2</span>) =&gt;</span> (<span class="hljs-function">(<span class="hljs-params">...args1</span>) =&gt;</span> <span class="hljs-title function_">f1</span>(<span class="hljs-title function_">f2</span>(...args1)))(<span class="hljs-title function_">f3</span>(...args2))
-
-此时传入 args 执行 <span class="hljs-variable constant_">R2</span>：
-第一步： 得到 (<span class="hljs-function">(<span class="hljs-params">...args1</span>) =&gt;</span> <span class="hljs-title function_">f1</span>(<span class="hljs-title function_">f2</span>(...args1)))(<span class="hljs-title function_">f3</span>(args)) <span class="hljs-comment">// 记为 R3</span>
-第二步：<span class="hljs-title function_">f3</span>(args) 即是 <span class="hljs-variable constant_">R3</span> 的参数 (...args1)，继续执行可得 <span class="hljs-title function_">f1</span>(<span class="hljs-title function_">f2</span>(<span class="hljs-title function_">f3</span>(args)))</code></pre>
+<p>执行 compose(f1, f2, f3) 可得 (…args) &#x3D;&gt; f1(f2(f3(…args)))；核心操作为 reduce，详细使用方式可参看<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">文档</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">第一次 reduce</span><br><span class="line">  <span class="attr">previousValue</span>: f1;</span><br><span class="line">  <span class="attr">currentValue</span>: f2;</span><br><span class="line">  <span class="attr">returnValue</span>: <span class="function">(<span class="params">...args1</span>) =&gt;</span> <span class="title function_">f1</span>(<span class="title function_">f2</span>(...args1)) <span class="comment">// 记为 R1</span></span><br><span class="line"></span><br><span class="line">第二次 reduce</span><br><span class="line">  <span class="attr">previousValue</span>: <span class="variable constant_">R1</span></span><br><span class="line">  <span class="attr">currentValue</span>: f3;</span><br><span class="line">  <span class="attr">returnValue</span>: <span class="function">(<span class="params">...args2</span>) =&gt;</span> <span class="title function_">R1</span>(<span class="title function_">f3</span>(...args2)) <span class="comment">// 记为 R2</span></span><br><span class="line"></span><br><span class="line">其中 <span class="attr">R2</span>:</span><br><span class="line"><span class="function">(<span class="params">...args2</span>) =&gt;</span> (<span class="function">(<span class="params">...args1</span>) =&gt;</span> <span class="title function_">f1</span>(<span class="title function_">f2</span>(...args1)))(<span class="title function_">f3</span>(...args2))</span><br><span class="line"></span><br><span class="line">此时传入 args 执行 <span class="variable constant_">R2</span>：</span><br><span class="line">第一步： 得到 (<span class="function">(<span class="params">...args1</span>) =&gt;</span> <span class="title function_">f1</span>(<span class="title function_">f2</span>(...args1)))(<span class="title function_">f3</span>(args)) <span class="comment">// 记为 R3</span></span><br><span class="line">第二步：<span class="title function_">f3</span>(args) 即是 <span class="variable constant_">R3</span> 的参数 (...args1)，继续执行可得 <span class="title function_">f1</span>(<span class="title function_">f2</span>(<span class="title function_">f3</span>(args)))</span><br></pre></td></tr></table></figure>
 
 <p>其实之前这个 compose 方法不是使用 reduce 实现的，而是使用 reduceRight 实现 composeRight，因此对比新版实现，比较好理解，原来的版本为：</p>
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/reactjs/redux/commit/44dfc39c3f8e5e8b51eeab7c44057da6c1086752">新版 Merge Request</a><br>新版的方式使用惰性求值，性能有提升</p>
 </blockquote>
-<pre><code class="hljs js"><span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * Composes single-argument functions from right to left. The rightmost</span>
-<span class="hljs-comment"> * function can take multiple arguments as it provides the signature for</span>
-<span class="hljs-comment"> * the resulting composite function.</span>
-<span class="hljs-comment"> *</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">...Function</span>&#125; funcs The functions to compose.</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">Function</span>&#125; A function obtained by composing the argument functions</span>
-<span class="hljs-comment"> * from right to left. For example, compose(f, g, h) is identical to doing</span>
-<span class="hljs-comment"> * (...args) =&gt; f(g(h(...args))).</span>
-<span class="hljs-comment"> */</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">compose</span>(<span class="hljs-params">...funcs</span>) &#123;
-  <span class="hljs-keyword">if</span> (funcs.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> arg
-  &#125;
-
-  funcs = funcs.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">func</span> =&gt;</span> <span class="hljs-keyword">typeof</span> func === <span class="hljs-string">&#x27;function&#x27;</span>)
-
-  <span class="hljs-keyword">if</span> (funcs.<span class="hljs-property">length</span> === <span class="hljs-number">1</span>) &#123;
-    <span class="hljs-keyword">return</span> funcs[<span class="hljs-number">0</span>]
-  &#125;
-
-  <span class="hljs-keyword">const</span> last = funcs[funcs.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>]
-  <span class="hljs-keyword">const</span> rest = funcs.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>)
-  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span> rest.<span class="hljs-title function_">reduceRight</span>(<span class="hljs-function">(<span class="hljs-params">composed, f</span>) =&gt;</span> <span class="hljs-title function_">f</span>(composed), <span class="hljs-title function_">last</span>(...args))
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Composes single-argument functions from right to left. The rightmost</span></span><br><span class="line"><span class="comment"> * function can take multiple arguments as it provides the signature for</span></span><br><span class="line"><span class="comment"> * the resulting composite function.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">...Function</span>&#125; funcs The functions to compose.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span> &#123;<span class="type">Function</span>&#125; A function obtained by composing the argument functions</span></span><br><span class="line"><span class="comment"> * from right to left. For example, compose(f, g, h) is identical to doing</span></span><br><span class="line"><span class="comment"> * (...args) =&gt; f(g(h(...args))).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">compose</span>(<span class="params">...funcs</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (funcs.<span class="property">length</span> === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">arg</span> =&gt;</span> arg</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  funcs = funcs.<span class="title function_">filter</span>(<span class="function"><span class="params">func</span> =&gt;</span> <span class="keyword">typeof</span> func === <span class="string">&#x27;function&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (funcs.<span class="property">length</span> === <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> funcs[<span class="number">0</span>]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> last = funcs[funcs.<span class="property">length</span> - <span class="number">1</span>]</span><br><span class="line">  <span class="keyword">const</span> rest = funcs.<span class="title function_">slice</span>(<span class="number">0</span>, -<span class="number">1</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> rest.<span class="title function_">reduceRight</span>(<span class="function">(<span class="params">composed, f</span>) =&gt;</span> <span class="title function_">f</span>(composed), <span class="title function_">last</span>(...args))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>让我们回到：</p>
-<pre><code class="hljs js"><span class="hljs-keyword">const</span> createStoreWithMiddleware = <span class="hljs-title function_">compose</span>(
-  <span class="hljs-title function_">applyMiddleware</span>(
-    nextAndRequest,
-    errorCatcher,
-  ),
-  <span class="hljs-title class_">DevTools</span>.<span class="hljs-title function_">instrument</span>(),
-  <span class="hljs-variable language_">window</span>.<span class="hljs-title function_">devToolsExtension</span>(),
-)(createStore)</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> createStoreWithMiddleware = <span class="title function_">compose</span>(</span><br><span class="line">  <span class="title function_">applyMiddleware</span>(</span><br><span class="line">    nextAndRequest,</span><br><span class="line">    errorCatcher,</span><br><span class="line">  ),</span><br><span class="line">  <span class="title class_">DevTools</span>.<span class="title function_">instrument</span>(),</span><br><span class="line">  <span class="variable language_">window</span>.<span class="title function_">devToolsExtension</span>(),</span><br><span class="line">)(createStore)</span><br></pre></td></tr></table></figure>
 
 <p>createStoreWithMiddleware 的最终值为：</p>
-<pre><code class="hljs js"><span class="hljs-title function_">applyMiddleware</span>(nextAndRequest,errorCatcher)(<span class="hljs-title class_">DevTools</span>.<span class="hljs-title function_">instrument</span>()(<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">devToolsExtension</span>()(createStore)))</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">applyMiddleware</span>(nextAndRequest,errorCatcher)(<span class="title class_">DevTools</span>.<span class="title function_">instrument</span>()(<span class="variable language_">window</span>.<span class="title function_">devToolsExtension</span>()(createStore)))</span><br></pre></td></tr></table></figure>
 
 <h3 id="applyMiddleware-函数"><a href="#applyMiddleware-函数" class="headerlink" title="applyMiddleware 函数"></a>applyMiddleware 函数</h3><p>其源码如下：</p>
-<pre><code class="hljs js"><span class="hljs-keyword">import</span> compose <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./compose&#x27;</span>
-
-<span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * Creates a store enhancer that applies middleware to the dispatch method</span>
-<span class="hljs-comment"> * of the Redux store. This is handy for a variety of tasks, such as expressing</span>
-<span class="hljs-comment"> * asynchronous actions in a concise manner, or logging every action payload.</span>
-<span class="hljs-comment"> *</span>
-<span class="hljs-comment"> * See `redux-thunk` package as an example of the Redux middleware.</span>
-<span class="hljs-comment"> *</span>
-<span class="hljs-comment"> * Because middleware is potentially asynchronous, this should be the first</span>
-<span class="hljs-comment"> * store enhancer in the composition chain.</span>
-<span class="hljs-comment"> *</span>
-<span class="hljs-comment"> * Note that each middleware will be given the `dispatch` and `getState` functions</span>
-<span class="hljs-comment"> * as named arguments.</span>
-<span class="hljs-comment"> *</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &#123;<span class="hljs-type">...Function</span>&#125; middlewares The middleware chain to be applied.</span>
-<span class="hljs-comment"> * <span class="hljs-doctag">@returns</span> &#123;<span class="hljs-type">Function</span>&#125; A store enhancer applying the middleware.</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">applyMiddleware</span>(<span class="hljs-params">...middlewares</span>) &#123;
-  <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">createStore</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">reducer, preloadedState, enhancer</span>) =&gt;</span> &#123;
-    <span class="hljs-keyword">const</span> store = <span class="hljs-title function_">createStore</span>(reducer, preloadedState, enhancer)
-    <span class="hljs-keyword">let</span> dispatch = store.<span class="hljs-property">dispatch</span>
-    <span class="hljs-keyword">let</span> chain = []
-
-    <span class="hljs-keyword">const</span> middlewareAPI = &#123;
-      <span class="hljs-attr">getState</span>: store.<span class="hljs-property">getState</span>,
-      <span class="hljs-attr">dispatch</span>: <span class="hljs-function">(<span class="hljs-params">action</span>) =&gt;</span> <span class="hljs-title function_">dispatch</span>(action)
-    &#125;
-    chain = middlewares.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">middleware</span> =&gt;</span> <span class="hljs-title function_">middleware</span>(middlewareAPI))
-    dispatch = <span class="hljs-title function_">compose</span>(...chain)(store.<span class="hljs-property">dispatch</span>)
-
-    <span class="hljs-keyword">return</span> &#123;
-      ...store,
-      dispatch
-    &#125;
-  &#125;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> compose <span class="keyword">from</span> <span class="string">&#x27;./compose&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a store enhancer that applies middleware to the dispatch method</span></span><br><span class="line"><span class="comment"> * of the Redux store. This is handy for a variety of tasks, such as expressing</span></span><br><span class="line"><span class="comment"> * asynchronous actions in a concise manner, or logging every action payload.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * See `redux-thunk` package as an example of the Redux middleware.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Because middleware is potentially asynchronous, this should be the first</span></span><br><span class="line"><span class="comment"> * store enhancer in the composition chain.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Note that each middleware will be given the `dispatch` and `getState` functions</span></span><br><span class="line"><span class="comment"> * as named arguments.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">...Function</span>&#125; middlewares The middleware chain to be applied.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span> &#123;<span class="type">Function</span>&#125; A store enhancer applying the middleware.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">applyMiddleware</span>(<span class="params">...middlewares</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">createStore</span>) =&gt;</span> <span class="function">(<span class="params">reducer, preloadedState, enhancer</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> store = <span class="title function_">createStore</span>(reducer, preloadedState, enhancer)</span><br><span class="line">    <span class="keyword">let</span> dispatch = store.<span class="property">dispatch</span></span><br><span class="line">    <span class="keyword">let</span> chain = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> middlewareAPI = &#123;</span><br><span class="line">      <span class="attr">getState</span>: store.<span class="property">getState</span>,</span><br><span class="line">      <span class="attr">dispatch</span>: <span class="function">(<span class="params">action</span>) =&gt;</span> <span class="title function_">dispatch</span>(action)</span><br><span class="line">    &#125;</span><br><span class="line">    chain = middlewares.<span class="title function_">map</span>(<span class="function"><span class="params">middleware</span> =&gt;</span> <span class="title function_">middleware</span>(middlewareAPI))</span><br><span class="line">    dispatch = <span class="title function_">compose</span>(...chain)(store.<span class="property">dispatch</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>一个 redux 中间件的结构：</p>
-<pre><code class="hljs js">store =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> &#123;
-  <span class="hljs-comment">// 中间件逻辑代码</span>
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">store =&gt; <span class="function"><span class="params">next</span> =&gt;</span> <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 中间件逻辑代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>假设有三个中间件 M1, M2, M3，应用 applyMiddleware(M1, M2, M3) 将返回一个闭包函数，该函数接受 createStore 函数作为参数，使得创建状态树 store 的步骤在这个闭包函数内执行;<br>接着将 store 重新组装成 middlewareAPI 作为新的 store，也就是我们编写的中间件最外层函数的参数 store，这样中间件就可以根据状态树进行各种操作了。</p>
 <p>可以发现重新组装之后的 store 只有两个方法，一个是用户获取 state 的 getState 方法，另一个是用于分发 action 的 dispatch，而 setState、subscribe、replaceReducer 等方法则不提供，setState 在设置状态时重新 render 可能会触发新的 action 而导致死循环；setState 本身就是用于订阅每个 dispatch 操作，此时 dispatch 就在你手上（next)，根本不需要订阅；replaceReducer 用于动态加载新的 reducer，我猜你用不到。</p>
 <p>将中间件数组中的函数逐一传入参数 middlewareAPI 并执行，从而得到 chain 数组，此时 chain 数组中的每个函数长这样：</p>
-<pre><code class="hljs js">next =&gt; <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> &#123;
-  <span class="hljs-comment">// 中间件逻辑代码</span>
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">next =&gt; <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 中间件逻辑代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><em><strong>核心代码解读</strong></em></p>
 <blockquote>
-<p> dispatch = compose(…chain)(store.dispatch)</p>
+<p> dispatch &#x3D; compose(…chain)(store.dispatch)</p>
 </blockquote>
 <p>假设 chain 是包含 C1, C2, C3 三个函数的数组，那么 compose(…chain)(store.dispatch) 即是 C1(C2(C3(store.dispatch))), 因此易知：</p>
 <ol>
@@ -393,9 +78,7 @@
 <li>M1 中的 next 为 C2(C3(store.dispatch));</li>
 </ol>
 <p>最终将 C1(C2(C3(store.dispatch))) 作为新的 dispatch 挂在 store 上返回给用户，因此这就是用户切实调到的 dispatch 方法，既然层层执行了 C3，C2, C1，那么一个中间件已经被拆解为：</p>
-<pre><code class="hljs js">action =&gt; &#123;
-
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">action =&gt; &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="触发-action-的完整流程"><a href="#触发-action-的完整流程" class="headerlink" title="触发 action 的完整流程"></a>触发 action 的完整流程</h4><p>有了这个 dispatch 方法和被扒光的中间件，我们来梳理一遍当用户触发一个 action 的完整流程：</p>
 <ol>
@@ -414,96 +97,17 @@
 <h2 id="如何编写"><a href="#如何编写" class="headerlink" title="如何编写"></a>如何编写</h2><p>讲了这么多，终于切入正题，开始写中间件了，目标是实现中间件，使得异步请求，错误处理都能经由中间件处理；而不需要每次手动繁琐的发起异步请求，同时每个异步请求语句之后都手动处理错误代码。</p>
 <p>先从简单的错误处理中间件开始~</p>
 <h3 id="错误处理中间件"><a href="#错误处理中间件" class="headerlink" title="错误处理中间件"></a>错误处理中间件</h3><p>通过检测 action 上是否存在 error 字段，来决定是否抛出错误</p>
-<pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; notification &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-keyword">async</span> action =&gt; &#123;
-  <span class="hljs-keyword">try</span> &#123;
-    <span class="hljs-keyword">if</span>(action.<span class="hljs-property">error</span>) &#123;
-      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(action.<span class="hljs-property">error</span>)
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      <span class="hljs-title function_">next</span>(action)
-    &#125;
-  &#125; <span class="hljs-keyword">catch</span> (err) &#123;
-    notification.<span class="hljs-title function_">error</span>(&#123;
-      <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;错误信息&#x27;</span>,
-      <span class="hljs-attr">description</span>: err.<span class="hljs-property">message</span>
-    &#125;);
-    <span class="hljs-keyword">throw</span> err
-  &#125;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; notification &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store =&gt; <span class="function"><span class="params">next</span> =&gt;</span> <span class="keyword">async</span> action =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(action.<span class="property">error</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(action.<span class="property">error</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="title function_">next</span>(action)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    notification.<span class="title function_">error</span>(&#123;</span><br><span class="line">      <span class="attr">message</span>: <span class="string">&#x27;错误信息&#x27;</span>,</span><br><span class="line">      <span class="attr">description</span>: err.<span class="property">message</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">throw</span> err</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>当发现 action 中有 error 字段，则抛出错误，这个字段可由上游中间件出错后，将对应的错误信息挂在 action.error 上，使得本中间件能够处理这个错误，由于项目基于 antd，此处将所有错误都通过 notification 组件在右上角弹窗显示；</p>
 <p>如果做成通用的错误处理的话，可以再包一层函数，传入错误处理函数，便能够自定义错误处理函数了：</p>
-<pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> handler =&gt; <span class="hljs-function"><span class="hljs-params">store</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">action</span> =&gt;</span> &#123;
-  <span class="hljs-keyword">try</span> &#123;
-    <span class="hljs-keyword">if</span>(action.<span class="hljs-property">error</span>) &#123;
-      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(action.<span class="hljs-property">error</span>)
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      <span class="hljs-title function_">next</span>(action)
-    &#125;
-  &#125; <span class="hljs-keyword">catch</span> (err) &#123;
-    handler &amp;&amp; <span class="hljs-title function_">handler</span>(err)
-    <span class="hljs-keyword">throw</span> err
-  &#125;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> handler =&gt; <span class="function"><span class="params">store</span> =&gt;</span> <span class="function"><span class="params">next</span> =&gt;</span> <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(action.<span class="property">error</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(action.<span class="property">error</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="title function_">next</span>(action)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    handler &amp;&amp; <span class="title function_">handler</span>(err)</span><br><span class="line">    <span class="keyword">throw</span> err</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>则使用方式变为：</p>
-<pre><code class="hljs js"><span class="hljs-keyword">const</span> createStoreWithMiddleware = <span class="hljs-title function_">compose</span>(
-  <span class="hljs-title function_">applyMiddleware</span>(
-    nextAndRequest,
-    <span class="hljs-title function_">errorHandler</span>(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;
-      notification.<span class="hljs-title function_">error</span>(&#123;
-        <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;错误信息&#x27;</span>,
-        <span class="hljs-attr">description</span>: err.<span class="hljs-property">message</span>
-      &#125;)
-    &#125;),
-  ),
-  <span class="hljs-variable language_">window</span>.<span class="hljs-property">devToolsExtension</span>
-)(createStore)</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> createStoreWithMiddleware = <span class="title function_">compose</span>(</span><br><span class="line">  <span class="title function_">applyMiddleware</span>(</span><br><span class="line">    nextAndRequest,</span><br><span class="line">    <span class="title function_">errorHandler</span>(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">      notification.<span class="title function_">error</span>(&#123;</span><br><span class="line">        <span class="attr">message</span>: <span class="string">&#x27;错误信息&#x27;</span>,</span><br><span class="line">        <span class="attr">description</span>: err.<span class="property">message</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;),</span><br><span class="line">  ),</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">devToolsExtension</span></span><br><span class="line">)(createStore)</span><br></pre></td></tr></table></figure>
 
 <h3 id="异步请求处理中间件"><a href="#异步请求处理中间件" class="headerlink" title="异步请求处理中间件"></a>异步请求处理中间件</h3><h4 id="版本一"><a href="#版本一" class="headerlink" title="版本一"></a>版本一</h4><p>通过判断 action 字段上是否用 url 字段来判断是否需要发起异步请求，同时将请求结果挂在 action 的 result 字段上，供下一个中间件或 reducer 使用。</p>
-<pre><code class="hljs js"><span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./request&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-keyword">async</span> action =&gt; &#123;
-  <span class="hljs-keyword">if</span> (action.<span class="hljs-property">url</span>) &#123;
-    <span class="hljs-keyword">try</span> &#123;
-      <span class="hljs-keyword">const</span> <span class="hljs-title function_">execAction</span> = <span class="hljs-keyword">async</span> act =&gt; &#123;
-
-        <span class="hljs-keyword">if</span>(act.<span class="hljs-property">url</span>) &#123;
-          <span class="hljs-keyword">const</span> &#123;
-            code,
-            data,
-            error,
-          &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">request</span>(&#123;
-            <span class="hljs-attr">url</span>: act.<span class="hljs-property">url</span>,
-            <span class="hljs-attr">method</span>: act.<span class="hljs-property">method</span> || <span class="hljs-string">&#x27;get&#x27;</span>,
-            <span class="hljs-attr">data</span>: act.<span class="hljs-property">data</span> || &#123;&#125;,
-          &#125;)
-
-          <span class="hljs-keyword">if</span> (code !== <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(error || <span class="hljs-string">&#x27;未知错误！&#x27;</span>)
-          &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-keyword">return</span> data
-          &#125;
-        &#125;
-      &#125;
-
-      <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(action)
-
-      <span class="hljs-title function_">next</span>(&#123;
-        result,
-        ...action
-      &#125;)
-
-    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
-      <span class="hljs-title function_">next</span>(&#123;
-        <span class="hljs-attr">error</span>: error.<span class="hljs-property">message</span>,
-      &#125;)
-    &#125;
-  &#125; <span class="hljs-keyword">else</span> &#123;
-    <span class="hljs-title function_">next</span>(action)
-  &#125;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> request <span class="keyword">from</span> <span class="string">&#x27;./request&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store =&gt; <span class="function"><span class="params">next</span> =&gt;</span> <span class="keyword">async</span> action =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (action.<span class="property">url</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> <span class="title function_">execAction</span> = <span class="keyword">async</span> act =&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(act.<span class="property">url</span>) &#123;</span><br><span class="line">          <span class="keyword">const</span> &#123;</span><br><span class="line">            code,</span><br><span class="line">            data,</span><br><span class="line">            error,</span><br><span class="line">          &#125; = <span class="keyword">await</span> <span class="title function_">request</span>(&#123;</span><br><span class="line">            <span class="attr">url</span>: act.<span class="property">url</span>,</span><br><span class="line">            <span class="attr">method</span>: act.<span class="property">method</span> || <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">            <span class="attr">data</span>: act.<span class="property">data</span> || &#123;&#125;,</span><br><span class="line">          &#125;)</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (code !== <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(error || <span class="string">&#x27;未知错误！&#x27;</span>)</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> data</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title function_">execAction</span>(action)</span><br><span class="line"></span><br><span class="line">      <span class="title function_">next</span>(&#123;</span><br><span class="line">        result,</span><br><span class="line">        ...action</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="title function_">next</span>(&#123;</span><br><span class="line">        <span class="attr">error</span>: error.<span class="property">message</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">next</span>(action)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -512,468 +116,65 @@
 <p>例如删除或添加一条记录后，希望更新当前列表信息</p>
 </blockquote>
 <p>因此做如下更改，在 action 上增加一个 nextAction 字段，使得能够在执行当前 action 之后，接着执行一个 action：</p>
-<pre><code class="hljs js"><span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./request&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-keyword">async</span> action =&gt; &#123;
-  <span class="hljs-keyword">if</span> (action.<span class="hljs-property">url</span> || action.<span class="hljs-property">nextAction</span>) &#123;
-    <span class="hljs-keyword">try</span> &#123;
-      <span class="hljs-keyword">const</span> <span class="hljs-title function_">execAction</span> = <span class="hljs-keyword">async</span> act =&gt; &#123;
-
-        <span class="hljs-keyword">if</span>(act.<span class="hljs-property">url</span>) &#123;
-          <span class="hljs-keyword">const</span> &#123;
-            code,
-            data,
-            error,
-          &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">request</span>(&#123;
-            <span class="hljs-attr">url</span>: act.<span class="hljs-property">url</span>,
-            <span class="hljs-attr">method</span>: act.<span class="hljs-property">method</span> || <span class="hljs-string">&#x27;get&#x27;</span>,
-            <span class="hljs-attr">data</span>: act.<span class="hljs-property">data</span> || &#123;&#125;,
-          &#125;)
-
-          <span class="hljs-keyword">if</span> (code !== <span class="hljs-number">0</span>) &#123;
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(error || <span class="hljs-string">&#x27;未知错误！&#x27;</span>)
-          &#125; <span class="hljs-keyword">else</span> &#123;
-            <span class="hljs-keyword">return</span> data
-          &#125;
-        &#125;
-      &#125;
-
-      <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(action)
-
-      <span class="hljs-title function_">next</span>(&#123;
-        result,
-        ...action
-      &#125;)
-
-      <span class="hljs-keyword">if</span> (action.<span class="hljs-property">nextAction</span>) &#123;
-        <span class="hljs-keyword">const</span> act = action.<span class="hljs-property">nextAction</span>
-        <span class="hljs-keyword">const</span> nextAction = <span class="hljs-keyword">typeof</span> act === <span class="hljs-string">&#x27;function&#x27;</span> ? <span class="hljs-keyword">await</span> <span class="hljs-title function_">act</span>(result, action) : act
-        <span class="hljs-keyword">const</span> nextResult = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(nextAction)
-
-        <span class="hljs-title function_">next</span>(&#123;
-          <span class="hljs-attr">result</span>: nextResult,
-          <span class="hljs-attr">lastResult</span>: result,
-          ...nextAction
-        &#125;)
-      &#125;
-
-    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
-      <span class="hljs-title function_">next</span>(&#123;
-        <span class="hljs-attr">error</span>: error.<span class="hljs-property">message</span>,
-      &#125;)
-    &#125;
-  &#125; <span class="hljs-keyword">else</span> &#123;
-    <span class="hljs-title function_">next</span>(action)
-  &#125;
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> request <span class="keyword">from</span> <span class="string">&#x27;./request&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store =&gt; <span class="function"><span class="params">next</span> =&gt;</span> <span class="keyword">async</span> action =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (action.<span class="property">url</span> || action.<span class="property">nextAction</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> <span class="title function_">execAction</span> = <span class="keyword">async</span> act =&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(act.<span class="property">url</span>) &#123;</span><br><span class="line">          <span class="keyword">const</span> &#123;</span><br><span class="line">            code,</span><br><span class="line">            data,</span><br><span class="line">            error,</span><br><span class="line">          &#125; = <span class="keyword">await</span> <span class="title function_">request</span>(&#123;</span><br><span class="line">            <span class="attr">url</span>: act.<span class="property">url</span>,</span><br><span class="line">            <span class="attr">method</span>: act.<span class="property">method</span> || <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">            <span class="attr">data</span>: act.<span class="property">data</span> || &#123;&#125;,</span><br><span class="line">          &#125;)</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (code !== <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(error || <span class="string">&#x27;未知错误！&#x27;</span>)</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> data</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title function_">execAction</span>(action)</span><br><span class="line"></span><br><span class="line">      <span class="title function_">next</span>(&#123;</span><br><span class="line">        result,</span><br><span class="line">        ...action</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (action.<span class="property">nextAction</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> act = action.<span class="property">nextAction</span></span><br><span class="line">        <span class="keyword">const</span> nextAction = <span class="keyword">typeof</span> act === <span class="string">&#x27;function&#x27;</span> ? <span class="keyword">await</span> <span class="title function_">act</span>(result, action) : act</span><br><span class="line">        <span class="keyword">const</span> nextResult = <span class="keyword">await</span> <span class="title function_">execAction</span>(nextAction)</span><br><span class="line"></span><br><span class="line">        <span class="title function_">next</span>(&#123;</span><br><span class="line">          <span class="attr">result</span>: nextResult,</span><br><span class="line">          <span class="attr">lastResult</span>: result,</span><br><span class="line">          ...nextAction</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="title function_">next</span>(&#123;</span><br><span class="line">        <span class="attr">error</span>: error.<span class="property">message</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">next</span>(action)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>为了方便执行一些额外的操作，此处 nextAction 也可以是一个函数，该函数必须返回一个 action，同时将当前 action 的返回值作为回调传入这个函数，nextAction 执行之后，除了将请求结果作为 result 字段挂在 action 之外，还加入了一个 lastResult 字段保存首次 action 的值。</p>
 <h4 id="版本三"><a href="#版本三" class="headerlink" title="版本三"></a>版本三</h4><p>目前只能支持一级 nextAction，如果要支持多级的话，可以传入数组，数组中可以是一个普通的 action，也可以是返回一个 action 的函数，完整代码如下：</p>
-<pre><code class="hljs js"><span class="hljs-comment">// index.js</span>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> execAction <span class="keyword">from</span> <span class="string">&#x27;./exec-action&#x27;</span></span><br><span class="line"><span class="keyword">import</span> execNextAction <span class="keyword">from</span> <span class="string">&#x27;./exec-next-action&#x27;</span></span><br><span class="line"><span class="keyword">import</span> isFunction <span class="keyword">from</span> <span class="string">&#x27;./is-function&#x27;</span></span><br><span class="line"><span class="keyword">import</span> isArray <span class="keyword">from</span> <span class="string">&#x27;./is-array&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; <span class="function"><span class="params">next</span> =&gt;</span> <span class="keyword">async</span> action =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (action.<span class="property">url</span> || action.<span class="property">nextAction</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title function_">execAction</span>(action)</span><br><span class="line"></span><br><span class="line">      <span class="title function_">next</span>(&#123;</span><br><span class="line">        result,</span><br><span class="line">        ...action</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (action.<span class="property">nextAction</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> nextAction = action.<span class="property">nextAction</span></span><br><span class="line">        <span class="keyword">let</span> lastResult = result</span><br><span class="line">        <span class="keyword">let</span> lastAction = action</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_">isFunction</span>(nextAction)) &#123;</span><br><span class="line">          nextAction = <span class="keyword">await</span> <span class="title function_">nextAction</span>(lastResult, lastAction)</span><br><span class="line">          <span class="keyword">await</span> <span class="title function_">execNextAction</span>(nextAction, lastResult, next)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="title function_">isArray</span>(nextAction)) &#123;</span><br><span class="line">          <span class="keyword">let</span> currentAction</span><br><span class="line">          <span class="keyword">for</span>( <span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nextAction.<span class="property">length</span>; i++ ) &#123;</span><br><span class="line">            lastAction = nextAction[i - <span class="number">1</span>] ? nextAction[i - <span class="number">1</span>] : lastAction</span><br><span class="line">            currentAction = <span class="title function_">isFunction</span>(nextAction[i]) ? <span class="keyword">await</span> nextAction[i](lastResult, lastAction) : nextAction[i]</span><br><span class="line">            <span class="keyword">await</span> <span class="title function_">execNextAction</span>(currentAction, lastResult, next)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">await</span> <span class="title function_">execNextAction</span>(nextAction, lastResult, next)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="title function_">next</span>(&#123;</span><br><span class="line">        <span class="attr">error</span>: error.<span class="property">message</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_">next</span>(action)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-keyword">import</span> execAction <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./exec-action&#x27;</span>
-<span class="hljs-keyword">import</span> execNextAction <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./exec-next-action&#x27;</span>
-<span class="hljs-keyword">import</span> isFunction <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./is-function&#x27;</span>
-<span class="hljs-keyword">import</span> isArray <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./is-array&#x27;</span>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// is-array.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> param =&gt; <span class="title class_">Array</span>.<span class="title function_">isArray</span>(param)</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; <span class="hljs-function"><span class="hljs-params">next</span> =&gt;</span> <span class="hljs-keyword">async</span> action =&gt; &#123;
-  <span class="hljs-keyword">if</span> (action.<span class="hljs-property">url</span> || action.<span class="hljs-property">nextAction</span>) &#123;
-    <span class="hljs-keyword">try</span> &#123;
-      <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(action)
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// is-function.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> param =&gt; <span class="keyword">typeof</span> param === <span class="string">&#x27;function&#x27;</span></span><br></pre></td></tr></table></figure>
 
-      <span class="hljs-title function_">next</span>(&#123;
-        result,
-        ...action
-      &#125;)
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// request.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> reqwest <span class="keyword">from</span> <span class="string">&#x27;reqwest&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> opts =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> defaultOpts = &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">`/routers<span class="subst">$&#123;opts.url&#125;</span>`</span>,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> finalOpts = &#123;</span><br><span class="line">    ...opts,</span><br><span class="line">    ...defaultOpts,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> ret</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    ret = <span class="keyword">await</span> <span class="title function_">reqwest</span>(finalOpts)</span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      ret = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(e.<span class="property">response</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      ret = e.<span class="property">message</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      <span class="hljs-keyword">if</span> (action.<span class="hljs-property">nextAction</span>) &#123;
-        <span class="hljs-keyword">let</span> nextAction = action.<span class="hljs-property">nextAction</span>
-        <span class="hljs-keyword">let</span> lastResult = result
-        <span class="hljs-keyword">let</span> lastAction = action
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// exec-action.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> request <span class="keyword">from</span> <span class="string">&#x27;./request&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> act =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(act.<span class="property">url</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      code,</span><br><span class="line">      data,</span><br><span class="line">      error,</span><br><span class="line">    &#125; = <span class="keyword">await</span> <span class="title function_">request</span>(&#123;</span><br><span class="line">      <span class="attr">url</span>: act.<span class="property">url</span>,</span><br><span class="line">      <span class="attr">method</span>: act.<span class="property">method</span> || <span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">      <span class="attr">data</span>: act.<span class="property">data</span> || &#123;&#125;,</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (code !== <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(error || <span class="string">&#x27;未知错误！&#x27;</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> data</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        <span class="hljs-keyword">if</span>(<span class="hljs-title function_">isFunction</span>(nextAction)) &#123;
-          nextAction = <span class="hljs-keyword">await</span> <span class="hljs-title function_">nextAction</span>(lastResult, lastAction)
-          <span class="hljs-keyword">await</span> <span class="hljs-title function_">execNextAction</span>(nextAction, lastResult, next)
-        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-title function_">isArray</span>(nextAction)) &#123;
-          <span class="hljs-keyword">let</span> currentAction
-          <span class="hljs-keyword">for</span>( <span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; nextAction.<span class="hljs-property">length</span>; i++ ) &#123;
-            lastAction = nextAction[i - <span class="hljs-number">1</span>] ? nextAction[i - <span class="hljs-number">1</span>] : lastAction
-            currentAction = <span class="hljs-title function_">isFunction</span>(nextAction[i]) ? <span class="hljs-keyword">await</span> nextAction[i](lastResult, lastAction) : nextAction[i]
-            <span class="hljs-keyword">await</span> <span class="hljs-title function_">execNextAction</span>(currentAction, lastResult, next)
-          &#125;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-          <span class="hljs-keyword">await</span> <span class="hljs-title function_">execNextAction</span>(nextAction, lastResult, next)
-        &#125;
-      &#125;
-
-    &#125; <span class="hljs-keyword">catch</span> (error) &#123;
-      <span class="hljs-title function_">next</span>(&#123;
-        <span class="hljs-attr">error</span>: error.<span class="hljs-property">message</span>,
-      &#125;)
-    &#125;
-  &#125; <span class="hljs-keyword">else</span> &#123;
-    <span class="hljs-title function_">next</span>(action)
-  &#125;
-&#125;</code></pre>
-
-<pre><code class="hljs js"><span class="hljs-comment">// is-array.js</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> param =&gt; <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(param)</code></pre>
-
-<pre><code class="hljs js"><span class="hljs-comment">// is-function.js</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> param =&gt; <span class="hljs-keyword">typeof</span> param === <span class="hljs-string">&#x27;function&#x27;</span></code></pre>
-
-<pre><code class="hljs js"><span class="hljs-comment">// request.js</span>
-
-<span class="hljs-keyword">import</span> reqwest <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;reqwest&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> opts =&gt; &#123;
-  <span class="hljs-keyword">const</span> defaultOpts = &#123;
-    <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;json&#x27;</span>,
-    <span class="hljs-attr">url</span>: <span class="hljs-string">`/routers<span class="hljs-subst">$&#123;opts.url&#125;</span>`</span>,
-  &#125;
-
-  <span class="hljs-keyword">const</span> finalOpts = &#123;
-    ...opts,
-    ...defaultOpts,
-  &#125;
-
-  <span class="hljs-keyword">let</span> ret
-  <span class="hljs-keyword">try</span> &#123;
-    ret = <span class="hljs-keyword">await</span> <span class="hljs-title function_">reqwest</span>(finalOpts)
-    <span class="hljs-keyword">return</span> ret
-  &#125; <span class="hljs-keyword">catch</span> (e) &#123;
-    <span class="hljs-keyword">try</span> &#123;
-      ret = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(e.<span class="hljs-property">response</span>)
-    &#125; <span class="hljs-keyword">catch</span> (e) &#123;
-      ret = e.<span class="hljs-property">message</span>
-    &#125;
-
-    <span class="hljs-keyword">return</span> ret
-  &#125;
-&#125;</code></pre>
-
-<pre><code class="hljs js"><span class="hljs-comment">// exec-action.js</span>
-
-<span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./request&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> act =&gt; &#123;
-
-  <span class="hljs-keyword">if</span>(act.<span class="hljs-property">url</span>) &#123;
-    <span class="hljs-keyword">const</span> &#123;
-      code,
-      data,
-      error,
-    &#125; = <span class="hljs-keyword">await</span> <span class="hljs-title function_">request</span>(&#123;
-      <span class="hljs-attr">url</span>: act.<span class="hljs-property">url</span>,
-      <span class="hljs-attr">method</span>: act.<span class="hljs-property">method</span> || <span class="hljs-string">&#x27;get&#x27;</span>,
-      <span class="hljs-attr">data</span>: act.<span class="hljs-property">data</span> || &#123;&#125;,
-    &#125;)
-
-    <span class="hljs-keyword">if</span> (code !== <span class="hljs-number">0</span>) &#123;
-      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(error || <span class="hljs-string">&#x27;未知错误！&#x27;</span>)
-    &#125; <span class="hljs-keyword">else</span> &#123;
-      <span class="hljs-keyword">return</span> data
-    &#125;
-  &#125;
-&#125;</code></pre>
-
-<pre><code class="hljs js"><span class="hljs-comment">// exec-next-action.js</span>
-
-<span class="hljs-keyword">import</span> execAction <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./exec-action&#x27;</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">async</span> (nextAct, lastResult, next) =&gt; &#123;
-  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">execAction</span>(nextAct)
-
-  <span class="hljs-title function_">next</span>(&#123;
-    result,
-    lastResult,
-    ...nextAct
-  &#125;)
-&#125;</code></pre>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// exec-next-action.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> execAction <span class="keyword">from</span> <span class="string">&#x27;./exec-action&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">async</span> (nextAct, lastResult, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title function_">execAction</span>(nextAct)</span><br><span class="line"></span><br><span class="line">  <span class="title function_">next</span>(&#123;</span><br><span class="line">    result,</span><br><span class="line">    lastResult,</span><br><span class="line">    ...nextAct</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如此这般，便能开心的写页面了~<br>好了，我要发给我妈看看。</p>
-
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">源码解析</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/JavaScript/">JavaScript</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Redux/">Redux</a>
-                    
-                      <a class="hover-with-bg" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>
-                    
-                  </div>
-                
-              </div>
-              
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
-              
-              
-                <div class="post-prevnext row">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2017/08/15/Node.js%20%E8%B0%83%E8%AF%95%E6%96%B9%E5%BC%8F%E9%9B%86%E9%94%A6/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Node.js 调试方式集锦</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2016/12/25/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20Node.js%20%E3%81%AE%E7%AC%94%E8%AE%B0/">
-                        <span class="hidden-mobile">深入浅出 Node.js の笔记</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
-    </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div id="tocbot"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
-
-    
-  </main>
-
-  
-    <a id="scroll-top-button" href="#" role="button">
-      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-    </a>
-  
-
-  
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-  
-
-  
-
-  
-
-  <footer class="mt-5">
-  <div class="text-center py-3">
-    <div>
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
-      <i class="iconfont icon-love"></i>
-      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
-        <span>Fluid</span></a>
-    </div>
-    
-
-    
-
-    
-  </div>
-</footer>
-
-<!-- SCRIPTS -->
-<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/main.js" ></script>
-
-<!-- Plugins -->
-
-
-  
-    <script  src="/js/lazyload.js" ></script>
-  
-
-
-
-  
-
-
-
-  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
-  <script  src="/js/clipboard-use.js" ></script>
-
-
-
-
-
-
-
-  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
-  <script>
-    $(document).ready(function () {
-      var boardCtn = $('#board-ctn');
-      var boardTop = boardCtn.offset().top;
-
-      tocbot.init({
-        tocSelector: '#tocbot',
-        contentSelector: '#post-body',
-        headingSelector: 'h1,h2,h3,h4,h5,h6',
-        linkClass: 'tocbot-link',
-        activeLinkClass: 'tocbot-active-link',
-        listClass: 'tocbot-list',
-        isCollapsedClass: 'tocbot-is-collapsed',
-        collapsibleClass: 'tocbot-is-collapsible',
-        collapseDepth: 0,
-        scrollSmooth: true,
-        headingsOffset: -boardTop
+</div><div class="article-licensing box"><div class="licensing-title"><p>redux 中间件入门到编写，到改进，到出门</p><p><a href="http://quanru.github.io/2017/03/18/编写 redux 中间件/">http://quanru.github.io/2017/03/18/编写 redux 中间件/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>林宜丙</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2017-03-18</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-06-28</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/JavaScript/">JavaScript</a><a class="link-muted mr-2" rel="tag" href="/tags/Redux/">Redux</a><a class="link-muted mr-2" rel="tag" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="/img/alipay-qr.jpg" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="/img/wechat-qr.jpg" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2017/08/15/Node.js%20%E8%B0%83%E8%AF%95%E6%96%B9%E5%BC%8F%E9%9B%86%E9%94%A6/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Node.js 调试方式集锦</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2016/12/25/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA%20Node.js%20%E3%81%AE%E7%AC%94%E8%AE%B0/"><span class="level-item">深入浅出 Node.js の笔记</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="SOHUCS" sid="/2017/03/18/编写 redux 中间件/"></div><script charset="utf-8" src="https://changyan.sohu.com/upload/changyan.js"></script><script>window.changyan.api.config({appid: 'cywKwoVzD',conf: 'prod_8cc6c1a0cd01f67f574655d1536f2b9a'});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="林宜丙"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">林宜丙</p><p class="is-size-6 is-block">前端工程师</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国杭州</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">42</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">16</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">47</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/quanru" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/quanru"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/quanruzhuoxiu"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Zhihu" href="https://www.zhihu.com/people/quanru"><i class="fab fa-zhihu"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Weibo" href="http://weibo.com/zhuoxiu"><i class="fab fa-weibo"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Node-js-%E6%9C%8D%E5%8A%A1%E7%AB%AF/"><span class="level-start"><span class="level-item">Node.js 服务端</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">前端学习</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6/"><span class="level-start"><span class="level-item">前端框架</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%8F%82%E4%BC%9A%E6%84%9F/"><span class="level-start"><span class="level-item">参会感</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%B0%8F%E4%BB%BB%E5%8A%A1/"><span class="level-start"><span class="level-item">小任务</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"><span class="level-start"><span class="level-item">工作记录</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"><span class="level-start"><span class="level-item">工程化</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%B7%A5%E7%A8%8B%E6%B2%BB%E7%90%86/"><span class="level-start"><span class="level-item">工程治理</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="level-start"><span class="level-item">开发工具</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%99%E7%A8%8B/"><span class="level-start"><span class="level-item">教程</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"><span class="level-start"><span class="level-item">源码解析</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/"><span class="level-start"><span class="level-item">疑难杂症</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91/"><span class="level-start"><span class="level-item">第二大脑</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%81%8C%E4%B8%9A%E9%81%93%E8%B7%AF/"><span class="level-start"><span class="level-item">职业道路</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"><span class="level-start"><span class="level-item">读书笔记</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%9D%A2%E8%AF%95/"><span class="level-start"><span class="level-item">面试</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-06-18T05:17:39.000Z">2023-06-18</time></p><p class="title"><a href="/2023/06/18/%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%94%A8%E6%96%B0%E5%9E%8B%20Obsidian%20%E5%AE%9E%E8%B7%B5%E4%B9%8B%E6%9E%84%E5%BB%BA%E6%88%91%E7%9A%84%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91%20%F0%9F%A7%A0/">一种实用新型 Obsidian 实践之构建我的第二大脑 🧠</a></p><p class="categories"><a href="/categories/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91/">第二大脑</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-06-17T17:20:23.000Z">2023-06-17</time></p><p class="title"><a href="/2023/06/17/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/">字节跳动的前端工程化实践</a></p><p class="categories"><a href="/categories/%E5%B7%A5%E7%A8%8B%E6%B2%BB%E7%90%86/">工程治理</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-12-31T16:56:15.000Z">2022-12-31</time></p><p class="title"><a href="/2022/12/31/%E5%89%8D%E7%AB%AF%20Monorepo%20%E5%9C%A8%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%AE%9E%E8%B7%B5/">前端 Monorepo 在字节跳动的实践</a></p><p class="categories"><a href="/categories/%E5%B7%A5%E7%A8%8B%E6%B2%BB%E7%90%86/">工程治理</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-12-31T16:48:15.000Z">2022-12-31</time></p><p class="title"><a href="/2022/12/31/Monorepo%20%E4%B8%8B%20Git%20%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Monorepo 下 Git 工作流的最佳实践</a></p><p class="categories"><a href="/categories/%E5%B7%A5%E7%A8%8B%E6%B2%BB%E7%90%86/">工程治理</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-12-05T12:42:31.000Z">2021-12-05</time></p><p class="title"><a href="/2021/12/05/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7%E7%9A%84%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6%E5%BB%BA%E8%AE%BE/">命令行工具的监控告警建设</a></p><p class="categories"><a href="/categories/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/">工作记录</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2023/"><span class="level-start"><span class="level-item">2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/"><span class="level-start"><span class="level-item">2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/"><span class="level-start"><span class="level-item">2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/"><span class="level-start"><span class="level-item">2020</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/"><span class="level-start"><span class="level-item">2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/"><span class="level-start"><span class="level-item">2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/"><span class="level-start"><span class="level-item">2017</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/"><span class="level-start"><span class="level-item">2016</span></span><span class="level-end"><span class="level-item tag">13</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/"><span class="level-start"><span class="level-item">2015</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Api-Mock/"><span class="tag">Api Mock</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Build/"><span class="tag">Build</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Bundler/"><span class="tag">Bundler</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CSS/"><span class="tag">CSS</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Chrome/"><span class="tag">Chrome</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Compile/"><span class="tag">Compile</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/D2-%E4%BC%9A%E8%AE%AE/"><span class="tag">D2 会议</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Diagnostics-Tool/"><span class="tag">Diagnostics Tool</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Functor/"><span class="tag">Functor</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Git/"><span class="tag">Git</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Hook/"><span class="tag">Hook</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">26</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Javascript/"><span class="tag">Javascript</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Jest/"><span class="tag">Jest</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JsBridge/"><span class="tag">JsBridge</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/LifeOS/"><span class="tag">LifeOS</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Micro-Frontend/"><span class="tag">Micro Frontend</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Monorepo/"><span class="tag">Monorepo</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Node-js/"><span class="tag">Node.js</span><span class="tag">14</span></a></div><div class="control"><a class="tags has-addons" href="/tags/React/"><span class="tag">React</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redux/"><span class="tag">Redux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Webview/"><span class="tag">Webview</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/canvas/"><span class="tag">canvas</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/debug/"><span class="tag">debug</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"><span class="tag">中间件</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86/"><span class="tag">任务管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%85%AC%E4%BC%97%E5%8F%B7/"><span class="tag">公众号</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"><span class="tag">内存泄漏</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"><span class="tag">函数式编程</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB/"><span class="tag">前后端分离</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1/"><span class="tag">前端八股</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"><span class="tag">单元测试</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7/"><span class="tag">可维护性</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%91%A8%E6%9C%9F%E7%AC%94%E8%AE%B0/"><span class="tag">周期笔记</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/"><span class="tag">命令行工具</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%AE%9E%E4%B9%A0%E5%8E%86%E7%A8%8B/"><span class="tag">实习历程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86/"><span class="tag">时间管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%9F%AF%E9%87%8C%E5%8C%96/"><span class="tag">柯里化</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%9B%91%E6%8E%A7%E5%91%8A%E8%AD%A6/"><span class="tag">监控告警</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%9B%AE%E6%A0%87%E7%AE%A1%E7%90%86/"><span class="tag">目标管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%9F%A5%E8%AF%86%E7%AE%A1%E7%90%86/"><span class="tag">知识管理</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/"><span class="tag">私有化部署</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BA%BF%E4%B8%8A-Bug-%E6%8E%92%E6%9F%A5/"><span class="tag">线上 Bug 排查</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E5%AD%A6%E5%8E%86%E7%A8%8B/"><span class="tag">自学历程</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%87%8D%E6%9E%84/"><span class="tag">重构</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%A1%B9%E7%9B%AE%E6%B2%BB%E7%90%86/"><span class="tag">项目治理</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.png" alt="林宜丙的博客" height="28"></a><p class="is-size-7"><span>&copy; 2023 林宜丙</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
       });
-      if ($('.toc-list-item').length > 0) {
-        $('#toc').css('visibility', 'visible');
-      }
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
-  <script>
-    var typed = new Typed('#subtitle', {
-      strings: [
-        '  ',
-        "redux 中间件入门到编写，到改进，到出门&nbsp;",
-      ],
-      cursorChar: "_",
-      typeSpeed: 70,
-      loop: false,
-    });
-    typed.stop();
-    $(document).ready(function () {
-      $(".typed-cursor").addClass("h2");
-      typed.start();
-    });
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
-  <script>
-    anchors.options = {
-      placement: "right",
-      visible: "hover",
-      
-    };
-    var el = "h1,h2,h3,h4,h5,h6".split(",");
-    var res = [];
-    for (item of el) {
-      res.push(".markdown-body > " + item)
-    }
-    anchors.add(res.join(", "))
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    var path = "/local-search.xml";
-    var inputArea = document.querySelector("#local-search-input");
-    inputArea.onclick = function () {
-      searchFunc(path, 'local-search-input', 'local-search-result');
-      this.onclick = null
-    }
-  </script>
-
-
-
-  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-  <script>
-    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
-      function () {
-        var element = document.createElement('a');
-        $(element).attr('data-fancybox', 'images');
-        $(element).attr('href', $(this).attr('src'));
-        $(this).wrap(element);
-      }
-    );
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="https://giscus.app/client.js"
-        data-repo="quanru/quanru.github.io"
-        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
-        data-category="Announcements"
-        data-category-id="DIC_kwDOBG193c4CQ8si"
-        data-mapping="title"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
-</script>
-
-
-</body>
-</html>
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
