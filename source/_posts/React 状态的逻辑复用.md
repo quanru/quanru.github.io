@@ -11,4 +11,4 @@ tags:
 
 <!-- more -->
 
-<iframe width="100%" height="855px" src="/pdf/react-状态的逻辑复用.pdf"></iframe>
+<iframe width="100%" height="855px" src="/pdfjs/web/viewer.html?file=/pdf/react-状态的逻辑复用.pdf"></iframe>
