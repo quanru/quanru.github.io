@@ -1,0 +1,5 @@
+article.article .article-meta {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
