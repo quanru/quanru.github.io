@@ -13,4 +13,4 @@ tags:
 
 <!-- more -->
 
-<iframe width="100%" height="855px" src="/js/pdfjs/web/viewer.html?file=/pdf/函数式编程之 Functor.pdf"></iframe>
+<iframe width="100%" height="855px" src="/pdf/函数式编程之 Functor.pdf"></iframe>

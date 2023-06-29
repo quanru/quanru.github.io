@@ -11,4 +11,4 @@ tags:
 
 <!-- more -->
 
-<iframe width="100%" height="855px" src="/js/pdfjs/web/viewer.html?file=/pdf/编译%26构建现代JS应用.pdf"></iframe>
+<iframe width="100%" height="855px" src="/pdf/编译%26构建现代JS应用.pdf"></iframe>
