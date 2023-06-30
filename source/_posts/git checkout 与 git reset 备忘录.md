@@ -7,7 +7,7 @@ tags:
 
 ---
 
-**一直没搞清 git checkout 与 git reset, 昨晚特地建了一个仓库进行实验, 特此备忘.**
+一直没搞清 git checkout 与 git reset, 昨晚特地建了一个仓库进行实验, 特此备忘.
 
 <!-- more -->
 

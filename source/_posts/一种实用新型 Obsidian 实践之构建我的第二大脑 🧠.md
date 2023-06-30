@@ -11,7 +11,7 @@ tags:
 - 时间管理
 ---
 
-**本文将以 [Obsidian](https://obsidian.md/) 为例，分享我使用 Obsidian 构建第二大脑的实践！**
+本文将以 [Obsidian](https://obsidian.md/) 为例，分享我使用 Obsidian 构建第二大脑的实践！
 
 <!-- more -->
 

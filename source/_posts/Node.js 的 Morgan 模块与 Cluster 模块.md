@@ -7,7 +7,7 @@ tags:
 - Javascript
 ---
 
-**这段时间鼓捣Node.js，跟着《Node.js 开发指南》把 Microblog 给实现了一下，由于该书撰写于 2012 年，Node 版本目前最新已更新至 v5.9.0，且 Express 也发生了相当大的变化，导致很多书中代码已经不符合当前的版本了。关于实现部分，可参考这篇文章：[《nodejs开发指南》微博实例express4.x版](http://www.cnblogs.com/yuanzm/p/3770986.html) 。BTW，目前 express 启动命令改为 npm start，该命令执行 bin 目录下的 www 文件，相当于直接执行 node ./bin/www。此处简要记录下该书第六章提到的关于日志与多核CPU的优化问题，并介绍一款 debug tool。整个 microblog 的代码已放至 github 上：[摸我](https://github.com/quanru/microblog)**
+这段时间鼓捣Node.js，跟着《Node.js 开发指南》把 Microblog 给实现了一下，由于该书撰写于 2012 年，Node 版本目前最新已更新至 v5.9.0，且 Express 也发生了相当大的变化，导致很多书中代码已经不符合当前的版本了。关于实现部分，可参考这篇文章：[《nodejs开发指南》微博实例express4.x版](http://www.cnblogs.com/yuanzm/p/3770986.html) 。BTW，目前 express 启动命令改为 npm start，该命令执行 bin 目录下的 www 文件，相当于直接执行 node ./bin/www。此处简要记录下该书第六章提到的关于日志与多核CPU的优化问题，并介绍一款 debug tool。整个 microblog 的代码已放至 github 上：[摸我](https://github.com/quanru/microblog)
 
 <!-- more -->
 

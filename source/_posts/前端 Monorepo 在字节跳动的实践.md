@@ -18,8 +18,6 @@ tags:
 
 ![](/post-img/海报.jpg)
 
-<!-- more -->
-
 ## PPT 正文
 
 ![](/post-img/前端%20Monorepo%20解决方案在字节跳动的实践.jpeg)

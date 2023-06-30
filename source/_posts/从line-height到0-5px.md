@@ -7,7 +7,7 @@ tags:
 
 ---
 
-**前几天发现写的一段代码，其中line-height（1.7rem）与height（1.7rem）相等，font-size（1.1rem）；在ios设备上文字垂直居中，而在android设备上竟上下缝隙相差1px（其实我看不出来是不是一像素，我猜的）。**
+前几天发现写的一段代码，其中line-height（1.7rem）与height（1.7rem）相等，font-size（1.1rem）；在ios设备上文字垂直居中，而在android设备上竟上下缝隙相差1px（其实我看不出来是不是一像素，我猜的）。
 
 <!-- more -->
 

@@ -5,7 +5,7 @@ categories: 疑难杂症
 tags: CSS
 ---
 
-**之前本人写过一篇文章，是关于1px边框的：[从line-height到0-5px](http://quanru.github.io/2015/09/14/%E4%BB%8Eline-height%E5%88%B00-5px/)。文中提到用缩放的方法固然可行，但是在使用rem或者百分比单位时，时常会造成1px边框在某些机型下消失；而使用[border-image](http://imweb.io/topic/55e3d402771670e207a16bd1)方案则不会出现消失的情况；本文将探索该1px边框消失的原因以及后者为何能正常显示。**
+之前本人写过一篇文章，是关于1px边框的：[从line-height到0-5px](http://quanru.github.io/2015/09/14/%E4%BB%8Eline-height%E5%88%B00-5px/)。文中提到用缩放的方法固然可行，但是在使用rem或者百分比单位时，时常会造成1px边框在某些机型下消失；而使用[border-image](http://imweb.io/topic/55e3d402771670e207a16bd1)方案则不会出现消失的情况；本文将探索该1px边框消失的原因以及后者为何能正常显示。
 
 <!-- more -->
 
