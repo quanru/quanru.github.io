@@ -5,7 +5,7 @@ categories: 工程化
 tags:
 - Node.js
 - JavaScript
-- Api Mock
+- 命令行工具
 ---
 
 无法忍受没有 mock 服务的日子

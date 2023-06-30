@@ -3,8 +3,8 @@ title: 编译&构建现代JS应用
 date: 2020-05-30 20:17:28
 categories: 工程化
 tags:
-- Compile
-- Build
+- Compiler
+- Bundler
 ---
 
 给合作部门的客户端同学科普如何《编译&构建现代JS应用》！

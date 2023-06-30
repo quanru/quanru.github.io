@@ -1,7 +1,7 @@
 ---
 title: 使用 Linux 系统开发Web前端
 date: 2016-04-17 13:15:08
-categories: 教程
+categories: 开发工具
 tags:
 - Linux
 ---

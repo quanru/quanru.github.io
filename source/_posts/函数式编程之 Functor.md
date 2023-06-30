@@ -4,7 +4,6 @@ date: 2018-02-05 18:11:12
 categories: 前端学习
 tags:
 - JavaScript
-- Functor
 - 函数式编程
 
 ---

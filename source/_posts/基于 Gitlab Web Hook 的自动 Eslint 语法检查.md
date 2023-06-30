@@ -6,7 +6,6 @@ tags:
 - JavaScript
 - Node.js
 - Git
-- Hook
 
 ---
 

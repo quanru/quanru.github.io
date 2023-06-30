@@ -1,7 +1,7 @@
 ---
 title: Schema 与下载条
 date: 2015-08-16 19:34:27
-categories: 小任务
+categories: 工作记录
 tags:
 - JavaScript
 ---

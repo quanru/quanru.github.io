@@ -1,10 +1,9 @@
 ---
 title: Chrome 谜一样卡死的排查方法
 date: 2020-06-11 11:52:29
-categories: 疑难杂症
+categories: 工作记录
 tags:
 - Javascript
-- Chrome
 ---
 
 遇到莫名卡死问题，如何正确地排查

@@ -4,6 +4,7 @@ date: 2015-07-19 10:41:29
 categories: 读书笔记
 tags:
 - JavaScript
+- 函数式编程
 ---
 
 ### 章一

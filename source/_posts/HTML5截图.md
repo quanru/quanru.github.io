@@ -1,9 +1,9 @@
 ---
 title: HTML5 截图
 date: 2015-07-19 10:41:29
-categories: 小任务
+categories: 面试
 tags:
-- canvas
+- Canvas
 - CSS
 ---
 

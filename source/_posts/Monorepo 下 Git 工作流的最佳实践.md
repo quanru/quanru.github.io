@@ -1,9 +1,10 @@
 ---
 title: Monorepo 下 Git 工作流的最佳实践
 date: 2022-12-31 16:48:15
-categories: 工程治理
+categories: 工程化
 tags:
 - Monorepo
+- 工程治理
 ---
 
 没有哪一种 Git 工作流是银弹，合适的 Git 工作流往往取决于项目的代码规模、协作人数、应用场景等；本次分享先从适合小型 Monorepo 的 Feature branch 工作流开始分享，接着分享适用于中大型 Monorepo 的 Trunk-based 工作流，并给出一些选型标准供同学们参考，希望通过本次分享，大家能找到合适自己 Monorepo 工程的 Git 工作流！

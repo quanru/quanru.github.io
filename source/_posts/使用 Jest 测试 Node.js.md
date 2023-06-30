@@ -6,7 +6,6 @@ tags:
 - JavaScript
 - Node.js
 - 单元测试
-- Jest
 ---
 
 使用 Jest 测试你的 Node.js 应用
