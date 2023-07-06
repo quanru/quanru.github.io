@@ -37,7 +37,7 @@ tags:
 
 本文将以 Obsidian 为例，分享我构建第二大脑的实践！你说它是第二大脑，但是从不同角度审视这个大脑，我也可以称它为『LifeOS』，因为无论从生活还是工作，我都记录在上面；我也可以称它为『可编程个人生产力系统』，我在上面写了不少代码，用来做一些查询和自动化的事情，也是我用来管理任务和目标的生产力系统；甚至它还有点像『Monorepo 工程』，每个文件夹就是一个项目，项目中的 README.md 就像是 Package.json 一样描述了当前项目的元信息。
 
-📢 注意：这套系统不是那种自上而下、先有这套流程而去实现的，是我在使用 Obsidian 过程中逐渐形成的，而且也一直在迭代中，姑且把当前的版本定为 1.0，现在分享出来是想给大家一点点灵感，去完善自己的系统！此外，可能需要有编程基础，因为我写了不少自定义的 JavaScript 脚本（不排除抽成插件的可能），但是你如果完全遵循我这套系统，那也不需要懂代码，下载使用即可！
+📢 注意：这套系统不是那种自上而下、先有这套流程而去实现的，是我在使用 Obsidian 过程中逐渐形成的，而且也一直在迭代中，姑且把当前的版本定为 1.0，现在分享出来是想给大家一点点灵感，去完善自己的系统！~~此外，可能需要有编程基础，因为我写了不少自定义的 JavaScript 脚本（不排除抽成插件的可能），但是你如果完全遵循我这套系统，那也不需要懂代码，下载使用即可！~~ 目前已经编写了一个 [Obsidian Periodic PARA](https://github.com/quanru/obsidian-periodic-para) 插件来支持这套系统！
 
 ## 我的实践
 
@@ -151,17 +151,25 @@ tags:
 ![](/post-img/LifeOS-示例4.png)
 
 ## 如何打造？
-> 拉取 [Demo](https://github.com/quanru/obsidian-example-LifeOS) 工程，即可体验
+> 建议拉取 [Demo](https://github.com/quanru/obsidian-example-LifeOS) 工程，即可体验
+> 本文专用插件 [Obsidian Periodic PARA](https://github.com/quanru/obsidian-periodic-para)
 
 - 插件安装
+  - 本文专用：https://github.com/quanru/obsidian-periodic-para
   - 周期笔记
     - https://github.com/liamcain/obsidian-calendar-plugin
     - https://github.com/liamcain/obsidian-periodic-notes
   - 任务管理：https://github.com/obsidian-tasks-group/obsidian-tasks
   - 查询工具：https://github.com/blacksmithgu/obsidian-dataview
-  - 自定义逻辑：https://github.com/saml-dev/obsidian-custom-js
   - 笔记模版：https://github.com/SilentVoid13/Templater
-- 脚本编写 - https://github.com/saml-dev/obsidian-custom-js
+  - ~~自定义逻辑：https://github.com/saml-dev/obsidian-custom-js~~
+- 周期笔记模版 - https://github.com/SilentVoid13/Templater
+  - [Daily](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Daily.md)
+  - [Weekly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Weekly.md)
+  - [Monthly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Monthly.md)
+  - [Quarterly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Quarterly.md)
+  - [Yearly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Yearly.md)
+- ~~脚本编写 - https://github.com/saml-dev/obsidian-custom-js~~，由 [Obsidian Periodic PARA](https://github.com/quanru/obsidian-periodic-para) 承载
   - [date](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/date.js)
     - 根据周期笔记的文件名，解析出日期
     - 根据解析出的日期，获取日期范围
@@ -175,7 +183,7 @@ tags:
   - [area](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/area.js)
     - 获取当前领域列表的快照
     - 根据日期范围内，获取领域列表
-- Dataview 视图 - https://github.com/blacksmithgu/obsidian-dataview
+- ~~Dataview 视图 - https://github.com/blacksmithgu/obsidian-dataview~~，由 [Obsidian Periodic PARA](https://github.com/quanru/obsidian-periodic-para) 承载
   - [taskDoneList](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/taskDoneList.js)
     - 放到周期笔记中，可获取当前日期范围内完成的任务列表
   - [taskRecordList](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/taskRecordList.js)
@@ -184,12 +192,6 @@ tags:
     - 放到周期笔记中，可获取当前日期范围内项目耗时的占比
   - [areaList](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/areaList.js)
     - 放到周期笔记中，可获取当前日期范围内领域列表
-- 周期笔记模版 - https://github.com/SilentVoid13/Templater
-  - [Daily](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Daily.md)
-  - [Weekly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Weekly.md)
-  - [Monthly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Monthly.md)
-  - [Quarterly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Quarterly.md)
-  - [Yearly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Yearly.md)
 
 ## 实践中的小 Tips
 
@@ -282,7 +284,7 @@ await dv.view("Templates/PeriodicNotes/views/taskRecordList")
 - 功能类
   - 规律：Control + 首字母
   - 示例：
-    - C: Copy link(Obsidian block link, Arc browser link, Vscode git link)
+    - C: Copy link(Obsidian block link, Arc browser link, VScode git link)
     - D: Download
     - I: Add to inbox
     - K: Quick Search
