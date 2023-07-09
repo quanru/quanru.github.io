@@ -153,6 +153,7 @@ tags:
 ## 如何使用？
 1. 下载[示例项目](https://github.com/quanru/obsidian-example-LifeOS/releases/latest/download/LifeOS.zip)
 2. 使用 obsidian 打开即可享用
+3. 阅读快速上手 -> [Obsidian构造第二大脑LifeOS Quick Start](https://zhuanlan.zhihu.com/p/642439457)
 
 ## ~~如何打造？~~
 > 目前已经实现插件，无需手动打造，请参考『如何使用？』部分
