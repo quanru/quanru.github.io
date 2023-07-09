@@ -150,26 +150,30 @@ tags:
 
 ![](/post-img/LifeOS-示例4.png)
 
-## 如何打造？
-> 建议拉取 [Demo](https://github.com/quanru/obsidian-example-LifeOS) 工程，即可体验
-> 本文专用插件 [Obsidian Periodic PARA](https://github.com/quanru/obsidian-periodic-para)
+## 如何使用？
+1. 下载[示例项目](https://github.com/quanru/obsidian-example-LifeOS/releases/latest/download/LifeOS.zip)
+2. 使用 obsidian 打开即可享用
+
+## ~~如何打造？~~
+> 目前已经实现插件，无需手动打造，请参考『如何使用？』部分
 
 - 插件安装
-  - 本文专用：https://github.com/quanru/obsidian-periodic-para
   - 周期笔记
     - https://github.com/liamcain/obsidian-calendar-plugin
     - https://github.com/liamcain/obsidian-periodic-notes
   - 任务管理：https://github.com/obsidian-tasks-group/obsidian-tasks
   - 查询工具：https://github.com/blacksmithgu/obsidian-dataview
   - 笔记模版：https://github.com/SilentVoid13/Templater
-  - ~~自定义逻辑：https://github.com/saml-dev/obsidian-custom-js~~
-- 周期笔记模版 - https://github.com/SilentVoid13/Templater
-  - [Daily](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Daily.md)
-  - [Weekly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Weekly.md)
-  - [Monthly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Monthly.md)
-  - [Quarterly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Quarterly.md)
-  - [Yearly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Yearly.md)
-- ~~脚本编写 - https://github.com/saml-dev/obsidian-custom-js~~，由 [Obsidian Periodic PARA](https://github.com/quanru/obsidian-periodic-para) 承载
+  - 自定义逻辑：https://github.com/saml-dev/obsidian-custom-js
+- 模版 - https://github.com/SilentVoid13/Templater
+  - [PARA](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PARA.md)
+  - 周期笔记
+    - [Daily](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Daily.md)
+    - [Weekly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Weekly.md)
+    - [Monthly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Monthly.md)
+    - [Quarterly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Quarterly.md)
+    - [Yearly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Yearly.md)
+- 脚本编写 - https://github.com/saml-dev/obsidian-custom-js
   - [date](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/date.js)
     - 根据周期笔记的文件名，解析出日期
     - 根据解析出的日期，获取日期范围
@@ -183,7 +187,7 @@ tags:
   - [area](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/area.js)
     - 获取当前领域列表的快照
     - 根据日期范围内，获取领域列表
-- ~~Dataview 视图 - https://github.com/blacksmithgu/obsidian-dataview~~，由 [Obsidian Periodic PARA](https://github.com/quanru/obsidian-periodic-para) 承载
+- Dataview 视图 - https://github.com/blacksmithgu/obsidian-dataview
   - [taskDoneList](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/taskDoneList.js)
     - 放到周期笔记中，可获取当前日期范围内完成的任务列表
   - [taskRecordList](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/taskRecordList.js)
@@ -213,7 +217,7 @@ tags:
 
 我认为任务有三种提醒方式
 
-- 强提醒，比如抢茅台、抢演唱会门票这种，到点就要进行，就需要强提醒，，比如抢茅台、抢演唱会门
+- 强提醒，比如抢茅台、抢演唱会门票这种，到点就要进行，就需要强提醒，通过手机设置闹钟提醒即可
 - 弱提醒，某天需要完成，比如信用卡还款、贷款还款之类的，通过 GTD 软件设置提醒即可
 - 列表类，用于记录任务，让你后续统筹安排的，根据需要可以转成强提醒或者弱提醒事件，有点类似 GTD 里的收件箱
 
@@ -234,9 +238,11 @@ tags:
 
 在每份周期笔记中，相同功能的模块都使用同一个语句，比如『本周期收集的任务』，都是通过插入如下查询语句，而『本周期』的变量是当前的文件名提供，这就使得批量重构所有周期文件变得十分方便，只需要批量替换即可：
 
-```dataviewjs
-await dv.view("Templates/PeriodicNotes/views/taskRecordList")
+~~~markdown
+```periodic-para
+TaskRecordListByTime
 ```
+~~~
 
 ### 善用快捷键
 
