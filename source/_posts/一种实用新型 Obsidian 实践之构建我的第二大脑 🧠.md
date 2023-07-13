@@ -15,6 +15,13 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in 
+<a href="/2023/07/08/Building%20my%20second%20brain%20%F0%9F%A7%A0%20with%20Obsidian/">English</a>.
+</div>
+</article>
+
 ## 前言
 
 ### 什么是 Obsidian？
@@ -240,7 +247,7 @@ tags:
 在每份周期笔记中，相同功能的模块都使用同一个语句，比如『本周期收集的任务』，都是通过插入如下查询语句，而『本周期』的变量是当前的文件名提供，这就使得批量重构所有周期文件变得十分方便，只需要批量替换即可：
 
 ~~~markdown
-```periodic-para
+```PeriodicPARA
 TaskRecordListByTime
 ```
 ~~~
