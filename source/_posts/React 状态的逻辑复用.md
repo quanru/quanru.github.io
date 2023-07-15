@@ -1,5 +1,6 @@
 ---
 title: React 状态的逻辑复用
+toc: true
 date: 2020-05-30 19:16:23
 categories: 前端学习
 tags:

@@ -1,5 +1,6 @@
 ---
 title: JavaScript 权威指南の笔记
+toc: true
 date: 2015-6-15 20:22:15
 categories: 读书笔记
 tags:

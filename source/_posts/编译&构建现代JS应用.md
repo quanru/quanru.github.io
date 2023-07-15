@@ -1,5 +1,6 @@
 ---
 title: 编译&构建现代JS应用
+toc: true
 date: 2020-05-30 20:17:28
 categories: 工程化
 tags:

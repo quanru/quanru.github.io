@@ -1,5 +1,6 @@
 ---
 title: Node.js 微信公众号开发小试
+toc: true
 date: 2016-08-14 13:10:21
 categories: Node.js 服务端
 tags:

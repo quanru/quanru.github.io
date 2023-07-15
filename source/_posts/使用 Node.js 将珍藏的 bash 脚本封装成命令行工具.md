@@ -1,5 +1,6 @@
 ---
 title: 使用 Node.js 将珍藏的 bash 脚本封装成命令行工具
+toc: true
 date: 2020-10-02 00:19:13
 categories: 工程化
 tags:

@@ -1,5 +1,6 @@
 ---
 title: redux 中间件入门到编写，到改进，到出门
+toc: true
 date: 2017-03-18 20:15:09
 categories: 前端学习
 tags:

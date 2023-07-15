@@ -1,5 +1,6 @@
 ---
 title: Building my second brain 🧠 with Obsidian
+toc: true
 date: 2023-07-08 09:38:13
 categories: 第二大脑
 tags:

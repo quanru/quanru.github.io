@@ -1,5 +1,6 @@
 ---
 title: Chrome 谜一样卡死的排查方法
+toc: true
 date: 2020-06-11 11:52:29
 categories: 工作记录
 tags:

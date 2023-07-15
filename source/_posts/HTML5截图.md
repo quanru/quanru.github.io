@@ -1,5 +1,6 @@
 ---
 title: HTML5 截图
+toc: true
 date: 2015-07-19 10:41:29
 categories: 面试
 tags:

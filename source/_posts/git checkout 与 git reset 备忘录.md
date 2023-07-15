@@ -1,5 +1,6 @@
 ---
 title: git checkout 与 git reset 备忘录
+toc: true
 date: 2016-10-04 11:32:51
 categories: 开发工具
 tags:
