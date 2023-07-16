@@ -120,9 +120,9 @@ tags:
 ### 检索
 
 - 标签
-  - 比如，日记的[节日](https://github.com/quanru/obsidian-example-LifeOS/blob/main/PeriodicNotes/2023/Daily/06/2023-06-01.md#L3)、[休假](https://github.com/quanru/obsidian-example-LifeOS/blob/main/PeriodicNotes/2023/Daily/06/2023-06-11.md#L4)标签
+  - 比如，日记的[节日](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/PeriodicNotes/2023/Daily/06/2023-06-01.md#L3)、[休假](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/PeriodicNotes/2023/Daily/06/2023-06-11.md#L4)标签
 - 索引文件
-  - 比如，每个项目的 [README.md](https://github.com/quanru/obsidian-example-LifeOS/blob/main/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md) 索引本项目的任务、日志、上下文
+  - 比如，每个项目的 [README.md](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md) 索引本项目的任务、日志、上下文
 - 文件夹
   - 比如，每个 PARA 目录使用一致的目录结构
 
@@ -175,35 +175,35 @@ tags:
   - 笔记模版：https://github.com/SilentVoid13/Templater
   - 自定义逻辑：https://github.com/saml-dev/obsidian-custom-js
 - 模版 - https://github.com/SilentVoid13/Templater
-  - [PARA](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PARA.md)
+  - [PARA](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PARA.md)
   - 周期笔记
-    - [Daily](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Daily.md)
-    - [Weekly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Weekly.md)
-    - [Monthly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Monthly.md)
-    - [Quarterly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Quarterly.md)
-    - [Yearly](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/Yearly.md)
+    - [Daily](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PeriodicNotes/Daily.md)
+    - [Weekly](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PeriodicNotes/Weekly.md)
+    - [Monthly](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PeriodicNotes/Monthly.md)
+    - [Quarterly](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PeriodicNotes/Quarterly.md)
+    - [Yearly](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PeriodicNotes/Yearly.md)
 - 脚本编写 - https://github.com/saml-dev/obsidian-custom-js
-  - [date](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/date.js)
+  - [date](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Scripts/date.js)
     - 根据周期笔记的文件名，解析出日期
     - 根据解析出的日期，获取日期范围
     - 根据解析出的日期，获取文件列表
-  - [task](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/task.js)
+  - [task](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Scripts/task.js)
     - 根据日期范围，获取任务列表
-  - [project](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/project.js)
+  - [project](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Scripts/project.js)
     - 获取当前项目列表的快照
     - 根据日期范围内，获取项目列表
     - 计算日期范围内，项目的耗时及其占比
-  - [area](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Scripts/area.js)
+  - [area](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Scripts/area.js)
     - 获取当前领域列表的快照
     - 根据日期范围内，获取领域列表
 - Dataview 视图 - https://github.com/blacksmithgu/obsidian-dataview
-  - [taskDoneList](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/taskDoneList.js)
+  - [taskDoneList](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PeriodicNotes/views/taskDoneList.js)
     - 放到周期笔记中，可获取当前日期范围内完成的任务列表
-  - [taskRecordList](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/taskRecordList.js)
+  - [taskRecordList](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PeriodicNotes/views/taskRecordList.js)
     - 放到周期笔记中，可获取当前日期范围内收集的任务列表
-  - [projectList](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/projectList.js)
+  - [projectList](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PeriodicNotes/views/projectList.js)
     - 放到周期笔记中，可获取当前日期范围内项目耗时的占比
-  - [areaList](https://github.com/quanru/obsidian-example-LifeOS/blob/main/Templates/PeriodicNotes/views/areaList.js)
+  - [areaList](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/Templates/PeriodicNotes/views/areaList.js)
     - 放到周期笔记中，可获取当前日期范围内领域列表
 
 ## 实践中的小 Tips
@@ -218,9 +218,9 @@ tags:
 
 我们只要保证一定的机制能回顾到这些被记下的任务即可，比如
 
-- 使用 tasks 插件来做一些任务列表的[查询视图](https://github.com/quanru/obsidian-example-LifeOS/blob/main/TASK.md)
-- 每份周期笔记中都有当前周期收集的[任务列表](https://github.com/quanru/obsidian-example-LifeOS/blob/main/PeriodicNotes/2023/Weekly/2023-W22.md#%E6%9C%AC%E5%91%A8%E6%94%B6%E9%9B%86)
-- 项目索引文件中的[任务列表](https://github.com/quanru/obsidian-example-LifeOS/blob/main/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md#%E4%BB%BB%E5%8A%A1)
+- 使用 tasks 插件来做一些任务列表的[查询视图](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/TASK.md)
+- 每份周期笔记中都有当前周期收集的[任务列表](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/PeriodicNotes/2023/Weekly/2023-W22.md#%E6%9C%AC%E5%91%A8%E6%94%B6%E9%9B%86)
+- 项目索引文件中的[任务列表](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md#%E4%BB%BB%E5%8A%A1)
 
 ### 任务提醒
 
