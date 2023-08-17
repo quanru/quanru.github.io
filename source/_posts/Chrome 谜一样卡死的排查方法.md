@@ -20,7 +20,7 @@ tags:
 
 查看 pending 状态的请求：
 
-![pending](/post-img/chrome1.jpg)
+![pending](./post-img/chrome1.jpg)
 
 发现请求卡在了一个 "Stalled" 的状态，谷歌还贴心的给出了 ["Explanation"](https://developers.google.com/web/tools/chrome-devtools/network-performance/reference?utm_source=devtools#timing-explanation) 链接，解释如下：
 
@@ -71,7 +71,7 @@ tags:
 
 按上述方式打开浏览器，实时查看日志文件，一步一步复现步骤，日志打印如下：
 
-![log](/post-img/chrome2.jpg)
+![log](./post-img/chrome2.jpg)
 
 所以绕了一圈还是 "ResizeObserver" 的问题，原因在 [Chrome 83 下千帆工作台卡死的问题](http://way.xiaojukeji.com/article/22698) 中也有提到，这里列两个 issue 大家有兴趣查看下：
 
@@ -107,11 +107,11 @@ EventTarget.prototype.addEventListenerBase = EventTarget.prototype.addEventListe
 
 所以，还有除了 `EventTarget.prototype.addEventListener` 方法之外的监听没有被重写，我掐指一算，难道是 `window.onerror`，于是去当前卡死页面的调试控制台打印 `window.onerror`:
 
-![log](/post-img/chrome3.jpg)
+![log](./post-img/chrome3.jpg)
 
 真有这个监听，而且还有『字符串 replace 操作』，这要是无限循环调用这个回调，分分钟卡死！顺手点击这个打印结果，直接跳转到引用它的代码：
 
-![log](/post-img/chrome4.jpg)
+![log](./post-img/chrome4.jpg)
 
 竟然是 vConsole 监听的，前端同学都知道，这个 vConsole 是为了在移动端方便调试使用的，一般在测试环境使用，所以这端代码很可能是这个导致了测试环境卡死，而线上环境正常的罪魁祸首！
 
@@ -121,11 +121,11 @@ EventTarget.prototype.addEventListenerBase = EventTarget.prototype.addEventListe
 
 接下来我们就验证下猜想，首先把 window.onerror 覆盖为 console.log，重复复现步骤，控制台便打印出：
 
-![verify](/post-img/chrome5.jpg)
+![verify](./post-img/chrome5.jpg)
 
 果不其然，不过这样还是卡住了，因为 console.log 也是同步操作。接着直接置空 window.onerror，执行 `window.onerror = undefined`，再来一次复现：
 
-![verify](/post-img/chrome6.jpg)
+![verify](./post-img/chrome6.jpg)
 
 
 

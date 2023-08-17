@@ -25,7 +25,7 @@ tags:
 2. Git flow, Gitlab flow, Github flow 都属于 feature branch development，它们有一个共同点：都采用『功能驱动式开发』，即：需求是开发的起点，先有需求再有功能分支（feature branch）或者补丁分支（hotfix branch）；
   
 
-![图片](/post-img/mono-git1.png)
+![图片](./post-img/mono-git1.png)
 
 ## 适用场景
 
@@ -35,7 +35,7 @@ tags:
 
 **总的来说，选择一个工作流不仅仅是一系列操作工具的流程，我们往往还需要对它背后的思想买单；下面的表格是两种工作流模式在各个维度的适用情况：**
 
-![图片](/post-img/mono-git2.png)
+![图片](./post-img/mono-git2.png)
 
 
 > 目前大部分业务场景使用的都是 feature branch 的开发模式，如果你的业务是多人开发一个巨型应用（如抖音主站、飞书文档等），应该尝试使用 Trunk based 开发模式，这会提高仓库整体工程质量和管理水平。
@@ -50,7 +50,7 @@ tags:
 
 『功能分支开发模式』的核心思想是所有特性开发都应该在专用的分支，而不是主分支中进行。这种封装使多个开发人员，可以轻松地在不干扰主代码库的情况下处理特定功能。这也意味着主分支永远不会包含损坏的代码，这对于持续集成环境来说是一个巨大的优势。-- Git Feature Branch Workflow | Atlassian Git Tutorial
 
-![图片](/post-img/mono-git3.png)
+![图片](./post-img/mono-git3.png)
 
 - #### **上线模式**
   
@@ -103,7 +103,7 @@ tags:
 
 与其它存在『长期分支』的功能分支策略相比，开发者可以通过一些小的提交创建『短期分支』。随着代码库复杂性和团队规模的增长，『基于主干的开发模式』有助于保持生产版本的流畅。-- Trunk-based Development | Atlassian
 
-![图片](/post-img/mono-git4.png)
+![图片](./post-img/mono-git4.png)
 
 
 - #### **上线模式**
@@ -113,7 +113,7 @@ tags:
 
 半自动化流程，适用于低频率部署，以及自动化测试不全面的项目
 
-![图片](/post-img/mono-git5.png)
+![图片](./post-img/mono-git5.png)
 
 
 (A dot represents an MR merged into master. Green dots means good commits that passed e2e tests, and red dot means a buggy commit which should be avoided when deploying/rollback)
@@ -138,7 +138,7 @@ tags:
 
 全自动化流程，适用于需要高频率部署，以及自动化测试较为全面的项目
 
-![图片](/post-img/mono-git6.png)
+![图片](./post-img/mono-git6.png)
 
 
 (A dot represents an MR merged into master. Green dots means good commits that passed e2e tests, and red dot means a buggy commit which should be avoided when deploying/rollback)
@@ -184,7 +184,7 @@ Trunk-based development 更容易做到线性的 commit 历史，它有如下几
 4. 撤销变更，比如：当你发现一个有问题的 commit，简单的 revert 对应的 commit 即可，而非线性的历史会有很多跨分支的合并，使 revert 变得困难
   
 
-![图片](/post-img/mono-git7.jpg)
+![图片](./post-img/mono-git7.jpg)
 
 
 ### **有效的两个前提**

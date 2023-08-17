@@ -20,7 +20,7 @@ tags:
 1. 点击下载时，如果本机已经安装该软件，则尝试打开对应软件；
 2. 点击下载时，如果本机未安装该软件，则跳转到对应系统的下载地址。
 
-![示意图](/post-img/downloadBar.png)
+![示意图](./post-img/downloadBar.png)
 
 # schema协议
 
