@@ -2,7 +2,12 @@
 Thumbs.db
 db.json
 *.log
-node_modules/
-public/
+node_modules
+public
 .deploy*/
 .vercel
+
+# iCloud
+.git.nosync/
+node_modules.nosync/
+public.nosync/
