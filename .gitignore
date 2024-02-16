@@ -9,5 +9,5 @@ public
 
 # iCloud
 .git.nosync/
-node_modules.nosync/
+.node_modules.nosync/
 public.nosync/

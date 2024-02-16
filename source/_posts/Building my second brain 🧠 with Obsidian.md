@@ -14,6 +14,8 @@ tags:
 
 This article will take [Obsidian](https://obsidian.md/) as an example to share my practice of using Obsidian to build a second brain!
 
+The content of this article is out of date. Please refer to the official website [LifeOS](https://obsidian-life-os.netlify.app) for more information.
+
 <!-- more -->
 
 <article class="message message-immersive is-primary">
@@ -23,242 +25,270 @@ This article will take [Obsidian](https://obsidian.md/) as an example to share m
 </div>
 </article>
 
-## Foreword
+## Preface
 
 ### What is Obsidian?
 
 ![](./post-img/LifeOS-示例-标注-EN.png)
 
-This is how it introduces itself on the official website:
+Here is how it introduces itself on the official website:
 
 - [Obsidian](https://obsidian.md/) is the private and flexible note‑taking app that adapts to the way you think.
 
-I mainly fancy its rich plugin ecology. If you like Vscode , then you will probably like Obsidian too, but Vscode is used to write code, while Obsidian is used to take notes.
+What I especially appreciate is its rich plugin ecosystem. If you like Vscode, then you will probably like Obsidian as well. The only difference is that Vscode is for writing code, and Obsidian is for taking notes.
 
-### First Brain vs Second Brain
+### First Brain VS Second Brain
 
-The first brain is our real brain. As long as we are alive, this brain is constantly running, performing tasks such as knowledge management , task management, goal management, etc. Most of the time we can't use our first brain with multitasking, so The first brain is more like a CPU, and various tasks are sharding the CPU. When there are many tasks to be dealt with, the brain will be overwhelmed, because the brain has to deal with the current task and maintain the context of other tasks to switch tasks, making us unable to focus on the execution of the current task. An external system is needed to assist the first brain, which is the second brain.
+The first brain is our actual brain. It never stops working as long as we are alive. It performs tasks such as knowledge management, task management, and goal management. Most of the time, we cannot multitask, thus the first brain acts more like a CPU, with various tasks competing for CPU cycles. When there are too many tasks to handle, the brain becomes overwhelmed. It has to deal with current tasks while keeping the context of other tasks to switch between them, so we cannot focus on executing the current task. This is when an external system is needed to assist the first brain, which is the second brain.
 
-The second brain is an external system. If the first brain is compared to a CPU, the second brain is more like a storage system. It is like a cache between the first brain and the real world, reducing the burden of the first brain. It can be compared to memory and hard disk, but memory communicates more frequently with the CPU (first brain) and reads faster than hard disk. This storage system stores things that the current first brain does not need to pay attention to at all times. Of course, these things have to be decided by the first brain to decide whether it is necessary to store them. The content can be records, to-do, processes, and the carrier can be text, pictures, and videos..
+The second brain is an external system. If we compare the first brain to a CPU, then the second brain is more like a storage system. It acts as a buffer between the first brain and the real world, reducing the load on the first brain so it can focus on the current matter. It can be compared to memory and hard disks, but memory is more frequent in communication with the CPU (the first brain) and has a faster read speed. This storage system stores things that the first brain doesn’t need to focus on all the time. Of course, it's up to the first brain to decide whether these things need to be stored. The content could be notes, to-dos, processes, and the medium could be text, images, videos.
 
-For example, when we use the second brain for task management, important and urgent matters are stored in memory, and non-important and non-urgent matters are stored on the hard disk; this week's tasks are stored in memory, and this month's tasks may be stored on the hard disk. So by using the second brain, we can focus on the present moment without stress and switch contexts when necessary.
+For example, when we use the second brain for task management, important and urgent items are stored in memory, while unimportant and non-urgent items are stored on the hard disk; this week's tasks are in memory, while this month's tasks might be on the hard disk. Therefore, by utilizing the second brain, we can focus on the present without any pressure and switch contexts when necessary.
 
-This article will use Obsidian as an example to share my practice of building a second brain! You call it a second brain, but looking at this brain from a different perspective, I can also call it "LifeOS", because I record it from life and work; I can also call it "Programmable Personal Productivity System ", I wrote a lot of code on it to do some queries and automation, and it is also a productivity system I use to manage tasks and goals; it is even a bit like " Monorepo Engineering", each folder is a project, and the README.md in the project describes the current project like package.json Meta Information .
+This article will use Obsidian as an example to share my practice in building a second brain! You may call it a second brain, but looking at it from different angles, I could also refer to it as "LifeOS," because I record everything concerning life and work upon it. Additionally, it could be termed a "programmable personal productivity system." I have written considerable code on it to do some querying and automation, and it is also the productivity system that I use to manage tasks and goals. It could even be likened to a "Monorepo project," where every folder represents a project, and the README.md within the project is like the Package.json, describing the metadata of the current project.
 
-📢 Note: This system is not the kind of "Have a process first, and then go according to the system to implement the system from top-down", is my use of Obsidian process gradually formed, but also has been iterative, let's set the current version as 1.0, now share it is to give you a little inspiration, to improve their own system! ~~In addition, you may need to have a programming foundation, because I wrote a lot of custom~~ ~~JavaScript~~ ~~scripts (does not rule out the possibility of plugins), but if you follow my system completely, it does not need to understand the code, download and use it!~~ An [Obsidian Periodic PARA](https://github.com/quanru/obsidian-periodic-para) plugin has been written to support this system!
+📢 Attention: This system is not a top-down one with pre-established processes to implement. It gradually formed as I used Obsidian and is still evolving. Let's tentatively call the current version 1.0. The purpose of sharing it now is to inspire others to improve their systems! I have already written an [Obsidian Periodic PARA](https://github.com/quanru/obsidian-periodic-para) plugin to support this system! With this plugin, you don't need any programming background. You can easily create periodic and PARA notes by simple visual clicks!
 
-## My practice
+## My Practice
 
-I use two systems, one is the knowledge management system, and the other is the periodic note system. The former takes the project/area/resource as the dimension for knowledge management, and the latter takes the time as the dimension for task/goal/time management.
+I adopt two systems: one for knowledge management and another for periodic notes. The former manages knowledge with dimensions like project/area/resource, and the latter manages tasks/goals/time with time as the dimension.
 
-### Two systems
+### Core Systems
 
 ![](./post-img/第二大脑系统图-EN.png)
 
-- Knowledge management : implementation of the [PARA](https://fortelabs.com/blog/para/) system
-  - Projects - > A project is a series of tasks related to a goal, with a deadline
-  - Areas - > A field is a field of activity that requires certain standards to be maintained for a certain period of time
-  - Resources - > Resources are topics or topics of ongoing interest
-  - Archives - > Archives are inactive entries from the three categories above
-- Periodic note
-  - Long-term type: top-down, focus on long-term goals
-	- Three-year goals
-	- Yearly goals
-	- Quarter goals
-  - Short-term type: Bottom-up, focusing on short-term tasks
-	- Monthly tasks
-	- Weekly tasks
-  - DailyLog: Capture ideas and insights to achieve self-awareness; time-consuming statistics to ensure focus on projects
+- Knowledge management: Using the [PARA](https://fortelabs.com/blog/para/) system
+  - Projects -> Projects are a series of tasks related to a goal with a deadline.
+  - Areas -> Areas are activity domains that need to maintain certain standards over time.
+  - Resources -> Resources are topics or subjects of ongoing interest.
+  - Archives -> Archives are inactive items from the above three categories.
+- Periodic notes
+  - Long-term: Top-down, focusing on long-term goals.
+    - Three-year Review
+    - Annual Review
+    - Quarterly Review
+  - Short-term: Bottom-up, focusing on short-term tasks.
+    - Monthly Review
+    - Weekly Review
+  - Daily: Capturing thoughts and insights, achieving self-awareness; time consumption statistics, focusing on projects.
+    - Daily Note
 
-In the PARA system, the closer to Project, the higher its operability; In the periodic note system, the longer the note's time scope, the lower its predictability;
+The closer to Projects the PARA component, the more actionable it is; the more long-term the periodic note, the less predictable it is;
 
-These two systems are equivalent to creating two contexts that keep me focused
+These two systems effectively create two contexts that keep me focused:
 
-- One is time-based (periodic notes), that is, when I reach a certain time node, I will take notes on the job based on the corresponding period, and there is enough context in the notes;
-- The other is topic-based ( PARA ), that is, when I want to investigate a topic, I focus on Index(README.md) based on the corresponding topic, and I have collected a lot of context in my notes;
+- One based on time (periodic notes), i.e., when I reach a certain time node, I work based on the corresponding periodic notes, and the notes have enough context;
+- The other based on the topic (PARA), i.e., when I want to research a topic, I work based on the index of the corresponding topic (README.md), and the notes have already collected a lot of context;
 
-### AOP subsystem
-> [Aspect-oriented programming - Wikiwand](https://www.wikiwand.com/en/Aspect-oriented_programming)
+### Aspect-oriented Subsystem
 
-Under the above two systems, there is a hidden task/goal/time management subsystem, which I mainly manage through "periodic notes":
+> [Aspect-oriented programming - Wikiwand](https://www.wikiwand.com/zh-hans/%E9%9D%A2%E5%90%91%E5%88%87%E9%9D%A2%E7%9A%84%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1)
+
+Beneath the two systems mentioned above, there's a hidden subsystem for managing tasks/goals/time, primarily through "periodic notes":
 
 - Task management
-  - Collect through DailyLog/weekly notes
-  - Organize by weekly/monthly notes
+  - Collecting via daily/weekly notes.
+  - Organizing via weekly/monthly reviews.
 - Goal management
-  - Planning annual goals through yearly notes
-  - Split annual goals through quarterly notes
-  - Planning to-do items through monthly notes.
-	- Top-down tidying (through goals splitting)
-	- Organize from bottom to top (splitting by collection- > DailyLog/weekly notes)
+  - Planning annual goals with the annual review.
+  - Splitting annual goals with the quarterly review.
+  - Breaking down pending items with the monthly review.
+    - Top-down sorting (through goal decomposition).
+    - Bottom-up sorting (through collection decomposition -> daily/weekly notes).
 - Time management
-  - Manually count the time consumption and proportion of each project through a DailyLog, give feedback and adjust the time cost.
-  - Use scripts to automatically count the time consumption and proportion of each project through DailyLog, weekly record, monthly record, quarterly record, and annual record for review time overhead
+  - Manually tracking the time spent on various projects in the  and its proportions, adjusting time investment.
+  - Using scripts in daily, weekly, monthly, quarterly, and annual reviews to automatically track the time spent on various projects and their proportions, reviewing time investment.
 
-You may be curious that the above subsystems seem to only use "periodic notes". In fact, the various subsystems are connected in two ways between the two parent systems.
+You might be curious that the above subsystem seems to only use "periodic notes." In fact, the two main systems are connected through two methods.
 
 ### Connection
 
-> How the systems relate
+> How systems are associated
 
-#### Tag connection
+#### Tag Connection
 
 ![](./post-img/第二大脑系统图-连接-EN.png)
 
-Use the first-level folder under PARA as a special tag (not necessarily exactly the same as the folder name) in the "periodic Note", so that each first-level folder can be uniformly indexed in the same way. This ensures that the README.md index under each PARA folder has all the context of the current topic:
+Treat the first-level folders under PARA as special tags (they don't need to be exactly the same as the folder names), use them in "periodic notes," then you can index uniformly in each PARA folder in the same way. This ensures that the README.md index in each PARA folder has all the context for the current topic:
 
 ![](./post-img/LifeOS-示例-标注-EN.png)
 
-#### Project connection
+#### Project Connection
 
-Projects are generated by initiating items in Knowledge Management . In order to increase attention to the project, a list of "First Things" or a "Project List" is set in each type of periodic note, such as
+Generate a project in "knowledge management," to enhance focus on the project, there's a "main event list" or "project list" in every class of "periodic notes," such as:
 
-- The "Project List" in the DailyLog, which is a snapshot of the current Project List, used to count the time spent on each project and its proportion that day, to ensure that enough time is spent on the project
-- The "First Things Dimension" in the weekly and monthly notes is a list obtained by automatically merging deduplicate from the diaries of this week and this month, which is used to arrange the tasks of the project dimension and subsequent review
-- The "First Things Dimension" of quarterly note, which is a snapshot of the current area list, used to arrange the goals of the important dimension and subsequent review
-- The "First Things Dimension" in the yearly note is a list obtained by automatically merging deduplicate from the quarterly record of the year, which is used to set the goal of the area dimension and subsequent review
+- The "project list" in the daily note is a snapshot of the current project list, used for calculating the time spent that day on various projects and their proportions, ensuring enough time is spent on projects.
+- The "priority first dimension" in the weekly and monthly reviews automatically merge and deduplicate from the daily reviews of the week or month, used for arranging project dimension tasks and subsequent reviews.
+- The "priority first dimension" in the quarterly review is a snapshot of the current domain list, used for arranging main event dimension goals and subsequent reviews.
+- The "priority first dimension" in the annual review, automatically merged and deduplicated from the quarter's priority first dimension, used for setting domain dimension goals and subsequent reviews.
 
 ![](./post-img/LifeOS-示例-EN.png)
 
-### Retrieval
+### Search
 
-- Tag
-  - For example, DailyLog [holidays](https://github.com/quanru/obsidian-example-LifeOS/blob/main/PeriodicNotes/2023/Daily/06/2023-06-01.md#L3) , [vacation](https://github.com/quanru/obsidian-example-LifeOS/blob/main/PeriodicNotes/2023/Daily/06/2023-06-11.md#L4) tags
-- File index
-  - For example, each project's [README.md](https://github.com/quanru/obsidian-example-LifeOS/blob/main/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md) indexes the project's tasks, daily record, and context
-- Folder
-  - For example, each PARA directory uses a consistent directory structure
+- Tags
+  - For example, the [holiday](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/PeriodicNotes/2023/Daily/06/2023-06-01.md#L3), [vacation](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/PeriodicNotes/2023/Daily/06/2023-06-11.md#L4) tags in the daily note.
+- Index files
+  - For example, the [README.md](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md) index of each project's tasks, notes, and context.
+- Folders
+  - For example, using a consistent directory structure for each PARA category.
 
 ### Review
 
-- The review is mainly aimed at the projects in this periodic, and the tasks for the next periodic are planned while reviewing
-- Weekly review current week's DailyLog, monthly review weekly review, quarterly review monthly review
+- The review focuses on the projects of the current period while planning the tasks for the next period.
+- Weekly reviews reflect on the week's daily notes, monthly reviews on each week's reviews, and quarterly reviews on each month's reviews.
 
-## Demo description
+## Quick Start
 
-### "DailyLog" and "Project README"
+### Download
 
-- Used for daily management, including Project List, daily record, clock in habit, energy allocation, done task today and other modules
-- The "Project List" in the DailyLog is a snapshot of the current project (i.e. in the Projects folder)
+1. [Click here to download](https://github.com/quanru/obsidian-example-LifeOS)
+2. Open with obsidian and enjoy
+
+### Creating Notes
+
+- Quickly create daily, weekly, monthly, seasonal, and annual notes through the note creation module in the upper left corner.
+![](./post-img/第二大脑周期笔记创建.png)
+- Quickly create PARA notes, i.e., projects, areas, resources, archives through the note creation module in the upper left corner.
+![](./post-img/第二大脑PARA笔记创建.png)
+
+### "Daily Note" and "Project README"
+
+- Used for daily management, including project lists, daily records, habit tracking, energy allocation, today's accomplishments, etc.
+- The "project list" in the daily note is a snapshot of the current projects (i.e., under the Projects directory).
 
 ![](./post-img/LifeOS-示例-EN.png)
 
-### "Weekly Note" and "Monthly Note"
+### "Weekly Review" and "Monthly Review"
 
-- Used to schedule weekly and monthly tasks, including task and review modules
-- In the weekly and monthly note, the "First Things Dimension" is a collection of snapshots of the "Project List" of the DailyLog for this period (automatically generated).
-- In the weekly and monthly note, the " review " is mainly carried out for the projects in the current periodic
+- Used for arranging weekly and monthly tasks, including task and review modules.
+- In the weekly and monthly reviews, the "priority first dimension" are a collection of snapshots of the project lists from daily notes of the period (generated automatically).
+- The "reviews" in the weekly and monthly notes mainly focus on the projects of the period.
 
 ![](./post-img/LifeOS-示例2-EN.png)
 
-### "Quarterly Note" and "Yearly Note"
+### "Quarterly Review" and "Annual Review"
 
-- Used to set quarterly and yearly goals, including goals and review modules
-- In the quarterly note, the "First Things Dimension" is a snapshot of the current area (that is, under the Areas directory)
-- In the yearly note, the "First Things Dimension" is a collection of snapshots of the "First Things Dimension" of the quarterly note of the current period(automatically generated).
-- In the quarterly and yearly note, the " Review " is mainly carried out in the areas in this period
+- Used for setting quarterly and annual goals, including goals and review modules.
+- In the quarterly review, the "priority first dimension" is a snapshot of the current domain (i.e., under the Areas directory).
+- In the annual review, the "priority first dimension" is a collection of snapshots from the priority first dimension of the period's quarterly reviews (generated automatically).
+- The "reviews" in the quarterly and annual notes mainly focus on the domains of the period.
 
 ![](./post-img/LifeOS-示例3-EN.png)
 
-### " PARA Index" and "Task Index"
+### "PARA Index" and "Task Index"
 
 ![](./post-img/LifeOS-示例4-EN.png)
 
-## How to start?
+### "Capture" and "Express"
 
-1. Download [Example](https://github.com/quanru/obsidian-example-LifeOS/releases/latest/download/LifeOS.zip)
-2. Use obsidian open the vault
+First, let's introduce a concept, the CODE model, where:
 
-## Tips for practice
+- C is for Capture: Collecting resonant information.
+- O is for Organize: Sorting the collected information, i.e., PARA.
+- D is for Distill: Extracting the essence of the content, selecting the most useful information.
+- E is for Express: Sharing with others, applying your knowledge in practice.
 
-### Cache mechanism
+Those familiar with PARA will see that this model is actually proposed by Tiago Forte in "Building a Second Brain," and it's the higher-level model that includes the PARA organization method, with O indicating the PARA organization method.
 
-Keep most of the attention in the "project" by creating tasks and quickly placing them in the cache zone(It's somehow equal "inbox")
+My practice is to temporarily store some marked articles in the "Capture" directory while using the "-1. Capture/README.md" file to index the notes tagged with `#PARA/Capture` scattered in the daily notes. This makes it convenient for me during specific time nodes, such as weekends, month-ends, and quarter-ends, to review and sort, first organizing marked articles into each PARA topical directory, then transferring some inspirational notes from the daily notes into some explicit to-dos;
 
-### Task list
+![](./post-img/第二大脑捕获-EN.png)
 
-Do not have too much pressure on the task record, writing down does not mean that you must do it; writing down can reduce the burden on your mindset, do not always think about this task, and are not afraid to forget this task; I have a lot of tasks to write down, the follow-up evaluation has not been achieved.
+Next, let's talk about "Express." I place my blog in the express section and also record some fragmentary notes in the daily note tagged with `PARA/Express`. These are outputs after internalization. If this output needs to be further posted on a specific social platform, such as Zhihu or Xiaohongshu, I will conveniently record it as a task. When I review the tasks indexed in the "5. Express/README.md" file and find pending ones, just complete them one by one.
 
-We just need to ensure that certain mechanisms can recall these recorded tasks, such as
+![](./post-img/第二大脑表达-EN.png)
 
-- Use the tasks plugin to do some task list [query view](https://github.com/quanru/obsidian-example-LifeOS/blob/main/TASK.md)
-- Each periodic note contains a [task list](https://github.com/quanru/obsidian-example-LifeOS/blob/main/PeriodicNotes/2023/Weekly/2023-W22.md#%E6%9C%AC%E5%91%A8%E6%94%B6%E9%9B%86)
-- [Task list](https://github.com/quanru/obsidian-example-LifeOS/blob/main/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md#%E4%BB%BB%E5%8A%A1) in project index file
+## Small Tips in Practice
 
-### Task reminder
+### Buffer Zone Mechanism
 
-I think there are three types of task reminders
+Place less important and non-urgent items swiftly into a buffer zone (Inbox) by creating tasks, keeping the main focus on "Projects."
 
-- Strong reminders, such as grab concert tickets, which need to start on time, so you need a strong reminder, set an alarm clock through your phone to remind you
-- Weak reminders, which need to be completed on a certain day, such as credit card repayment, loan repayment, etc., can be set reminder through GTD software
-- List type, used to record tasks, allowing you to coordinate and arrange them in the future, and can be converted into strong reminder or weak reminder events as needed, somewhat similar to the inbox in GTD
+### Task Lists
 
-### Micro habits
+Recording tasks shouldn't be a mental burden – writing them down doesn't mean they must be done. Having them written relieves your mind from having to continuously remember or fear forgetting them. I've recorded many tasks, many of which, upon reassessment, were indeed not completed.
+
+It's important to have mechanisms in place that allow for review of recorded tasks, for example:
+
+- Using a tasks plugin to create [query views](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/TASK.md) for task lists
+- Each periodic note contains a [collected tasks list](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/PeriodicNotes/2023/Weekly/2023-W22.md#%E6%9C%AC%E5%91%A8%E6%94%B6%E9%9B%86) for the current period
+- Project index files contain a [tasks list](https://github.com/quanru/obsidian-example-LifeOS/blob/1.0.1/1.%20Projects/%E5%88%86%E4%BA%AB-2023%20WOT%20%E5%88%86%E4%BA%AB%E4%BC%9A/README.md#%E4%BB%BB%E5%8A%A1)
+
+### Task Reminders
+
+I consider there to be three types of task reminders:
+
+- Strong reminders, such as snapping up Moutai liquor or concert tickets, which need an alarm to remind you when it's time
+- Soft reminders, for things that need to be done on a certain day, like credit card repayments or loan repayments, which can be set up through GTD software for reminders
+- List-style, for recording tasks which will be arranged later; based on the need, these can be converted to strong or soft reminders, akin to the inbox in GTD systems
+
+### Micro-Habits
 
 ![](./post-img/福格行为模型-EN.png)
 
-- I will list some micro-habits in the DailyLog note, remember that it is not a task, you can finish it or not, mainly used to remind you of "these micro-habits, do you consider doing it today?", that is, when I have "ability" and "motivation", it plays the role of "prompt", such as:
-  - Micro habits
-	- Get up and drink water as soon as you hear the alarm clock go off
-	- Put on headphones as soon as you get off the car to listen to the podcast
-	- Open Kindle as soon as you get on the subway
-	- As soon as you arrive at your workstation, write down three things to do
-	- Start doing business as soon as 10:30
+- I list micro-habits in my journal, and remember, they are not tasks. It's okay whether they are completed or not; they mainly serve as a reminder, "Do you consider practicing these micro-habits today?" These act as prompts when I have the "capability" and "motivation." For example:
+  - Micro-Habits
+    - Get up and drink water as soon as the alarm goes off
+    - Put on headphones and listen to the Little Universe podcast right after getting off the vehicle
+    - Open WeChat Read as soon as I get on the subway
+    - Write down three to-dos as soon as I reach my workstation
+    - Start serious work as soon as it's 10:30 am
 
-### Easy to refactor
+### Easy to Refactor
 
-In each periodic note, modules with the same function use the same statement. For example, "Tasks collected in this periodic" are inserted by inserting the following query statement, and the variables of "this periodic" are provided by parsing the current file name, which makes it very convenient to reconstruct all periodic files in batches. You only need to replace them in batches:
+Within each periodic note, the same feature modules use the same statement, such as "tasks collected this period," all inserted through the following query statement. The "this period" variable is provided by the current file name, which makes it very convenient to refactor all periodic files en masse, needing only to perform a batch replacement:
 
 ````markdown
 ```PeriodicPARA
-TaskRecordListByTime
+    TaskRecordListByTime
 ```
 ````
 
-### Make good use of shortcuts
+### Efficient Use of Shortcuts
 
-Set globally consistent shortcuts, so that no matter which software can use the same shortcut to evoke the same function, here are some of my settings:
+Set consistent global shortcuts, so that no matter in which software, you can invoke the same function with the same shortcut. Here are some of my configurations:
 
 - Cursor movement
-  - Rule: Control + direction first letter/ VIM direction
-  - Example:
-	- A: Head of line
-	- E: End of line
-	- F/L: Forward
-	- B/H: Backward
-	- N/J: Next line
-	- P/K: Previous line
-	- W: Delete a word(Backward)
-	- D: Delete a character(Forward)
+  - Pattern: Control + directional initial/VIM direction
+  - Examples:
+    - A: Head of line
+    - E: End of line
+    - F/L: Forward
+    - B/H: Backward
+    - N/J: Next line
+    - P/K: Previous line
+    - W: Delete a word (Backward)
+    - D: Delete a character (Forward)
 - Window management
-  - Rule: Command + Option + First Letter
-  - Example:
-	- L: Left half screen
-	- R: Right half screen
-	- C: centered
-	- M: Maximize
-	- `[` : Show/hide left sidebar
-	- `]` : Show hidden right sidebar
-	- ': Show/Hide bottom bar
-	- T: Create a new Tab (under more specific windows, use Command + T for the top-level Tab)
-	- W: Close Tab (more specific window, top-level Tab uses Command + W)
-	- J: Next Tab
-	- K: Previous Tab
-- Doc editor
-  - Rule 1: Command + Option + Number/Symbol
-  - Example:
-	- 1: Markdown first-level title
-	- 2: Markdown secondary title
-	- 3: Markdown Level 3 Headers
-	- 4: Markdown Level 4 Headlines
-	- 5: Markdown Level 5 Headlines
-	- 6: Markdown Level 6 Headlines
-	- Bulleted List:~
-	- Strikethrough: -
-- Functional class
-  - Rule: Control + first letter
-  - Example:
-	- C: Copy link(Obsidian block link, Arc browser link, VScode git link)
-	- D: Download
-	- I: Add to inbox
-	- K: Quick Search
+  - Pattern: Command + Option + initial
+  - Examples:
+    - L: Left half of the screen
+    - R: Right half of the screen
+    - C: Center
+    - M: Maximize
+    - `[`: Show/Hide left sidebar
+    - `]`: Show/Hide right sidebar
+    - ': Show/Hide bottom bar
+    - T: New Tab (for more specific windows, the top level uses Command + T)
+    - W: Close Tab (for more specific windows, the top level uses Command + W)
+    - J: Next Tab
+    - K: Previous Tab
+- Document editing
+  - Pattern 1: Command + Option + number/symbol
+  - Examples:
+    - 1: Markdown level-one heading
+    - 2: Markdown level-two heading
+    - 3: Markdown level-three heading
+    - 4: Markdown level-four heading
+    - 5: Markdown level-five heading
+    - 6: Markdown level-six heading
+    - Bulleted list: ~
+    - Strikethrough: -
+- Function category
+  - Pattern: Control + initial
+  - Examples:
+    - C: Copy link (Obsidian block link, Arc browser link, VScode git link)
+    - D: Download
+    - I: Add to inbox
+    - K: Quick Search

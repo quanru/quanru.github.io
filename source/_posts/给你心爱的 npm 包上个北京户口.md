@@ -1,5 +1,5 @@
 ---
-title: 给你心爱的 npm 包上个『北京户口』
+title: "给你心爱的 npm 包上个『北京户口』"
 toc: true
 date: 2020-09-27 12:45:00
 categories: 工程化
