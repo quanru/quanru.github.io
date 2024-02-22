@@ -241,7 +241,7 @@ widgets:
         # Email address for the Gravatar
         gravatar: 
         # URL or path for the follow button
-        follow_link: https://github.com/quanru
+        follow_link: https://bento.me/leyang
         # Links to be shown on the bottom of the profile widget
         social_links:
             Github:
