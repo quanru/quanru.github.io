@@ -183,7 +183,7 @@ tags:
 47. 原型对象是类的唯一标识，当且仅当两个对象继承自同一个原型对象时，它们才属于同一个类的实例。
 48. 对于任意函数F.prototype.constructor==F;一个对象的constructor属性指代这个类。
 
-49. 构造函数与原型对象之间的关系：![](./post-img/权威指南1.png)
+49. 构造函数与原型对象之间的关系：![](https://quanru-github-io.pages.dev/post-img/权威指南1.png)
 
 50.
 >1. 任何添加到构造函数对象（不是指添加到构造函数内部）的属性都是类字段和类方法，属于类而不属于类的某个实例；
@@ -198,27 +198,27 @@ tags:
 >3. 以上两个方法不适用于多窗口和多框架子页面，因此可以使用构造函数的名称；
 
 53. 工厂方法：
-![](./post-img/权威指南2.png)
-![](./post-img/权威指南3.png)    
+![](https://quanru-github-io.pages.dev/post-img/权威指南2.png)
+![](https://quanru-github-io.pages.dev/post-img/权威指南3.png)    
 
 54. 构造函数方法：
-![](./post-img/权威指南4.png)
+![](https://quanru-github-io.pages.dev/post-img/权威指南4.png)
 
 54. toJSON()用于序列号对象，如果一个对象有toJSON()方法，则JSON.stringify()并不会对传入的对象做序列号操作，而会调用toJSON()来执行序列号操作，JSON.parse()是其逆过程。
 
-55. forEach：![](./post-img/权威指南5.png)
+55. forEach：![](https://quanru-github-io.pages.dev/post-img/权威指南5.png)
 
 56. 私有方法：
 >通过将变量（或参数）闭包在一个构造函数内来模拟实现私有实例字段：
-![](./post-img/权威指南6.png)
+![](https://quanru-github-io.pages.dev/post-img/权威指南6.png)
 
 57. 创建子类的关键：
 >1. B.prototype = inherit(A.prototype);//子类派生自父类
 >2. B.prototype.constructor = B;//重载继承来的constructor属性
 
 58. 用组合代替继承的集合的实现：
-![](./post-img/权威指南7.png)
-![](./post-img/权威指南8.png)
+![](https://quanru-github-io.pages.dev/post-img/权威指南7.png)
+![](https://quanru-github-io.pages.dev/post-img/权威指南8.png)
 
 59.
 >1. Object.preventExtensions():将对象设置为不可扩展的，即不能给对象添加任何新属性；
@@ -227,8 +227,8 @@ tags:
 60. Object.create(null);//创建一个不包含原型的对象，使之能够直接对它使用in运算符
 
 61. 作为私有命名空间的函数：
-![](./post-img/权威指南9.png)
-![](./post-img/权威指南10.png)
+![](https://quanru-github-io.pages.dev/post-img/权威指南9.png)
+![](https://quanru-github-io.pages.dev/post-img/权威指南10.png)
 
 1. 创建屏外图像：
 >new Image(80,20).src = "images/***.gif";

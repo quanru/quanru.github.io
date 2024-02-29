@@ -18,7 +18,7 @@ tags:
 
 团队最近将两个项目迁移至 `degg 2.0` 中，两个项目均出现比较严重的内存泄漏问题，此处以本人维护的埋点服务为例进行排查。服务上线后内存增长如下图，其中红框为 `degg 2.0` 线上运行的时间窗口，在短短 36 小时内，内存已经增长到 50%，而平时内存稳定在 20%-30%，可知十之八九出现了内存泄漏。
 
-![泄漏](./post-img/node-leak1.jpg)
+![泄漏](https://quanru-github-io.pages.dev/post-img/node-leak1.jpg)
 
 
 
@@ -34,7 +34,7 @@ tags:
 
 使用 [alinode](http://alinode.aliyun.com/) 获取堆快照，服务启动后，使用小流量预热一两分钟便记录第1份堆快照（2020-4-16-16:52），接着设置 qps 为 125 对服务进行施压，经过大约一个小时（2020-4-16-15:46）获取第2份堆快照。使用 Chrome dev 工具载入两份堆快照，如下图所示，发现服务仅短短运行一小时，其堆快照文件就增大了 45MB，而初始大小也不过 39.7MB；我们按 `Retained Size` 列进行排序，很快就发现了一个『嫌疑犯』，即 generator；该项占用了 55% 的大小，同时 `Shallow Size` 却为 0%，一项一项地展开，锁定到了图中高亮的这行，但是继续展开却提示 0%，线索突然断了。
 
-![快照](./post-img/node-leak2.jpg)
+![快照](https://quanru-github-io.pages.dev/post-img/node-leak2.jpg)
 
 
 
@@ -87,7 +87,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 
 重复之前获取堆快照的步骤，惊奇地发现即使过了一天，内存也没有增长，而且 generator 也没有持有未释放的内存：
 
-![验证](./post-img/node-leak3.jpg)
+![验证](https://quanru-github-io.pages.dev/post-img/node-leak3.jpg)
 
 至此，内存泄漏问题已经解决！那么如何避免遇到这个问题呢？
 
@@ -169,7 +169,7 @@ run();
 
 经过二分排查，发现该泄漏问题从 `v11.0.0` 引入，在 [v12.16.0]( https://github.com/nodejs/node/pull/31691) 解决；内存泄漏版本执行脚本时，内存占用逐步递增直到 crash，而未泄漏版本则会及时回收内存。
 
-![对比](./post-img/node-leak4.jpg)
+![对比](https://quanru-github-io.pages.dev/post-img/node-leak4.jpg)
 
 
 
@@ -265,7 +265,7 @@ void PrototypeUsers::ScanForEmptySlots(WeakArrayList array) {
 1. 内存回收效率低，导致执行完后，仍有相当大的内存占用；
 2. 执行效率非常慢，`async/await` 版本仅需要 0.953 秒，而 generator 却需要 17.754 秒；
 
-![对比](./post-img/node-leak5.jpg)
+![对比](https://quanru-github-io.pages.dev/post-img/node-leak5.jpg)
 
 这说明，相比 generator 语法，`async/await` 语法无论从执行效率还是内存占用方面都有压倒性优势。那么执行效率对比如何呢？上 `benchmark` 工具比划比划：
 
@@ -347,7 +347,7 @@ generator 每秒执行了 516,178 次操作，而 `async/await` 每秒执行了 
 
 既然是 v8 的问题，那么 chrome 浏览器也是有这个问题的，打开空白标签页，执行前文给出的 `leak.js` 代码：
 
-![chrome](./post-img/node-leak6.jpg)
+![chrome](https://quanru-github-io.pages.dev/post-img/node-leak6.jpg)
 
 可发现，chrome 下也会有内存泄漏问题，只不过 chrome 页面上的代码运行一般不会有密集地、重复地执行某段『导致内存泄漏』的代码，因此该问题在 chrome 端不容易被察觉。
 

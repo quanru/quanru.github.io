@@ -37,7 +37,7 @@ tags:
 
 ## 那么问题来了
 
-1px边框到底如何在非ios8的retina屏幕下实现呢？今天看到一篇博客里的一句话，我激动了：![被嫌弃的target-densitydpi属性](./post-img/0.5px.png)
+1px边框到底如何在非ios8的retina屏幕下实现呢？今天看到一篇博客里的一句话，我激动了：![被嫌弃的target-densitydpi属性](https://quanru-github-io.pages.dev/post-img/0.5px.png)
 
 要是没有最后一句话该多好啊~
 

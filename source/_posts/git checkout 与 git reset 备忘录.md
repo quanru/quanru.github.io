@@ -44,7 +44,7 @@ tags:
 
 如图, 当我们修改一个文件后, 查看 git status, 给出了如下提示, 要么使用 git add 将修改过的文件提交到暂存区, 要么使用 git checkout -- 丢弃当前工作区对该文件的修改. 可以发现执行 git checkout -- 之后, README.md 恢复到修改之前.
 
-![git](./post-img/git-0.png)
+![git](https://quanru-github-io.pages.dev/post-img/git-0.png)
 
 # git reset
 
@@ -56,11 +56,11 @@ tags:
 
 > 其中 HEAD 可省略, 即默认指向当前 commit.
 
-![git](./post-img/git-1.png)
+![git](https://quanru-github-io.pages.dev/post-img/git-1.png)
 
 如下图, 继续修改 README.md, 在文件中追加 ' third modify', 此时查看 git status, 发现除了原有的暂存区修改 (绿色文字) 之外, 还有第二次修改的当前工作区修改 (红色文字), 接着执行 git reset HEAD, 终端提示 '重置后取消暂存的变更', 此时查看 git status, 发现暂存区不见了, 只剩当前工作区, 查看工作区中的 README.md 文件, 发现原有的暂存区修改被撤销了, 且不影响工作区文件.
 
-![git](./post-img/git-2.png)
+![git](https://quanru-github-io.pages.dev/post-img/git-2.png)
 
 ## '重置后取消暂存的变更'
 
@@ -70,7 +70,7 @@ tags:
 
 如图, 带参数的 git reset 不能 (或不建议) 作用于某个路径, 因此只要用于操作 commitID.
 
-![git](./post-img/git-3.png)
+![git](https://quanru-github-io.pages.dev/post-img/git-3.png)
 
 ## --soft
 
@@ -78,7 +78,7 @@ tags:
 
 如图, 将 HEAD 指针重置到两个 commit 之前, 发现当前分支落后远程分支两个 commit, 此时查看暂存区 (git diff --cached) 和 工作区 (cat README.md), 可以发现这两个区域的文件相比 git reset --soft 之前都没有变化.
 
-![git](./post-img/git-4.png)
+![git](https://quanru-github-io.pages.dev/post-img/git-4.png)
 
 ## --mixed
 
@@ -86,7 +86,7 @@ tags:
 
 如图, 此处与 [git reset soft,hard,mixed之区别深解](http://www.cnblogs.com/kidsitcn/p/4513297.html) 中所述的 --mixed 有出入, 并没有 '并且重置index以便和HEAD相匹配';
 
-![git](./post-img/git-5.png)
+![git](https://quanru-github-io.pages.dev/post-img/git-5.png)
 
 ## --hard
 
@@ -94,7 +94,7 @@ tags:
 
 如图, 执行 --hard 重置之后, 暂存区与工作区全都消失了, 此时可以选择 git pull, 重新与远程分支一致, 也可使用 git push --force, 强行将远程分支的 commit 记录与本地仓库保持一致. 不过一般建议使用 git revert, 回退的同时保存 commit 的历史记录.
 
-![git](./post-img/git-6.png)
+![git](https://quanru-github-io.pages.dev/post-img/git-6.png)
 
 ## 到底哪个才是默认参数
 
@@ -102,4 +102,4 @@ tags:
 
 如图, 可知默认参数是 --mixed
 
-![git](./post-img/git-7.png)
+![git](https://quanru-github-io.pages.dev/post-img/git-7.png)

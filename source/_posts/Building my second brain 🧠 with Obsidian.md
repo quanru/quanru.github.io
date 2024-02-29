@@ -29,7 +29,7 @@ The content of this article is out of date. Please refer to the official website
 
 ### What is Obsidian?
 
-![](./post-img/LifeOS-示例-标注-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例-标注-EN.png)
 
 Here is how it introduces itself on the official website:
 
@@ -55,7 +55,7 @@ I adopt two systems: one for knowledge management and another for periodic notes
 
 ### Core Systems
 
-![](./post-img/第二大脑系统图-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/第二大脑系统图-EN.png)
 
 - Knowledge management: Using the [PARA](https://fortelabs.com/blog/para/) system
   - Projects -> Projects are a series of tasks related to a goal with a deadline.
@@ -107,11 +107,11 @@ You might be curious that the above subsystem seems to only use "periodic notes.
 
 #### Tag Connection
 
-![](./post-img/第二大脑系统图-连接-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/第二大脑系统图-连接-EN.png)
 
 Treat the first-level folders under PARA as special tags (they don't need to be exactly the same as the folder names), use them in "periodic notes," then you can index uniformly in each PARA folder in the same way. This ensures that the README.md index in each PARA folder has all the context for the current topic:
 
-![](./post-img/LifeOS-示例-标注-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例-标注-EN.png)
 
 #### Project Connection
 
@@ -122,7 +122,7 @@ Generate a project in "knowledge management," to enhance focus on the project, t
 - The "priority first dimension" in the quarterly review is a snapshot of the current domain list, used for arranging main event dimension goals and subsequent reviews.
 - The "priority first dimension" in the annual review, automatically merged and deduplicated from the quarter's priority first dimension, used for setting domain dimension goals and subsequent reviews.
 
-![](./post-img/LifeOS-示例-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例-EN.png)
 
 ### Search
 
@@ -148,16 +148,16 @@ Generate a project in "knowledge management," to enhance focus on the project, t
 ### Creating Notes
 
 - Quickly create daily, weekly, monthly, seasonal, and annual notes through the note creation module in the upper left corner.
-![](./post-img/第二大脑周期笔记创建.png)
+![](https://quanru-github-io.pages.dev/post-img/第二大脑周期笔记创建.png)
 - Quickly create PARA notes, i.e., projects, areas, resources, archives through the note creation module in the upper left corner.
-![](./post-img/第二大脑PARA笔记创建.png)
+![](https://quanru-github-io.pages.dev/post-img/第二大脑PARA笔记创建.png)
 
 ### "Daily Note" and "Project README"
 
 - Used for daily management, including project lists, daily records, habit tracking, energy allocation, today's accomplishments, etc.
 - The "project list" in the daily note is a snapshot of the current projects (i.e., under the Projects directory).
 
-![](./post-img/LifeOS-示例-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例-EN.png)
 
 ### "Weekly Review" and "Monthly Review"
 
@@ -165,7 +165,7 @@ Generate a project in "knowledge management," to enhance focus on the project, t
 - In the weekly and monthly reviews, the "priority first dimension" are a collection of snapshots of the project lists from daily notes of the period (generated automatically).
 - The "reviews" in the weekly and monthly notes mainly focus on the projects of the period.
 
-![](./post-img/LifeOS-示例2-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例2-EN.png)
 
 ### "Quarterly Review" and "Annual Review"
 
@@ -174,11 +174,11 @@ Generate a project in "knowledge management," to enhance focus on the project, t
 - In the annual review, the "priority first dimension" is a collection of snapshots from the priority first dimension of the period's quarterly reviews (generated automatically).
 - The "reviews" in the quarterly and annual notes mainly focus on the domains of the period.
 
-![](./post-img/LifeOS-示例3-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例3-EN.png)
 
 ### "PARA Index" and "Task Index"
 
-![](./post-img/LifeOS-示例4-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例4-EN.png)
 
 ### "Capture" and "Express"
 
@@ -193,11 +193,11 @@ Those familiar with PARA will see that this model is actually proposed by Tiago 
 
 My practice is to temporarily store some marked articles in the "Capture" directory while using the "-1. Capture/README.md" file to index the notes tagged with `#PARA/Capture` scattered in the daily notes. This makes it convenient for me during specific time nodes, such as weekends, month-ends, and quarter-ends, to review and sort, first organizing marked articles into each PARA topical directory, then transferring some inspirational notes from the daily notes into some explicit to-dos;
 
-![](./post-img/第二大脑捕获-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/第二大脑捕获-EN.png)
 
 Next, let's talk about "Express." I place my blog in the express section and also record some fragmentary notes in the daily note tagged with `PARA/Express`. These are outputs after internalization. If this output needs to be further posted on a specific social platform, such as Zhihu or Xiaohongshu, I will conveniently record it as a task. When I review the tasks indexed in the "5. Express/README.md" file and find pending ones, just complete them one by one.
 
-![](./post-img/第二大脑表达-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/第二大脑表达-EN.png)
 
 ## Small Tips in Practice
 
@@ -225,7 +225,7 @@ I consider there to be three types of task reminders:
 
 ### Micro-Habits
 
-![](./post-img/福格行为模型-EN.png)
+![](https://quanru-github-io.pages.dev/post-img/福格行为模型-EN.png)
 
 - I list micro-habits in my journal, and remember, they are not tasks. It's okay whether they are completed or not; they mainly serve as a reminder, "Do you consider practicing these micro-habits today?" These act as prompts when I have the "capability" and "motivation." For example:
   - Micro-Habits

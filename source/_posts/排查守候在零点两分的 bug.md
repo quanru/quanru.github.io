@@ -16,13 +16,13 @@ tags:
 
 故事的开始是由老板的一个艾特开始的：
 
-![](./post-img/2am1.jpg)
+![](https://quanru-github-io.pages.dev/post-img/2am1.jpg)
 
 当时排查了下没啥思路，就放弃了（以为偶现，过几天它能自己好起来！）。直到某一天我又收到了同样的告警，我回想了下最近好几天都有这个告警。
 
 抬头一看：
 
-![](./post-img/2am2.jpg)
+![](https://quanru-github-io.pages.dev/post-img/2am2.jpg)
 
 心里一惊：别搞出事故啊！就开始了我的排查之路。
 
@@ -48,7 +48,7 @@ tags:
 
 所以一层一层往上找，是找不到抛错的源头的！猜测了一通无果，于是我去翻告警群的记录，我发现了一个惊人的规律，该告警只要出现，必定是每天凌晨 00:02：
 
-![](./post-img/2am3.jpg)
+![](https://quanru-github-io.pages.dev/post-img/2am3.jpg)
 
 因此排查思路锁定在以下几个：
 
@@ -63,7 +63,7 @@ tags:
 
 经过多番搜索代码，发现了几处设置 redis 值的代码，同时结合 Google，有人指出 Redis 设置的超时时间不能为小于 0。经过本地验证，的确发现超时时间不能为 0：
 
-![](./post-img/2am4.jpg)
+![](https://quanru-github-io.pages.dev/post-img/2am4.jpg)
 
 于是排查方向转为代码中哪里出现了设置超时时间小于 0 的逻辑。可疑代码如下：
 
@@ -106,7 +106,7 @@ setRedisKey('abc', 'value', 0)
 
 执行结果如下，与告警的错误栈一致：
 
-![](./post-img/2am5.jpg)
+![](https://quanru-github-io.pages.dev/post-img/2am5.jpg)
 
 既然复现了错误，回头继续找 bug，深入到 `setRedisKey` 代码：
 
