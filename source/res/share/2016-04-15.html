@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>消失的1px</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="/res/revealjs/css/reveal.css">
+        <link rel="stylesheet" href="/res/revealjs/css/theme/league.css">
+        <style>
+            .reveal .slides img.long {
+                max-width: 50%;
+                min-width: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>消失的1px</h2>
+                    <p>移动端小数点像素的渲染</p>
+                    <p>@醍醐</p>
+                </section>
+                <section>
+                    <h2>LayoutUnit</h2>
+                    <p>webkit规定的两种计算方式</p>
+                </section>
+                <section>
+                    <h2>enclosingIntRect</h2>
+                    <img src="/share-img/2016-04-15/1.jpg" alt="">
+                    <pre>
+                        x: floor(x)
+                        y: floor(y)
+                        maxX: ceil(x + width)
+                        maxY: ceil(y + height)
+                        width: ceil(x + width) - floor(x)
+                        height: ceil(y + height) - floor(y)
+                    </pre>
+                </section>
+                <section>
+                    <h2>pixelSnappedIntRect</h2>
+                    <img src="/share-img/2016-04-15/2.jpg" alt="">
+                    <pre>
+                        x: round(x)
+                        y: round(y)
+                        maxX: round(x + width)
+                        maxY: round(y + height)
+                        width: round(x + width) - round(x)
+                        height: round(y + height) - round(y)
+                    </pre>
+                </section>
+                <section>
+                    <img src="/share-img/2016-04-15/2d.png" alt="">
+                    <div>
+                        <a href="http://172.16.6.52:4000/test/1.html">BlueDemo</a>
+                    </div>
+                    <p>七等分后的节点大小与渲染大小</p>
+                </section>
+                <section>
+                    <img src="/share-img/2016-04-15/2d2.png" alt="">
+                    <div>
+                        <a href="http://stock.wacai.com/api/main/appIndex">YellowDemo</a>
+                    </div>
+                    <p>使用scale缩放方案制作的1px边框</p>
+                </section>
+                <section>
+                    <img src="/share-img/2016-04-15/2d3.png" alt="">
+                    <div>
+                        <a href="https://m.taobao.com/#index">GreenDemo</a>
+                    </div>
+                    <p>手淘Viewport缩放下的1px边框</p>
+                </section>
+                <section>
+                    <img src="/share-img/2016-04-15/2d4.png" alt="">
+                    <div>
+                        <a href="http://172.16.6.52:3004/api/main/appIndex">GreenDemo</a>
+                    </div>
+                    <p>使用border-image方案制作的1px边框</p>
+                </section>
+                <section>
+                    <p>结论</p>
+                    <p>1. 使用缩放方案，使得1px在屏幕上占用1个物理像素（0.5px），都有可能被覆盖从而导致四舍</p>
+                    <p>2. border-image由于占用了2个物理像素（1px），即使被覆盖，但保证了五入为1px，使其不消失</p>
+                </section>
+            </div>
+        </div>
+        <script src="/res/revealjs/lib/js/head.min.js"></script>
+        <script src="/res/revealjs/js/reveal.js"></script>
+        <script>
+                    Reveal.initialize({
+                        transition: 'linear'
+                    });
+        </script>
+    </body>
+</html>
