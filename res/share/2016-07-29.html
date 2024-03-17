@@ -21,7 +21,7 @@
                 <script type="text/template">
                 ## 基于Nodejs的公众号开发
                 #### 扫我聊我
-                ![扫我关注](images/2016-07-29/2.jpg)
+                ![扫我关注](/share-img/2016-07-29/2.jpg)
                 </script>
             </section>
             <section data-markdown>
@@ -37,7 +37,7 @@
             <section data-markdown>
                 <script type="text/template">
                 ### 填写服务器配置
-                ![](images/2016-07-29/1.png)
+                ![](/share-img/2016-07-29/1.png)
                 </script>
             </section>
             <section data-markdown>
@@ -218,19 +218,19 @@
 
                // Optional reveal.js plugins
                dependencies: [
-                   {src: './lib/js/classList.js', condition: function () { return !document.body.classList; }},
-                   {src         : './plugin/markdown/marked.js',
+                   {src: '/res/revealjs/lib/js/classList.js', condition: function () { return !document.body.classList; }},
+                   {src         : '/res/revealjs/plugin/markdown/marked.js',
                        condition: function () { return !!document.querySelector('[data-markdown]'); }
                    },
-                   {src         : './plugin/markdown/markdown.js',
+                   {src         : '/res/revealjs/plugin/markdown/markdown.js',
                        condition: function () { return !!document.querySelector('[data-markdown]'); }
                    },
-                   {src         : './plugin/highlight/highlight.js',
+                   {src         : '/res/revealjs/plugin/highlight/highlight.js',
                        condition: function () { console.log(document.querySelector('pre code')); return !!document.querySelector('pre code'); },
                        callback : function () { hljs.initHighlightingOnLoad(); }
                    },
-                   {src: './plugin/zoom-js/zoom.js', async: true},
-                   {src: './plugin/notes/notes.js', async: true}
+                   {src: '/res/revealjs/plugin/zoom-js/zoom.js', async: true},
+                   {src: '/res/revealjs/plugin/notes/notes.js', async: true}
                ]
            });
 
