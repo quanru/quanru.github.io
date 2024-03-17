@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>基于Nodejs的公众号开发</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="/res/revealjs/css/reveal.css">
+        <link rel="stylesheet" href="/res/revealjs/css/theme/league.css">
+        <link rel="stylesheet" href="/res/revealjs/css/highlight.css">
+        <style>
+            .reveal .slides img.long {
+                max-width: 50%;
+                min-width: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+            <section data-markdown>
+                <script type="text/template">
+                ## 基于Nodejs的公众号开发
+                #### 扫我聊我
+                ![扫我关注](images/2016-07-29/2.jpg)
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                ### 接入开发步骤
+                1. 填写服务器配置
+
+                2. 验证服务器地址的有效性
+
+                3. 依据接口文档实现业务逻辑
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                ### 填写服务器配置
+                ![](images/2016-07-29/1.png)
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                ### 来自微信的验证消息
+                1. signature 微信加密签名
+
+                2. timestamp 时间戳
+
+                3. nonce 随机数
+
+                4. echostr 随机字符串
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                ### 验证微信服务器
+                ```js
+                  app.get('/wechat', (req, res) => {
+                    var token = "quanru";
+                    var signature = req.query.signature;
+                    var timestamp = req.query.timestamp;
+                    var echostr = req.query.echostr;
+                    var nonce = req.query.nonce;
+
+                    var oriArray = [nonce, timestamp, token];
+                    oriArray.sort();
+                    var original = oriArray.join('');
+
+                    var shaObj = new jsSHA(original, 'TEXT');
+                    var scyptoString = shaObj.getHash('SHA-1', 'HEX');
+                    if (signature == scyptoString) {
+                      //验证成功
+                      res.send(echostr);
+                    } else {
+                      //验证失败
+                      res.send(false);
+                    }
+                  });
+                ```
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                ### 微信将转发消息至我们的服务器
+                >以文本消息为例
+                ```html
+                 <xml>
+                 <ToUserName><![CDATA[toUser]]></ToUserName>
+                 <FromUserName><![CDATA[fromUser]]></FromUserName>
+                 <CreateTime>1348831860</CreateTime>
+                 <MsgType><![CDATA[text]]></MsgType>
+                 <Content><![CDATA[this is a test]]></Content>
+                 <MsgId>1234567890123456</MsgId>
+                 </xml>
+                ```
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                ### 消息处理
+                ```js
+                    app.post('/wechat', (req, res) => {
+                      res.writeHead(200, {'Content-Type': 'application/xml'});
+
+                      var content = req.body.xml.content;
+
+                      turingRobot(encodeURI(content)).then((data) => {
+                        var response = JSON.parse(data);
+                        var resMsg = autoReply(req.body.xml, response.text);
+                  console.log(resMsg);
+                        res.end(resMsg);
+                      });
+                  });
+                ```
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                ### 向图灵机器人发送用户消息
+                ```js
+                const request = require('request');
+                function getTuringResponse(info) {
+                  if(typeof info !== 'string') {
+                    info = info.toString();
+                  }
+                  let options = {
+                    method:'GET',
+                    url: 'http://www.tuling123.com/openapi/api?key=13a74dbd0f6b45d69ac49334e7027742&info='+info
+                  };
+                  return new Promise((resolve, reject) => {
+                    request(options,  (err, res, body) => {
+                      if (res) {
+                        resolve(body);
+                      } else {
+                        reject(err);
+                      }
+                    });
+                  })
+                }
+                module.exports = getTuringResponse;
+                ```
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                ### 组装消息回复用户
+                ```js
+                function autoReply(requestData, info) {
+                    if(requestData.msgtype == 'text') {
+                      var resMsg = '<xml>' +
+                        '<ToUserName><![CDATA[' + requestData.fromusername + ']]></ToUserName>' +
+                        '<FromUserName><![CDATA[' + requestData.tousername + ']]></FromUserName>' +
+                        '<CreateTime>' + parseInt(new Date().valueOf() / 1000) + '</CreateTime>' +
+                        '<MsgType><![CDATA[text]]></MsgType>' +
+                        '<Content><![CDATA['+info+']]></Content>' +
+                        '</xml>';
+                  }
+                  return resMsg;
+                }
+                module.exports = autoReply;
+                ```
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                ### 使用微信的官方的Node中间件
+                [传送门](https://www.npmjs.com/package/wechat)
+                ```js
+                const turingRobot = require('./turingRobot');
+                const autoReply = require('./autoReply');
+                const wechat = require('wechat');
+
+                module.exports = function(app) {
+                  //使用中间件
+                  //传入这三个配置, 自动帮你验证
+                  var config = {
+                    token: 'quanru',
+                    appid: 'wxdc6410f1001d787b',
+                    encodingAESKey: 'IJwymet3h2KzGSTPxMnITc25pGiSzSlWCXHUhcvQRzc'
+                  };
+                  app.use('/wechat', wechat(config, (req, res, next) => {
+                  //用户的消息以对象的形式返回到该变量
+                    var message = req.weixin;
+                    var content = message.Content;
+                    turingRobot(encodeURI(content))
+                      .then((data) => {
+                        var response = JSON.parse(data);
+                        //默认回复文本消息, 支持多种格式回复, 如图像, 音乐
+                        res.reply(response.text);
+                      });
+                  }));
+                }
+                ```
+                </script>
+            </section>
+            <section data-markdown>
+                <script type="text/template">
+                </script>
+            </section>
+            </div>
+        </div>
+
+       <pre style="display:none"><code></code></pre>
+       <script src="/res/revealjs/lib/js/head.min.js"></script>
+       <script src="/res/revealjs/js/reveal.js"></script>
+
+       <script>
+
+           // Full list of configuration options available at:
+           // https://github.com/hakimel/reveal.js#configuration
+           Reveal.initialize({
+               controls  : true,
+               progress  : true,
+               history   : true,
+               center    : true,
+               transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+               // Optional reveal.js plugins
+               dependencies: [
+                   {src: './lib/js/classList.js', condition: function () { return !document.body.classList; }},
+                   {src         : './plugin/markdown/marked.js',
+                       condition: function () { return !!document.querySelector('[data-markdown]'); }
+                   },
+                   {src         : './plugin/markdown/markdown.js',
+                       condition: function () { return !!document.querySelector('[data-markdown]'); }
+                   },
+                   {src         : './plugin/highlight/highlight.js',
+                       condition: function () { console.log(document.querySelector('pre code')); return !!document.querySelector('pre code'); },
+                       callback : function () { hljs.initHighlightingOnLoad(); }
+                   },
+                   {src: './plugin/zoom-js/zoom.js', async: true},
+                   {src: './plugin/notes/notes.js', async: true}
+               ]
+           });
+
+       </script>
+
+       <script type="text/javascript">
+           function codeEditor() {
+               var nodes = document.querySelectorAll("code");
+               for (var i = 0; i < nodes.length; i++) {
+                   nodes[i].setAttribute("contenteditable", '');
+               }
+               console.log('code editable now.');
+           }
+           window.codeEditor = codeEditor;
+
+           document.addEventListener('DOMContentLoaded', function () {
+               setTimeout(function () {
+                   codeEditor();
+               }, 1000)
+           })
+       </script>
+    </body>
+</html>
