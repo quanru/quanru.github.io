@@ -5,6 +5,11 @@ hexo.extend.injector.register('head_end', () => {
   return css('/css/index.css');
 });
 
+// hexo.extend.injector.register(
+//   'head_begin',
+//   `<meta name="google-adsense-account" content="ca-pub-4534950213360679">`
+// );
+
 hexo.extend.injector.register(
   'head_end',
   `<script type="text/javascript">
