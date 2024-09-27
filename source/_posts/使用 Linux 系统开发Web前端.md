@@ -22,7 +22,7 @@ Mac纵有千千万万的好，作为学生党来说，毕竟其较高的价格�
 ## 系统安装
 
 建议使用U盘刻录安装，推荐刻录软件[UNetbootin](https://unetbootin.github.io/)，将下载好的ISO文件通过UNetbootin烧进U盘，安装前记得空出一块磁盘，系统本身占用很小，10G虽然够，还是建议20G吧。安装过程不细说了，网上教程一大堆，建议第一次安装还是对着教程来吧，记得备份重要文件。这是我安装后的桌面：
-![Gnome-shell](https://quanru-github-io.pages.dev/post-img/gnome-shell.png)
+![Gnome-shell](/post-img/gnome-shell.png)
 
 ## 开发软件
 前端开发所需的软件大都有对应的Linux版本，比如Sublime、Atom、Charles、WebStorm、Chrome，大家可自行Google下载。
@@ -117,11 +117,11 @@ Mac纵有千千万万的好，作为学生党来说，毕竟其较高的价格�
 
 装好后，打开PlayOnLinux，如何安装请看下图：
 
-![PlayOnLinux](https://quanru-github-io.pages.dev/post-img/playonlinux.png)
+![PlayOnLinux](/post-img/playonlinux.png)
 
 再往后就是下一步、下一步、下一步、完成。
 
-![PhotoShop](https://quanru-github-io.pages.dev/post-img/photoshop.png)
+![PhotoShop](/post-img/photoshop.png)
 
 wine软件可能出现中文乱码，可参看[彻底消除wine中文乱码](http://www.wuwenhui.cn/2692.html)
 
@@ -139,7 +139,7 @@ wine软件可能出现中文乱码，可参看[彻底消除wine中文乱码](htt
 
 4. 安装主题，本人推荐主题[bullet-train-oh-my-zsh-theme](https://github.com/caiogondim/bullet-train-oh-my-zsh-theme)
 
-![bullet-train-oh-my-zsh-theme](https://quanru-github-io.pages.dev/post-img/zsh.png)
+![bullet-train-oh-my-zsh-theme](/post-img/zsh.png)
 
 ## 其它软件
 

@@ -20,7 +20,7 @@ tags:
 
 整个 microblog 的代码已放至 github 上：[摸我](https://github.com/quanru/microblog)
 
-![ ](https://quanru-github-io.pages.dev/post-img/microblog.png  "microblog")
+![ ](/post-img/microblog.png  "microblog")
 
 
 # 二、Morgan 模块の日志生成
@@ -74,7 +74,7 @@ tags:
       }
 ```
     此时查看进程管理器，发现有多个 node 进程，而原来的代码则只有两个：
-![ ](https://quanru-github-io.pages.dev/post-img/node.png  "node 进程个数")
+![ ](/post-img/node.png  "node 进程个数")
 
 # 四、Node.js 除虫工具
 

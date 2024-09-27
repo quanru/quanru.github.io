@@ -18,7 +18,7 @@ tags: CSS
 
 在[LayoutUnit](http://trac.webkit.org/wiki/LayoutUnit)中提到了两种将亚像素(即小数点像素)转换为真实物理像素的两种方法，示意图如下：
 
-![WebKitlayouttypes](https://quanru-github-io.pages.dev/post-img/WebKitlayouttypes.png)
+![WebKitlayouttypes](/post-img/WebKitlayouttypes.png)
 
 #### enclosingIntRect
 
@@ -72,7 +72,7 @@ tags: CSS
 
 显示效果如下：
 
-![iPhone4](https://quanru-github-io.pages.dev/post-img/ip4.png)
+![iPhone4](/post-img/ip4.png)
 
 其计算规则如下：
 

@@ -29,7 +29,7 @@ tags:
 
 ### 什么是 Obsidian？
 
-![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例-标注.png)
+![](/post-img/LifeOS-示例-标注.png)
 
 官网上它是这么自我介绍的：
 
@@ -52,13 +52,13 @@ tags:
 
 ## 我的实践
 
-![](https://quanru-github-io.pages.dev/post-img/第二大脑最新系统图.png)
+![](/post-img/第二大脑最新系统图.png)
 
 我采用两套系统，一个是知识管理系统，另一个是周期笔记，前者以项目/领域/资源为维度，进行知识管理，后者以时间为维度，进行任务/目标/时间管理。
 
 ### 两套系统
 
-![](https://quanru-github-io.pages.dev/post-img/第二大脑系统图.png)
+![](/post-img/第二大脑系统图.png)
 
 - 知识管理：采用 [PARA](https://fortelabs.com/blog/para/) 系统
   - Projects -> 项目是与目标相关的一系列任务，有截止日期
@@ -109,11 +109,11 @@ tags:
 
 #### 标签连接
 
-![](https://quanru-github-io.pages.dev/post-img/第二大脑系统图-连接.png)
+![](/post-img/第二大脑系统图-连接.png)
 
 将 PARA 下的一级文件夹作为一种特殊的标签（不一定要与文件名完全一致），在『周期笔记』中使用，那么便可在各个一级文件夹中，以相同的方式进行统一的索引。这样能保证每个 PARA 文件夹下的 README.md 索引有当前主题的所有上下文：
 
-![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例-标注.png)
+![](/post-img/LifeOS-示例-标注.png)
 
 #### 项目连接
 
@@ -124,7 +124,7 @@ tags:
 - 季记的『要事维度』，它是一份当前领域列表的快照，用于安排要事维度的目标和后续的复盘
 - 年记中的『要事维度』，是从本年的季记中自动合并去重得到的一个列表，用于设置领域维度的目标和后续的复盘
 
-![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例.png)
+![](/post-img/LifeOS-示例.png)
 
 ### 检索
 
@@ -150,9 +150,9 @@ tags:
 
 ### 创建笔记
 - 通过左上角笔记创建模块，快速创建日记、周记、月记、季记、年记
-![](https://quanru-github-io.pages.dev/post-img/第二大脑周期笔记创建.png)
+![](/post-img/第二大脑周期笔记创建.png)
 - 通过左上角笔记创建模块，快速 PARA 笔记，即项目、领域、资源、存档 
-![](https://quanru-github-io.pages.dev/post-img/第二大脑PARA笔记创建.png)
+![](/post-img/第二大脑PARA笔记创建.png)
 
 
 ### 『日记』与『项目 README』
@@ -160,7 +160,7 @@ tags:
 - 用于日常管理，包括项目列表、日常记录、习惯打卡、精力分配、今日完成等模块
 - 日记中的『项目列表』是一份当前项目（即 Projects 目录下）的快照
 
-![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例.png)
+![](/post-img/LifeOS-示例.png)
 
 ### 『周记』与『月记』
 
@@ -168,7 +168,7 @@ tags:
 - 在周记和月记中，『要事维度』是一份本周期日记『项目列表』的快照合集（自动生成）
 - 在周记和月记中，『复盘』主要针对本周期内的项目进行
 
-![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例2.png)
+![](/post-img/LifeOS-示例2.png)
 
 ### 『季记』与『年记』
 
@@ -177,11 +177,11 @@ tags:
 - 在年记中，『要事维度』是一份本周期季记『要事维度』的快照合集（自动生成）
 - 在季记和年记中，『复盘』主要针对本周期内的领域进行
 
-![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例3.png)
+![](/post-img/LifeOS-示例3.png)
 
 ### 『PARA 索引』与『任务索引』
 
-![](https://quanru-github-io.pages.dev/post-img/LifeOS-示例4.png)
+![](/post-img/LifeOS-示例4.png)
 
 ### 『捕获』与『表达』
 
@@ -196,11 +196,11 @@ tags:
 
 而我的实践就是在『捕获』目录中，暂时存放一些标记过的文章，同时借助『-1. 捕获/README.md』文件去索引分散在日记中，被打上 `#PARA/Capture` 标签的记录，这样方便我在特定的时间节点，比如每周末、每月末、每季度末进行回顾梳理，首先将标记文章梳理到各个 PARA 主题目录，接着将日记中的某些灵感记录转化成一些明确的待办事项；  
 
-![](https://quanru-github-io.pages.dev/post-img/第二大脑捕获.png)
+![](/post-img/第二大脑捕获.png)
 
 接下来说说『表达』，我会把自己的博客放到表达中，也会在日记中记录一些零碎的记录并打上 `PARA/Express`  标签，这些都是自己内化后的输出，如果这个输出需要进一步发布到指定的社交平台，比如知乎、小红书，我会顺手把它记录为任务，当我在回顾『5. 表达/README.md』文件索引的时候，发现有待办任务，直接一项一项的完成即可。
 
-![](https://quanru-github-io.pages.dev/post-img/第二大脑表达.png)
+![](/post-img/第二大脑表达.png)
 
 ## 实践中的小 Tips
 
@@ -228,7 +228,7 @@ tags:
 
 ### 微习惯
 
-![](https://quanru-github-io.pages.dev/post-img/福格行为模型.png)
+![](/post-img/福格行为模型.png)
 
 - 我会在日记中列一些微习惯，切记不是任务，完不完成都行，主要用来提醒『这些微习惯，你今天考虑做一下吗？』，即在我有『能力』和『动机』的时候，起到『提示』的作用，比如：
   - 微习惯

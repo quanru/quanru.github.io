@@ -46,15 +46,15 @@ tags:
 
 有的，有的！回忆下你使用 `npm view` 查询一个 npm 包时的情形：
 
-![](https://quanru-github-io.pages.dev/post-img/npm-sync1.jpg)
+![](/post-img/npm-sync1.jpg)
 
 聪明的你肯定发现 `.tarball: https://registry.npmjs.org/koa/-/koa-2.13.0.tgz`，这个包正是当前最新版本 2.13.0 的 koa 包。下载解压后发现这正是我们要的，只要进入该目录执行 npm publish 即可：
 
-![](https://quanru-github-io.pages.dev/post-img/npm-sync2.jpg)
+![](/post-img/npm-sync2.jpg)
 
 那我们能获取指定版本的 tgz 包吗？当然，使用 `npm view koa@1.0.0` 即可查看指定版本。等等，我没法知道当前 koa 包有哪些版本诶？别慌，试试这个命令 `npm view koa --json`，答案就藏在 `versions` 字段里：
 
-![](https://quanru-github-io.pages.dev/post-img/npm-sync3.jpg)
+![](/post-img/npm-sync3.jpg)
 
 此外 `dist-tags` 字段也需要同步（ *默认不同步 tag，这有可能导致杭州源的 tag 覆盖了北京源的 tag，而杭州源的 tag 可能不是最新的*）。
 

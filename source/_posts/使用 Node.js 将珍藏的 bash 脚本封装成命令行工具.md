@@ -151,7 +151,7 @@ run()
 
 #### 示例
 
-![](https://quanru-github-io.pages.dev/post-img/gerrit1.jpg)
+![](/post-img/gerrit1.jpg)
 
 
 ### JavaScript 工程局部使用（前端工程推荐使用）
@@ -174,7 +174,7 @@ run()
 
 #### 示例
 
-![](https://quanru-github-io.pages.dev/post-img/gerrit2.jpg)
+![](/post-img/gerrit2.jpg)
 
 
 ### 和 [husky](https://www.npmjs.com/package/husky) 配合使用
@@ -199,7 +199,7 @@ run()
 `git push`
 
 #### 示例
-![](https://quanru-github-io.pages.dev/post-img/gerrit3.jpg)
+![](/post-img/gerrit3.jpg)
 
 ## TODO
 - 新增子命令支持生成 gerrit 的配置文件

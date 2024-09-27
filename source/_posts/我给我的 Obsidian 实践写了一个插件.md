@@ -182,7 +182,7 @@ ArchiveListByFolder
 2. 关系图谱优化，即在 PARA 目录下支持 XXX.README.md 作为索引，否则所有的节点都将是 README
 3. 单一事实来源，用户只需要设置元信息，插件负责读取
 
-![](https://quanru-github-io.pages.dev/post-img/w28-1.png)
-![](https://quanru-github-io.pages.dev/post-img/w28-2.png)
-![](https://quanru-github-io.pages.dev/post-img/w28-3.png)
-![](https://quanru-github-io.pages.dev/post-img/w28-4.png)
+![](/post-img/w28-1.png)
+![](/post-img/w28-2.png)
+![](/post-img/w28-3.png)
+![](/post-img/w28-4.png)

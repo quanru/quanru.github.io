@@ -11,6 +11,11 @@ hexo.extend.injector.register('head_end', () => {
 // );
 
 hexo.extend.injector.register(
+  'head_begin',
+  `<meta name="google-site-verification" content="XKB565_wrzbUdiA1Uwp8UUj3ncEr2Oxb8GimIGXcPxY">`
+);
+
+hexo.extend.injector.register(
   'head_end',
   `<script type="text/javascript">
     (function(c,l,a,r,i,t,y){
