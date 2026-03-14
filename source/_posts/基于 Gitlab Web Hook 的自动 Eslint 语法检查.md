@@ -14,6 +14,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2016/10/02/Automated-ESLint-Checking-with-Gitlab-Web-Hooks/">English</a>.
+</div>
+</article>
+
+
 # Gitlab Web Hook
 
 [Gitlab Web Hook](https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md) 提供如下事件的 Hook:

@@ -11,6 +11,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2016/04/17/Web-Frontend-Development-on-Linux/">English</a>.
+</div>
+</article>
+
+
 ## 为什么使用 Linux
 
 Mac纵有千千万万的好，作为学生党来说，毕竟其较高的价格让的确让许多我”党“人士望而却步，去年刚进公司实习的时候，使用的是Win7，对于Windows下的命令行体验真是无力吐槽，特别是对于Web前端来说，非常多的工具都运行在终端内，比如不计其数的Node.js工具，后来改用Linux就舒畅多了。

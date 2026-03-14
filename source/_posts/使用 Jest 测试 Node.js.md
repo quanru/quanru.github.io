@@ -13,6 +13,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2018/02/22/Testing-Node.js-with-Jest/">English</a>.
+</div>
+</article>
+
+
 
 ## 目的
 

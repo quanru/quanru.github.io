@@ -12,6 +12,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2016/10/04/git%20checkout%20and%20git%20reset%20Cheatsheet/">English</a>.
+</div>
+</article>
+
+
 # git 的三块区域与仓库
 
 1. 工作区 (working directory)

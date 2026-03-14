@@ -26,6 +26,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2016/03/18/Node.js%20Development%20Guide%20Book%20Notes/">English</a>.
+</div>
+</article>
+
+
 # 章三
 1，单次加载：
 >require不会重复加载模块，无论调用多少次require，获得的模块都是同一个；

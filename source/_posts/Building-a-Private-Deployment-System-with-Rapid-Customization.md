@@ -1,0 +1,94 @@
+---
+title: "Building a Private Deployment System with Rapid Customization"
+toc: true
+date: 2021-04-05 20:14:29
+categories: Engineering
+tags:
+- Node.js
+- JavaScript
+- Private Deployment
+---
+
+Some thoughts and takeaways from building a private deployment system.
+
+<!-- more -->
+
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2021/04/05/%E5%A6%82%E4%BD%95%E6%89%93%E9%80%A0%E4%B8%80%E4%B8%AA%E6%BB%A1%E8%B6%B3%E5%BF%AB%E9%80%9F%E5%AE%9A%E5%88%B6%E8%83%BD%E5%8A%9B%E7%9A%84%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2%E7%B3%BB%E7%BB%9F/">简体中文</a>.
+</div>
+</article>
+
+
+
+## Scenario
+
+Consider a scenario where a small-to-medium-sized company with "limited scale" or "limited resources" adopts third-party productivity tools such as IM tools (WeChat Work), document collaboration systems (Yuque), survey systems (Wenjuanxing), performance review systems, etc. The mainstream approach offered by third-party companies is SaaS, selling their products through tiered user plans (free tier, premium, enterprise). This is easy for the third-party companies to maintain centrally.
+
+However, the examples I've mentioned often involve sensitive internal company information — conversations between senior executives, core strategic documents, eNPS survey data, performance reviews, etc. Storing this data on servers maintained by a third party raises security concerns. Moreover, the "tiered plan" approach is like a fixed package that can't satisfy every customer's customization needs. Therefore, more and more third-party companies are supporting private deployment, deploying their services on servers specified by the customer — internal data centers, public clouds, or private clouds (Alibaba Cloud, Huawei Cloud). Currently, a service we provide externally faces the same challenge: when a customer isn't satisfied with our "tiered plans" and is highly sensitive about "data storage," how can we quickly customize and privately deploy our service?
+
+
+
+## Existing Problems
+
+Can't we just package the existing system and deploy it on the customer's designated server? It's not that simple. There are three key problems:
+
+### 1. Dependency on Internal Infrastructure
+
+A system maintained internally for years inevitably becomes tightly coupled with internal infrastructure — CDN, databases, caching services, dynamic configuration, user authentication systems, etc. These infrastructure components may be different or even nonexistent on the customer's designated servers.
+
+### 2. Lack of Customization Capabilities
+
+Once you open up customization to users, the existing system's "tiered plan" approach simply can't support users' "ever-changing" customization requirements. Rapidly responding to customization needs requires an entirely new "module organization approach."
+
+### 3. Parallel Maintenance Cost
+
+If you support private deployment for users, you inevitably face this problem: when N companies are onboarded, you're simultaneously maintaining N systems. This involves a series of standards for synchronizing bugs and features across multiple systems, as well as development workflows for "developing, debugging, building, and deploying" multiple versions in parallel.
+
+
+
+## Solutions
+
+So how do we build a private deployment system with rapid customization capabilities? Let's address the three problems above:
+
+### 1. Breaking Free from Internal Infrastructure Dependencies
+
+#### Configuration-Driven Approach
+
+To break free from internal infrastructure dependencies, we need to refactor the existing system to be configuration-driven, supporting configuration of all infrastructure components involved. These configurations can be manually written in config files, generated at build time, or dynamically modified at runtime. Ultimately, we can produce deployment packages for N companies based on N configuration files.
+
+### 2. Meeting Customization Requirements
+
+#### Modularization
+
+Extract functional modules and control them through "switches" and "configurations." How should modules be split and maintained? Splitting can be done from a "vertical" perspective — for example, "ad placement," "personal center," etc.; or from a "horizontal" perspective — for example, "login," "permissions," etc.
+
+### 3. Reducing Parallel Maintenance Cost
+
+#### System Consolidation
+
+Consolidate existing systems by maintaining a baseline "basic version" that serves two purposes:
+
+1. When a new enterprise needs to onboard, this "basic version" can be used for rapid custom development
+2. It serves as the upstream code branch (master) for all parallel systems, with downstream branches (enterprise-specific branches) periodically cherry-picking bugfixes and features from it
+
+#### Workflow Restructuring
+
+Our service is somewhat special (think page-builder-type services) — it has a B-side (configuration) and C-side pages generated by the B-side. This gives us 4 separate projects, and every feature development might involve development, debugging, integration testing, building, and releasing across all 4 projects. Additionally, the C-side's static resource versions and service addresses are self-determined. Both of these factors add cognitive burden for developers.
+
+First, place the frontend and backend of both the B-side and C-side into a single project each, so each release requires at most two deployments. Since the B-side is the configuration side, not only should C-side page functionality be determined by the B-side, but we can also delegate configurations like static resource versions and service addresses to the B-side for retrieval and configuration.
+
+Next, standardize the workflows for application initialization, development, debugging, integration testing, building, and releasing. Standards are conventions, and to better implement them, it's necessary to build a CLI tool or page-based workflow as the standard's carrier. Going further, we can abstract an "application" concept so that all workflows revolve around this type of application. Both the B-side and C-side can be such applications, and extracted modules can also be such applications. This means **the B-side, C-side, and dozens or even hundreds of extracted modules all share the same initialization, development, debugging, integration testing, building, and releasing workflows**.
+
+#### Configuration-Driven Approach
+
+Configuration also helps reduce parallel maintenance costs — we maintain configurations rather than various code logic. This avoids logic like "if it's Company A, execute Logic B." Instead, configuration focuses on functionality — for example, Company A's configuration enables "Logic B."
+
+Beyond cost reduction, configuration also addresses future planning. Currently, all enterprise "customization requirements" are assembled manually for B-side and C-side applications. In the future, as more enterprises onboard and we accumulate a large pool of "module" applications, we can explore moving away from manual assembly — using an online page to assemble modules like building blocks. Thanks to our configuration-driven design, our architecture can readily support this need.
+
+
+
+## Conclusion
+
+This article briefly discusses the refactoring needed for a private deployment system. The workflow restructuring in step three involves extensive frontend engineering capabilities that deserve further elaboration.

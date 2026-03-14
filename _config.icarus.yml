@@ -110,6 +110,7 @@ navbar:
         Categories: /categories
         Tags: /tags
         About: /about
+        EN: /tags/English/
     # Links to be shown on the right of the navigation bar
     links:
         Download on GitHub:

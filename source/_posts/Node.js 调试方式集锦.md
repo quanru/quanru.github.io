@@ -12,6 +12,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2017/08/15/A%20Collection%20of%20Node.js%20Debugging%20Methods/">English</a>.
+</div>
+</article>
+
+
 #### Chrome：
 
 **优势**

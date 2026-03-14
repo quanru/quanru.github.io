@@ -11,6 +11,14 @@ tags:
 第一部分主要涉及编程风格，为了让团队的代码看起来如出一人之手；第二部分为编程实践，学到了很多关于 JavaScript 的编程经验；第三部分是关于自动化的，介绍的工具链，在 2016 年底看来已经相当过时。
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2016/11/27/Notes%20on%20Maintainable%20JavaScript/">English</a>.
+</div>
+</article>
+
+
 # 编写可维护的 JavaScriptの笔记
 
 # 第一部分

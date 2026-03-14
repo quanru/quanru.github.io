@@ -12,4 +12,12 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2020/05/30/Compiling%20and%20Building%20Modern%20JS%20Applications/">English</a>.
+</div>
+</article>
+
+
 <iframe width="100%" height="855px" src="/res/pdfjs/web/viewer.html?file=/pdf/编译%26构建现代JS应用.pdf"></iframe>

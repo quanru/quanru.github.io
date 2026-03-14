@@ -12,6 +12,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2022/12/31/Frontend-Monorepo-Practices-at-ByteDance/">English</a>.
+</div>
+</article>
+
+
 ## 分享会背景
 
 受邀参加第十一届 Top100 峰会，更多详情见文章[年底了，看看这100位技术创新带头人如何做复盘？](https://mp.weixin.qq.com/s/-fPJ3KsNGDRxgIJoBAOGmw)

@@ -14,6 +14,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2015/08/16/Schema%20and%20Download%20Bar/">English</a>.
+</div>
+</article>
+
+
 # 需求
 由于我司有个网站还没有对应的移动端版本，因此需要在移动端访问该网站时，在底部显示一条下载条，而且点击该下载条时需要满足以下两个需求：
 

@@ -14,6 +14,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2020/10/02/Wrapping-Bash-Scripts-into-CLI-Tools-with-Node.js/">English</a>.
+</div>
+</article>
+
+
 ## 背景
 
 作为程序猿，大家或多或少地都用过 GitHub 上的 merge request 功能。当然，除了这类 Code Review 方式，不少公司都有自己的 Code Review 平台，我司也不例外，我们使用了类似 [Gerrit](https://www.gerritcodereview.com/) 的工具，此处我们暂且以 Gerrit 指代。由于最近在治理工程时，需要全面切（要）到（求）使用 Gerrit 进行 CR 提交。发现 Gerrit 提交命令不是那么好记，经常需要先 git push，接着被拦截报错之后，再根据提示复制命令行，再次执行方可成功提交 Gerrit 。作为攻城狮，这有点难以忍受了！！！

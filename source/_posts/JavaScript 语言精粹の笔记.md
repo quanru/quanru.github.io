@@ -9,6 +9,14 @@ tags:
 
 最近买了几本书，这本《JavaScript 语言精粹》果真精粹，篇幅很少，而附录较多，作者是 JSON 的发明者 Douglas Crockford ，听起来屌屌的，其中的干货也是不少的，看完受益匪浅！
 <!-- more -->
+
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2016/11/20/Notes-on-JavaScript-The-Good-Parts/">English</a>.
+</div>
+</article>
+
 # JavaScript 语言精粹
 
 ## 章四,五

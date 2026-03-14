@@ -13,6 +13,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2020/09/27/Registering%20Your%20Beloved%20npm%20Packages%20on%20a%20New%20Registry/">English</a>.
+</div>
+</article>
+
+
 ## 背景
 
 一切从我司有两个 npm 源说起，一个叫杭州源，另一个叫北京源。本来各用各的相安无事，直到有一天我们想依赖另一个源的 npm 包时，就相互拉取不到对方的源了。杭州源这边也有做过兼容，当拉取的源不存在时，就尝试去北京源拉取，看似解决了这个问题。但是这只解决了我们依赖北京源的 npm 包的问题，而我们有大量的包需要推广到其它部门，因此我们决定切换到使用人数更多的北京源，目前团队正处于集体转向使用北京源的阶段，不过经常会遇到如下问题：

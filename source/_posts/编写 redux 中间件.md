@@ -15,6 +15,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2017/03/18/Writing%20Redux%20Middleware/">English</a>.
+</div>
+</article>
+
+
 ## redux 中间件
 
 redux 提供了类似 Web 开发的中间件机制，Web 中经过中间件的是一个个请求，而 redux 中经过中间件的是一个个 action，使得开发人员能够在中间件中针对特定 action 进行各种统一的处理，比如日志打印，数据请求，错误处理等。
