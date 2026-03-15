@@ -12,6 +12,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2015/07/19/HTML5-Screenshot/">English</a>.
+</div>
+</article>
+
+
 # 需求
 实现一个类似于QQ截图的小东西，点击载入按钮，则载入图片，长按图片，弹出截图框，截图框右下角能够调整大小，并在右边的截图预览区域实时显示，其最终效果图如下：
 ![示意图](/post-img/screenShot.png)

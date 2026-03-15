@@ -16,6 +16,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2015/06/15/Notes-on-JavaScript-The-Definitive-Guide/">English</a>.
+</div>
+</article>
+
+
 # 对象
 
 1. 当Javascript解释器启动时，它将创建一个新的全局对象，并给它一组定义的初始属性。

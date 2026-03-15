@@ -11,6 +11,14 @@ tags:
 前端开发人员上手 Node.js 还是需要课补一些服务端知识的。
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2016/12/25/Notes-on-Node.js-in-Depth/">English</a>.
+</div>
+</article>
+
+
 # 章一，章二
 
 1. 单线程，使得 Node 不需要像多线程编程那样处处在意状态的同步问题（没有死锁，没有线程上下文交换）

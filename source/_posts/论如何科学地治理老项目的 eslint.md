@@ -12,6 +12,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2020/09/28/A%20Scientific%20Approach%20to%20ESLint%20Governance%20in%20Legacy%20Projects/">English</a>.
+</div>
+</article>
+
+
 ## 背景
 
 总有那么些老项目，当老板叫你上去开发需求时，你会有一种不祥的预感，生怕改完一发布，线上就崩了。但是你还是慌兮兮的介入开发，想着开发完马上抽身。这些除了一些贴药膏式的业务逻辑外，让你十分缺乏安全感的就是项目没有接入 eslint，一不小心就是一个低级语法造成 crash；更可怕的是接入了大家都不遵守，想象下编辑器满屏红色错误，黄色警告的画面，此时的你，已经对报错不敏感，以致同流合污。有一个犯罪心理学上的理论可以套用在软件工程中，即『破窗效应』：

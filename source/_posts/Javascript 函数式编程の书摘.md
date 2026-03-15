@@ -15,6 +15,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2015/07/19/Excerpts-from-Functional-Programming-in-JavaScript/">English</a>.
+</div>
+</article>
+
+
 # 章一
 
 1，确定抽象，并为其构建函数；

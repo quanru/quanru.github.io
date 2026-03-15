@@ -1,0 +1,50 @@
+common:
+    archive: 归档
+    category: 分类
+    tag: 标签
+    share: 分享
+    search: 搜索
+    contents: 目录
+    prev: 上一页
+    next: 下一页
+    lang_switch: English Version
+
+widget:
+    follow: 关注我
+    recent_posts: 最近文章
+    categories: 分类
+    archives: 归档
+    tags: 标签
+    links: 链接
+    catalogue: 目录
+
+article:
+    more: 阅读全文
+    posted: 发表于
+    updated: 更新于
+    readtime: 阅读时间
+    wordcount: 字数
+    readcount: '%d 分钟'
+
+donate:
+    afdian: 爱发电
+    alipay: 支付宝
+    wechat: 微信
+    paypal: PayPal
+    buymeacoffee: 请我喝杯咖啡
+    patreon: Patreon
+
+plugin:
+    back_to_top: 回到顶部
+    visit_count: 访问量
+    cookie_consent:
+        message: 本网站使用 cookies 来确保您获得最佳体验。
+        dismiss: 知道了！
+        allow: 允许 Cookies
+        deny: 拒绝
+        link: 了解更多
+
+search:
+    search: 搜索
+    placeholder: 搜索...
+    no_results: 没有找到结果

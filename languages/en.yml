@@ -1,0 +1,50 @@
+common:
+    archive: Archive
+    category: Category
+    tag: Tag
+    share: Share
+    search: Search
+    contents: Contents
+    prev: Previous
+    next: Next
+    lang_switch: 中文版
+
+widget:
+    follow: Follow
+    recent_posts: Recent Posts
+    categories: Categories
+    archives: Archives
+    tags: Tags
+    links: Links
+    catalogue: Catalogue
+
+article:
+    more: Read More
+    posted: Posted on
+    updated: Updated on
+    readtime: Read time
+    wordcount: Word count
+    readcount: '%d min read'
+
+donate:
+    afdian: Afdian
+    alipay: Alipay
+    wechat: WeChat
+    paypal: PayPal
+    buymeacoffee: Buy me a coffee
+    patreon: Patreon
+
+plugin:
+    back_to_top: Back to Top
+    visit_count: Visits
+    cookie_consent:
+        message: This website uses cookies to ensure you get the best experience.
+        dismiss: Got it!
+        allow: Allow Cookies
+        deny: Decline
+        link: Learn More
+
+search:
+    search: Search
+    placeholder: Search...
+    no_results: No results found

@@ -14,6 +14,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2016/10/02/Wrapping%20Webview%20JSBridge%20Interfaces/">English</a>.
+</div>
+</article>
+
+
 # 前因
 
 客户端开发人员站在自己的角度上, 根据前端需要使用的功能设计出了一套 Jsbridge 交互方案, 该方案虽然能很好地完成 native 与 h5 页面的相互调用对方的函数(方法), 但是由于没有充分考虑到前端开发的使用习惯, 导致该方案难以推广, 作为我司前端的一员, 恰好又被分在了公共组, 觉得十分有必要封装一层对前端开发人员友好的 API.

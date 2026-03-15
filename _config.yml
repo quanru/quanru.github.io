@@ -8,7 +8,9 @@ subtitle: You async, I await~
 description:
 keywords:
 author: 林宜丙
-language: zh-CN
+language:
+  - en
+  - zh-CN
 timezone:
 
 # URL

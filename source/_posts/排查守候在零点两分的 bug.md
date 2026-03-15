@@ -12,6 +12,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2020/09/18/Hunting-the-Bug-That-Lurked-at-0002-AM/">English</a>.
+</div>
+</article>
+
+
 ## 背景
 
 故事的开始是由老板的一个艾特开始的：

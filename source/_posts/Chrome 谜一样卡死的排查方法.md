@@ -11,6 +11,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2020/06/11/How-to-Debug-Mysterious-Chrome-Freezes/">English</a>.
+</div>
+</article>
+
+
 最近由于 Chrome 浏览器升级，触发了一个埋点 SDK 的潜在问题，目前埋点 SDK 方面已经跟进解决，详细原因可见文章《Chrome 83 下千帆工作台卡死的问题》。
 
 一切好像没什么问题，但是陆续有团队同学反馈，线上页面的确不卡了，测试环境某些操作仍然会出现卡死，而且卡死时正好会有 golden 或 omega 埋点处于 pending 状态。于是开始了排查之路~

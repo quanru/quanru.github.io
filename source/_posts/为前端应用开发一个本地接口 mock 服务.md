@@ -13,6 +13,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2019/07/21/building-a-local-api-mock-service-for-front-end-applications/">English</a>.
+</div>
+</article>
+
+
 
 
 ## 背景

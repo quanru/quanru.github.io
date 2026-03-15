@@ -14,6 +14,14 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2020/04/20/Debugging-a-Node.js-Memory-Leak-The-Unexpected-Culprit/">English</a>.
+</div>
+</article>
+
+
 ## 背景
 
 团队最近将两个项目迁移至 `degg 2.0` 中，两个项目均出现比较严重的内存泄漏问题，此处以本人维护的埋点服务为例进行排查。服务上线后内存增长如下图，其中红框为 `degg 2.0` 线上运行的时间窗口，在短短 36 小时内，内存已经增长到 50%，而平时内存稳定在 20%-30%，可知十之八九出现了内存泄漏。
