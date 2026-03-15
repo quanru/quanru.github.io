@@ -110,12 +110,11 @@ navbar:
         Categories: /categories
         Tags: /tags
         About: /about
-        EN: /tags/English/
     # Links to be shown on the right of the navigation bar
     links:
         Download on GitHub:
             icon: fab fa-github
-            url: https://github.com/quanru/quanru.github.io
+            url: https://github.com/quanru
 # Page footer configurations
 footer:
     # Copyright text

@@ -28,21 +28,29 @@ hexo.extend.injector.register(
 
 hexo.extend.injector.register(
   'body_end',
-  `<script src="https://giscus.app/client.js"
-        data-repo="quanru/quanru.github.io"
-        data-repo-id="MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ=="
-        data-category="Announcements"
-        data-category-id="DIC_kwDOBG193c4CQ8si"
-        data-mapping="title"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="preferred_color_scheme"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous"
-        async>
+  `<script>
+    (function () {
+      const script = document.createElement('script');
+      const lang = document.documentElement.lang === 'zh' ? 'zh-CN' : 'en';
+
+      script.src = 'https://giscus.app/client.js';
+      script.setAttribute('data-repo', 'quanru/quanru.github.io');
+      script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ==');
+      script.setAttribute('data-category', 'Announcements');
+      script.setAttribute('data-category-id', 'DIC_kwDOBG193c4CQ8si');
+      script.setAttribute('data-mapping', 'title');
+      script.setAttribute('data-strict', '0');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '0');
+      script.setAttribute('data-input-position', 'top');
+      script.setAttribute('data-theme', 'preferred_color_scheme');
+      script.setAttribute('data-lang', lang);
+      script.setAttribute('data-loading', 'lazy');
+      script.setAttribute('crossorigin', 'anonymous');
+      script.async = true;
+
+      document.currentScript.parentNode.insertBefore(script, document.currentScript);
+    })();
   </script>`,
   'post'
 );

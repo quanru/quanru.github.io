@@ -2,11 +2,12 @@
 title: 'About'
 date: 2020-10-02 10:33:34
 layout: About
+language: en
 ---
 
-😪 人在字节，刚下晚班
-🐒 一个热爱工具和规则的前端攻城狮
-🧠 致力于打造 Obsidian 人生管理系统
-🤝🏻 帮助大家（也包括我）管理多彩的人生
+😪 Still at ByteDance, often leaving work late
+🐒 A frontend engineer who likes tools and rules
+🧠 Building an Obsidian system for life management
+🤝🏻 Helping people, myself included, manage a colorful life
 
-> [更多](https://bento.me/leyang)
+> [More](https://bento.me/leyang)
