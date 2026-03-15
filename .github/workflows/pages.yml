@@ -1,12 +1,12 @@
 name: Pages Production Deployment
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-
 on:
   push:
     branches:
       - main
+
+permissions:
+  contents: write
 
 jobs:
   pages:
@@ -32,7 +32,26 @@ jobs:
         run: pnpm build
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+        env:
+          DEPLOY_DIR: ${{ runner.temp }}/gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin gh-pages
+          git worktree add --force -B gh-pages "$DEPLOY_DIR" origin/gh-pages
+          trap 'git worktree remove --force "$DEPLOY_DIR"' EXIT
+
+          rsync -a --delete --exclude='.git' public/ "$DEPLOY_DIR"/
+          touch "$DEPLOY_DIR/.nojekyll"
+
+          cd "$DEPLOY_DIR"
+          git add --all
+
+          if git diff --cached --quiet; then
+            echo "No changes to deploy"
+            exit 0
+          fi
+
+          git commit -m "Deploy from ${GITHUB_SHA}"
+          git push origin gh-pages
