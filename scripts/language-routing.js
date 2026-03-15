@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs/promises');
 const path = require('path');
 const pagination = require('hexo-pagination');
 const { url_for: baseUrlFor, full_url_for: baseFullUrlFor, escapeHTML, stripHTML } = require('hexo-util');
@@ -285,10 +284,6 @@ function localizePageData(ctx, page = {}, lang, routePath = '') {
   return localizedPage;
 }
 
-function getRoutePathFromGeneratedFile(relativeFilePath = '') {
-  return normalizePathname(relativeFilePath.replace(/\\/g, '/'));
-}
-
 function rewriteCollectionLanguageSwitch(html, currentPath, lang) {
   if (!isCollectionPage(currentPath)) {
     return html;
@@ -323,25 +318,6 @@ function rewriteEnglishBranding(html, lang) {
     .replaceAll(`"${CHINESE_AUTHOR_NAME}"`, `"${ENGLISH_AUTHOR_NAME}"`)
     .replaceAll(`content="${CHINESE_AUTHOR_NAME}"`, `content="${ENGLISH_AUTHOR_NAME}"`)
     .replace(/&copy; (\d{4}) 林宜丙/g, '&copy; $1 LinYiBing');
-}
-
-async function collectHtmlFiles(rootDir) {
-  const entries = await fs.readdir(rootDir, { withFileTypes: true });
-  const files = [];
-
-  for (const entry of entries) {
-    const absolutePath = path.join(rootDir, entry.name);
-    if (entry.isDirectory()) {
-      files.push(...await collectHtmlFiles(absolutePath));
-      continue;
-    }
-
-    if (entry.isFile() && absolutePath.endsWith('.html')) {
-      files.push(absolutePath);
-    }
-  }
-
-  return files;
 }
 
 function buildPostQuery(ctx, posts, lang, orderBy) {
@@ -804,32 +780,13 @@ hexo.extend.filter.register('template_locals', function templateLocals(locals) {
 
 hexo.extend.filter.register('after_render:html', function afterRenderHtml(html, data = {}) {
   const pageLang = getPageLanguage(data.page, data.path);
+  const currentPath = getPageRoutePath(data.page, data.path);
   const contentUrl = normalizeLang(pageLang) === CHINESE_LANGUAGE ? '/zh/content.json' : '/content.json';
-  const brandedHtml = rewriteEnglishBranding(html, pageLang);
+  const switchLocalizedHtml = rewriteCollectionLanguageSwitch(html, currentPath, pageLang);
+  const brandedHtml = rewriteEnglishBranding(switchLocalizedHtml, pageLang);
   const homeLocalizedHtml = rewriteLocalizedHomeLinks(brandedHtml, pageLang);
 
   return homeLocalizedHtml.replace(/loadInsight\(\{"contentUrl":"[^"]+"/, `loadInsight({"contentUrl":"${contentUrl}"`);
-});
-
-hexo.extend.filter.register('after_generate', async function afterGenerate() {
-  const htmlFiles = await collectHtmlFiles(this.public_dir);
-
-  await Promise.all(htmlFiles.map(async file => {
-    const relativeFilePath = path.relative(this.public_dir, file);
-    const currentPath = getRoutePathFromGeneratedFile(relativeFilePath);
-    const pageLang = getPageLanguage({}, currentPath);
-
-    if (!isCollectionPage(currentPath)) {
-      return;
-    }
-
-    const originalHtml = await fs.readFile(file, 'utf8');
-    const nextHtml = rewriteCollectionLanguageSwitch(originalHtml, currentPath, pageLang);
-
-    if (nextHtml !== originalHtml) {
-      await fs.writeFile(file, nextHtml);
-    }
-  }));
 });
 
 hexo.extend.generator.register('index', function indexGenerator(locals) {
