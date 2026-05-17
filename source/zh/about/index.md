@@ -1,13 +1,21 @@
 ---
 title: '关于'
 date: 2020-10-02 10:33:34
-layout: About
+layout: false
 language: zh-CN
 ---
 
-😪 人在字节，刚下晚班
-🐒 一个热爱工具和规则的前端攻城狮
-🧠 致力于打造 Obsidian 人生管理系统
-🤝🏻 帮助大家（也包括我）管理多彩的人生
-
-> [更多](https://bento.me/leyang)
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=https://lifeos.vip/about">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://lifeos.vip/about">
+  <title>跳转到 Leyang 个人主页</title>
+  <script>location.replace('https://lifeos.vip/about');</script>
+</head>
+<body>
+  <p>正在跳转到 <a href="https://lifeos.vip/about">https://lifeos.vip/about</a>。</p>
+</body>
+</html>

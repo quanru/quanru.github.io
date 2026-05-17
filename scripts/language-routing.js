@@ -723,7 +723,7 @@ hexo.extend.filter.register('template_locals', function templateLocals(locals) {
             '归档': '/zh/archives/',
             '分类': '/zh/categories/',
             '标签': '/zh/tags/',
-            '关于': '/zh/about/',
+            '关于': 'https://lifeos.vip/about',
             EN: locals.page.language_switch_url
           }
         : {
@@ -731,7 +731,7 @@ hexo.extend.filter.register('template_locals', function templateLocals(locals) {
             Archives: '/archives/',
             Categories: '/categories/',
             Tags: '/tags/',
-            About: '/about/',
+            About: 'https://lifeos.vip/about',
             '中文': locals.page.language_switch_url
           }
     },
