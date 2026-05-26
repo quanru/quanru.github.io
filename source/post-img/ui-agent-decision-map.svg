@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">UI Agent 路线判断表</title>
+  <desc id="desc">根据场景判断 DOM 自动化、视觉 UI Agent 和混合方案的适用性。</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .card { fill: #ffffff; stroke: #d8dee9; stroke-width: 2; rx: 24; }
+    .head { font: 700 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .body { font: 400 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .small { font: 700 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+    .chip { rx: 18; }
+    .blue { fill: #eff6ff; stroke: #bfdbfe; }
+    .green { fill: #ecfdf5; stroke: #a7f3d0; }
+    .amber { fill: #fffbeb; stroke: #fde68a; }
+    .line { stroke: #cbd5e1; stroke-width: 2; }
+  </style>
+  <rect class="bg" width="1200" height="720"/>
+  <text class="title" x="72" y="82">什么时候用 DOM，什么时候用 Vision？</text>
+  <text class="subtitle" x="74" y="120">不是路线之争，而是根据界面可见状态、平台差异和工程成本做选择。</text>
+
+  <rect class="card" x="72" y="172" width="322" height="424"/>
+  <rect class="chip blue" x="112" y="212" width="128" height="38"/>
+  <text class="small" x="143" y="237">DOM-first</text>
+  <text class="head" x="112" y="294">结构稳定的 Web</text>
+  <line class="line" x1="112" y1="326" x2="354" y2="326"/>
+  <text class="body" x="112" y="368">页面结构长期可靠</text>
+  <text class="body" x="112" y="408">团队能维护 selector</text>
+  <text class="body" x="112" y="448">目标是低成本测试</text>
+  <text class="body" x="112" y="488">不需要跨端复用</text>
+  <text class="body" x="112" y="544">结论：传统自动化很好</text>
+
+  <rect class="card" x="438" y="172" width="322" height="424"/>
+  <rect class="chip green" x="478" y="212" width="132" height="38"/>
+  <text class="small" x="511" y="237">Vision-first</text>
+  <text class="head" x="478" y="294">真实界面操作</text>
+  <line class="line" x1="478" y1="326" x2="720" y2="326"/>
+  <text class="body" x="478" y="368">Canvas / 自绘控件</text>
+  <text class="body" x="478" y="408">移动端、桌面端、远程屏幕</text>
+  <text class="body" x="478" y="448">视觉状态比节点更关键</text>
+  <text class="body" x="478" y="488">希望同一套能力跨平台</text>
+  <text class="body" x="478" y="544">结论：先让 Agent 看屏幕</text>
+
+  <rect class="card" x="804" y="172" width="322" height="424"/>
+  <rect class="chip amber" x="844" y="212" width="112" height="38"/>
+  <text class="small" x="876" y="237">Hybrid</text>
+  <text class="head" x="844" y="294">项目里落地</text>
+  <line class="line" x1="844" y1="326" x2="1086" y2="326"/>
+  <text class="body" x="844" y="368">视觉负责定位与理解</text>
+  <text class="body" x="844" y="408">DOM 辅助数据提取</text>
+  <text class="body" x="844" y="448">缓存减少重复调用</text>
+  <text class="body" x="844" y="488">报告保留可追溯过程</text>
+  <text class="body" x="844" y="544">结论：Midscene 的常用取舍</text>
+
+  <rect x="168" y="632" width="864" height="42" rx="21" fill="#0f172a"/>
+  <text class="small" x="286" y="659" fill="#ffffff">DOM 提供结构信息；截图对应用户看到的结果；程序负责把两者组合起来。</text>
+</svg>

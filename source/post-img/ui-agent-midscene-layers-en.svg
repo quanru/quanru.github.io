@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Midscene UI Agent layers</title>
+  <desc id="desc">A layered diagram showing how Midscene combines screen input, model responsibilities, action space, scripts, reports, and cache into a debuggable UI Agent system.</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .layer { stroke-width: 2; rx: 22; }
+    .l1 { fill: #ecfeff; stroke: #99f6e4; }
+    .l2 { fill: #eff6ff; stroke: #bfdbfe; }
+    .l3 { fill: #fff7ed; stroke: #fed7aa; }
+    .l4 { fill: #f8fafc; stroke: #cbd5e1; }
+    .head { font: 700 27px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .body { font: 400 19px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .pill { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 18; }
+    .pillText { font: 700 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+    .arrow { stroke: #94a3b8; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="760"/>
+  <text class="title" x="76" y="82">Midscene is a set of clear responsibilities</text>
+  <text class="subtitle" x="78" y="120">The model does not swallow the whole system; visual understanding is placed inside tooling.</text>
+
+  <rect class="layer l1" x="92" y="172" width="1016" height="116"/>
+  <text class="head" x="134" y="226">1. Screen as the Default Input</text>
+  <text class="body" x="134" y="260">Screenshot, viewport size, and visual state are the UI Agent's direct input.</text>
+  <rect class="pill" x="785" y="205" width="126" height="36"/><text class="pillText" x="820" y="229">Web</text>
+  <rect class="pill" x="928" y="205" width="126" height="36"/><text class="pillText" x="953" y="229">Mobile</text>
+  <rect class="pill" x="785" y="248" width="126" height="36"/><text class="pillText" x="803" y="272">Desktop</text>
+  <rect class="pill" x="928" y="248" width="126" height="36"/><text class="pillText" x="957" y="272">Canvas</text>
+
+  <path class="arrow" d="M 600 300 V 342"/>
+
+  <rect class="layer l2" x="92" y="350" width="1016" height="116"/>
+  <text class="head" x="134" y="404">2. Model Intent Split</text>
+  <text class="body" x="134" y="438">Locate, plan, and understand can use different models; responsibility matters more than names.</text>
+  <rect class="pill" x="755" y="383" width="132" height="36"/><text class="pillText" x="793" y="407">Locate</text>
+  <rect class="pill" x="902" y="383" width="132" height="36"/><text class="pillText" x="934" y="407">Insight</text>
+  <rect class="pill" x="755" y="426" width="132" height="36"/><text class="pillText" x="789" y="450">Planning</text>
+  <rect class="pill" x="902" y="426" width="132" height="36"/><text class="pillText" x="933" y="450">Reasoning</text>
+
+  <path class="arrow" d="M 600 478 V 520"/>
+
+  <rect class="layer l3" x="92" y="528" width="1016" height="116"/>
+  <text class="head" x="134" y="582">3. Action Space as Contract</text>
+  <text class="body" x="134" y="616">The Agent may choose actions; the system defines parameters and real execution.</text>
+  <rect class="pill" x="750" y="561" width="118" height="36"/><text class="pillText" x="789" y="585">Tap</text>
+  <rect class="pill" x="884" y="561" width="118" height="36"/><text class="pillText" x="917" y="585">Input</text>
+  <rect class="pill" x="1018" y="561" width="70" height="36"/><text class="pillText" x="1032" y="585">Scroll</text>
+  <rect class="pill" x="750" y="604" width="118" height="36"/><text class="pillText" x="779" y="628">Assert</text>
+  <rect class="pill" x="884" y="604" width="118" height="36"/><text class="pillText" x="921" y="628">Query</text>
+  <rect class="pill" x="1018" y="604" width="70" height="36"/><text class="pillText" x="1032" y="628">Wait</text>
+
+  <rect class="layer l4" x="170" y="682" width="860" height="44"/>
+  <text class="body" x="218" y="711">YAML / JavaScript / Playground / MCP / Skills / Report / Cache</text>
+</svg>
