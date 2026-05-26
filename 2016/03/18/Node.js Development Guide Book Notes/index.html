@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en"><head><!-- hexo injector head_begin start --><meta name="google-site-verification" content="XKB565_wrzbUdiA1Uwp8UUj3ncEr2Oxb8GimIGXcPxY"><!-- hexo injector head_begin end --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Node.js Development Guide - Book Notes - LinYiBing&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#ffffff"><meta name="application-name" content="LinYiBing&#039;s Blog"><meta name="msapplication-TileImage" content="/img/avatar.png"><meta name="msapplication-TileColor" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LinYiBing&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" sizes="48x48" href="/img/avatar.png"><meta name="description" content="Chapter 3 Single Loading:  require does not load modules repeatedly. No matter how many times require is called, the module obtained is always the same one.   Overriding exports:  When encapsulating a"><meta property="og:type" content="blog"><meta property="og:title" content="Node.js Development Guide - Book Notes"><meta property="og:url" content="http://quanru.github.io/2016/03/18/Node.js%20Development%20Guide%20Book%20Notes"><meta property="og:site_name" content="LinYiBing&#039;s Blog"><meta property="og:description" content="Chapter 3 Single Loading:  require does not load modules repeatedly. No matter how many times require is called, the module obtained is always the same one.   Overriding exports:  When encapsulating a"><meta property="og:locale" content="en_US"><meta property="og:image" content="http://quanru.github.io/img/og_image.png"><meta property="article:published_time" content="2016-03-18T08:31:19.000Z"><meta property="article:modified_time" content="2026-03-15T15:56:15.000Z"><meta property="article:author" content="LinYiBing"><meta property="article:tag" content="JavaScript"><meta property="article:tag" content="Node.js"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://quanru.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://quanru.github.io/2016/03/18/Node.js%20Development%20Guide%20Book%20Notes"},"headline":"Node.js Development Guide - Book Notes","image":["http://quanru.github.io/img/og_image.png"],"datePublished":"2016-03-18T08:31:19.000Z","dateModified":"2026-03-15T15:56:15.000Z","author":{"@type":"Person","name":"LinYiBing"},"publisher":{"@type":"Organization","name":"LinYiBing's Blog","logo":{"@type":"ImageObject","url":"http://quanru.github.io/img/avatar.png"}},"description":"Chapter 3 Single Loading:  require does not load modules repeatedly. No matter how many times require is called, the module obtained is always the same one.   Overriding exports:  When encapsulating a"}</script><link rel="canonical" href="http://quanru.github.io/2016/03/18/Node.js%20Development%20Guide%20Book%20Notes"><link rel="icon" href="/img/favicon.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="follow.it-verification-code" content="L1RpaQjCaMfGQ2QX42KT"><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script>
+<link rel="stylesheet" href="/css/index.css">
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "kvbvszxxym");
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="LinYiBing's Blog" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.png" alt="LinYiBing&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives/">Archives</a><a class="navbar-item" href="/categories/">Categories</a><a class="navbar-item" href="/tags/">Tags</a><a class="navbar-item" target="_blank" rel="noopener" href="https://lifeos.vip/about">About</a><a class="navbar-item" href="/2016/03/18/Node.js%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%E4%B9%A6%E6%91%98/">中文</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/quanru"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2016-03-18T08:31:19.000Z" title="3/18/2016, 4:31:19 PM">2016-03-18</time></span><span class="level-item">Updated&nbsp;<time dateTime="2026-03-15T15:56:15.000Z" title="3/15/2026, 11:56:15 PM">2026-03-15</time></span><span class="level-item"><a class="link-muted" href="/categories/Reading-Notes/">Reading Notes</a></span><span class="level-item">7 minutes read (About 985 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">Node.js Development Guide - Book Notes</h1><div class="content"><h3 id="Chapter-3"><a href="#Chapter-3" class="headerlink" title="Chapter 3"></a>Chapter 3</h3><ol>
+<li><p>Single Loading:</p>
+<blockquote>
+<p>require does not load modules repeatedly. No matter how many times require is called, the module obtained is always the same one.</p>
+</blockquote>
+</li>
+<li><p>Overriding exports:</p>
+<blockquote>
+<p>When encapsulating an object into a module, using exports.Hello &#x3D; Hello requires require(‘.&#x2F;singleobject’).Hello to obtain the object. This can be simplified as follows: module.exports &#x3D; Hello; Then you can directly obtain the object: var Hello &#x3D; require(‘.&#x2F;hello’); hello &#x3D; new Hello();</p>
+</blockquote>
+</li>
+<li><p>Creating Global Links:</p>
+<blockquote>
+<p>npm link express; This allows you to use the globally installed express in the current directory.</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>Use npm init to interactively initialize a standard package.json;<br>Publish a package: npm publish;<br>After modifying the version field in the json file, republish to update the version;<br>Unpublish: npm unpublish;</p>
+</blockquote>
+</li>
+</ol>
+<span id="more"></span>
+
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2016/03/18/Node.js%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%E4%B9%A6%E6%91%98/">简体中文</a>.
+</div>
+</article>
+
+<h1 id="Chapter-3-1"><a href="#Chapter-3-1" class="headerlink" title="Chapter 3"></a>Chapter 3</h1><ol>
+<li><p>Single Loading:</p>
+<blockquote>
+<p>require does not load modules repeatedly. No matter how many times require is called, the module obtained is always the same one.</p>
+</blockquote>
+</li>
+<li><p>Overriding exports:</p>
+<blockquote>
+<p>When encapsulating an object into a module, using exports.Hello &#x3D; Hello requires require(‘.&#x2F;singleobject’).Hello to obtain the object. This can be simplified as follows: module.exports &#x3D; Hello; Then you can directly obtain the object: var Hello &#x3D; require(‘.&#x2F;hello’); hello &#x3D; new Hello();</p>
+</blockquote>
+</li>
+<li><p>Creating Global Links:</p>
+<blockquote>
+<p>npm link express; This allows you to use the globally installed express in the current directory.</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>Use npm init to interactively initialize a standard package.json;<br>Publish a package: npm publish;<br>After modifying the version field in the json file, republish to update the version;<br>Unpublish: npm unpublish;</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="Chapter-4"><a href="#Chapter-4" class="headerlink" title="Chapter 4"></a>Chapter 4</h1><ol>
+<li><p>process:</p>
+<blockquote>
+<p>process.argv: An array of command-line arguments, where the first element is node, and so on;<br>process.nextTick(callback): Sets a task for the event loop. Node.js will call the callback on the next event loop iteration (generally used to split events, thereby reducing the execution time of each event);</p>
+</blockquote>
+</li>
+<li><p>console:</p>
+<blockquote>
+<p>console.trace(): Outputs the current call stack to the standard error stream;</p>
+</blockquote>
+</li>
+<li><p>util:</p>
+<blockquote>
+<p>util.inherits(constructor, superConstructor): Only inherits functions defined in the prototype of superConstructor. Properties and functions created inside the constructor are not inherited;<br>util.inspect(object, [showHidden], [depth], [colors]): A method to convert any object to a string, typically used for debugging and error output;</p>
+</blockquote>
+</li>
+<li><p>events:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">events.<span class="property">EventEmitter</span>:</span><br><span class="line">     <span class="keyword">var</span> events = <span class="built_in">require</span>(<span class="string">&quot;events&quot;</span>);</span><br><span class="line">     <span class="keyword">var</span> emitter = <span class="keyword">new</span> events.<span class="title class_">EventEmitter</span>();</span><br><span class="line">      emitter.<span class="title function_">on</span>(<span class="string">&quot;someEvent&quot;</span>, <span class="keyword">function</span>(<span class="params">arg1, arg2</span>) &#123;</span><br><span class="line">               <span class="variable language_">console</span>.<span class="title function_">lgo</span>(<span class="string">&quot;listener1&quot;</span>, arg1, arg2);</span><br><span class="line">     &#125;);</span><br><span class="line">emitter.<span class="title function_">emit</span>(<span class="string">&quot;someEvent&quot;</span>, <span class="string">&quot;byvoid&quot;</span>, <span class="number">1991</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>result:</p>
+<blockquote>
+<p>listener1 byvoid 1991</p>
+</blockquote>
+<p>emitter.emit(“error”); exits the program and prints the call stack.<br>Any core module that supports event responses is a subclass of EventEmitter, such as fs, net, and http.</p>
+<ol start="5">
+<li><p>fs:</p>
+<blockquote>
+<p>fs.readFile(filename, [encoding], [callback(err, data)];<br>fs.readFileSync(filename, [encoding]);<br>Unlike synchronous I&#x2F;O functions, asynchronous functions in Node.js mostly do not have return values.</p>
+</blockquote>
+</li>
+<li><p>HTTP Server:</p>
+<blockquote>
+<p>var http &#x3D; requitr(‘http’);</p>
+</blockquote>
+</li>
+</ol>
+<p>http.Server is an event-based HTTP server with the following main events:</p>
+<blockquote>
+<ol>
+<li>request: Triggered when a client request arrives, providing two parameters req and res, which are instances of http.ServerRequest and http.ServerResponse respectively.</li>
+<li>connection: Triggered when a TCP connection is established, providing a parameter socket, which is an instance of net.Socket. This event has coarser granularity than request.</li>
+<li>close: Triggered when the server is closed, not when a user disconnects.<br>Since request is the most commonly used, http provides a shortcut: http.createServer([requestListener]), which creates an HTTP server and sets requestListener as the listener function for the request event.</li>
+</ol>
+</blockquote>
+<p>http.ServerRequest provides the following three events for controlling transmission:</p>
+<blockquote>
+<ol>
+<li>data: Triggered when the request body arrives, providing a parameter chunk representing the received data.</li>
+<li>end: Triggered when the request body data transmission is complete.</li>
+<li>close: Triggered when the current user request ends.</li>
+</ol>
+</blockquote>
+<p>http.ServerResponse is the information returned to the client:</p>
+<blockquote>
+<ol>
+<li>response.WriteHead(statusCode, [headers]): Sends a response header to the client.</li>
+<li>response.write(data, [encoding]): Sends response content to the requesting client.</li>
+<li>response.end([data], [encoding]): Ends the response, informing the client that all sending is complete. If not called, the client will remain in a waiting state forever.</li>
+</ol>
+</blockquote>
+<h1 id="Chapter-5"><a href="#Chapter-5" class="headerlink" title="Chapter 5"></a>Chapter 5</h1><ol>
+<li><p>Building the basic website structure:</p>
+<blockquote>
+<p>express -t ejs microblog</p>
+</blockquote>
+</li>
+<li><p>Creating an application instance:</p>
+<blockquote>
+<p>express.createServer()</p>
+</blockquote>
+</li>
+<li><p>Control transfer:</p>
+<blockquote>
+<p>When Express processes routing rules, it prioritizes matching rules defined first. Later rules will be blocked, but you can use next() to transfer control.</p>
+</blockquote>
+</li>
+<li><p>Path matching:</p>
+<blockquote>
+<p>app.get(‘&#x2F;user&#x2F;:username’, function(req, res) { res.send(‘user: ‘ + req.params.username);</p>
+</blockquote>
+</li>
+<li><p>The EJS template engine has three types of tags:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;% code %&gt;: JavaScript code;</span><br><span class="line">&lt;%= code %&gt;: Displays content with HTML special characters escaped;</span><br><span class="line">&lt;%- code %&gt;: Displays raw HTML content.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Disabling layout:</p>
+<blockquote>
+<p>app.set(‘view options’, { layout: false });<br>Specifying a layout:<br>function(req, res) { res.render(‘userlist’, { title: ‘Admin Panel’, layout: ‘admin’ }); }; This specifies admin.ejs as the page layout.</p>
+</blockquote>
+</li>
+<li><p>Partial views:</p>
+<blockquote>
+<p>partials.</p>
+</blockquote>
+</li>
+<li><p>View helpers:</p>
+<blockquote>
+<p>Static view helpers can be any type of object, including functions that accept arbitrary parameters, and the accessed objects must be independent of user requests;<br>Dynamic view helpers can only be a function that does not accept parameters but can access the req and res objects;</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="Chapter-6"><a href="#Chapter-6" class="headerlink" title="Chapter 6"></a>Chapter 6</h1><ol>
+<li><p>When the file module extension is not explicitly specified, Node.js will try appending .js, .json, and .node extensions respectively. .js is JavaScript code, .json is JSON-formatted text, and .node is compiled C&#x2F;C++ code.</p>
+</li>
+<li><p>When require encounters a module name that is neither a core module nor expressed as a path, it will try to look it up in the node_modules directory under the current directory. If not found, it will continue searching in the node_modules directory one level up, repeating this process until the root directory is reached.</p>
+</li>
+<li><p>Loading cache:</p>
+<blockquote>
+<p>Node.js modules are not loaded repeatedly because Node.js caches all loaded file modules by filename. Subsequent accesses will not reload them. Note that Node.js caches based on the actual filename, so loading twice will not result in duplicate loading if the resolved file is the same.</p>
+</blockquote>
+</li>
+<li><p>Control flow issues:</p>
+<blockquote>
+<p>Loop traps can be solved using forEach, closures, or let.</p>
+</blockquote>
+</li>
+</ol>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Node.js Development Guide - Book Notes</p><p><a href="http://quanru.github.io/2016/03/18/Node.js Development Guide Book Notes">http://quanru.github.io/2016/03/18/Node.js Development Guide Book Notes</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>LinYiBing</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2016-03-18</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2026-03-15</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/JavaScript/">JavaScript</a><a class="link-muted mr-2" rel="tag" href="/tags/Node-js/">Node.js</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="/img/alipay-qr.jpg" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="/img/wechat-qr.jpg" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2016/03/18/Node.js%20%E7%9A%84%20Morgan%20%E6%A8%A1%E5%9D%97%E4%B8%8E%20Cluster%20%E6%A8%A1%E5%9D%97"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Node.js 的 Morgan 模块与 Cluster 模块</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2016/03/18/Node.js%20%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97%E4%B9%A6%E6%91%98"><span class="level-item">Node.js 开发指南の书摘</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="LinYiBing"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">LinYiBing</p><p class="is-size-6 is-block">Frontend Engineer</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Hangzhou, China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives/"><p class="title">43</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories/"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags/"><p class="title">38</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://bento.me/leyang" target="_blank" rel="me noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/quanru"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com/quanruzhuoxiu"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Zhihu" href="https://www.zhihu.com/people/quanru"><i class="fab fa-zhihu"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Weibo" href="http://weibo.com/zhuoxiu"><i class="fab fa-weibo"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><ul class="menu-list"><li><a class="level is-mobile" href="#Chapter-3"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">Chapter 3</span></span></a></li></ul><li><a class="level is-mobile" href="#Chapter-3-1"><span class="level-left"><span class="level-item">2</span><span class="level-item">Chapter 3</span></span></a></li><li><a class="level is-mobile" href="#Chapter-4"><span class="level-left"><span class="level-item">3</span><span class="level-item">Chapter 4</span></span></a></li><li><a class="level is-mobile" href="#Chapter-5"><span class="level-left"><span class="level-item">4</span><span class="level-item">Chapter 5</span></span></a></li><li><a class="level is-mobile" href="#Chapter-6"><span class="level-left"><span class="level-item">5</span><span class="level-item">Chapter 6</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="https://api.follow.it/subscription-form/WklsOUszYmN3Vi9OdElyWjliaThEQ0x4bTNoZG56YTUvY2QzMjg5RDdEa256Z3NSUitqMWJwaFVtbzlRMWozUWhpa0o4L290WkpYeUcwSVp3WHVVUlhhUW1KVFVyUHQ0cnphNEJiVmZsVGNKOGdsaStQWnRrcTlwYzhTNFBYRzV8S3BDQ2Uyem1ZQlBZcXFQdDZ5VktBZDNadlUydng0QUpRTDNHRXMvYnN2bz0=/8" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-07-16T05:40:09.000Z">2023-07-16</time></p><p class="title"><a href="/2023/07/16/I-Built-a-Plugin-for-My-Obsidian-Practice">I Built a Plugin for My Obsidian Practice</a></p><p class="categories"><a href="/categories/Second-Brain/">Second Brain</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-07-08T01:38:13.000Z">2023-07-08</time></p><p class="title"><a href="/2023/07/08/Building%20my%20second%20brain%20%F0%9F%A7%A0%20with%20Obsidian">Building my second brain 🧠 with Obsidian</a></p><p class="categories"><a href="/categories/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91/">第二大脑</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-06-17T09:20:23.000Z">2023-06-17</time></p><p class="title"><a href="/2023/06/17/Frontend-Engineering-Practices-at-ByteDance">Frontend Engineering Practices at ByteDance</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-12-31T08:56:15.000Z">2022-12-31</time></p><p class="title"><a href="/2022/12/31/Frontend-Monorepo-Practices-at-ByteDance">Frontend Monorepo Practices at ByteDance</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-12-31T08:48:15.000Z">2022-12-31</time></p><p class="title"><a href="/2022/12/31/Best-Practices-for-Git-Workflows-in-Monorepo">Best Practices for Git Workflows in Monorepo</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Development-Tools"><span class="level-start"><span class="level-item">Development Tools</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Engineering"><span class="level-start"><span class="level-item">Engineering</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/categories/Frontend-Learning"><span class="level-start"><span class="level-item">Frontend Learning</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Interview"><span class="level-start"><span class="level-item">Interview</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Node-js-Server"><span class="level-start"><span class="level-item">Node.js Server</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Node-js-Server-Side"><span class="level-start"><span class="level-item">Node.js Server-Side</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Node-js-Server-side"><span class="level-start"><span class="level-item">Node.js Server-side</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Reading-Notes"><span class="level-start"><span class="level-item">Reading Notes</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Second-Brain"><span class="level-start"><span class="level-item">Second Brain</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Summary"><span class="level-start"><span class="level-item">Summary</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Work-Journal"><span class="level-start"><span class="level-item">Work Journal</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Work-Log"><span class="level-start"><span class="level-item">Work Log</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Work-Notes"><span class="level-start"><span class="level-item">Work Notes</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91"><span class="level-start"><span class="level-item">第二大脑</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2023/07/"><span class="level-start"><span class="level-item">July 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/06/"><span class="level-start"><span class="level-item">June 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/12/"><span class="level-start"><span class="level-item">December 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/12/"><span class="level-start"><span class="level-item">December 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">April 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/09/"><span class="level-start"><span class="level-item">September 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">June 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">May 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">April 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/07/"><span class="level-start"><span class="level-item">July 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/02/"><span class="level-start"><span class="level-item">February 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/12/"><span class="level-start"><span class="level-item">December 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/08/"><span class="level-start"><span class="level-item">August 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/03/"><span class="level-start"><span class="level-item">March 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/12/"><span class="level-start"><span class="level-item">December 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/11/"><span class="level-start"><span class="level-item">November 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/10/"><span class="level-start"><span class="level-item">October 2016</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/08/"><span class="level-start"><span class="level-item">August 2016</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/04/"><span class="level-start"><span class="level-item">April 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/03/"><span class="level-start"><span class="level-item">March 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/11/"><span class="level-start"><span class="level-item">November 2015</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/09/"><span class="level-start"><span class="level-item">September 2015</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/08/"><span class="level-start"><span class="level-item">August 2015</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/07/"><span class="level-start"><span class="level-item">July 2015</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/06/"><span class="level-start"><span class="level-item">June 2015</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Bundler"><span class="tag">Bundler</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CLI-Tools"><span class="tag">CLI Tools</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CSS"><span class="tag">CSS</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Canvas"><span class="tag">Canvas</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Compiler"><span class="tag">Compiler</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Conference"><span class="tag">Conference</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Diagnostics-Tool"><span class="tag">Diagnostics Tool</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Engineering-Governance"><span class="tag">Engineering Governance</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Frontend-Interview"><span class="tag">Frontend Interview</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Frontend-Backend-Separation"><span class="tag">Frontend-Backend Separation</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Functional-Programming"><span class="tag">Functional Programming</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Git"><span class="tag">Git</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Goal-Management"><span class="tag">Goal-Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Internship-Journey"><span class="tag">Internship Journey</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript"><span class="tag">JavaScript</span><span class="tag">26</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Javascript"><span class="tag">Javascript</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JsBridge"><span class="tag">JsBridge</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/LifeOS"><span class="tag">LifeOS</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Maintainability"><span class="tag">Maintainability</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Memory-Leak"><span class="tag">Memory Leak</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Micro-Frontend"><span class="tag">Micro Frontend</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Monitoring-and-Alerting"><span class="tag">Monitoring and Alerting</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Monorepo"><span class="tag">Monorepo</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Node-js"><span class="tag">Node.js</span><span class="tag">14</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PKM"><span class="tag">PKM</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Periodic-Notes"><span class="tag">Periodic Notes</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Periodic-Note"><span class="tag">Periodic-Note</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Private-Deployment"><span class="tag">Private Deployment</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/React"><span class="tag">React</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redux"><span class="tag">Redux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Refactoring"><span class="tag">Refactoring</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Self-Learning-Journey"><span class="tag">Self-Learning Journey</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Source-Code-Analysis"><span class="tag">Source Code Analysis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Task-Management"><span class="tag">Task-Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Time-Management"><span class="tag">Time-Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Unit-Testing"><span class="tag">Unit Testing</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Webview"><span class="tag">Webview</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.png" alt="LinYiBing&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2026 LinYiBing</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><!-- hexo injector body_end start --><script>
+    (function () {
+      const script = document.createElement('script');
+      const lang = document.documentElement.lang === 'zh' ? 'zh-CN' : 'en';
+
+      script.src = 'https://giscus.app/client.js';
+      script.setAttribute('data-repo', 'quanru/quanru.github.io');
+      script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ==');
+      script.setAttribute('data-category', 'Announcements');
+      script.setAttribute('data-category-id', 'DIC_kwDOBG193c4CQ8si');
+      script.setAttribute('data-mapping', 'title');
+      script.setAttribute('data-strict', '0');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '0');
+      script.setAttribute('data-input-position', 'top');
+      script.setAttribute('data-theme', 'preferred_color_scheme');
+      script.setAttribute('data-lang', lang);
+      script.setAttribute('data-loading', 'lazy');
+      script.setAttribute('crossorigin', 'anonymous');
+      script.async = true;
+
+      document.currentScript.parentNode.insertBefore(script, document.currentScript);
+    })();
+  </script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>神经网络模型</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="/res/revealjs/css/reveal.css">
+        <link rel="stylesheet" href="/res/revealjs/css/theme/league.css">
+        <style>
+            .reveal .slides img.long {
+                max-width: 50%;
+                min-width: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>神经网络模型</h2>
+                    <p>AlphaGo的基石</p>
+                    <p>@醍醐</p>
+                </section>
+                <section>
+                    <h2>AlphaGo</h2>
+                    <ul>
+                        <li>1.背后是一套神经网络系统。</li>
+                        <li>2.多个数据中心作为节点(含多台超级计算机)相连。</li>
+                        <li>3.就像人脑由亿万个神经元组成的，因此称为神经网络。</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>感知机</h2>
+                    <div><img src="/share-img/2016-06-17/1.png" alt=""></div>
+                    <div><img src="/share-img/2016-06-17/2.png" alt=""></div>
+                </section>
+                <section>
+                    <div><img src="/share-img/2016-06-17/3.png" alt=""></div>
+                    <div><img src="/share-img/2016-06-17/4.png" alt=""></div>
+                </section>
+                <section>
+                    <h2>例子</h2>
+                    <div><img src="/share-img/2016-06-17/1.png" alt=""></div>
+                    <ul>
+                        <li>天气好不好？(1,0)权重5</li>
+                        <li>有人作伴吗？(1,0)权重4</li>
+                        <li>交通便利吗？(1,0)权重3</li>
+                        <li>阈值设为4</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>sigmoid神经元</h2>
+                    <div><img src="/share-img/2016-06-17/1.png" alt=""></div>
+                    <p>不同的是，这些输入值不是只能取0或者1，而是可以取0到1间的任意浮点值。</p>
+                </section>
+                <section>
+                    <h2>神经网络的结构</h2>
+                    <img src="/share-img/2016-06-17/5.png" alt="">
+                </section>
+                <section>
+                    <div><img src="/share-img/2016-06-17/5.1.png" alt=""></div>
+                </section>
+                <section>
+                    <h2>识别手写数字</h2>
+                    <p>28×28=784</p>
+                    <img src="/share-img/2016-06-17/6.png" alt="">
+                </section>
+                <section>
+                    <h2>训练</h2>
+                    <div>输入6的手写体，期望输出：</div>
+                    <img src="/share-img/2016-06-17/7.png" alt="">
+                    <div>与实际输出对比，并计算误差</div>
+                    <img src="/share-img/2016-06-17/8.png" alt="">
+                </section>
+                <section>
+                    <h2>反向传播算法</h2>
+                    <a href="https://www.zhihu.com/question/27239198/answer/43560763">点我</a>
+                </section>
+                <section>
+                    <h2>直观效果</h2>
+                    <a href="http://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4,2&seed=0.74523&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false">点我</a>
+                </section>
+            </div>
+        </div>
+        <script src="/res/revealjs/lib/js/head.min.js"></script>
+        <script src="/res/revealjs/js/reveal.js"></script>
+        <script>
+                    Reveal.initialize({
+                        transition: 'linear'
+                    });
+        </script>
+    </body>
+</html>

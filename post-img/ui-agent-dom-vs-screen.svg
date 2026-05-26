@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">DOM 与屏幕视角对比</title>
+  <desc id="desc">对比开发者视角的 DOM 控件树与用户视角的屏幕截图。</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .panel { fill: #ffffff; stroke: #d8dee9; stroke-width: 2; rx: 24; }
+    .panelTitle { font: 700 30px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .note { font: 400 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .mono { font: 500 18px "SFMono-Regular", Consolas, monospace; fill: #334155; }
+    .tag { font: 700 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .green { fill: #0f766e; }
+    .orange { fill: #d97706; }
+    .muted { fill: #e2e8f0; }
+    .codebox { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 1.5; rx: 14; }
+    .screen { fill: #ecfeff; stroke: #99f6e4; stroke-width: 2; rx: 16; }
+  </style>
+  <rect class="bg" width="1200" height="700"/>
+  <text class="title" x="70" y="82">同一个界面，两个信息来源</text>
+  <text class="subtitle" x="72" y="120">DOM 很有用，但它描述的是实现结构；屏幕描述的是用户看到的结果。</text>
+
+  <rect class="panel" x="70" y="170" width="500" height="430"/>
+  <text class="panelTitle" x="110" y="226">DOM / 控件树</text>
+  <text class="note" x="112" y="262">开发者眼里的界面</text>
+  <rect class="codebox" x="112" y="302" width="416" height="196"/>
+  <text class="mono" x="138" y="342">&lt;div class="page"&gt;</text>
+  <text class="mono" x="164" y="378">&lt;canvas id="map" /&gt;</text>
+  <text class="mono" x="164" y="414">&lt;button hidden&gt;Submit&lt;/button&gt;</text>
+  <text class="mono" x="164" y="450">&lt;iframe src="..." /&gt;</text>
+  <text class="mono" x="138" y="486">&lt;/div&gt;</text>
+  <circle class="orange" cx="126" cy="545" r="9"/>
+  <text class="note" x="146" y="552">可能包含用户看不到的节点</text>
+  <circle class="orange" cx="126" cy="580" r="9"/>
+  <text class="note" x="146" y="587">也可能缺少用户正在操作的视觉对象</text>
+
+  <rect class="panel" x="630" y="170" width="500" height="430"/>
+  <text class="panelTitle" x="670" y="226">Screenshot / 屏幕</text>
+  <text class="note" x="672" y="262">用户眼里的界面</text>
+  <rect class="screen" x="672" y="302" width="416" height="196"/>
+  <rect x="708" y="338" width="154" height="36" rx="10" fill="#ffffff" stroke="#bae6fd" stroke-width="2"/>
+  <text class="tag" x="730" y="362">搜索目的地</text>
+  <rect x="884" y="338" width="154" height="36" rx="10" fill="#0f766e"/>
+  <text class="tag" x="921" y="362" fill="#ffffff">开始导航</text>
+  <path d="M 738 438 C 790 388, 850 480, 1030 410" stroke="#2563eb" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <circle cx="738" cy="438" r="14" fill="#ef4444"/>
+  <circle cx="1030" cy="410" r="14" fill="#22c55e"/>
+  <circle class="green" cx="686" cy="545" r="9"/>
+  <text class="note" x="706" y="552">可见性、遮挡、状态一并进入上下文</text>
+  <circle class="green" cx="686" cy="580" r="9"/>
+  <text class="note" x="706" y="587">Web、移动端、桌面端共享同一种输入</text>
+</svg>

@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en"><head><!-- hexo injector head_begin start --><meta name="google-site-verification" content="XKB565_wrzbUdiA1Uwp8UUj3ncEr2Oxb8GimIGXcPxY"><!-- hexo injector head_begin end --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Notes on JavaScript: The Definitive Guide - LinYiBing&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#ffffff"><meta name="application-name" content="LinYiBing&#039;s Blog"><meta name="msapplication-TileImage" content="/img/avatar.png"><meta name="msapplication-TileColor" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LinYiBing&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" sizes="48x48" href="/img/avatar.png"><meta name="description" content="When the JavaScript interpreter starts, it creates a new global object and gives it a set of defined initial properties. Whenever a property of a string literal is referenced, the string value is con"><meta property="og:type" content="blog"><meta property="og:title" content="Notes on JavaScript: The Definitive Guide"><meta property="og:url" content="http://quanru.github.io/2015/06/15/Notes-on-JavaScript-The-Definitive-Guide"><meta property="og:site_name" content="LinYiBing&#039;s Blog"><meta property="og:description" content="When the JavaScript interpreter starts, it creates a new global object and gives it a set of defined initial properties. Whenever a property of a string literal is referenced, the string value is con"><meta property="og:locale" content="en_US"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%971.png"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%972.png"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%973.png"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%974.png"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%975.png"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%976.png"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%977.png"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%978.png"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%979.png"><meta property="og:image" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%9710.png"><meta property="article:published_time" content="2015-06-15T12:22:15.000Z"><meta property="article:modified_time" content="2026-03-15T15:56:15.000Z"><meta property="article:author" content="LinYiBing"><meta property="article:tag" content="JavaScript"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%971.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://quanru.github.io/2015/06/15/Notes-on-JavaScript-The-Definitive-Guide"},"headline":"Notes on JavaScript: The Definitive Guide","image":["http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%971.png","http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%972.png","http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%973.png","http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%974.png","http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%975.png","http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%976.png","http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%977.png","http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%978.png","http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%979.png","http://quanru.github.io/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%9710.png"],"datePublished":"2015-06-15T12:22:15.000Z","dateModified":"2026-03-15T15:56:15.000Z","author":{"@type":"Person","name":"LinYiBing"},"publisher":{"@type":"Organization","name":"LinYiBing's Blog","logo":{"@type":"ImageObject","url":"http://quanru.github.io/img/avatar.png"}},"description":"When the JavaScript interpreter starts, it creates a new global object and gives it a set of defined initial properties. Whenever a property of a string literal is referenced, the string value is con"}</script><link rel="canonical" href="http://quanru.github.io/2015/06/15/Notes-on-JavaScript-The-Definitive-Guide"><link rel="icon" href="/img/favicon.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="follow.it-verification-code" content="L1RpaQjCaMfGQ2QX42KT"><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script>
+<link rel="stylesheet" href="/css/index.css">
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "kvbvszxxym");
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="LinYiBing's Blog" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.png" alt="LinYiBing&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives/">Archives</a><a class="navbar-item" href="/categories/">Categories</a><a class="navbar-item" href="/tags/">Tags</a><a class="navbar-item" target="_blank" rel="noopener" href="https://lifeos.vip/about">About</a><a class="navbar-item" href="/2015/06/15/JavaScript%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E3%81%AE%E7%AC%94%E8%AE%B0/">中文</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/quanru"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2015-06-15T12:22:15.000Z" title="6/15/2015, 8:22:15 PM">2015-06-15</time></span><span class="level-item">Updated&nbsp;<time dateTime="2026-03-15T15:56:15.000Z" title="3/15/2026, 11:56:15 PM">2026-03-15</time></span><span class="level-item"><a class="link-muted" href="/categories/Reading-Notes/">Reading Notes</a></span><span class="level-item">17 minutes read (About 2516 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">Notes on JavaScript: The Definitive Guide</h1><div class="content"><ol>
+<li>When the JavaScript interpreter starts, it creates a new global object and gives it a set of defined initial properties.</li>
+<li>Whenever a property of a string literal is referenced, the string value is converted to an object by calling new String(), and once the reference ends, this temporary object is destroyed.</li>
+<li>The “&#x3D;&#x3D;” operator treats primitive values and their wrapper objects as equal, while “&#x3D;&#x3D;&#x3D;” does not.</li>
+<li>Primitive values are immutable; object references are mutable.</li>
+<li>undefined converted to number:<blockquote>
+<p>NaN, while null converted to number: 0, empty string converts to 0 and false.</p>
+</blockquote>
+</li>
+</ol>
+<span id="more"></span>
+
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2015/06/15/JavaScript%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E3%81%AE%E7%AC%94%E8%AE%B0/">简体中文</a>.
+</div>
+</article>
+
+<h1 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h1><ol>
+<li><p>When the JavaScript interpreter starts, it creates a new global object and gives it a set of defined initial properties.</p>
+</li>
+<li><p>Whenever a property of a string literal is referenced, the string value is converted to an object by calling new String(), and once the reference ends, this temporary object is destroyed.</p>
+</li>
+<li><p>The “&#x3D;&#x3D;” operator treats primitive values and their wrapper objects as equal, while “&#x3D;&#x3D;&#x3D;” does not.</p>
+</li>
+<li><p>Primitive values are immutable; object references are mutable.</p>
+</li>
+<li><p>undefined converted to number:</p>
+<blockquote>
+<p>NaN, while null converted to number: 0, empty string converts to 0 and false.</p>
+</blockquote>
+</li>
+<li><p>Object to boolean conversion:</p>
+<blockquote>
+<p>All objects (including arrays and functions) convert to true.</p>
+</blockquote>
+</li>
+<li><p>Global scope doesn’t require var, but local variable declarations need var, otherwise a global variable is created by default.</p>
+</li>
+<li><p>JavaScript has no block-level scope, replaced by function scope, meaning all variables declared within a function are always visible throughout the function body. Variables are available before they are declared, but assignment operations are still executed at their original position, i.e., “hoisting.”</p>
+</li>
+<li><blockquote>
+<ol>
+<li>var truevar &#x3D; 1; &#x2F;&#x2F; Declares a non-deletable global variable</li>
+<li>fakevar &#x3D; 2; &#x2F;&#x2F; Creates a deletable property of the global object</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Use x!&#x3D;x to determine whether x is NaN.</p>
+</li>
+<li><p>The in operator:</p>
+<blockquote>
+<p>Returns true if the right-side object has a property with the name of the left operand value.</p>
+</blockquote>
+</li>
+<li><p>typeof(null) -&gt; “object”; typeof(undefined) -&gt; “undefined”; commonly used in expressions:</p>
+<blockquote>
+<p>(typeof value &#x3D;&#x3D; “string”) ? “ ‘ “ + value + “ ‘ “ : value;</p>
+</blockquote>
+</li>
+<li><p>Functions are a type of object, but typeof(func) returns “function.”</p>
+</li>
+<li><p>Deleting a property or array element doesn’t just set an undefined value; the property will no longer exist.</p>
+</li>
+<li><p>Variables declared with var cannot be deleted, deleting a non-existent property returns true, deleting array elements doesn’t change its length.</p>
+</li>
+<li><p>The void operator:</p>
+<blockquote>
+<p>Ignores the result of the operand and returns undefined.</p>
+</blockquote>
+</li>
+<li><p>for(variable in object) statement; first evaluates the variable value and assigns the property name to it.</p>
+</li>
+<li><p>break cannot cross function boundaries, while continue can only be used within loop bodies.</p>
+</li>
+<li><p>&amp;&amp; short-circuit:</p>
+<blockquote>
+<p>When the left operand is truthy, the operator evaluates the right operand and returns it as the result of the entire expression.</p>
+</blockquote>
+</li>
+<li><p>hasOwnProperty() is used to check whether a given name is an own property of the object.</p>
+</li>
+<li><p>Accessor properties:</p>
+<blockquote>
+<p>getter and setter, inheritable, get property(){}, set property(){}.</p>
+</blockquote>
+</li>
+<li><p>Data property: value, writability, enumerability, configurability;</p>
+</li>
+<li><p>Accessor property: get, set, enumerability, configurability.</p>
+</li>
+<li><p>Once converted to non-extensible, it cannot be converted back. Object.preventExtensions(); adding properties to the prototype of a non-extensible object will still allow it to inherit new properties.</p>
+</li>
+<li></li>
+</ol>
+<blockquote>
+<ol>
+<li>Object.getOwnPropertyDescriptor() can get the property descriptor of a specific property of an object: ({x:1},”x”).</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>Object.defineProperty(o,”x”,{value:1,writable:true,enumerable:false,configurable:true});</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3">
+<li>Both functions above do not include inherited properties.</li>
+</ol>
+</blockquote>
+<h1 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h1><ol start="25">
+<li><p>Arrays are a special form of JavaScript objects. Array indices are essentially property names that happen to be integers.</p>
+</li>
+<li><p>Array traversal: 1. Exclude null, undefined, and non-existent elements:</p>
+<blockquote>
+<p>if(!a[i]) continue;</p>
+</blockquote>
+</li>
+<li><p>Exclude undefined and non-existent elements:</p>
+<blockquote>
+<p>if(a &#x3D;&#x3D;&#x3D; undefined) continue;</p>
+</blockquote>
+</li>
+<li><p>Exclude non-existent but still process undefined:</p>
+<blockquote>
+<p>if(!(i in a)) continue; or: for(var index in sparseArray){}.</p>
+</blockquote>
+</li>
+<li><p>Array methods:</p>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li>join():<br>Converts all elements to strings and concatenates them. Default separator is comma; custom separator can be specified;</li>
+<li>reverse():<br>Reverses the order of elements;</li>
+<li>sort():<br>Sorts in alphabetical order. Numeric sort: a.sort(function(a,b) { return a - b; }); &#x2F;&#x2F; If the first argument should come first, return a negative number, and vice versa;</li>
+<li>concat():<br>Creates and returns a new array containing the original array and each argument of concat();</li>
+<li>slice():<br>Returns an array containing elements from the first argument position to the second argument position, excluding the second. If one argument, it’s the start position with end at the last element. Negative numbers: -1 represents the last element;</li>
+<li>splice():<br>Unlike slice and concat, it modifies the calling array and returns an array of deleted elements;</li>
+<li>push and pop;</li>
+<li>unshift and shift operate at the array head;</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>JavaScript 5:</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>forEach():<br>Iterates the array, calling the specified function for each element;</li>
+<li>map():<br>Requires return value, returns a new array without modifying the calling array, while forEach() modifies;</li>
+<li>filter():<br>Compress sparse arrays: var dense &#x3D; sparse.filter(function(){return true;}); &#x2F;&#x2F; filter skips missing elements in sparse arrays, returned array is always dense;</li>
+<li>Remove both undefined and null elements:<br>a &#x3D; a.filter(function(x){return x !&#x3D;&#x3D; undefined &amp;&amp; x !&#x3D; null;});</li>
+<li>every():<br>Returns true only when the predicate function returns true for all elements;</li>
+<li>some():<br>Returns true if at least one returns true;</li>
+<li>reduce():<br>var sum &#x3D; a.reduce(function(x,y) { return x + y }, 0); &#x2F;&#x2F; The second argument 0 is the initial value;</li>
+<li>reduceRight():<br>Processes from right to left;</li>
+<li>indexOf():<br>Searches the entire array for an element with the given value, returns the index of the first found element, returns -1 if not found;</li>
+<li>lastIndexOf():<br>Reverse search, second argument specifies the starting position.</li>
+<li>Determine if it’s an array:<br>Array.isArray().</li>
+</ol>
+</blockquote>
+<h1 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h1><ol start="29">
+<li><p>Nested functions do not inherit this from the function that calls them. If a nested function is called as a method, its this points to the object that called it. If called as a function, this is either the global object (non-strict mode) or undefined (strict mode).</p>
+</li>
+<li><p>When calling new o.m(), the context (this) is not o, but a new empty object created by the constructor invocation.</p>
+</li>
+<li><p>&amp;&amp;:</p>
+<blockquote>
+<p>If the left operand is falsy, returns the left operand value without evaluating the right; if the left is truthy, evaluates and returns the right operand value;</p>
+</blockquote>
+</li>
+<li><p>||:</p>
+<blockquote>
+<p>If the left operand is truthy, returns the left operand value without evaluating the right; if the left is falsy, evaluates and returns the right operand value;</p>
+</blockquote>
+</li>
+<li><p>arguments:</p>
+<blockquote>
+<p>A reference to the arguments object, which has a length property but is not a true array.</p>
+</blockquote>
+</li>
+<li><p>arguments property:</p>
+<blockquote>
+<p>callee: refers to the currently executing function.</p>
+</blockquote>
+</li>
+<li><p>Functions can have their own properties because they are a special type of object.</p>
+</li>
+<li><p>Functions as namespaces:</p>
+<blockquote>
+<p>( function(){ &#x2F;&#x2F;codes } () ); &#x2F;&#x2F; End the function definition and immediately invoke it.</p>
+</blockquote>
+</li>
+<li><p>Closures:</p>
+<blockquote>
+<p>JavaScript functions use the scope chain for execution, which is created when the function is defined. No matter when and where the inner nested function f() is executed, variables in f are always local variables.</p>
+</blockquote>
+</li>
+<li><p>Each time a JavaScript function is called, a new object is created to hold local variables. This object is added to the scope chain. When the function returns, this variable-binding object is removed from the scope chain.</p>
+</li>
+<li><p>Nested functions cannot access this unless it’s converted to a variable in the outer function:</p>
+<blockquote>
+<p>var self &#x3D; this;</p>
+</blockquote>
+</li>
+<li><p>Function property:</p>
+<blockquote>
+<p>length: number of formal parameters;</p>
+</blockquote>
+</li>
+<li><p>prototype property:</p>
+<blockquote>
+<p>When a function is used as a constructor, newly created objects inherit properties from the prototype object.</p>
+</blockquote>
+</li>
+<li><p>Call function f as a method of object o:</p>
+<blockquote>
+<p>f.call(o) or f.apply(o);</p>
+</blockquote>
+</li>
+<li><p>bind() method:</p>
+<blockquote>
+<p>var g &#x3D; f.bind(o); &#x2F;&#x2F; Call o.f(x) by calling g(x).</p>
+</blockquote>
+</li>
+<li><p>Functions created by the Function() constructor do not use lexical scope; function body code is always compiled and executed at the top-level function (global scope).</p>
+</li>
+<li><p>Partial functions and memoized functions.</p>
+</li>
+</ol>
+<h1 id="Classes-and-Modules"><a href="#Classes-and-Modules" class="headerlink" title="Classes and Modules"></a>Classes and Modules</h1><ol start="45">
+<li><p>Calling a constructor:</p>
+<blockquote>
+<p>The constructor’s prototype property is used as the prototype for the new object, inheriting properties from prototype.</p>
+</blockquote>
+</li>
+<li><p>Factory function approach vs. constructor approach.</p>
+</li>
+<li><p>The prototype object is the only identifier of a class. Two objects belong to instances of the same class if and only if they inherit from the same prototype object.</p>
+</li>
+<li><p>For any function F.prototype.constructor&#x3D;&#x3D;F; an object’s constructor property refers to this class.</p>
+</li>
+<li><p>The relationship between constructor and prototype object: <img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%971.png"></p>
+</li>
+<li><blockquote>
+<ol>
+<li>Any property added to the constructor object (not inside the constructor) is a class field or class method, belonging to the class rather than any specific instance;</li>
+<li>Properties of the prototype object are inherited by all instances of the class. If a prototype property value is a function, it serves as an instance method shared by all instances;</li>
+<li>Defining non-function properties directly on each instance of the class is essentially instance fields.</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Even after object creation, changes to the prototype’s properties will affect all instance objects that inherit from this prototype.</p>
+</li>
+<li><blockquote>
+<ol>
+<li>Checking an object’s class: instanceof, isPrototypeOf(). The inheritance doesn’t have to be direct;</li>
+<li>constructor property;</li>
+<li>The above two methods don’t work in multi-window and multi-frame sub-pages, so constructor names can be used instead;</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Factory method:<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%972.png"><br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%973.png"></p>
+</li>
+<li><p>Constructor method:<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%974.png"></p>
+</li>
+<li><p>toJSON() is used for serialization. If an object has a toJSON() method, JSON.stringify() won’t serialize the passed object directly but will call toJSON() instead. JSON.parse() is the reverse process.</p>
+</li>
+<li><p>forEach: <img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%975.png"></p>
+</li>
+<li><p>Private methods:</p>
+<blockquote>
+<p>Simulating private instance fields by closuring variables (or parameters) within a constructor:<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%976.png"></p>
+</blockquote>
+</li>
+<li><p>Key to creating subclasses:</p>
+<blockquote>
+<ol>
+<li>B.prototype &#x3D; inherit(A.prototype); &#x2F;&#x2F; Subclass derives from parent</li>
+<li>B.prototype.constructor &#x3D; B; &#x2F;&#x2F; Override inherited constructor property</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Set implementation using composition instead of inheritance:<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%977.png"><br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%978.png"></p>
+</li>
+<li><blockquote>
+<ol>
+<li>Object.preventExtensions(): Makes the object non-extensible, no new properties can be added;</li>
+<li>Object.seal and Object.freeze: Makes all properties read-only and non-configurable.</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Object.create(null); &#x2F;&#x2F; Creates an object without a prototype, enabling direct use of the in operator</p>
+</li>
+<li><p>Functions as private namespaces:<br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%979.png"><br><img src="/post-img/%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%9710.png"></p>
+</li>
+<li><p>Creating off-screen images:</p>
+<blockquote>
+<p>new Image(80,20).src &#x3D; “images&#x2F;***.gif”;</p>
+</blockquote>
+</li>
+<li><p>this:</p>
+<blockquote>
+<ol>
+<li>Points to the current object of function execution;</li>
+<li>When there’s no explicit current object, points to the global object window.</li>
+<li>In event handler code, the keyword this refers to the document element that triggered the event.</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Form element properties:</p>
+<blockquote>
+<p>type, form (read-only reference to the containing Form object), name, value;<br>Use this.form to reference the Form object, this.form.x to reference a sibling form element named x.</p>
+</blockquote>
+</li>
+<li><p>Cookie properties:</p>
+<blockquote>
+<p>expires, path, domain, secure.</p>
+</blockquote>
+</li>
+<li><p>Function literals and the Function() constructor for creating functions: suitable for one-time use, no naming needed.</p>
+</li>
+<li><p>The callee property:</p>
+<blockquote>
+<p>Used to reference the currently executing function.</p>
+</blockquote>
+</li>
+<li><p>f.call(o,1,2); is equivalent to:</p>
+<blockquote>
+<p>o.m &#x3D; f; o.m(1,2); delete o.m;</p>
+</blockquote>
+</li>
+<li><p>Deleting a property:</p>
+<blockquote>
+<p>delete book.chapter2.</p>
+</blockquote>
+</li>
+<li><p>Inside a method body, the value of this becomes the object on which the method was called.</p>
+</li>
+<li><p>JavaScript objects “inherit” properties from their prototype objects.</p>
+</li>
+<li><p>Property inheritance only occurs when reading property values, not when writing them.</p>
+</li>
+<li><p>Instance properties have their own copies, while instance methods are shared by the class.</p>
+</li>
+<li><p>To create a subclass of class Complex, simply ensure the new class’s prototype object is an instance of Complex, so it inherits all properties of Complex.prototype:</p>
+<blockquote>
+<ol>
+<li>MoreComplex.prototype &#x3D; new Complex(0,0);</li>
+<li>MoreComplex.prototype.constructor &#x3D; MoreComplex;</li>
+</ol>
+</blockquote>
+</li>
+<li><p>Object.property is equivalent to Object[“property”] -&gt; associative array.</p>
+</li>
+<li><p>Only elements actually stored in the array have memory allocated.</p>
+</li>
+<li><p>Regular expression literal:</p>
+<blockquote>
+<p>var pattern &#x3D; &#x2F;S$&#x2F;; i.e., var pattern &#x3D; new RegExp(“S$”);</p>
+</blockquote>
+</li>
+<li><p>Copying and passing use references, but comparison uses values.</p>
+</li>
+<li><p>Define methods and constants shared by all class instances by setting the class.prototype property.</p>
+</li>
+<li><blockquote>
+<ol>
+<li>Function() constructor vs. Function literal</li>
+<li>Allows dynamic creation and compilation of JS code at runtime vs. Static</li>
+<li>Each call parses the function body and creates a new function object vs. Opposite</li>
+<li>Does not use lexical scope, acts as top-level function</li>
+</ol>
+</blockquote>
+</li>
+<li><blockquote>
+<ol>
+<li>null &#x3D;&#x3D; undefined -&gt; true;</li>
+<li>null &#x3D;&#x3D;&#x3D; undefined -&gt; false;</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+<h1 id="JavaScript-in-Web-Browsers"><a href="#JavaScript-in-Web-Browsers" class="headerlink" title="JavaScript in Web Browsers"></a>JavaScript in Web Browsers</h1><ol start="23">
+<li>If scripts in two windows set the Document’s domain property to the same value, the two windows are no longer subject to the same-origin policy and can read each other’s properties.</li>
+<li></li>
+</ol>
+<blockquote>
+<ol>
+<li>When the HTML parser encounters a script tag element, it must by default execute the script first, then resume document parsing and rendering;</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>The defer attribute of the script tag:<br>Makes the browser delay script execution until the document is fully loaded and parsed; executed in order.</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="3">
+<li>The async attribute:<br>Makes the browser execute the script as soon as possible without blocking document parsing during script download; may execute out of order.</li>
+</ol>
+</blockquote>
+<h1 id="The-Window-Object"><a href="#The-Window-Object" class="headerlink" title="The Window Object"></a>The Window Object</h1><ol start="24">
+<li><p>The Window object’s location property references the Location object:</p>
+<blockquote>
+<p>window.location &#x3D;&#x3D;&#x3D; document.location &#x2F;&#x2F;true</p>
+</blockquote>
+</li>
+<li><p>The Location object’s toString method returns the value of its href property.</p>
+</li>
+<li><p>When calling a function in window B from window A, the function executes in the scope where it was defined, not where it was called.</p>
+</li>
+<li><p>For built-in classes, each window has its own copy of the constructor and a separate copy of the corresponding prototype object.</p>
+</li>
+</ol>
+<h1 id="Scripting-Documents"><a href="#Scripting-Documents" class="headerlink" title="Scripting Documents"></a>Scripting Documents</h1><ol start="28">
+<li><p>Setting the name or id attribute for certain HTML elements automatically creates corresponding properties on the window and document objects, whose values point to the HTMLElement objects representing those elements.</p>
+</li>
+<li><p>Selecting elements via CSS selectors:</p>
+<blockquote>
+<p>querySelectorAll(), querySelector(); accepts a string argument containing CSS selectors.</p>
+</blockquote>
+</li>
+<li><p>Document, Element, and Text objects are all Node objects. Properties:</p>
+<blockquote>
+<p>parentNode, childNodes, firstChild, lastChild, nextSibling, previousSibling, nodeType, nodeValue, nodeName, textContent.</p>
+</blockquote>
+</li>
+<li><p>Element properties:</p>
+<blockquote>
+<p>attributes, innerHTML;</p>
+</blockquote>
+</li>
+<li><p>DocumentFragment is a special Node that serves as a temporary container for other nodes.</p>
+</li>
+<li><p>Scroll position:</p>
+<blockquote>
+<p>window.pageXOffset&#x2F;pageYOffset;</p>
+</blockquote>
+</li>
+<li><p>Querying viewport dimensions:</p>
+<blockquote>
+<p>window.innerWidth&#x2F;innerHeight;</p>
+</blockquote>
+</li>
+<li><p>In HTML5, the input tag’s placeholder attribute specifies the hint message displayed before user input.</p>
+</li>
+<li><p>The Document type defines methods for creating Element and Text objects:</p>
+<blockquote>
+<p>document.createTextNode(“text node content”);</p>
+</blockquote>
+</li>
+<li><p>The Node type defines methods for inserting, deleting, and replacing in the node tree:</p>
+</li>
+</ol>
+<blockquote>
+<ol>
+<li>parent.appendChild(child); &#x2F;&#x2F; Insert at the end of parent element;</li>
+<li>parent.insertBefore(child, parent.childNodes[n]);</li>
+<li>n.parentNode.removeChild(n);</li>
+<li>n.parentNode.replaceChild(document.createTextNode(“[ REDACTED ]”), n);</li>
+</ol>
+</blockquote>
+<h1 id="Scripting-CSS"><a href="#Scripting-CSS" class="headerlink" title="Scripting CSS"></a>Scripting CSS</h1><ol>
+<li><p>Inline styles:</p>
+<blockquote>
+<p>e.style.position&#x3D;”relative”;</p>
+</blockquote>
+</li>
+<li><p>Computed styles:</p>
+<blockquote>
+<p>window.getComputedStyle(element, null);</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="Event-Handling"><a href="#Event-Handling" class="headerlink" title="Event Handling"></a>Event Handling</h1><ol start="37">
+<li><p>Registering event handlers via HTML attributes is an exception; they are converted to top-level functions that can access global variables rather than any local variables.</p>
+</li>
+<li><p>When a certain type of event is triggered on an object (e.g., onclick click event), if the object has defined a handler for this event, the handler is called. If no handler is defined or the event returns true, the event propagates to the parent object, from inside out, until it is handled (all same-type events of parent objects are activated) or reaches the topmost level of the object hierarchy, i.e., the document object (some browsers use window).</p>
+</li>
+</ol>
+<h1 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h1><ol start="40">
+<li>each() can only iterate jQuery objects, while jQuery.each() can iterate array elements or object properties.</li>
+<li></li>
+</ol>
+<blockquote>
+<ol>
+<li>focus and blur events don’t support bubbling, while focusin and focusout do;</li>
+<li>mouseover and mouseout support bubbling, mouseenter and mouseleave don’t;</li>
+</ol>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Notes on JavaScript: The Definitive Guide</p><p><a href="http://quanru.github.io/2015/06/15/Notes-on-JavaScript-The-Definitive-Guide">http://quanru.github.io/2015/06/15/Notes-on-JavaScript-The-Definitive-Guide</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>LinYiBing</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2015-06-15</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2026-03-15</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/JavaScript/">JavaScript</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="/img/alipay-qr.jpg" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="/img/wechat-qr.jpg" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2015/06/15/JavaScript%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E3%81%AE%E7%AC%94%E8%AE%B0"><i class="level-item fas fa-chevron-left"></i><span class="level-item">JavaScript 权威指南の笔记</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2015/06/14/dont-call-me-a-programmer-i-am-a-front-end-engineer"><span class="level-item">Don&#039;t Call Me a Programmer, I&#039;m a Front-End Engineer</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="LinYiBing"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">LinYiBing</p><p class="is-size-6 is-block">Frontend Engineer</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Hangzhou, China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives/"><p class="title">43</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories/"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags/"><p class="title">38</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://bento.me/leyang" target="_blank" rel="me noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/quanru"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com/quanruzhuoxiu"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Zhihu" href="https://www.zhihu.com/people/quanru"><i class="fab fa-zhihu"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Weibo" href="http://weibo.com/zhuoxiu"><i class="fab fa-weibo"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Objects"><span class="level-left"><span class="level-item">1</span><span class="level-item">Objects</span></span></a></li><li><a class="level is-mobile" href="#Arrays"><span class="level-left"><span class="level-item">2</span><span class="level-item">Arrays</span></span></a></li><li><a class="level is-mobile" href="#Functions"><span class="level-left"><span class="level-item">3</span><span class="level-item">Functions</span></span></a></li><li><a class="level is-mobile" href="#Classes-and-Modules"><span class="level-left"><span class="level-item">4</span><span class="level-item">Classes and Modules</span></span></a></li><li><a class="level is-mobile" href="#JavaScript-in-Web-Browsers"><span class="level-left"><span class="level-item">5</span><span class="level-item">JavaScript in Web Browsers</span></span></a></li><li><a class="level is-mobile" href="#The-Window-Object"><span class="level-left"><span class="level-item">6</span><span class="level-item">The Window Object</span></span></a></li><li><a class="level is-mobile" href="#Scripting-Documents"><span class="level-left"><span class="level-item">7</span><span class="level-item">Scripting Documents</span></span></a></li><li><a class="level is-mobile" href="#Scripting-CSS"><span class="level-left"><span class="level-item">8</span><span class="level-item">Scripting CSS</span></span></a></li><li><a class="level is-mobile" href="#Event-Handling"><span class="level-left"><span class="level-item">9</span><span class="level-item">Event Handling</span></span></a></li><li><a class="level is-mobile" href="#jQuery"><span class="level-left"><span class="level-item">10</span><span class="level-item">jQuery</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="https://api.follow.it/subscription-form/WklsOUszYmN3Vi9OdElyWjliaThEQ0x4bTNoZG56YTUvY2QzMjg5RDdEa256Z3NSUitqMWJwaFVtbzlRMWozUWhpa0o4L290WkpYeUcwSVp3WHVVUlhhUW1KVFVyUHQ0cnphNEJiVmZsVGNKOGdsaStQWnRrcTlwYzhTNFBYRzV8S3BDQ2Uyem1ZQlBZcXFQdDZ5VktBZDNadlUydng0QUpRTDNHRXMvYnN2bz0=/8" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-07-16T05:40:09.000Z">2023-07-16</time></p><p class="title"><a href="/2023/07/16/I-Built-a-Plugin-for-My-Obsidian-Practice">I Built a Plugin for My Obsidian Practice</a></p><p class="categories"><a href="/categories/Second-Brain/">Second Brain</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-07-08T01:38:13.000Z">2023-07-08</time></p><p class="title"><a href="/2023/07/08/Building%20my%20second%20brain%20%F0%9F%A7%A0%20with%20Obsidian">Building my second brain 🧠 with Obsidian</a></p><p class="categories"><a href="/categories/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91/">第二大脑</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-06-17T09:20:23.000Z">2023-06-17</time></p><p class="title"><a href="/2023/06/17/Frontend-Engineering-Practices-at-ByteDance">Frontend Engineering Practices at ByteDance</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-12-31T08:56:15.000Z">2022-12-31</time></p><p class="title"><a href="/2022/12/31/Frontend-Monorepo-Practices-at-ByteDance">Frontend Monorepo Practices at ByteDance</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2022-12-31T08:48:15.000Z">2022-12-31</time></p><p class="title"><a href="/2022/12/31/Best-Practices-for-Git-Workflows-in-Monorepo">Best Practices for Git Workflows in Monorepo</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Development-Tools"><span class="level-start"><span class="level-item">Development Tools</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Engineering"><span class="level-start"><span class="level-item">Engineering</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="/categories/Frontend-Learning"><span class="level-start"><span class="level-item">Frontend Learning</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Interview"><span class="level-start"><span class="level-item">Interview</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Node-js-Server"><span class="level-start"><span class="level-item">Node.js Server</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Node-js-Server-Side"><span class="level-start"><span class="level-item">Node.js Server-Side</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Node-js-Server-side"><span class="level-start"><span class="level-item">Node.js Server-side</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Reading-Notes"><span class="level-start"><span class="level-item">Reading Notes</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Second-Brain"><span class="level-start"><span class="level-item">Second Brain</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Summary"><span class="level-start"><span class="level-item">Summary</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Work-Journal"><span class="level-start"><span class="level-item">Work Journal</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Work-Log"><span class="level-start"><span class="level-item">Work Log</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Work-Notes"><span class="level-start"><span class="level-item">Work Notes</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91"><span class="level-start"><span class="level-item">第二大脑</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2023/07/"><span class="level-start"><span class="level-item">July 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/06/"><span class="level-start"><span class="level-item">June 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/12/"><span class="level-start"><span class="level-item">December 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/12/"><span class="level-start"><span class="level-item">December 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">April 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/09/"><span class="level-start"><span class="level-item">September 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">June 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">May 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">April 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/07/"><span class="level-start"><span class="level-item">July 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/02/"><span class="level-start"><span class="level-item">February 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/12/"><span class="level-start"><span class="level-item">December 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/08/"><span class="level-start"><span class="level-item">August 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/03/"><span class="level-start"><span class="level-item">March 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/12/"><span class="level-start"><span class="level-item">December 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/11/"><span class="level-start"><span class="level-item">November 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/10/"><span class="level-start"><span class="level-item">October 2016</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/08/"><span class="level-start"><span class="level-item">August 2016</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/04/"><span class="level-start"><span class="level-item">April 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/03/"><span class="level-start"><span class="level-item">March 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/11/"><span class="level-start"><span class="level-item">November 2015</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/09/"><span class="level-start"><span class="level-item">September 2015</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/08/"><span class="level-start"><span class="level-item">August 2015</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/07/"><span class="level-start"><span class="level-item">July 2015</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/06/"><span class="level-start"><span class="level-item">June 2015</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Bundler"><span class="tag">Bundler</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CLI-Tools"><span class="tag">CLI Tools</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CSS"><span class="tag">CSS</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Canvas"><span class="tag">Canvas</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Compiler"><span class="tag">Compiler</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Conference"><span class="tag">Conference</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Diagnostics-Tool"><span class="tag">Diagnostics Tool</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Engineering-Governance"><span class="tag">Engineering Governance</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Frontend-Interview"><span class="tag">Frontend Interview</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Frontend-Backend-Separation"><span class="tag">Frontend-Backend Separation</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Functional-Programming"><span class="tag">Functional Programming</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Git"><span class="tag">Git</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Goal-Management"><span class="tag">Goal-Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Internship-Journey"><span class="tag">Internship Journey</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript"><span class="tag">JavaScript</span><span class="tag">26</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Javascript"><span class="tag">Javascript</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JsBridge"><span class="tag">JsBridge</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/LifeOS"><span class="tag">LifeOS</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Maintainability"><span class="tag">Maintainability</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Memory-Leak"><span class="tag">Memory Leak</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Micro-Frontend"><span class="tag">Micro Frontend</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Monitoring-and-Alerting"><span class="tag">Monitoring and Alerting</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Monorepo"><span class="tag">Monorepo</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Node-js"><span class="tag">Node.js</span><span class="tag">14</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PKM"><span class="tag">PKM</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Periodic-Notes"><span class="tag">Periodic Notes</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Periodic-Note"><span class="tag">Periodic-Note</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Private-Deployment"><span class="tag">Private Deployment</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/React"><span class="tag">React</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redux"><span class="tag">Redux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Refactoring"><span class="tag">Refactoring</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Self-Learning-Journey"><span class="tag">Self-Learning Journey</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Source-Code-Analysis"><span class="tag">Source Code Analysis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Task-Management"><span class="tag">Task-Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Time-Management"><span class="tag">Time-Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Unit-Testing"><span class="tag">Unit Testing</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Webview"><span class="tag">Webview</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.png" alt="LinYiBing&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2026 LinYiBing</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><!-- hexo injector body_end start --><script>
+    (function () {
+      const script = document.createElement('script');
+      const lang = document.documentElement.lang === 'zh' ? 'zh-CN' : 'en';
+
+      script.src = 'https://giscus.app/client.js';
+      script.setAttribute('data-repo', 'quanru/quanru.github.io');
+      script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ==');
+      script.setAttribute('data-category', 'Announcements');
+      script.setAttribute('data-category-id', 'DIC_kwDOBG193c4CQ8si');
+      script.setAttribute('data-mapping', 'title');
+      script.setAttribute('data-strict', '0');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '0');
+      script.setAttribute('data-input-position', 'top');
+      script.setAttribute('data-theme', 'preferred_color_scheme');
+      script.setAttribute('data-lang', lang);
+      script.setAttribute('data-loading', 'lazy');
+      script.setAttribute('crossorigin', 'anonymous');
+      script.async = true;
+
+      document.currentScript.parentNode.insertBefore(script, document.currentScript);
+    })();
+  </script><!-- hexo injector body_end end --></body></html>

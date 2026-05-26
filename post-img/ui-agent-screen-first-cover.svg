@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">UI Agent 应该先看见屏幕</title>
+  <desc id="desc">一张说明 UI Agent 从截图出发，经由视觉理解、动作空间、报告和缓存完成自动化的概念图。</desc>
+  <defs>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+    <style>
+      .bg { fill: #f6f8fb; }
+      .title { font: 700 54px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .sub { font: 400 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+      .label { font: 700 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+      .small { font: 400 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #64748b; }
+      .tiny { font: 600 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 18; }
+      .accent { fill: #0f766e; }
+      .amber { fill: #d97706; }
+      .blue { fill: #2563eb; }
+      .line { stroke: #94a3b8; stroke-width: 3; stroke-linecap: round; fill: none; }
+      .dash { stroke: #94a3b8; stroke-width: 3; stroke-dasharray: 8 8; stroke-linecap: round; fill: none; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="675"/>
+  <text class="title" x="72" y="96">为什么 UI Agent 非得看见屏幕？</text>
+  <text class="sub" x="74" y="136">Midscene 的 pure-vision 选择：不是反 DOM，而是先从用户看到的界面出发。</text>
+
+  <g filter="url(#shadow)">
+    <rect x="84" y="188" width="520" height="330" rx="28" fill="#0f172a"/>
+    <rect x="108" y="216" width="472" height="266" rx="16" fill="url(#screen)"/>
+    <rect x="148" y="256" width="172" height="42" rx="10" fill="#ffffff" stroke="#bae6fd" stroke-width="2"/>
+    <rect x="342" y="256" width="172" height="42" rx="10" fill="#ecfeff" stroke="#99f6e4" stroke-width="2"/>
+    <rect x="148" y="326" width="366" height="34" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+    <rect x="148" y="382" width="114" height="56" rx="16" fill="#0f766e"/>
+    <rect x="282" y="382" width="114" height="56" rx="16" fill="#2563eb"/>
+    <rect x="416" y="382" width="98" height="56" rx="16" fill="#f59e0b"/>
+    <circle cx="344" cy="548" r="14" fill="#cbd5e1"/>
+  </g>
+
+  <g>
+    <path class="line" d="M 630 352 C 688 352, 688 270, 746 270"/>
+    <path class="line" d="M 630 352 C 688 352, 688 352, 746 352"/>
+    <path class="line" d="M 630 352 C 688 352, 688 434, 746 434"/>
+    <circle cx="630" cy="352" r="8" fill="#0f766e"/>
+  </g>
+
+  <g>
+    <rect class="box" x="746" y="220" width="360" height="84"/>
+    <circle class="accent" cx="790" cy="262" r="18"/>
+    <text class="label" x="824" y="257">Screenshot</text>
+    <text class="small" x="824" y="284">用户正在看的界面</text>
+
+    <rect class="box" x="746" y="320" width="360" height="84"/>
+    <circle class="blue" cx="790" cy="362" r="18"/>
+    <text class="label" x="824" y="357">Visual Grounding</text>
+    <text class="small" x="824" y="384">看懂目标并定位坐标</text>
+
+    <rect class="box" x="746" y="420" width="360" height="84"/>
+    <circle class="amber" cx="790" cy="462" r="18"/>
+    <text class="label" x="824" y="457">Action Space</text>
+    <text class="small" x="824" y="484">点击、输入、滚动、断言</text>
+  </g>
+
+  <g>
+    <rect x="88" y="568" width="1024" height="46" rx="23" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text class="tiny" x="118" y="597">截图最容易统一</text>
+    <path class="dash" d="M 274 592 H 430"/>
+    <text class="tiny" x="456" y="597">模型处理模糊视觉</text>
+    <path class="dash" d="M 650 592 H 806"/>
+    <text class="tiny" x="832" y="597">程序负责流程和约束</text>
+  </g>
+</svg>
