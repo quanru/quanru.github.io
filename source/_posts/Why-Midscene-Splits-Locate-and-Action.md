@@ -21,7 +21,7 @@ This post is about that.
 <article class="message message-immersive is-primary">
 <div class="message-body">
 <i class="fas fa-globe-asia mr-2"></i>This article is also available in
-<a href="/2026/05/26/Locate-%E4%B8%8E-Action-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8B%86%E6%88%90%E4%B8%A4%E6%AD%A5/">简体中文</a>.
+<a href="/2026/05/26/Locate%20%E4%B8%8E%20Action%20%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8B%86%E6%88%90%E4%B8%A4%E6%AD%A5/">简体中文</a>.
 </div>
 </article>
 

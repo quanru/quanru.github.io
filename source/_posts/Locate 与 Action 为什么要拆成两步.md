@@ -10,7 +10,7 @@ tags:
   - 工程化
 ---
 
-上一篇《[Midscene 的一次 aiAct 里到底发生了什么？](/2026/05/26/一次-aiAct-里到底发生了什么/)》讲了 `aiAct` 内部的规划-执行循环，但里面有一站刻意没展开——**"找元素"**。
+上一篇《[Midscene 的一次 aiAct 里到底发生了什么？](/2026/05/26/%E4%B8%80%E6%AC%A1%20aiAct%20%E9%87%8C%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/)》讲了 `aiAct` 内部的规划-执行循环，但里面有一站刻意没展开——**"找元素"**。
 
 这一站其实是 Midscene 里最有技术辨识度的部分。绝大多数视觉 Agent 在这一步要么直接信任 AI 给的坐标，要么再发一次 AI 请求精确定位。Midscene 走了一条不太一样的路：**把定位拆出来单独做，并且按"成本从低到高"分四级 Fallback 尝试**。
 
@@ -268,4 +268,4 @@ agent.aiAct("...", { deepThink: true, deepLocate: true });
 
 对手要么不做 AI 定位（Playwright），要么只做单次视觉定位（Browser-Use、Computer Use）。Midscene 是少数构建了**多层定位体系**的方案，且每一层都可以独立开关、自由组合。
 
-到这里，配合上一篇《[Midscene 的一次 aiAct 里到底发生了什么？](/2026/05/26/一次-aiAct-里到底发生了什么/)》，Midscene 工程化的两根主梁——**规划-执行循环** 和 **分层定位**——就讲完了。剩下还有几块（Zod Schema 作为核心契约、ModelConfigManager 的多模型组合、Bridge 模式跨进程协作）以后有机会再写。
+到这里，配合上一篇《[Midscene 的一次 aiAct 里到底发生了什么？](/2026/05/26/%E4%B8%80%E6%AC%A1%20aiAct%20%E9%87%8C%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/)》，Midscene 工程化的两根主梁——**规划-执行循环** 和 **分层定位**——就讲完了。剩下还有几块（Zod Schema 作为核心契约、ModelConfigManager 的多模型组合、Bridge 模式跨进程协作）以后有机会再写。
