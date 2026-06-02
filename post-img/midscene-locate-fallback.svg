@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Midscene 四级 Fallback 定位链</title>
+  <desc id="desc">从 plan hit 到 AI locate，按成本从低到高依次尝试，命中即停。</desc>
+  <defs>
+    <filter id="sketch" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2"/>
+    </filter>
+    <filter id="sketch-strong" x="-20%" y="-50%" width="140%" height="200%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5"/>
+    </filter>
+    <marker id="ah" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M0,1 L12,6 L0,11 L3,6 Z" fill="#1e1e1e"/>
+    </marker>
+    <marker id="ah-green" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M0,1 L12,6 L0,11 L3,6 Z" fill="#2f9e44"/>
+    </marker>
+  </defs>
+  <style>
+    .hand { font-family: "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt","Bradley Hand",cursive,sans-serif; }
+    .title { font: 700 30px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #1e1e1e; }
+    .subtitle { font: 400 16px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #555; }
+    .lvl-num { font: 700 13px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #1e1e1e; letter-spacing: .5px; }
+    .lvl-head { font: 700 20px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #1e1e1e; }
+    .body { font: 400 14px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #1e1e1e; }
+    .body-em { font: 700 14px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #1e1e1e; }
+    .io-text { font: 700 17px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #f8f9fa; }
+    .io-sub { font: 400 13px ui-monospace,SFMono-Regular,Menlo,monospace; fill: #c5c5c5; }
+    .arrow-label { font: 700 13px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #1e1e1e; }
+    .small-em { font: 700 14px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #1e1e1e; }
+    .axis-label { font: 700 13px "Virgil","Excalifont","Comic Sans MS","Chalkboard SE","Marker Felt",cursive; fill: #555; }
+  </style>
+
+  <rect width="1200" height="760" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text class="title" x="60" y="58">四级 Fallback 定位链</text>
+  <text class="subtitle" x="60" y="86">按成本从低到高依次尝试,命中即停 → 用户开 deepLocate / deepThink 会跳过前面层级</text>
+
+  <!-- Input -->
+  <g filter="url(#sketch)">
+    <rect x="60" y="130" width="240" height="80" rx="10" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="2"/>
+  </g>
+  <text class="io-text" x="80" y="162">输入:定位需求</text>
+  <text class="io-sub" x="80" y="188">{ prompt, bbox?, xpath? }</text>
+
+  <!-- arrow input -> L1 -->
+  <path d="M 300 170 Q 340 168 372 170" stroke="#1e1e1e" stroke-width="2.5" fill="none" marker-end="url(#ah)"/>
+
+  <!-- LEVEL 1 -->
+  <g filter="url(#sketch)">
+    <rect x="380" y="130" width="200" height="190" rx="14" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2.5"/>
+    <rect x="380" y="130" width="200" height="32" rx="14" fill="#2f9e44" stroke="#2f9e44" stroke-width="2"/>
+  </g>
+  <text class="lvl-num" x="396" y="151" fill="#ffffff">LEVEL 1 · 免费</text>
+  <text class="lvl-head" x="396" y="188">Plan hit</text>
+  <text class="body-em" x="396" y="216">信任 AI 估算 bbox</text>
+  <text class="body" x="396" y="240">成本:零</text>
+  <text class="body" x="396" y="262">精度:低(大元素够用)</text>
+  <text class="body" x="396" y="284">平台:Web + 移动</text>
+
+  <!-- arrow L1 -> L2 -->
+  <path d="M 580 225 Q 610 222 632 225" stroke="#1e1e1e" stroke-width="2.5" fill="none" marker-end="url(#ah)"/>
+  <text class="arrow-label" x="586" y="215">未命中</text>
+
+  <!-- LEVEL 2 -->
+  <g filter="url(#sketch)">
+    <rect x="640" y="130" width="200" height="190" rx="14" fill="#a5d8ff" stroke="#1971c2" stroke-width="2.5"/>
+    <rect x="640" y="130" width="200" height="32" rx="14" fill="#1971c2" stroke="#1971c2" stroke-width="2"/>
+  </g>
+  <text class="lvl-num" x="656" y="151" fill="#ffffff">LEVEL 2 · 免费</text>
+  <text class="lvl-head" x="656" y="188">XPath hit</text>
+  <text class="body-em" x="656" y="216">DOM 查询定位</text>
+  <text class="body" x="656" y="240">成本:零 AI 调用</text>
+  <text class="body" x="656" y="262">精度:像素级</text>
+  <text class="body" x="656" y="284">平台:仅 Web</text>
+
+  <!-- arrow L2 -> L3 -->
+  <path d="M 840 225 Q 870 228 892 225" stroke="#1e1e1e" stroke-width="2.5" fill="none" marker-end="url(#ah)"/>
+  <text class="arrow-label" x="846" y="215">未命中</text>
+
+  <!-- LEVEL 3 -->
+  <g filter="url(#sketch)">
+    <rect x="900" y="130" width="200" height="190" rx="14" fill="#d0bfff" stroke="#6741d9" stroke-width="2.5"/>
+    <rect x="900" y="130" width="200" height="32" rx="14" fill="#6741d9" stroke="#6741d9" stroke-width="2"/>
+  </g>
+  <text class="lvl-num" x="916" y="151" fill="#ffffff">LEVEL 3 · 免费</text>
+  <text class="lvl-head" x="916" y="188">Cache hit</text>
+  <text class="body-em" x="916" y="216">历史定位复用</text>
+  <text class="body" x="916" y="240">成本:零 AI 调用</text>
+  <text class="body" x="916" y="262">精度:像素级</text>
+  <text class="body" x="916" y="284">平台:仅 Web</text>
+
+  <!-- arrow L3 down curl -> L4 -->
+  <g filter="url(#sketch-strong)">
+    <path d="M 1000 320 Q 1000 380 940 380 L 580 380" stroke="#1e1e1e" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  </g>
+  <text class="arrow-label" x="770" y="370">未命中</text>
+
+  <!-- LEVEL 4 -->
+  <g filter="url(#sketch)">
+    <rect x="380" y="400" width="200" height="190" rx="14" fill="#ffd8a8" stroke="#e8590c" stroke-width="2.5"/>
+    <rect x="380" y="400" width="200" height="32" rx="14" fill="#e8590c" stroke="#e8590c" stroke-width="2"/>
+  </g>
+  <text class="lvl-num" x="396" y="421" fill="#ffffff">LEVEL 4 · 兜底</text>
+  <text class="lvl-head" x="396" y="458">AI locate</text>
+  <text class="body-em" x="396" y="486">单独 AI 定位调用</text>
+  <text class="body" x="396" y="510">成本:1-3 秒 + token</text>
+  <text class="body" x="396" y="532">精度:最高</text>
+  <text class="body" x="396" y="554">平台:全平台</text>
+
+  <!-- Hit lines green dashed -> output -->
+  <g filter="url(#sketch-strong)">
+    <path d="M 480 320 Q 470 600 660 600" stroke="#2f9e44" stroke-width="2.2" fill="none" stroke-dasharray="6 5" marker-end="url(#ah-green)"/>
+    <path d="M 740 320 Q 740 600 660 600" stroke="#2f9e44" stroke-width="2.2" fill="none" stroke-dasharray="6 5" marker-end="url(#ah-green)"/>
+    <path d="M 1000 320 Q 1000 620 720 620 L 700 610" stroke="#2f9e44" stroke-width="2.2" fill="none" stroke-dasharray="6 5" marker-end="url(#ah-green)"/>
+    <path d="M 580 495 Q 620 540 660 600" stroke="#2f9e44" stroke-width="2.2" fill="none" stroke-dasharray="6 5" marker-end="url(#ah-green)"/>
+  </g>
+  <text class="arrow-label" x="500" y="580" fill="#2f9e44">命中即停</text>
+
+  <!-- Output -->
+  <g filter="url(#sketch)">
+    <rect x="660" y="560" width="280" height="80" rx="10" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="2"/>
+  </g>
+  <text class="io-text" x="680" y="592">输出:精确坐标</text>
+  <text class="io-sub" x="680" y="618">{ center, rect, text }</text>
+
+  <!-- Platform legend -->
+  <g filter="url(#sketch)">
+    <rect x="960" y="400" width="200" height="190" rx="14" fill="#fff9db" stroke="#1e1e1e" stroke-width="2"/>
+  </g>
+  <text class="small-em" x="976" y="428">各平台可用链路</text>
+  <g filter="url(#sketch-strong)">
+    <line x1="976" y1="438" x2="1140" y2="438" stroke="#1e1e1e" stroke-width="1.5"/>
+  </g>
+
+  <g filter="url(#sketch)">
+    <rect x="976" y="454" width="52" height="24" rx="6" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2"/>
+  </g>
+  <text class="body-em" x="985" y="471" fill="#1e1e1e">Web</text>
+  <text class="body" x="1036" y="471">4 级全开</text>
+
+  <g filter="url(#sketch)">
+    <rect x="976" y="490" width="108" height="24" rx="6" fill="#ffd8a8" stroke="#e8590c" stroke-width="2"/>
+  </g>
+  <text class="body-em" x="985" y="507">Android / iOS</text>
+  <text class="body" x="976" y="538">仅 1 + 4 级</text>
+  <text class="body" x="976" y="560">移动端无 DOM,</text>
+  <text class="body" x="976" y="580">中间两级跳过</text>
+
+  <!-- Bottom: cost-precision axis -->
+  <g filter="url(#sketch)">
+    <rect x="60" y="660" width="1080" height="80" rx="14" fill="#ffffff" stroke="#1e1e1e" stroke-width="2"/>
+  </g>
+  <text class="small-em" x="80" y="688">成本 · 精度 全景</text>
+  <g filter="url(#sketch-strong)">
+    <line x1="80" y1="710" x2="1120" y2="710" stroke="#1e1e1e" stroke-width="2" marker-end="url(#ah)"/>
+  </g>
+  <text class="axis-label" x="80" y="732">成本零</text>
+  <text class="axis-label" x="1060" y="732">成本高</text>
+
+  <g filter="url(#sketch)">
+    <circle cx="220" cy="710" r="7" fill="#2f9e44" stroke="#1e1e1e" stroke-width="1.5"/>
+    <circle cx="400" cy="710" r="7" fill="#1971c2" stroke="#1e1e1e" stroke-width="1.5"/>
+    <circle cx="580" cy="710" r="7" fill="#6741d9" stroke="#1e1e1e" stroke-width="1.5"/>
+    <circle cx="800" cy="710" r="8" fill="#e8590c" stroke="#1e1e1e" stroke-width="1.5"/>
+    <circle cx="1000" cy="710" r="8" fill="#e03131" stroke="#1e1e1e" stroke-width="1.5"/>
+  </g>
+  <text class="axis-label" x="200" y="698">Plan</text>
+  <text class="axis-label" x="378" y="698">XPath</text>
+  <text class="axis-label" x="560" y="698">Cache</text>
+  <text class="axis-label" x="770" y="698">AI locate</text>
+  <text class="axis-label" x="965" y="698">deepLocate</text>
+</svg>

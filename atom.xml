@@ -6,7 +6,7 @@
   <link href="http://quanru.github.io/atom.xml" rel="self"/>
   
   <link href="http://quanru.github.io/"/>
-  <updated>2026-05-26T04:53:28.454Z</updated>
+  <updated>2026-06-02T09:57:07.767Z</updated>
   <id>http://quanru.github.io/</id>
   
   <author>
@@ -17,11 +17,154 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>为什么 UI Agent 非得看见屏幕？</title>
+    <title>Midscene 为什么要把 Locate 与 Action 拆成两步？</title>
+    <link href="http://quanru.github.io/2026/05/26/Locate%20%E4%B8%8E%20Action%20%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8B%86%E6%88%90%E4%B8%A4%E6%AD%A5/"/>
+    <id>http://quanru.github.io/2026/05/26/Locate%20%E4%B8%8E%20Action%20%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8B%86%E6%88%90%E4%B8%A4%E6%AD%A5/</id>
+    <published>2026-05-26T12:00:00.000Z</published>
+    <updated>2026-06-02T09:57:07.767Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;上一篇《&lt;a href=&quot;/2026/05/26/%E4%B8%80%E6%AC%A1%20aiAct%20%E9%87%8C%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&quot;&gt;Midscene 的一次 aiAct 里到底发生了什么？&lt;/a&gt;》讲了 &lt;code&gt;aiAct&lt;/code&gt; 内部的规划-执行循环，但里面有一站刻意没展开——**”找元素”**。&lt;/p&gt;
+&lt;p&gt;这一站其实是 Midscene 里最有技术辨识度的部分。绝大多数视觉 Agent 在这一步要么直接信任 AI 给的坐标，要么再发一次 AI 请求精确定位。Midscene 走了一条不太一样的路：&lt;strong&gt;把定位拆出来单独做，并且按”成本从低到高”分四级 Fallback 尝试&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这篇专门讲这件事。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工程化" scheme="http://quanru.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    
+    <category term="Midscene" scheme="http://quanru.github.io/tags/Midscene/"/>
+    
+    <category term="UI Agent" scheme="http://quanru.github.io/tags/UI-Agent/"/>
+    
+    <category term="AI 自动化" scheme="http://quanru.github.io/tags/AI-%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+    <category term="工程化" scheme="http://quanru.github.io/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Why Does Midscene Split Locate and Action into Two Steps?</title>
+    <link href="http://quanru.github.io/2026/05/26/Why-Midscene-Splits-Locate-and-Action/"/>
+    <id>http://quanru.github.io/2026/05/26/Why-Midscene-Splits-Locate-and-Action/</id>
+    <published>2026-05-26T12:00:00.000Z</published>
+    <updated>2026-06-02T09:57:07.768Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;The previous post, &lt;a href=&quot;/2026/05/26/What-Actually-Happens-Inside-a-Midscene-aiAct/&quot;&gt;What Actually Happens Inside a Single Midscene aiAct Call?&lt;/a&gt;, walked through the plan-execute loop inside &lt;code&gt;aiAct&lt;/code&gt;, but one stop was deliberately left unopened — &lt;strong&gt;“finding the element”&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;That stop is arguably the most technically distinctive part of Midscene. Most vision Agents either trust the coordinates the AI gives them, or fire one more AI request to refine the location. Midscene takes a different path: &lt;strong&gt;separate the locate step out, and try four fallback layers in order from cheapest to most expensive&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;This post is about that.&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Engineering" scheme="http://quanru.github.io/categories/Engineering/"/>
+    
+    
+    <category term="Midscene" scheme="http://quanru.github.io/tags/Midscene/"/>
+    
+    <category term="UI Agent" scheme="http://quanru.github.io/tags/UI-Agent/"/>
+    
+    <category term="AI Automation" scheme="http://quanru.github.io/tags/AI-Automation/"/>
+    
+    <category term="Engineering" scheme="http://quanru.github.io/tags/Engineering/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>What Actually Happens Inside a Single Midscene aiAct Call?</title>
+    <link href="http://quanru.github.io/2026/05/26/What-Actually-Happens-Inside-a-Midscene-aiAct/"/>
+    <id>http://quanru.github.io/2026/05/26/What-Actually-Happens-Inside-a-Midscene-aiAct/</id>
+    <published>2026-05-26T11:30:00.000Z</published>
+    <updated>2026-05-27T01:42:12.362Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;The previous post, &lt;a href=&quot;/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/&quot;&gt;Why Does Midscene’s UI Agent Need to See the Screen?&lt;/a&gt;, explained why Midscene puts “look at the screenshot” at the very front of every UI action. Right after that explanation, I usually get the next question from coworkers:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“OK, but what actually runs inside &lt;code&gt;aiAct&lt;/code&gt;? When I write a single &lt;code&gt;agent.aiAct(&amp;#39;log in and place an order&amp;#39;)&lt;/code&gt;, what really happens? Is it just one model call?”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It is not one call. It is &lt;strong&gt;a loop with feedback&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;This post takes that loop apart: how the screenshot is grabbed, what the AI returns, when the loop stops, and how context flows across rounds.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/post-img/midscene-architecture.png&quot; alt=&quot;Midscene core architecture&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Engineering" scheme="http://quanru.github.io/categories/Engineering/"/>
+    
+    
+    <category term="Midscene" scheme="http://quanru.github.io/tags/Midscene/"/>
+    
+    <category term="UI Agent" scheme="http://quanru.github.io/tags/UI-Agent/"/>
+    
+    <category term="AI Automation" scheme="http://quanru.github.io/tags/AI-Automation/"/>
+    
+    <category term="Engineering" scheme="http://quanru.github.io/tags/Engineering/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Midscene 的一次 aiAct 里到底发生了什么？</title>
+    <link href="http://quanru.github.io/2026/05/26/%E4%B8%80%E6%AC%A1%20aiAct%20%E9%87%8C%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"/>
+    <id>http://quanru.github.io/2026/05/26/%E4%B8%80%E6%AC%A1%20aiAct%20%E9%87%8C%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/</id>
+    <published>2026-05-26T11:30:00.000Z</published>
+    <updated>2026-06-02T09:57:07.764Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;上一篇《&lt;a href=&quot;/2026/05/26/%E4%B8%BA%E4%BB%80%E4%B9%88%20UI%20Agent%20%E9%9D%9E%E5%BE%97%E7%9C%8B%E8%A7%81%E5%B1%8F%E5%B9%95/&quot;&gt;为什么 Midscene 的 UI Agent 非得看见屏幕？&lt;/a&gt;》讲了 Midscene 为什么把”看截图”放在 UI 操作的最前面。但讲完那个判断之后，我经常被同事问下一个问题：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“那 &lt;code&gt;aiAct&lt;/code&gt; 内部到底跑了什么？我写一行 &lt;code&gt;agent.aiAct(&amp;#39;登录后下单&amp;#39;)&lt;/code&gt;，代码里发生了什么？是一次模型调用吗？”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;不是一次。是一个&lt;strong&gt;带反馈的循环&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这篇想把这个循环拆开讲一遍：截图怎么拿、AI 返回的是什么、循环什么时候停、多轮之间怎么传上下文。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/post-img/midscene-architecture.png&quot; alt=&quot;Midscene 核心架构原理图&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工程化" scheme="http://quanru.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    
+    <category term="Midscene" scheme="http://quanru.github.io/tags/Midscene/"/>
+    
+    <category term="UI Agent" scheme="http://quanru.github.io/tags/UI-Agent/"/>
+    
+    <category term="AI 自动化" scheme="http://quanru.github.io/tags/AI-%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+    <category term="工程化" scheme="http://quanru.github.io/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Why Does Midscene&#39;s UI Agent Need to See the Screen?</title>
+    <link href="http://quanru.github.io/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/"/>
+    <id>http://quanru.github.io/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/</id>
+    <published>2026-05-26T04:43:23.000Z</published>
+    <updated>2026-05-26T05:20:27.282Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;While working on Midscene, I often run into the same question: why does a UI Agent need screenshots? Why not keep using DOM, selectors, XPath, accessibility trees, and the other things traditional automation has already made mature?&lt;/p&gt;
+&lt;p&gt;It is a fair question. For more than a decade, UI automation has mostly grown around structured interface data. But if we are not trying to build just a smarter Web testing framework, and instead want a UI Agent that can operate Web pages, mobile apps, desktop apps, Canvas, and custom devices, the default input has to shift a little: see the screen first, then decide what to do.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/post-img/ui-agent-screen-first-cover-en.svg&quot; alt=&quot;A UI Agent should see the screen first&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Engineering" scheme="http://quanru.github.io/categories/Engineering/"/>
+    
+    
+    <category term="Midscene" scheme="http://quanru.github.io/tags/Midscene/"/>
+    
+    <category term="UI Agent" scheme="http://quanru.github.io/tags/UI-Agent/"/>
+    
+    <category term="AI Automation" scheme="http://quanru.github.io/tags/AI-Automation/"/>
+    
+    <category term="Engineering" scheme="http://quanru.github.io/tags/Engineering/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为什么 Midscene 的 UI Agent 非得看见屏幕？</title>
     <link href="http://quanru.github.io/2026/05/26/%E4%B8%BA%E4%BB%80%E4%B9%88%20UI%20Agent%20%E9%9D%9E%E5%BE%97%E7%9C%8B%E8%A7%81%E5%B1%8F%E5%B9%95/"/>
     <id>http://quanru.github.io/2026/05/26/%E4%B8%BA%E4%BB%80%E4%B9%88%20UI%20Agent%20%E9%9D%9E%E5%BE%97%E7%9C%8B%E8%A7%81%E5%B1%8F%E5%B9%95/</id>
     <published>2026-05-26T04:43:23.000Z</published>
-    <updated>2026-05-26T04:53:28.454Z</updated>
+    <updated>2026-05-26T05:20:27.280Z</updated>
     
     
     <summary type="html">&lt;p&gt;做 Midscene 的过程中，我经常遇到一个问题：为什么 UI Agent 一定要看截图？为什么不能继续沿用 DOM、selector、XPath、accessibility tree 这些传统自动化里已经很成熟的东西？&lt;/p&gt;
@@ -168,9 +311,9 @@
     
     <category term="Engineering Governance" scheme="http://quanru.github.io/tags/Engineering-Governance/"/>
     
-    <category term="Bundler" scheme="http://quanru.github.io/tags/Bundler/"/>
-    
     <category term="Monorepo" scheme="http://quanru.github.io/tags/Monorepo/"/>
+    
+    <category term="Bundler" scheme="http://quanru.github.io/tags/Bundler/"/>
     
     <category term="Micro Frontend" scheme="http://quanru.github.io/tags/Micro-Frontend/"/>
     
@@ -193,15 +336,15 @@
     <category term="工程化" scheme="http://quanru.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
     
     
-    <category term="Bundler" scheme="http://quanru.github.io/tags/Bundler/"/>
-    
     <category term="Monorepo" scheme="http://quanru.github.io/tags/Monorepo/"/>
     
-    <category term="工程治理" scheme="http://quanru.github.io/tags/%E5%B7%A5%E7%A8%8B%E6%B2%BB%E7%90%86/"/>
+    <category term="Bundler" scheme="http://quanru.github.io/tags/Bundler/"/>
     
     <category term="Micro Frontend" scheme="http://quanru.github.io/tags/Micro-Frontend/"/>
     
     <category term="Diagnostics Tool" scheme="http://quanru.github.io/tags/Diagnostics-Tool/"/>
+    
+    <category term="工程治理" scheme="http://quanru.github.io/tags/%E5%B7%A5%E7%A8%8B%E6%B2%BB%E7%90%86/"/>
     
   </entry>
   
@@ -370,119 +513,6 @@
     
     
     <category term="前端八股" scheme="http://quanru.github.io/tags/%E5%89%8D%E7%AB%AF%E5%85%AB%E8%82%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Building a Private Deployment System with Rapid Customization</title>
-    <link href="http://quanru.github.io/2021/04/05/Building-a-Private-Deployment-System-with-Rapid-Customization/"/>
-    <id>http://quanru.github.io/2021/04/05/Building-a-Private-Deployment-System-with-Rapid-Customization/</id>
-    <published>2021-04-05T12:14:29.000Z</published>
-    <updated>2026-03-15T15:56:15.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Some thoughts and takeaways from building a private deployment system.&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Engineering" scheme="http://quanru.github.io/categories/Engineering/"/>
-    
-    
-    <category term="JavaScript" scheme="http://quanru.github.io/tags/JavaScript/"/>
-    
-    <category term="Node.js" scheme="http://quanru.github.io/tags/Node-js/"/>
-    
-    <category term="Private Deployment" scheme="http://quanru.github.io/tags/Private-Deployment/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何打造一个满足快速定制能力的私有化部署系统？</title>
-    <link href="http://quanru.github.io/2021/04/05/%E5%A6%82%E4%BD%95%E6%89%93%E9%80%A0%E4%B8%80%E4%B8%AA%E6%BB%A1%E8%B6%B3%E5%BF%AB%E9%80%9F%E5%AE%9A%E5%88%B6%E8%83%BD%E5%8A%9B%E7%9A%84%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2%E7%B3%BB%E7%BB%9F/"/>
-    <id>http://quanru.github.io/2021/04/05/%E5%A6%82%E4%BD%95%E6%89%93%E9%80%A0%E4%B8%80%E4%B8%AA%E6%BB%A1%E8%B6%B3%E5%BF%AB%E9%80%9F%E5%AE%9A%E5%88%B6%E8%83%BD%E5%8A%9B%E7%9A%84%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2%E7%B3%BB%E7%BB%9F/</id>
-    <published>2021-04-05T12:14:29.000Z</published>
-    <updated>2026-03-15T15:56:15.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;打造私有化部署系统过程中的一些和总结&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="工程化" scheme="http://quanru.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
-    
-    <category term="JavaScript" scheme="http://quanru.github.io/tags/JavaScript/"/>
-    
-    <category term="Node.js" scheme="http://quanru.github.io/tags/Node-js/"/>
-    
-    <category term="私有化部署" scheme="http://quanru.github.io/tags/%E7%A7%81%E6%9C%89%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Wrapping Bash Scripts into CLI Tools with Node.js</title>
-    <link href="http://quanru.github.io/2020/10/02/Wrapping-Bash-Scripts-into-CLI-Tools-with-Node.js/"/>
-    <id>http://quanru.github.io/2020/10/02/Wrapping-Bash-Scripts-into-CLI-Tools-with-Node.js/</id>
-    <published>2020-10-01T16:19:13.000Z</published>
-    <updated>2026-03-15T15:56:15.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;How to integrate a commonly used bash script into the npm ecosystem, demonstrated with a recent CR (Code Review) submission script.&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Engineering" scheme="http://quanru.github.io/categories/Engineering/"/>
-    
-    
-    <category term="JavaScript" scheme="http://quanru.github.io/tags/JavaScript/"/>
-    
-    <category term="Node.js" scheme="http://quanru.github.io/tags/Node-js/"/>
-    
-    <category term="CLI Tools" scheme="http://quanru.github.io/tags/CLI-Tools/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Node.js 将珍藏的 bash 脚本封装成命令行工具</title>
-    <link href="http://quanru.github.io/2020/10/02/%E4%BD%BF%E7%94%A8%20Node.js%20%E5%B0%86%E7%8F%8D%E8%97%8F%E7%9A%84%20bash%20%E8%84%9A%E6%9C%AC%E5%B0%81%E8%A3%85%E6%88%90%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/"/>
-    <id>http://quanru.github.io/2020/10/02/%E4%BD%BF%E7%94%A8%20Node.js%20%E5%B0%86%E7%8F%8D%E8%97%8F%E7%9A%84%20bash%20%E8%84%9A%E6%9C%AC%E5%B0%81%E8%A3%85%E6%88%90%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/</id>
-    <published>2020-10-01T16:19:13.000Z</published>
-    <updated>2026-03-15T15:56:15.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;阐述如何将一个常用的 bash 脚本融入 npm 生态之中，此处以最近遇到的一个 CR 提交脚本为例。&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="工程化" scheme="http://quanru.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
-    
-    <category term="JavaScript" scheme="http://quanru.github.io/tags/JavaScript/"/>
-    
-    <category term="Node.js" scheme="http://quanru.github.io/tags/Node-js/"/>
-    
-    <category term="命令行工具" scheme="http://quanru.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>A Scientific Approach to ESLint Governance in Legacy Projects</title>
-    <link href="http://quanru.github.io/2020/09/28/A%20Scientific%20Approach%20to%20ESLint%20Governance%20in%20Legacy%20Projects/"/>
-    <id>http://quanru.github.io/2020/09/28/A%20Scientific%20Approach%20to%20ESLint%20Governance%20in%20Legacy%20Projects/</id>
-    <published>2020-09-28T04:50:11.000Z</published>
-    <updated>2026-03-15T15:56:15.000Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;An effective and practical approach to ESLint governance.&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Work Journal" scheme="http://quanru.github.io/categories/Work-Journal/"/>
-    
-    
-    <category term="JavaScript" scheme="http://quanru.github.io/tags/JavaScript/"/>
-    
-    <category term="Engineering Governance" scheme="http://quanru.github.io/tags/Engineering-Governance/"/>
     
   </entry>
   
