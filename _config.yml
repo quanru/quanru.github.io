@@ -110,7 +110,7 @@ theme: icarus
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:quanru/quanru.github.io.git
+  repo: https://github.com/quanru/quanru.github.io.git
   branch: gh-pages
 
 feed:
