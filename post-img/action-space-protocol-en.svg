@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">An action set as a Zod protocol</title>
+  <desc id="desc">A DeviceAction is made of name, description, paramSchema and call; the Zod paramSchema drives param validation, action-catalog injection into the prompt, and locator-field extraction at once.</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 40px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 19px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 18; }
+    .source { fill: #eef2ff; stroke: #c7d2fe; stroke-width: 2; rx: 18; }
+    .head { font: 700 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .field { font: 600 18px "SFMono-Regular", Menlo, Consolas, monospace; fill: #334155; }
+    .body { font: 400 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .mono { font: 600 14px "SFMono-Regular", Menlo, Consolas, monospace; fill: #4f46e5; }
+    .arrow { stroke: #94a3b8; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    .foot { font: 700 19px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #4f46e5; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="720"/>
+  <text class="title" x="76" y="74">One action = one Zod protocol</text>
+  <text class="subtitle" x="78" y="110">How an action is defined, params validated, the model informed, positions extracted — all from one schema.</text>
+
+  <rect class="card" x="76" y="156" width="360" height="240"/>
+  <text class="head" x="108" y="200">DeviceAction</text>
+  <text class="field" x="108" y="244">name</text>
+  <text class="field" x="108" y="276">description</text>
+  <rect class="source" x="96" y="294" width="320" height="44"/>
+  <text class="field" x="112" y="322">paramSchema  (Zod)</text>
+  <text class="field" x="108" y="372">call</text>
+
+  <path class="arrow" d="M 416 316 H 590 V 232 H 660"/>
+  <path class="arrow" d="M 416 316 H 660"/>
+  <path class="arrow" d="M 416 316 H 590 V 470 H 660"/>
+
+  <rect class="card" x="660" y="190" width="464" height="84"/>
+  <text class="head" x="690" y="226">1. Param validation</text>
+  <text class="body" x="690" y="254">Zod checks types &amp; validity on whatever the model returns</text>
+
+  <rect class="card" x="660" y="296" width="464" height="84"/>
+  <text class="head" x="690" y="332">2. Injected into planning prompt</text>
+  <text class="mono" x="690" y="360">descriptionForAction builds a live catalog</text>
+
+  <rect class="card" x="660" y="402" width="464" height="100"/>
+  <text class="head" x="690" y="438">3. Locator fields extracted</text>
+  <text class="mono" x="690" y="466">findAllMidsceneLocatorField scans schema only</text>
+  <text class="body" x="690" y="490">Tap → [locate] · DragAndDrop → [from, to] · Back → []</text>
+
+  <text class="foot" x="76" y="560">Add an action = add one declaration; TaskBuilder / planning / execution untouched.</text>
+  <text class="body" x="76" y="592">(Not zero-config: an action still registers a name, looked up by name — the schema saves three scattered chores.)</text>
+</svg>

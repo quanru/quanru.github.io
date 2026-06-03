@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">动作集合作为一份 Zod 协议</title>
+  <desc id="desc">一个 DeviceAction 由 name、description、paramSchema 和 call 组成，其中 Zod 写的 paramSchema 同时派生出参数校验、动作清单注入 prompt、定位字段抽取三件事。</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 21px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 2; rx: 18; }
+    .source { fill: #eef2ff; stroke: #c7d2fe; stroke-width: 2; rx: 18; }
+    .head { font: 700 25px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .srcHead { font: 700 25px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #312e81; }
+    .field { font: 600 18px "SFMono-Regular", Menlo, Consolas, monospace; fill: #334155; }
+    .fieldDim { font: 400 18px "SFMono-Regular", Menlo, Consolas, monospace; fill: #94a3b8; }
+    .body { font: 400 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .mono { font: 600 15px "SFMono-Regular", Menlo, Consolas, monospace; fill: #4f46e5; }
+    .arrow { stroke: #94a3b8; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+    .foot { font: 700 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #4f46e5; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="720"/>
+  <text class="title" x="76" y="76">一个动作 = 一份 Zod 协议</text>
+  <text class="subtitle" x="78" y="112">动作怎么定义、参数怎么校验、模型怎么知道、位置怎么抽取——全从同一份 schema 长出来。</text>
+
+  <rect class="card" x="76" y="156" width="360" height="240"/>
+  <text class="head" x="108" y="200">DeviceAction</text>
+  <text class="field" x="108" y="244">name</text>
+  <text class="field" x="108" y="276">description</text>
+  <rect class="source" x="96" y="294" width="320" height="44"/>
+  <text class="field" x="112" y="322">paramSchema  (Zod)</text>
+  <text class="field" x="108" y="372">call</text>
+
+  <path class="arrow" d="M 416 316 H 590 V 232 H 660"/>
+  <path class="arrow" d="M 416 316 H 660"/>
+  <path class="arrow" d="M 416 316 H 590 V 470 H 660"/>
+
+  <rect class="card" x="660" y="190" width="464" height="84"/>
+  <text class="head" x="690" y="226">① 参数校验</text>
+  <text class="body" x="690" y="254">Zod 直接管类型与合法性，模型返回什么都先过一遍</text>
+
+  <rect class="card" x="660" y="296" width="464" height="84"/>
+  <text class="head" x="690" y="332">② 注入 planning prompt</text>
+  <text class="mono" x="690" y="360">descriptionForAction 现场把动作翻成清单</text>
+
+  <rect class="card" x="660" y="402" width="464" height="100"/>
+  <text class="head" x="690" y="438">③ 抽取定位字段</text>
+  <text class="mono" x="690" y="466">findAllMidsceneLocatorField 只扫 schema</text>
+  <text class="body" x="690" y="490">Tap → [locate] · DragAndDrop → [from, to] · 返回键 → []</text>
+
+  <text class="foot" x="76" y="560">加一个动作 = 加一处声明，TaskBuilder / planning / 执行链路都不用动。</text>
+  <text class="body" x="76" y="592">（但不是零配置：动作仍要显式注册 name，执行时按 name 查找——schema 省的是三处分散维护。）</text>
+</svg>

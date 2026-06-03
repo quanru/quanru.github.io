@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="788" viewBox="0 0 1200 788" role="img" aria-labelledby="title desc">
+  <title id="title">Midscene is model-agnostic</title>
+  <desc id="desc">A single ai() script runs across a dozen vision model families; an adapter layer absorbs each family's coordinate-system and output-format differences so the script never changes.</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 38px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 19px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .script { fill: #0f172a; rx: 16; }
+    .scriptText { font: 700 24px "SFMono-Regular", Menlo, Consolas, monospace; fill: #e2e8f0; }
+    .adapter { fill: #eef2ff; stroke: #c7d2fe; stroke-width: 2; rx: 22; }
+    .head { font: 700 26px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #312e81; }
+    .body { font: 400 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .mono { font: 600 14px "SFMono-Regular", Menlo, Consolas, monospace; fill: #4f46e5; }
+    .model { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 16; }
+    .modelText { font: 700 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+    .arrow { stroke: #94a3b8; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    .fan { stroke: #cbd5e1; stroke-width: 2; fill: none; }
+    .note { font: 400 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .noteB { font: 700 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #4f46e5; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="788"/>
+  <text class="title" x="76" y="74">One script, a dozen models, coordinates absorbed inside</text>
+  <text class="subtitle" x="78" y="110">"Model-agnostic" isn't swapping base_url — it's absorbing each family's coordinate system inside an adapter.</text>
+
+  <rect class="script" x="430" y="148" width="340" height="64"/>
+  <text class="scriptText" x="470" y="188">ai('click login')</text>
+  <path class="arrow" d="M 600 216 V 254"/>
+
+  <rect class="adapter" x="150" y="262" width="900" height="170"/>
+  <text class="head" x="190" y="306">Model Adapter Layer</text>
+  <text class="body" x="190" y="342">On the way out, tell each family which coordinate format to use; on the way back, normalize to screen pixels.</text>
+  <text class="mono" x="190" y="380">→ bboxDescription(family)   writes "which coordinate system" into the prompt</text>
+  <text class="mono" x="190" y="408">← adaptBbox(bbox, family)   Gemini [ymin,xmin] 0-1000 · Qwen/GPT-5 pixels · Doubao/UI-TARS 0-1000</text>
+
+  <path class="fan" d="M 240 432 V 520"/>
+  <path class="fan" d="M 420 432 V 520"/>
+  <path class="fan" d="M 600 432 V 520"/>
+  <path class="fan" d="M 780 432 V 520"/>
+  <path class="fan" d="M 960 432 V 520"/>
+
+  <rect class="model" x="150" y="524" width="200" height="48"/><text class="modelText" x="178" y="554">Qwen2.5 / 3-VL</text>
+  <rect class="model" x="372" y="524" width="180" height="48"/><text class="modelText" x="400" y="554">Doubao vision</text>
+  <rect class="model" x="574" y="524" width="150" height="48"/><text class="modelText" x="618" y="554">Gemini</text>
+  <rect class="model" x="746" y="524" width="160" height="48"/><text class="modelText" x="780" y="554">UI-TARS</text>
+  <rect class="model" x="928" y="524" width="122" height="48"/><text class="modelText" x="956" y="554">GPT-5</text>
+  <rect class="model" x="262" y="588" width="150" height="48"/><text class="modelText" x="296" y="618">GLM-V</text>
+  <rect class="model" x="434" y="588" width="200" height="48"/><text class="modelText" x="462" y="618">AutoGLM multiling.</text>
+  <rect class="model" x="656" y="588" width="300" height="48"/><text class="modelText" x="684" y="618">…new family = one more adapter</text>
+
+  <rect class="adapter" x="150" y="676" width="900" height="72"/>
+  <text class="noteB" x="190" y="712">Loop ceiling follows the model:</text>
+  <text class="note" x="448" y="712">standard VLM 20 · UI-TARS 40 · AutoGLM 100 — stronger models explore deeper.</text>
+  <text class="note" x="190" y="738">Planning and locating can each use a different model — transparent to your script.</text>
+</svg>

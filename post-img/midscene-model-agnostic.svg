@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="788" viewBox="0 0 1200 788" role="img" aria-labelledby="title desc">
+  <title id="title">Midscene 不绑定模型</title>
+  <desc id="desc">同一份 ai() 脚本经由 adapter 层把不同模型家族的坐标系和输出格式差异抹平，跑在十几个视觉模型家族上而脚本不变。</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .title { font: 700 42px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #0f172a; }
+    .subtitle { font: 400 22px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .script { fill: #0f172a; rx: 16; }
+    .scriptText { font: 700 24px "SFMono-Regular", Menlo, Consolas, monospace; fill: #e2e8f0; }
+    .adapter { fill: #eef2ff; stroke: #c7d2fe; stroke-width: 2; rx: 22; }
+    .head { font: 700 27px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #312e81; }
+    .body { font: 400 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .mono { font: 600 16px "SFMono-Regular", Menlo, Consolas, monospace; fill: #4f46e5; }
+    .model { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 16; }
+    .modelText { font: 700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #334155; }
+    .arrow { stroke: #94a3b8; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    .fan { stroke: #cbd5e1; stroke-width: 2; fill: none; }
+    .note { font: 400 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #475569; }
+    .noteB { font: 700 18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #4f46e5; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="788"/>
+  <text class="title" x="76" y="78">一份脚本，十几个模型，坐标差异在框架里抹平</text>
+  <text class="subtitle" x="78" y="116">"不绑定模型"不是能换 base_url，而是把各家不一样的坐标系吃进 adapter，让你的用例一行不改。</text>
+
+  <rect class="script" x="430" y="150" width="340" height="64"/>
+  <text class="scriptText" x="468" y="190">ai('点击登录按钮')</text>
+  <path class="arrow" d="M 600 218 V 256"/>
+
+  <rect class="adapter" x="150" y="264" width="900" height="170"/>
+  <text class="head" x="190" y="308">Model Adapter 层</text>
+  <text class="body" x="190" y="344">发出时按家族定制坐标格式说明，收回时把各家坐标统一还原成屏幕像素。</text>
+  <text class="mono" x="190" y="382">→ bboxDescription(family)　把"该用什么坐标系"写进 prompt</text>
+  <text class="mono" x="190" y="410">← adaptBbox(bbox, family)　Gemini [ymin,xmin] 0-1000 · Qwen/GPT-5 像素 · Doubao/UI-TARS 0-1000</text>
+
+  <path class="fan" d="M 240 434 V 520"/>
+  <path class="fan" d="M 420 434 V 520"/>
+  <path class="fan" d="M 600 434 V 520"/>
+  <path class="fan" d="M 780 434 V 520"/>
+  <path class="fan" d="M 960 434 V 520"/>
+
+  <rect class="model" x="150" y="524" width="200" height="48"/><text class="modelText" x="178" y="554">Qwen2.5 / 3-VL</text>
+  <rect class="model" x="372" y="524" width="180" height="48"/><text class="modelText" x="400" y="554">Doubao vision</text>
+  <rect class="model" x="574" y="524" width="150" height="48"/><text class="modelText" x="618" y="554">Gemini</text>
+  <rect class="model" x="746" y="524" width="160" height="48"/><text class="modelText" x="780" y="554">UI-TARS</text>
+  <rect class="model" x="928" y="524" width="122" height="48"/><text class="modelText" x="956" y="554">GPT-5</text>
+  <rect class="model" x="262" y="588" width="150" height="48"/><text class="modelText" x="296" y="618">GLM-V</text>
+  <rect class="model" x="434" y="588" width="190" height="48"/><text class="modelText" x="462" y="618">AutoGLM 多语种</text>
+  <rect class="model" x="646" y="588" width="290" height="48"/><text class="modelText" x="674" y="618">…接入新家族 = 加一层 adapter</text>
+
+  <rect class="adapter" x="150" y="676" width="900" height="72"/>
+  <text class="noteB" x="190" y="712">循环上限随模型走：</text>
+  <text class="note" x="370" y="712">标准 VLM 20 轮 · UI-TARS 40 · AutoGLM 100，强模型给更深探索，弱模型早刹车。</text>
+  <text class="note" x="190" y="738">规划与定位还能各配一个模型——配置层的选择对你的脚本透明。</text>
+</svg>
