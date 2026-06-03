@@ -68,9 +68,14 @@ The next sections take these five steps apart one by one.
 
 This step is plain, but one detail is worth mentioning: screenshots are not taken every time someone "wants one".
 
-`TaskRunner` holds a 300 ms screenshot cache — multiple tasks inside the same loop iteration share one screenshot rather than each firing its own `page.screenshot()`. Only tasks that genuinely need a fresh view (like `aiQuery`, which extracts data from the latest UI state) force a refresh.
+`TaskRunner` holds a 300 ms screenshot cache. What it caches is the whole `UIContext` (screenshot + page size + element info), not just a PNG. The rule boils down to one phrase — read/write separation:
 
-This cache sounds trivial, but it matters most on mobile: pulling a screenshot via `adb shell screencap` on Android costs hundreds of milliseconds by itself. If every subtask triggered a fresh capture, the whole loop would be unusably slow.
+- Tasks that **do things** (planning, locating, tapping/typing) reuse the same frame within 300 ms — the image was just captured, so the locate and action that follow use it directly instead of each firing its own `page.screenshot()`.
+- Tasks that **make judgments** (`aiQuery`, `aiAssert`, `aiWaitFor` — all classified as `Insight` in the code) force a fresh screenshot — a judgment has to be based on the latest UI after the previous action, and a stale frame would mislead it.
+
+The deciding line is exactly one: `forceRefresh = task.type === 'Insight'`. So "reuse" isn't indiscriminate; it happens precisely and only on execution tasks.
+
+The cache itself is platform-agnostic, but the redundant captures it saves are most noticeable on mobile: pulling a single screenshot via `adb shell screencap` on Android costs hundreds of milliseconds. If every subtask in the same round captured its own, the whole loop would be unusably slow. On Web `page.screenshot()` is faster, but skipping redundant captures still pays off.
 
 ## Step 2: Let the Model Plan the Next Step
 
@@ -93,7 +98,25 @@ The response is not JSON. It is XML. A typical response looks like:
 <memory>The sign in button is at the top right of the page</memory>
 ```
 
-Why XML instead of JSON? Because VLMs, when asked to emit JSON, regularly wrap the output in Markdown code fences, drop closing quotes, or misspell field names. XML tags are much "chunkier" and tag-by-tag extraction (`extractXMLTag(xml, "thought")`) tolerates model noise far better. The `action-param-json` field is actually JSON, but it sits inside an XML tag and is pulled out with `safeParseJson()` separately, so even a broken JSON blob only damages that one action instead of corrupting the whole response.
+Why XML instead of JSON? It's a boring-looking decision that has saved us from countless silent failures.
+
+Here's what VLM-emitted JSON looks like in the wild — the model stuffs unescaped quotes into a string, drops a closing one, or even misspells a field name:
+
+```json
+{
+  "action": "Tap",
+  "thought": "the blue "Sign in" button in the top-right, I'll tap it",
+  "locte": { "prompt": "sign in button" }
+}
+```
+
+Those unescaped quotes around `"Sign in"` make the parser think the string ended at `the blue `, and everything after it falls apart; `locte` is a misspelled field on top of that. JSON is all-or-nothing — one bad spot and the whole round's plan is wasted, and you only find out next round when the AI notices the screen didn't change.
+
+XML is different. It's tag-bounded, extracted tag by tag (`extractXMLTag(xml, "thought")`): whatever noise sits inside one tag, however broken its indentation or quoting, none of it stops the next tag from being pulled out cleanly. A broken `<thought>` doesn't stop `<action-type>` from being read.
+
+And XML doesn't throw away structured data — the `action-param-json` field is real JSON, it just sits inside an XML tag and is parsed separately with `safeParseJson()`. Even if that JSON breaks, it only damages that one action's params; it doesn't corrupt the `thought`, `log`, or `memory` in the rest of the response.
+
+In one line: the choice of format is a robustness lever, not a matter of taste — pick the one most tolerant of the mistakes your producer tends to make. VLMs love to drop stray characters into free text, so wrap each field in a tag and isolate it; the day models emit airtight output, the choice could flip back.
 
 After parsing, the structure is normalized into a `PlanningAIResponse` with a few key fields:
 

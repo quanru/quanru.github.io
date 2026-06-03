@@ -1,5 +1,5 @@
 ---
-title: Midscene 的动作集合，为什么要做成一份"契约"？
+title: Midscene 的动作集合，为什么要做成一份"协议"？
 toc: true
 date: 2026-05-27 20:00:00
 categories: 工程化
@@ -16,9 +16,16 @@ tags:
 
 Midscene 的答案是：加一处就好。这篇讲它是怎么做到的，以及它没做到的那部分。
 
-![动作集合作为一份 Zod 契约](/post-img/action-space-contract.svg)
+![动作集合作为一份 Zod 协议](/post-img/action-space-protocol.svg)
 
 <!-- more -->
+
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2026/05/27/Action-Space-as-a-Protocol/">English</a>.
+</div>
+</article>
 
 ## 一个动作是什么
 
@@ -91,6 +98,6 @@ schema 帮你省掉的，是那些本来要散落在各处、各自维护、最�
 
 ## 
 
-把动作集合当成一份契约，好处不在哪一处特别聪明，而在它们都指向同一份声明：动作怎么定义、参数怎么校验、模型怎么知道、位置怎么抽取——全从一处长出来。
+把动作集合当成一份协议，好处不在哪一处特别聪明，而在它们都指向同一份声明：动作怎么定义、参数怎么校验、模型怎么知道、位置怎么抽取——全从一处长出来。
 
 加一个动作，于是不再是"改一圈"，而是"加一处"。对一个要长期维护、还要跨好几个平台的项目来说，这点区别，时间越久越值钱。

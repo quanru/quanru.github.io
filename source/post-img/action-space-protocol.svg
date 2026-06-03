@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
-  <title id="title">动作集合作为一份 Zod 契约</title>
+  <title id="title">动作集合作为一份 Zod 协议</title>
   <desc id="desc">一个 DeviceAction 由 name、description、paramSchema 和 call 组成，其中 Zod 写的 paramSchema 同时派生出参数校验、动作清单注入 prompt、定位字段抽取三件事。</desc>
   <style>
     .bg { fill: #f8fafc; }
@@ -22,10 +22,9 @@
     </marker>
   </defs>
   <rect class="bg" width="1200" height="720"/>
-  <text class="title" x="76" y="76">一个动作 = 一份 Zod 契约</text>
+  <text class="title" x="76" y="76">一个动作 = 一份 Zod 协议</text>
   <text class="subtitle" x="78" y="112">动作怎么定义、参数怎么校验、模型怎么知道、位置怎么抽取——全从同一份 schema 长出来。</text>
 
-  <!-- DeviceAction 卡 -->
   <rect class="card" x="76" y="156" width="360" height="240"/>
   <text class="head" x="108" y="200">DeviceAction</text>
   <text class="field" x="108" y="244">name</text>
@@ -34,12 +33,10 @@
   <text class="field" x="112" y="322">paramSchema  (Zod)</text>
   <text class="field" x="108" y="372">call</text>
 
-  <!-- 从 paramSchema 出三条箭头 -->
   <path class="arrow" d="M 416 316 H 590 V 232 H 660"/>
   <path class="arrow" d="M 416 316 H 660"/>
   <path class="arrow" d="M 416 316 H 590 V 470 H 660"/>
 
-  <!-- 三个派生卡 -->
   <rect class="card" x="660" y="190" width="464" height="84"/>
   <text class="head" x="690" y="226">① 参数校验</text>
   <text class="body" x="690" y="254">Zod 直接管类型与合法性，模型返回什么都先过一遍</text>

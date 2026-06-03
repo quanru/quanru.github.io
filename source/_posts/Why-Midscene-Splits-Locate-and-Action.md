@@ -25,7 +25,7 @@ This post is about that.
 </div>
 </article>
 
-## Starting Point: Why You Can't Trust the AI's bbox
+## Starting Point: Why You Can't Trust the AI's bbox Unconditionally
 
 Recall the AI response from the previous post:
 
@@ -42,6 +42,8 @@ Recall the AI response from the previous post:
 ```
 
 That `bbox` is something the AI returns **in passing** during planning — at that moment the model is doing four things at once: understanding intent, choosing an action type, generating action params, and estimating the element's position. Locating is just one of the four sub-tasks; it isn't going to be very precise.
+
+(One clarification up front, since it trips people up: the bbox isn't something the model returns every round. Only when certain conditions hold does the planning prompt *ask* the model to return a bbox; the moment the user signals "I want more precision," that field is dropped from the prompt. The exact conditions are covered in Level 1 below. So when I say "the bbox isn't accurate," I mean the cases where the model actually returned one.)
 
 In practice:
 
@@ -87,7 +89,9 @@ Locate finishes → returns { center: [500, 40], text: "Search..." }
               Input sees a precise coordinate at execution, not a bbox estimate
 ```
 
-So **the Action task never directly consumes the AI's rough bbox** — it always sees the precise result produced by the Locate task.
+So **the Action task itself never touches the AI's rough bbox** — it always sees the coordinate produced by the Locate task.
+
+One layer needs spelling out here, or the next section will read like a contradiction. The Action layer only ever sees the Locate task's output, but how that coordinate was produced — trusting the bbox directly, a DOM query, a cache replay, or even a fresh AI locate call — is all sealed inside the Locate task (that's the four-level Fallback in the next section). In other words, **whether the bbox gets used is the Locate layer's business; the Action layer doesn't care.** So "the Action task never touches the bbox" and "the system does use the bbox in some cases" are both true at once — they just have different subjects: the former is about the Action task, the latter about Level 1 of the Locate task.
 
 ### How Does TaskBuilder Know Which Field to Locate?
 
@@ -258,11 +262,25 @@ Pick the starting point by scenario:
 | Multi-step complex tasks | `{ deepThink: true }` | sub-goal decomposition + deepened locate |
 | Maximum precision | `{ deepThink, deepLocate }` | all optimizations stacked |
 
+## Turn It Around: What If Locate and Action Weren't Split?
+
+If you don't split them, four kinds of problems show up — all rooted in letting the bbox the planning model tossed off drive the click directly.
+
+1. **Locate precision gets dragged down by the planning task, and can't be optimized on its own.** Without the split, the only coordinate you have comes from a model doing four things at once. In practice: large buttons (> 80 px) are fine, mid-sized elements (40–80 px) miss by 20–50 pixels, small buttons (< 40 px) can miss entirely and click the neighbor. Once Locate is its own task, you can give it stronger strategies — a dedicated AI locate, deepLocate's two-stage locate — instead of hammering at the planning model's ceiling.
+
+2. **Errors surface late, and the loop spins.** Click on a raw bbox, miss, and the program still thinks it "succeeded" — it only finds out next round, when the AI notices the screen didn't change. That delayed perception burns wasted loop iterations.
+
+3. **You lose the four-level Fallback's cost tiering.** The split is what makes the chain possible. Without it there's only one road — "trust the bbox" — with no Plan hit → XPath → Cache → AI locate ladder from cheap to expensive: simple pages can't skip the AI call, and complex pages have no pixel-level DOM/cache backstop.
+
+4. **Caching and stable regression fall apart.** XPath hit and Cache hit — the two zero-AI, pixel-level levels — depend on locate being pulled out so a signature can be written and reused. Without the split there's no stable historical signature, and the `read-only` cache in CI (which guarantees "the path that was last reviewed") has nothing to stand on; locate results drift with the AI's whim every run.
+
+In one line: splitting decouples "finding" from "executing", so locating can grow its own strategies, be cached, and fall back in tiers — and the Action task only ever receives a precise coordinate, not a rough estimate.
+
 ## Wrap-up
 
 What's actually hard about a vision Agent isn't "clicking" — it's "finding". Midscene's engineering trade-offs on that point come down to three sentences:
 
-1. **Split** — Locate and Action are split into two steps; the Action task always sees precise coordinates and never the AI's bbox estimate
+1. **Split** — Locate and Action are split into two steps; the Action task never touches the AI's bbox itself, it only consumes the coordinate the Locate task outputs — whether and how the bbox gets used is sealed inside that one level of Locate
 2. **Layer** — four-level Fallback tries cheapest first, stops on hit, falls through to the next layer otherwise
 3. **Tunable** — users can skip the cheap layers and jump straight to a high-precision starting point with a single `{ deepLocate: true }`, no "mode" switching needed
 
