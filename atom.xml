@@ -6,7 +6,7 @@
   <link href="http://quanru.github.io/atom.xml" rel="self"/>
   
   <link href="http://quanru.github.io/"/>
-  <updated>2026-06-03T14:49:46.007Z</updated>
+  <updated>2026-06-04T03:19:51.220Z</updated>
   <id>http://quanru.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://quanru.github.io/2026/06/03/Turning-Vibecoding-Debt-into-a-Harness-00-Baseline-Audit/"/>
     <id>http://quanru.github.io/2026/06/03/Turning-Vibecoding-Debt-into-a-Harness-00-Baseline-Audit/</id>
     <published>2026-06-03T12:00:00.000Z</published>
-    <updated>2026-06-03T14:49:46.007Z</updated>
+    <updated>2026-06-04T03:19:51.220Z</updated>
     
     
     <summary type="html">&lt;p&gt;If you also write real product code with AI, this feeling will be familiar: a feature ships fast, but a few days later you change something else and the earlier thing quietly breaks.&lt;/p&gt;
@@ -303,33 +303,6 @@
   </entry>
   
   <entry>
-    <title>Why Does Midscene&#39;s UI Agent Need to See the Screen?</title>
-    <link href="http://quanru.github.io/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/"/>
-    <id>http://quanru.github.io/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/</id>
-    <published>2026-05-26T04:43:23.000Z</published>
-    <updated>2026-05-26T05:20:27.282Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;While working on Midscene, I often run into the same question: why does a UI Agent need screenshots? Why not keep using DOM, selectors, XPath, accessibility trees, and the other things traditional automation has already made mature?&lt;/p&gt;
-&lt;p&gt;It is a fair question. For more than a decade, UI automation has mostly grown around structured interface data. But if we are not trying to build just a smarter Web testing framework, and instead want a UI Agent that can operate Web pages, mobile apps, desktop apps, Canvas, and custom devices, the default input has to shift a little: see the screen first, then decide what to do.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/post-img/ui-agent-screen-first-cover-en.svg&quot; alt=&quot;A UI Agent should see the screen first&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="Engineering" scheme="http://quanru.github.io/categories/Engineering/"/>
-    
-    
-    <category term="Midscene" scheme="http://quanru.github.io/tags/Midscene/"/>
-    
-    <category term="UI Agent" scheme="http://quanru.github.io/tags/UI-Agent/"/>
-    
-    <category term="AI Automation" scheme="http://quanru.github.io/tags/AI-Automation/"/>
-    
-    <category term="Engineering" scheme="http://quanru.github.io/tags/Engineering/"/>
-    
-  </entry>
-  
-  <entry>
     <title>为什么 Midscene 的 UI Agent 非得看见屏幕？</title>
     <link href="http://quanru.github.io/2026/05/26/%E4%B8%BA%E4%BB%80%E4%B9%88%20UI%20Agent%20%E9%9D%9E%E5%BE%97%E7%9C%8B%E8%A7%81%E5%B1%8F%E5%B9%95/"/>
     <id>http://quanru.github.io/2026/05/26/%E4%B8%BA%E4%BB%80%E4%B9%88%20UI%20Agent%20%E9%9D%9E%E5%BE%97%E7%9C%8B%E8%A7%81%E5%B1%8F%E5%B9%95/</id>
@@ -353,6 +326,33 @@
     <category term="AI 自动化" scheme="http://quanru.github.io/tags/AI-%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
     <category term="工程化" scheme="http://quanru.github.io/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Why Does Midscene&#39;s UI Agent Need to See the Screen?</title>
+    <link href="http://quanru.github.io/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/"/>
+    <id>http://quanru.github.io/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/</id>
+    <published>2026-05-26T04:43:23.000Z</published>
+    <updated>2026-05-26T05:20:27.282Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;While working on Midscene, I often run into the same question: why does a UI Agent need screenshots? Why not keep using DOM, selectors, XPath, accessibility trees, and the other things traditional automation has already made mature?&lt;/p&gt;
+&lt;p&gt;It is a fair question. For more than a decade, UI automation has mostly grown around structured interface data. But if we are not trying to build just a smarter Web testing framework, and instead want a UI Agent that can operate Web pages, mobile apps, desktop apps, Canvas, and custom devices, the default input has to shift a little: see the screen first, then decide what to do.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/post-img/ui-agent-screen-first-cover-en.svg&quot; alt=&quot;A UI Agent should see the screen first&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Engineering" scheme="http://quanru.github.io/categories/Engineering/"/>
+    
+    
+    <category term="Midscene" scheme="http://quanru.github.io/tags/Midscene/"/>
+    
+    <category term="UI Agent" scheme="http://quanru.github.io/tags/UI-Agent/"/>
+    
+    <category term="AI Automation" scheme="http://quanru.github.io/tags/AI-Automation/"/>
+    
+    <category term="Engineering" scheme="http://quanru.github.io/tags/Engineering/"/>
     
   </entry>
   
