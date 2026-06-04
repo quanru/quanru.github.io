@@ -104,7 +104,7 @@ That actually makes it a great harness target — because this is exactly where 
 
 **Not relying on the author's memory to explain the repo, but letting the repo expose its own reality.**
 
-![Why this repo](/post-img/harness-00-why-this-repo.png)
+![Why this repo](/post-img/harness-00-why-this-repo-en.png)
 
 ## It's not a single app either
 
@@ -118,7 +118,7 @@ All of these product lines live in this one monorepo:
 - DeepAsk spans Obsidian and Chrome.
 - Calendar Pro is the calendar and task-planning layer inside Obsidian.
 
-![lifeos.vip/about products section](/post-img/harness-00-about-products.png)
+![lifeos.vip/about products section](/post-img/harness-00-about-products-en.png)
 
 I recounted from the `package.json` files under `apps`:
 
@@ -138,7 +138,7 @@ These 16 app packages aren't the same kind of thing:
 8. 1 daemon
 9. 1 video / content build app
 
-![Stack inventory](/post-img/harness-00-stack-inventory.png)
+![Stack inventory](/post-img/harness-00-stack-inventory-en.png)
 
 This isn't a "weekend toy" personal project either. Some of these products are shipped mobile apps, an Obsidian plugin, a Chrome extension, and paid products.
 
@@ -163,7 +163,7 @@ Distribution highlights:
 3. apps/vibelet-daemon: 75 test files, 1152 cases
 4. apps/obsidian-plugin: 83 test files, 869 cases
 
-![Baseline audit data](/post-img/harness-00-baseline-map.png)
+![Baseline audit data](/post-img/harness-00-baseline-map-en.png)
 
 ## There's a very real contradiction here
 
