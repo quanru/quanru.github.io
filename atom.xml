@@ -6,7 +6,7 @@
   <link href="http://quanru.github.io/atom.xml" rel="self"/>
   
   <link href="http://quanru.github.io/"/>
-  <updated>2026-06-04T03:40:16.685Z</updated>
+  <updated>2026-08-07T11:30:12.343Z</updated>
   <id>http://quanru.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://quanru.github.io/2026/06/03/Turning-Vibecoding-Debt-into-a-Harness-00-Baseline-Audit/"/>
     <id>http://quanru.github.io/2026/06/03/Turning-Vibecoding-Debt-into-a-Harness-00-Baseline-Audit/</id>
     <published>2026-06-03T20:00:00.000Z</published>
-    <updated>2026-06-04T03:40:16.685Z</updated>
+    <updated>2026-08-07T11:30:12.343Z</updated>
     
     
     <summary type="html">&lt;p&gt;If you also write real product code with AI, this feeling will be familiar: a feature ships fast, but a few days later you change something else and the earlier thing quietly breaks.&lt;/p&gt;
@@ -50,7 +50,7 @@
     <link href="http://quanru.github.io/2026/06/03/%E6%8A%8A%20Vibecoding%20%E7%9A%84%E5%80%BA%E5%8F%98%E6%88%90%20Harness%2000%20%E5%85%AC%E5%BC%80%E6%90%AD%E4%B8%80%E5%A5%97%E6%9C%AC%E5%9C%B0%20harness/"/>
     <id>http://quanru.github.io/2026/06/03/%E6%8A%8A%20Vibecoding%20%E7%9A%84%E5%80%BA%E5%8F%98%E6%88%90%20Harness%2000%20%E5%85%AC%E5%BC%80%E6%90%AD%E4%B8%80%E5%A5%97%E6%9C%AC%E5%9C%B0%20harness/</id>
     <published>2026-06-03T20:00:00.000Z</published>
-    <updated>2026-06-04T03:40:16.687Z</updated>
+    <updated>2026-08-07T11:30:12.346Z</updated>
     
     
     <summary type="html">&lt;p&gt;如果你也在用 AI 写真实产品代码，应该会熟悉这种感觉：一个功能很快做出来了，但过几天改另一个地方，前面的东西又悄悄坏了。&lt;/p&gt;
@@ -79,7 +79,7 @@
     <link href="http://quanru.github.io/2026/05/27/Action%20Space%20%E4%BD%9C%E4%B8%BA%E5%8D%8F%E8%AE%AE/"/>
     <id>http://quanru.github.io/2026/05/27/Action%20Space%20%E4%BD%9C%E4%B8%BA%E5%8D%8F%E8%AE%AE/</id>
     <published>2026-05-27T20:00:00.000Z</published>
-    <updated>2026-06-04T03:40:16.682Z</updated>
+    <updated>2026-08-07T11:30:12.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;给 Midscene 加一个新动作，要改多少地方？&lt;/p&gt;
@@ -107,7 +107,7 @@
     <link href="http://quanru.github.io/2026/05/27/Action-Space-as-a-Protocol/"/>
     <id>http://quanru.github.io/2026/05/27/Action-Space-as-a-Protocol/</id>
     <published>2026-05-27T20:00:00.000Z</published>
-    <updated>2026-06-04T03:40:16.682Z</updated>
+    <updated>2026-08-07T11:30:12.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;How many places do you have to touch to add a new action to Midscene?&lt;/p&gt;
@@ -135,7 +135,7 @@
     <link href="http://quanru.github.io/2026/05/27/How-Midscene-Stays-Model-Agnostic/"/>
     <id>http://quanru.github.io/2026/05/27/How-Midscene-Stays-Model-Agnostic/</id>
     <published>2026-05-27T12:00:00.000Z</published>
-    <updated>2026-06-04T03:40:16.683Z</updated>
+    <updated>2026-08-07T11:30:12.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;People often ask me: when Midscene says it is model-agnostic, does that just mean swapping &lt;code&gt;base_url&lt;/code&gt; and &lt;code&gt;model_name&lt;/code&gt;?&lt;/p&gt;
@@ -163,7 +163,7 @@
     <link href="http://quanru.github.io/2026/05/27/%E4%B8%8D%E7%BB%91%E5%AE%9A%E6%A8%A1%E5%9E%8B%E5%9C%A8%E5%B7%A5%E7%A8%8B%E4%B8%8A%E6%84%8F%E5%91%B3%E7%9D%80%E4%BB%80%E4%B9%88/"/>
     <id>http://quanru.github.io/2026/05/27/%E4%B8%8D%E7%BB%91%E5%AE%9A%E6%A8%A1%E5%9E%8B%E5%9C%A8%E5%B7%A5%E7%A8%8B%E4%B8%8A%E6%84%8F%E5%91%B3%E7%9D%80%E4%BB%80%E4%B9%88/</id>
     <published>2026-05-27T12:00:00.000Z</published>
-    <updated>2026-06-04T03:40:16.686Z</updated>
+    <updated>2026-08-07T11:30:12.345Z</updated>
     
     
     <summary type="html">&lt;p&gt;经常有人问我：Midscene 说自己不绑定模型，是不是就是把 base_url 和 model_name 换一下那么简单？&lt;/p&gt;
@@ -191,7 +191,7 @@
     <link href="http://quanru.github.io/2026/05/26/Locate%20%E4%B8%8E%20Action%20%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8B%86%E6%88%90%E4%B8%A4%E6%AD%A5/"/>
     <id>http://quanru.github.io/2026/05/26/Locate%20%E4%B8%8E%20Action%20%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8B%86%E6%88%90%E4%B8%A4%E6%AD%A5/</id>
     <published>2026-05-26T20:00:00.000Z</published>
-    <updated>2026-06-04T03:40:16.683Z</updated>
+    <updated>2026-08-07T11:30:12.342Z</updated>
     
     
     <summary type="html">&lt;p&gt;上一篇《&lt;a href=&quot;/2026/05/26/%E4%B8%80%E6%AC%A1%20aiAct%20%E9%87%8C%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&quot;&gt;Midscene 的一次 aiAct 里到底发生了什么？&lt;/a&gt;》讲了 &lt;code&gt;aiAct&lt;/code&gt; 内部的规划-执行循环，但里面有一站刻意没展开——**”找元素”**。&lt;/p&gt;
@@ -218,7 +218,7 @@
     <link href="http://quanru.github.io/2026/05/26/Why-Midscene-Splits-Locate-and-Action/"/>
     <id>http://quanru.github.io/2026/05/26/Why-Midscene-Splits-Locate-and-Action/</id>
     <published>2026-05-26T20:00:00.000Z</published>
-    <updated>2026-06-04T03:40:16.685Z</updated>
+    <updated>2026-08-07T11:30:12.344Z</updated>
     
     
     <summary type="html">&lt;p&gt;The previous post, &lt;a href=&quot;/2026/05/26/What-Actually-Happens-Inside-a-Midscene-aiAct/&quot;&gt;What Actually Happens Inside a Single Midscene aiAct Call?&lt;/a&gt;, walked through the plan-execute loop inside &lt;code&gt;aiAct&lt;/code&gt;, but one stop was deliberately left unopened — &lt;strong&gt;“finding the element”&lt;/strong&gt;.&lt;/p&gt;
@@ -245,7 +245,7 @@
     <link href="http://quanru.github.io/2026/05/26/What-Actually-Happens-Inside-a-Midscene-aiAct/"/>
     <id>http://quanru.github.io/2026/05/26/What-Actually-Happens-Inside-a-Midscene-aiAct/</id>
     <published>2026-05-26T19:30:00.000Z</published>
-    <updated>2026-06-04T03:40:16.685Z</updated>
+    <updated>2026-08-07T11:30:12.344Z</updated>
     
     
     <summary type="html">&lt;p&gt;The previous post, &lt;a href=&quot;/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/&quot;&gt;Why Does Midscene’s UI Agent Need to See the Screen?&lt;/a&gt;, explained why Midscene puts “look at the screenshot” at the very front of every UI action. Right after that explanation, I usually get the next question from coworkers:&lt;/p&gt;
@@ -276,7 +276,7 @@
     <link href="http://quanru.github.io/2026/05/26/%E4%B8%80%E6%AC%A1%20aiAct%20%E9%87%8C%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"/>
     <id>http://quanru.github.io/2026/05/26/%E4%B8%80%E6%AC%A1%20aiAct%20%E9%87%8C%E5%88%B0%E5%BA%95%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/</id>
     <published>2026-05-26T19:30:00.000Z</published>
-    <updated>2026-06-04T03:40:16.686Z</updated>
+    <updated>2026-08-07T11:30:12.345Z</updated>
     
     
     <summary type="html">&lt;p&gt;上一篇《&lt;a href=&quot;/2026/05/26/%E4%B8%BA%E4%BB%80%E4%B9%88%20UI%20Agent%20%E9%9D%9E%E5%BE%97%E7%9C%8B%E8%A7%81%E5%B1%8F%E5%B9%95/&quot;&gt;为什么 Midscene 的 UI Agent 非得看见屏幕？&lt;/a&gt;》讲了 Midscene 为什么把”看截图”放在 UI 操作的最前面。但讲完那个判断之后，我经常被同事问下一个问题：&lt;/p&gt;
@@ -307,7 +307,7 @@
     <link href="http://quanru.github.io/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/"/>
     <id>http://quanru.github.io/2026/05/26/Why-Does-a-UI-Agent-Need-to-See-the-Screen/</id>
     <published>2026-05-26T12:43:23.000Z</published>
-    <updated>2026-06-04T03:40:16.685Z</updated>
+    <updated>2026-08-07T11:30:12.344Z</updated>
     
     
     <summary type="html">&lt;p&gt;While working on Midscene, I often run into the same question: why does a UI Agent need screenshots? Why not keep using DOM, selectors, XPath, accessibility trees, and the other things traditional automation has already made mature?&lt;/p&gt;
@@ -334,7 +334,7 @@
     <link href="http://quanru.github.io/2026/05/26/%E4%B8%BA%E4%BB%80%E4%B9%88%20UI%20Agent%20%E9%9D%9E%E5%BE%97%E7%9C%8B%E8%A7%81%E5%B1%8F%E5%B9%95/"/>
     <id>http://quanru.github.io/2026/05/26/%E4%B8%BA%E4%BB%80%E4%B9%88%20UI%20Agent%20%E9%9D%9E%E5%BE%97%E7%9C%8B%E8%A7%81%E5%B1%8F%E5%B9%95/</id>
     <published>2026-05-26T12:43:23.000Z</published>
-    <updated>2026-06-04T03:40:16.686Z</updated>
+    <updated>2026-08-07T11:30:12.345Z</updated>
     
     
     <summary type="html">&lt;p&gt;做 Midscene 的过程中，我经常遇到一个问题：为什么 UI Agent 一定要看截图？为什么不能继续沿用 DOM、selector、XPath、accessibility tree 这些传统自动化里已经很成熟的东西？&lt;/p&gt;
@@ -357,11 +357,38 @@
   </entry>
   
   <entry>
+    <title>Vibecoding：程序猿在 AI 折叠中的突围指南</title>
+    <link href="http://quanru.github.io/2025/12/04/Vibecoding%20%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%9C%A8%20AI%20%E6%8A%98%E5%8F%A0%E4%B8%AD%E7%9A%84%E7%AA%81%E5%9B%B4%E6%8C%87%E5%8D%97/"/>
+    <id>http://quanru.github.io/2025/12/04/Vibecoding%20%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%9C%A8%20AI%20%E6%8A%98%E5%8F%A0%E4%B8%AD%E7%9A%84%E7%AA%81%E5%9B%B4%E6%8C%87%E5%8D%97/</id>
+    <published>2025-12-04T10:00:00.000Z</published>
+    <updated>2026-08-07T11:30:12.343Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;2025 年底的团队分享《Vibecoding：程序猿在 AI 折叠中的突围指南》整理稿：从《北京折叠》说起，用一份 37 人的问卷数据，聊聊 AI 编程工具在团队里真实落地的情况，以及如何把个人效率从「平均 38% 提升」推到「全员 80%+」——包括 Prompt 技巧、MCP 精准配置，和一堆只有实践过才写得出来的奇技淫巧。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工程化" scheme="http://quanru.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    
+    <category term="Vibecoding" scheme="http://quanru.github.io/tags/Vibecoding/"/>
+    
+    <category term="AI 编程" scheme="http://quanru.github.io/tags/AI-%E7%BC%96%E7%A8%8B/"/>
+    
+    <category term="Prompt" scheme="http://quanru.github.io/tags/Prompt/"/>
+    
+    <category term="MCP" scheme="http://quanru.github.io/tags/MCP/"/>
+    
+    <category term="AGENT.md" scheme="http://quanru.github.io/tags/AGENT-md/"/>
+    
+  </entry>
+  
+  <entry>
     <title>I Built a Plugin for My Obsidian Practice</title>
     <link href="http://quanru.github.io/2023/07/16/I-Built-a-Plugin-for-My-Obsidian-Practice/"/>
     <id>http://quanru.github.io/2023/07/16/I-Built-a-Plugin-for-My-Obsidian-Practice/</id>
     <published>2023-07-16T13:40:09.000Z</published>
-    <updated>2026-06-04T03:40:16.683Z</updated>
+    <updated>2026-08-07T11:30:12.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;Building an Obsidian plugin for &lt;a href=&quot;https://quanru.github.io/2023/06/18/%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%94%A8%E6%96%B0%E5%9E%8B%20Obsidian%20%E5%AE%9E%E8%B7%B5%E4%B9%8B%E6%9E%84%E5%BB%BA%E6%88%91%E7%9A%84%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91%20%F0%9F%A7%A0/&quot;&gt;A Practical Approach to Building My Second Brain with Obsidian&lt;/a&gt;!&lt;/p&gt;
@@ -385,7 +412,7 @@
     <link href="http://quanru.github.io/2023/07/16/%E6%88%91%E7%BB%99%E6%88%91%E7%9A%84%20Obsidian%20%E5%AE%9E%E8%B7%B5%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6/"/>
     <id>http://quanru.github.io/2023/07/16/%E6%88%91%E7%BB%99%E6%88%91%E7%9A%84%20Obsidian%20%E5%AE%9E%E8%B7%B5%E5%86%99%E4%BA%86%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6/</id>
     <published>2023-07-16T13:40:09.000Z</published>
-    <updated>2026-06-04T03:40:16.687Z</updated>
+    <updated>2026-08-07T11:30:12.346Z</updated>
     
     
     <summary type="html">&lt;p&gt;为 &lt;a href=&quot;https://quanru.github.io/2023/06/18/%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%94%A8%E6%96%B0%E5%9E%8B%20Obsidian%20%E5%AE%9E%E8%B7%B5%E4%B9%8B%E6%9E%84%E5%BB%BA%E6%88%91%E7%9A%84%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91%20%F0%9F%A7%A0/&quot;&gt;一种实用新型 Obsidian 实践之构建我的第二大脑 🧠&lt;/a&gt; 实现 Obsidian 插件！&lt;/p&gt;
@@ -409,7 +436,7 @@
     <link href="http://quanru.github.io/2023/07/08/Building%20my%20second%20brain%20%F0%9F%A7%A0%20with%20Obsidian/"/>
     <id>http://quanru.github.io/2023/07/08/Building%20my%20second%20brain%20%F0%9F%A7%A0%20with%20Obsidian/</id>
     <published>2023-07-08T09:38:13.000Z</published>
-    <updated>2026-06-04T03:40:16.682Z</updated>
+    <updated>2026-08-07T11:30:12.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;This article will take &lt;a href=&quot;https://obsidian.md/&quot;&gt;Obsidian&lt;/a&gt; as an example to share my practice of using Obsidian to build a second brain!&lt;/p&gt;
@@ -439,7 +466,7 @@
     <link href="http://quanru.github.io/2023/06/18/%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%94%A8%E6%96%B0%E5%9E%8B%20Obsidian%20%E5%AE%9E%E8%B7%B5%E4%B9%8B%E6%9E%84%E5%BB%BA%E6%88%91%E7%9A%84%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91%20%F0%9F%A7%A0/"/>
     <id>http://quanru.github.io/2023/06/18/%E4%B8%80%E7%A7%8D%E5%AE%9E%E7%94%A8%E6%96%B0%E5%9E%8B%20Obsidian%20%E5%AE%9E%E8%B7%B5%E4%B9%8B%E6%9E%84%E5%BB%BA%E6%88%91%E7%9A%84%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91%20%F0%9F%A7%A0/</id>
     <published>2023-06-18T05:17:39.000Z</published>
-    <updated>2026-06-04T03:40:16.686Z</updated>
+    <updated>2026-08-07T11:30:12.345Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文将以 &lt;a href=&quot;https://obsidian.md/&quot;&gt;Obsidian&lt;/a&gt; 为例，分享我使用 Obsidian 构建第二大脑的实践！&lt;/p&gt;
@@ -469,7 +496,7 @@
     <link href="http://quanru.github.io/2023/06/17/Frontend-Engineering-Practices-at-ByteDance/"/>
     <id>http://quanru.github.io/2023/06/17/Frontend-Engineering-Practices-at-ByteDance/</id>
     <published>2023-06-17T17:20:23.000Z</published>
-    <updated>2026-06-04T03:40:16.682Z</updated>
+    <updated>2026-08-07T11:30:12.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;Invited to speak at the 2023 &lt;a href=&quot;https://wot.51cto.com/act/wot2023/dev/&quot;&gt;WOT Global Technology Innovation Conference&lt;/a&gt; organized by 51CTO.&lt;/p&gt;</summary>
@@ -496,7 +523,7 @@
     <link href="http://quanru.github.io/2023/06/17/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/"/>
     <id>http://quanru.github.io/2023/06/17/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96%E5%AE%9E%E8%B7%B5/</id>
     <published>2023-06-17T17:20:23.000Z</published>
-    <updated>2026-06-04T03:40:16.687Z</updated>
+    <updated>2026-08-07T11:30:12.346Z</updated>
     
     
     <summary type="html">&lt;p&gt;受邀参加 2023 51CTO 举办的&lt;a href=&quot;https://wot.51cto.com/act/wot2023/dev/&quot;&gt;『WOT全球技术创新大会』&lt;/a&gt;&lt;/p&gt;</summary>
@@ -523,7 +550,7 @@
     <link href="http://quanru.github.io/2022/12/31/Frontend-Monorepo-Practices-at-ByteDance/"/>
     <id>http://quanru.github.io/2022/12/31/Frontend-Monorepo-Practices-at-ByteDance/</id>
     <published>2022-12-31T16:56:15.000Z</published>
-    <updated>2026-06-04T03:40:16.682Z</updated>
+    <updated>2026-08-07T11:30:12.341Z</updated>
     
     
     <summary type="html">&lt;p&gt;Invited to speak at the 11th Top100 Summit. For more details, see the article &lt;a href=&quot;https://mp.weixin.qq.com/s/-fPJ3KsNGDRxgIJoBAOGmw&quot;&gt;Year-end Review: How These 100 Tech Innovation Leaders Do Retrospectives&lt;/a&gt;&lt;/p&gt;</summary>
@@ -536,27 +563,6 @@
     <category term="Engineering Governance" scheme="http://quanru.github.io/tags/Engineering-Governance/"/>
     
     <category term="Monorepo" scheme="http://quanru.github.io/tags/Monorepo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>前端 Monorepo 在字节跳动的实践</title>
-    <link href="http://quanru.github.io/2022/12/31/%E5%89%8D%E7%AB%AF%20Monorepo%20%E5%9C%A8%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://quanru.github.io/2022/12/31/%E5%89%8D%E7%AB%AF%20Monorepo%20%E5%9C%A8%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E7%9A%84%E5%AE%9E%E8%B7%B5/</id>
-    <published>2022-12-31T16:56:15.000Z</published>
-    <updated>2026-06-04T03:40:16.687Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;受邀参加第十一届 Top100 峰会，更多详情见文章&lt;a href=&quot;https://mp.weixin.qq.com/s/-fPJ3KsNGDRxgIJoBAOGmw&quot;&gt;年底了，看看这100位技术创新带头人如何做复盘？&lt;/a&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="工程化" scheme="http://quanru.github.io/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
-    
-    <category term="Monorepo" scheme="http://quanru.github.io/tags/Monorepo/"/>
-    
-    <category term="工程治理" scheme="http://quanru.github.io/tags/%E5%B7%A5%E7%A8%8B%E6%B2%BB%E7%90%86/"/>
     
   </entry>
   
