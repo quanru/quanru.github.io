@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en"><head><!-- hexo injector head_begin start --><meta name="google-site-verification" content="XKB565_wrzbUdiA1Uwp8UUj3ncEr2Oxb8GimIGXcPxY"><!-- hexo injector head_begin end --><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Vibecoding: A Breakout Guide for Programmers in the AI Folding - LinYiBing&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="theme-color" content="#ffffff"><meta name="application-name" content="LinYiBing&#039;s Blog"><meta name="msapplication-TileImage" content="/img/avatar.png"><meta name="msapplication-TileColor" content="#ffffff"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LinYiBing&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="apple-touch-icon" sizes="48x48" href="/img/avatar.png"><meta name="description" content="An edited transcript of my late-2025 team talk, “Vibecoding: A Breakout Guide for Programmers in the AI Folding.” It starts with Folding Beijing, walks through survey data from 37 colleagues on how AI"><meta property="og:type" content="blog"><meta property="og:title" content="Vibecoding: A Breakout Guide for Programmers in the AI Folding"><meta property="og:url" content="http://quanru.github.io/2025/12/04/Vibecoding-Programmers-Breakout-Guide-in-the-AI-Folding"><meta property="og:site_name" content="LinYiBing&#039;s Blog"><meta property="og:description" content="An edited transcript of my late-2025 team talk, “Vibecoding: A Breakout Guide for Programmers in the AI Folding.” It starts with Folding Beijing, walks through survey data from 37 colleagues on how AI"><meta property="og:locale" content="en_US"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-1.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-2.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-3.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-4.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-5.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-6.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-7.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-8.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-9.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-10.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-11.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-12.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-13.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-14.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-15.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-16.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-17.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-18.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-19.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-20.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-21.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-22.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-23.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-24.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-25.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-26.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-27.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-28.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-29.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-30.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-31.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-32.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-33.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-34.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-35.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-36.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-37.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-38.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-39.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-40.jpeg"><meta property="og:image" content="http://quanru.github.io/post-img/vibecoding-ai-41.jpeg"><meta property="article:published_time" content="2025-12-04T10:00:00.000Z"><meta property="article:modified_time" content="2026-08-07T12:43:43.177Z"><meta property="article:author" content="LinYiBing"><meta property="article:tag" content="Vibecoding"><meta property="article:tag" content="Prompt"><meta property="article:tag" content="MCP"><meta property="article:tag" content="AGENT.md"><meta property="article:tag" content="AI Coding"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="http://quanru.github.io/post-img/vibecoding-ai-1.jpeg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://quanru.github.io/2025/12/04/Vibecoding-Programmers-Breakout-Guide-in-the-AI-Folding"},"headline":"Vibecoding: A Breakout Guide for Programmers in the AI Folding","image":[],"datePublished":"2025-12-04T10:00:00.000Z","dateModified":"2026-08-07T12:43:43.177Z","author":{"@type":"Person","name":"LinYiBing"},"publisher":{"@type":"Organization","name":"LinYiBing's Blog","logo":{"@type":"ImageObject","url":"http://quanru.github.io/img/avatar.png"}},"description":"An edited transcript of my late-2025 team talk, “Vibecoding: A Breakout Guide for Programmers in the AI Folding.” It starts with Folding Beijing, walks through survey data from 37 colleagues on how AI"}</script><link rel="canonical" href="http://quanru.github.io/2025/12/04/Vibecoding-Programmers-Breakout-Guide-in-the-AI-Folding"><link rel="icon" href="/img/favicon.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="follow.it-verification-code" content="L1RpaQjCaMfGQ2QX42KT"><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script>
+<link rel="stylesheet" href="/css/index.css">
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "kvbvszxxym");
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="LinYiBing's Blog" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/avatar.png" alt="LinYiBing&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives/">Archives</a><a class="navbar-item" href="/categories/">Categories</a><a class="navbar-item" href="/tags/">Tags</a><a class="navbar-item" target="_blank" rel="noopener" href="https://lifeos.vip/about">About</a><a class="navbar-item" href="/2025/12/04/Vibecoding%20%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%9C%A8%20AI%20%E6%8A%98%E5%8F%A0%E4%B8%AD%E7%9A%84%E7%AA%81%E5%9B%B4%E6%8C%87%E5%8D%97/">中文</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/quanru"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2025-12-04T10:00:00.000Z" title="12/4/2025, 10:00:00 AM">2025-12-04</time></span><span class="level-item">Updated&nbsp;<time dateTime="2026-08-07T12:43:43.177Z" title="8/7/2026, 12:43:43 PM">2026-08-07</time></span><span class="level-item"><a class="link-muted" href="/categories/Engineering/">Engineering</a></span><span class="level-item">22 minutes read (About 3293 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">Vibecoding: A Breakout Guide for Programmers in the AI Folding</h1><div class="content"><p>An edited transcript of my late-2025 team talk, “Vibecoding: A Breakout Guide for Programmers in the AI Folding.” It starts with <em>Folding Beijing</em>, walks through survey data from 37 colleagues on how AI coding tools are actually landing in the team, and looks at how to push individual efficiency from an average of 38% to 80%+ for everyone — covering prompt techniques, lean MCP setups, and a bunch of tricks you can only learn from practice.</p>
+<span id="more"></span>
+
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2025/12/04/Vibecoding%20%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%9C%A8%20AI%20%E6%8A%98%E5%8F%A0%E4%B8%AD%E7%9A%84%E7%AA%81%E5%9B%B4%E6%8C%87%E5%8D%97/">简体中文</a>.
+</div>
+</article>
+
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><ul>
+<li>Team sharing session: Vibecoding — a breakout guide for programmers in the AI Folding</li>
+<li>Based on a survey of 37 colleagues, 94.6% of whom use AI coding tools multiple times a day</li>
+</ul>
+<h2 id="Slides"><a href="#Slides" class="headerlink" title="Slides"></a>Slides</h2><p><img src="/post-img/vibecoding-ai-1.jpeg"></p>
+<ul>
+<li>Hello everyone, today I’ll be sharing “Vibecoding: A Breakout Guide for Programmers in the AI Folding”!</li>
+<li>One day I noticed our colleague Lei’s Feishu status message was “AI Folding,” and I asked him what it meant.</li>
+<li>He said: have you read <em>Folding Beijing</em>? It’s the same idea.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-2.jpeg"></p>
+<ul>
+<li>Have you read <em>Folding Beijing</em>? It has this fascinating premise: the city is divided into three layers, and when the time comes, one layer goes to sleep while their buildings fold away, and another layer comes out to live. In short, people are sorted into classes and completely sealed off from one another.</li>
+<li>What we’re going through right now is basically the “AI version of Folding Beijing.” Within the same company, those who use AI and those who don’t are already living in two different worlds.</li>
+<li>What’s the cruelest part of the novella? The people of the Third Space spend their days manually sorting garbage — work machines could easily do long ago. It’s deliberately left for them, just so they can scrape by.</li>
+<li>That hits hard. Think about programming: if you’re still coding and debugging by pure manual craftsmanship, then in the eyes of AI, you’re “manually sorting garbage.” You grind away for hours while a colleague who uses AI finishes in thirty minutes. The gap isn’t 2x — it’s an outright chasm.</li>
+<li>That’s what today’s talk is about: Vibecoding. It’s the ladder. We need to climb over the wall, not be the “Third Space laborer” toiling at the bottom. Be the “first-class citizen” who rides AI.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-3.jpeg"></p>
+<ul>
+<li>First, let’s look at the survey results: in our team, 94.6% of colleagues use AI coding tools multiple times a day, and 86.5% say their efficiency has improved by more than 20%.</li>
+<li>This means AI coding is no longer a niche experiment — it’s become a core part of our team’s workflow.</li>
+<li>From a technological standpoint, we’re going through something like the transition from “film photography” to “digital photography.” In the past, handwriting every line of code was like shooting film — every shutter press had to be carefully planned. Now we’re in the digital era, and the way we program is fundamentally changing.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-4.jpeg"></p>
+<ul>
+<li>More importantly, we already have a solid foundation for capacity growth.</li>
+<li>Based on the efficiency gains everyone reported, I did a simple conversion: with 44 people in our department, we effectively already have the capacity of a 61-person team.</li>
+<li>What does that mean? It’s like gaining 17 extra people out of thin air.</li>
+<li>Our tool adoption is also solid: plenty of colleagues use MCP and AGENT.md.</li>
+<li>And notably, 27% of colleagues have already achieved over 50% efficiency gains. Our team is ready for the next leap.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-5.jpeg"></p>
+<ul>
+<li>But our potential isn’t fully unleashed yet.</li>
+<li>Based on precise calculations from 37 survey responses, the team’s average efficiency gain is currently 38%. What does that mean?</li>
+<li>Our short-term goal is for everyone to reach 50%+, so the 44-person team operates at 70-person capacity — the equivalent of gaining 26 people.</li>
+<li>Our ultimate goal is 80%+ for everyone, which would let the 44-person team operate at 79-person capacity — 35 extra people, nearly doubling!</li>
+<li>So raising each individual’s AI coding efficiency is our top priority.</li>
+<li>That’s the core of today’s talk: how to raise everyone’s efficiency, and thereby raise the whole team’s capacity.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-6.jpeg"></p>
+<ul>
+<li>So where does the problem lie? Let’s look at a core conflict.</li>
+<li>94.6% of colleagues use AI tools daily — it’s as if everyone is equipped with a “digital camera.”</li>
+<li>Yet 78.4% of colleagues are held back by code quality. It’s like holding the latest digital camera while your mind still runs on “every shot of film is precious” thinking — afraid of mistakes, you can’t bring yourself to press the shutter.</li>
+<li>Even more critically, 89.2% say they need to improve their prompt skills — that’s like lacking “digital photography” knowledge, not knowing how to use the advanced device in your hands.</li>
+<li>This is the core contradiction we face today: we’ve equipped ourselves with advanced tools, but our mindset and methods haven’t caught up.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-7.jpeg"></p>
+<ul>
+<li>The survey data reveals three visible frictions:</li>
+<li>First, tool stability: 56.8% of colleagues are affected, and it does disrupt workflow.</li>
+<li>Second, unstable code quality: 78.4% struggle with this — it’s the most prominent issue!</li>
+<li>Most importantly, prompt skill gaps: 88.2% need improvement — almost the entire team.</li>
+<li>These three issues are interconnected and together constrain our capacity release.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-8.jpeg"></p>
+<ul>
+<li>The problem isn’t the tools — it’s that we haven’t truly adapted to the era of “cheap trial and error.”</li>
+<li>Imagine: someone hands you a digital camera, but you’re afraid to press the shutter because a part of you believes every shot costs money — not only is that absurd, it’s an accurate picture of where we are.</li>
+<li>Before AI, writing code really was like shooting film: debugging, refactoring, starting over — every step burned expensive time and mental energy. To avoid risk, we became overly cautious. But now AI makes code generation extremely cheap. It gives us the “digital camera’s” unlimited burst mode.</li>
+<li>The sad part: we’re holding a digital camera (AI) but still shooting like it’s film. We’re using the old “afraid to make mistakes” mindset to drive a new species that encourages experimentation. That’s the root cause blocking an efficiency explosion.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-9.jpeg"></p>
+<ul>
+<li>To reach our goal, we need to solve three key problems:</li>
+<li>First, how do we improve tool stability?</li>
+<li>Second, how do we help everyone master prompt skills?</li>
+<li>Third, how do we solve code quality?</li>
+<li>These three are interlocking — they form the critical path to a capacity leap.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-10.jpeg"></p>
+<ul>
+<li>Let’s start with a simple but annoying problem.</li>
+<li>In productivity work, you must use the most powerful model available to you — anything less is just making things harder for yourself. Previously you could get strong models like the Claude series through some IDEs; now you need some “special measures” to access them.</li>
+<li>I’ll just give you a few keywords to search for — you can find each tool that way. If you still have questions, come chat with me after the session.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-11.jpeg"></p>
+<ul>
+<li>Next, let’s talk about how to improve AI coding efficiency.</li>
+<li>There are three approaches — let’s go through them together.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-12.jpeg"></p>
+<ul>
+<li>AGENT.md is the “icing on the cake.” If your project isn’t standard, or is genuinely unconventional, I strongly recommend configuring an AGENT.md.</li>
+<li>It makes AI understand your project better, and the file is cheap to generate — everyone should create one!</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-13.jpeg"></p>
+<ul>
+<li>Let’s look at some data to underline the core value of prompts.</li>
+<li>37.8% of colleagues find writing prompts difficult — data support: this is the core pain point we need to solve.</li>
+<li>50% of colleagues who are proficient with prompts achieved significant gains — validation: skill improvement delivers real value.</li>
+<li>88.2% of colleagues say they need to improve this core skill.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-14.jpeg"></p>
+<ul>
+<li>OK, let’s start with the first core technique: be clear and explicit.</li>
+<li>Core principle: tell the model exactly what you expect to see. If you want comprehensive output, say so directly. If you need specific features, list them one by one.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-15.jpeg"></p>
+<ul>
+<li>Core technique #2: provide context and motivation.</li>
+<li>Explaining why something matters helps the AI better understand your goal and give more targeted responses.</li>
+<li>So be a little verbose — going round and round is fine. No wonder some people even bought microphones for AI coding.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-16.jpeg"></p>
+<ul>
+<li>Core technique #3: be specific.</li>
+<li>In prompt engineering, being specific means structuring your instructions with clear guidelines and requirements. The more specifically you describe what you want, the better the result you’ll get.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-17.jpeg"></p>
+<ul>
+<li>Core technique #4: make good use of examples.</li>
+<li>In our coding scenarios, the way I use this most often is telling the AI to mimic the implementation in our repo — or even implementations in other repos.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-18.jpeg"></p>
+<ul>
+<li>Advanced technique #1: chain-of-thought prompting.</li>
+<li>Trigger the model’s deep reasoning through your prompt.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-19.jpeg"></p>
+<ul>
+<li>Advanced technique #2: prompt chaining.</li>
+<li>Unlike previous techniques, prompt chaining can’t be done in a single prompt. This method breaks a complex task into multiple sequential steps, each with its own prompt. Each prompt handles one stage, and its output feeds the next stage as instructions.</li>
+<li>I personally prefer this — you can go step by step and check as you go.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-20.jpeg"></p>
+<ul>
+<li>Some plugins also have built-in flows that walk you through the process step by step.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-21.jpeg"></p>
+<ul>
+<li>Core principle for MCP configuration: less is more.</li>
+<li>Instead of trying to cover everything, focus on 3-5 core servers. A lean configuration brings three benefits:<ul>
+<li>More efficient: a leaner system prompt leaves more room for code context and yields faster responses.</li>
+<li>More precise: fewer irrelevant tools means the model stays focused on the instructions and produces more accurate output.</li>
+<li>More cost-effective: no tokens wasted on redundant definitions, significantly lowering running costs.</li>
+</ul>
+</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-22.jpeg"></p>
+<ul>
+<li>Now let’s look at my core MCP toolset. These are the essential configurations I use every day — each plays a distinct role, together forming my efficient development environment.</li>
+<li>First, Chrome DevTools: it lets me get inside the browser to inspect and debug page state in real time — indispensable for frontend development.</li>
+<li>Next, Playwright: this powerful library lets me automate web pages, whether for end-to-end testing or repetitive tasks — very efficient.</li>
+<li>Then, GitHub integration: code review and version control are critical for team collaboration. GitHub-related MCPs let me manage PRs, comments, and code review directly in the AI environment, greatly simplifying collaboration.</li>
+<li>Finally, MCP-Chrome: it provides a stateful browser environment — a huge convenience for sessions that need to be maintained or complex interactions.</li>
+<li>This combination lets me handle different kinds of development tasks with ease.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-23.jpeg"></p>
+<ul>
+<li>Chrome DevTools performance analysis: inspect page runtime state directly in the conversation via MCP, without switching back and forth to DevTools.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-24.jpeg"></p>
+<ul>
+<li>Resolving GitHub comments: handle PR comments and code review directly in the AI environment — no need to switch back to the web.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-25.jpeg"></p>
+<ul>
+<li>Next, I want to share some tricks of the trade I’ve picked up in practice.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-26.jpeg"></p>
+<ul>
+<li>Left-right mutual combat: in round one, have Claude Code generate the code, then bring in another model or perspective to cross-examine it — code quality improves noticeably.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-27.jpeg"></p>
+<ul>
+<li>Background task delegation: hand repetitive or time-consuming work to AI to run in the background, maximizing your productivity and rest time.</li>
+<li>Delegate before bed or during idle time: use non-working hours or fragments of time to delegate long-running refactors or code generation, and exploratory work that needs multiple approaches.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-28.jpeg"></p>
+<ul>
+<li>Model-switching magic: when you’re stuck, switch models or tools — when you hit a bottleneck or the output quality drops, try switching to a more powerful model or a different tool.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-29.jpeg"></p>
+<ul>
+<li>Fuzzy-requirements kickoff: when you don’t know exactly what you want either, don’t give up or toss a vague instruction at the AI and wait for it to play guessing games — have the AI help you pin down the requirements first.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-30.jpeg"></p>
+<ul>
+<li>The core of this strategy is reducing the cost of context switching.</li>
+<li>In the traditional development model, we constantly switch between windows and tabs for coding, debugging, reading docs, and version control, which hugely scatters our attention and hurts efficiency.</li>
+<li>By giving each major task its own VS Code window, we can:<ol>
+<li>Stay focused: each window handles one class of task, keeping the brain in the same context and reducing cognitive load.</li>
+<li>Be more efficient: need to debug? Switch straight to the debug window. Need docs? Switch to the docs window — no hunting or reopening.</li>
+<li>Work in parallel: some tasks can run simultaneously — e.g., while coding in the main window, an AI assistant window can offer suggestions, or run tests in the test window while reading docs.</li>
+</ol>
+</li>
+<li>It’s like a “multi-threaded” development environment that makes your workflow smoother and more efficient.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-31.jpeg"></p>
+<ul>
+<li>Continuing the personal-workflow optimization theme, this strategy targets the “simple issues” of everyday development.</li>
+<li>The core idea:<ol>
+<li>AI does the first pass (triage and handling): many small, well-defined tasks — formatting code, adding a simple getter&#x2F;setter, fixing an obvious typo, or implementing a known pattern — can go straight to GitHub Copilot first.</li>
+<li>After two failed rounds, a human steps in: if Copilot tries twice (or your preset limit) without a satisfactory result, stop investing more time in AI. That suggests the problem is more complex than it looks, or the AI’s current context and ability aren’t enough. At that point, the developer should step in and solve it through local debugging, reading docs, or talking to a colleague.</li>
+</ol>
+</li>
+<li>The advantages:<ul>
+<li>Maximize AI efficiency: let AI handle the repetitive, pattern-based tasks it’s good at, freeing developers’ time.</li>
+<li>Avoid the “AI black hole”: setting an intervention threshold prevents endless loops in AI attempts.</li>
+<li>Solve problems faster: for complex issues AI struggles with, human intervention is often quicker and more accurate.</li>
+</ul>
+</li>
+<li>This is a pragmatic strategy — treat AI as an efficient junior assistant, not an all-powerful solution, balancing development efficiency with problem-solving quality.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-32.jpeg"></p>
+<ul>
+<li>Now let’s talk about a “custom Commands library.”</li>
+<li>This means building a command set tailored to your working habits and project needs. These commands can wrap complex operations — one-click deployment, running the full test suite, generating a project template, and so on.</li>
+<li>The core advantage is “one-click execution of complex workflows”:<ol>
+<li>Simplify tedious operations: automate repetitive, multi-step tasks with a single command, greatly reducing manual intervention and cognitive load. Where you used to run multiple scripts by hand, now you need one command.</li>
+<li>Standardize development processes: especially important for teamwork. Custom commands ensure everyone follows consistent conventions and best practices for a given task — better code quality and smoother collaboration.</li>
+<li>Boost efficiency dramatically: once daily tasks become automated and standardized, your efficiency rises significantly. You can spend more time on core problems and innovation instead of repetitive labor.</li>
+</ol>
+</li>
+<li>A custom Commands library is a key step in the transformation from “code executor” to “Agent architect” — making your development environment smarter and more efficient.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-33.jpeg"></p>
+<ul>
+<li>Complex Git gymnastics: when a PR’s target branch doesn’t match where you actually need to merge, and changing the target branch directly would cause massive conflicts — first find the specific commit hash you need via the PR or commit history, then operate precisely.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-34.jpeg"></p>
+<ul>
+<li>Next up in the “tricks of the trade” series, a fun one: create a digital doppelganger of your colleague.</li>
+<li>It sounds a bit sci-fi, but with AI we can actually build a “digital doppelganger” that simulates a colleague’s expertise, working style, and even communication patterns. This isn’t just a simple automation script — it’s a replication and extension of the team’s collective wisdom.</li>
+<li>Imagine a senior architect leaves: their experience and decision logic can be fed into AI through their past code, docs, emails, and meeting notes, forming a “digital architect.”</li>
+<li>There are three core values:<ul>
+<li>Knowledge preservation: even as team members change, key experience and insights don’t leave with them. The doppelganger retains that knowledge for the team to keep learning from and using.</li>
+<li>Efficient collaboration: the doppelganger can simulate an expert doing code review, joining design discussions, even guiding development — keeping output style and decision logic consistent.</li>
+<li>Faster onboarding: new members can interact with the doppelganger to quickly learn the team’s best practices, domain knowledge, and unwritten norms, greatly shortening the ramp-up time.</li>
+</ul>
+</li>
+<li>This effectively extends the team’s capability boundary and reuses hard-won experience and wisdom — especially valuable in large projects and high-turnover teams.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-35.jpeg"></p>
+<ul>
+<li>AI horse racing: give the same requirement to multiple AIs and let their solutions race.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-36.jpeg"></p>
+<ul>
+<li>Any clue works: make use of any clue that can trigger the AI.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-37.jpeg"></p>
+<ul>
+<li>Beyond code, AI has many unexpected “tricks of the trade” in our daily work that can greatly improve efficiency and quality.</li>
+<li>First, data analysis and insights: analyzing survey data the traditional way is time-consuming, but now we can feed large amounts of survey data to AI and have it quickly identify patterns, trends, and key insights. This not only saves a lot of time, it also helps us gain deeper understanding from the data and make better-informed business decisions.</li>
+<li>Second, slide-to-script generation: for people doing talks and presentations, turning slides into a verbatim script is a common task. Now you can hand your slides to AI and have it automatically produce a detailed script. Great for reviewing and sharing — and you can even translate it into other languages, spreading the content further.</li>
+<li>Third, user-perspective changelogs: too often, the changelogs we write as developers are technical and hard for users to understand. AI can convert complex, technical release notes into user-friendly language that’s easy to grasp. This strengthens users’ perception of the product and boosts engagement and satisfaction.</li>
+<li>These examples show that AI’s value goes far beyond programming itself — it can permeate every corner of our work and become a “super assistant” for getting things done efficiently.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-38.jpeg"></p>
+<ul>
+<li>So is AI all-powerful? Let’s re-examine the boundaries of AI: in practice, AI coding tools have inherent limitations — especially in understanding complex context, handling abstract concepts, and ensuring code quality and security, where human engineers must remain deeply involved and make the final call. Recognizing these boundaries helps us use AI more rationally and effectively.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-39.jpeg"></p>
+<ul>
+<li>Technical capability boundaries: architecture design limits (lacks system-level architectural vision), shallow understanding of complex business&#x2F;domain knowledge, and innovation ceilings.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-40.jpeg"></p>
+<ul>
+<li>Code quality risk control: hidden logic errors (code that looks right but has deep flaws), performance traps (may pick inefficient implementations), and accumulating technical debt.</li>
+</ul>
+<p><img src="/post-img/vibecoding-ai-41.jpeg"></p>
+<ul>
+<li>Thank you — that concludes my talk today!</li>
+</ul>
+<h2 id="Slides-Attachment"><a href="#Slides-Attachment" class="headerlink" title="Slides Attachment"></a>Slides Attachment</h2><iframe width="100%" height="855px" src="/res/pdfjs/web/viewer.html?file=/pdf/Vibecoding-AI.pdf"></iframe>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Vibecoding: A Breakout Guide for Programmers in the AI Folding</p><p><a href="http://quanru.github.io/2025/12/04/Vibecoding-Programmers-Breakout-Guide-in-the-AI-Folding">http://quanru.github.io/2025/12/04/Vibecoding-Programmers-Breakout-Guide-in-the-AI-Folding</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>LinYiBing</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2025-12-04</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2026-08-07</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Vibecoding/">Vibecoding</a><a class="link-muted mr-2" rel="tag" href="/tags/Prompt/">Prompt</a><a class="link-muted mr-2" rel="tag" href="/tags/MCP/">MCP</a><a class="link-muted mr-2" rel="tag" href="/tags/AGENT-md/">AGENT.md</a><a class="link-muted mr-2" rel="tag" href="/tags/AI-Coding/">AI Coding</a></div><!--!--></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="/img/alipay-qr.jpg" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="/img/wechat-qr.jpg" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2025/12/04/Vibecoding%20%E7%A8%8B%E5%BA%8F%E7%8C%BF%E5%9C%A8%20AI%20%E6%8A%98%E5%8F%A0%E4%B8%AD%E7%9A%84%E7%AA%81%E5%9B%B4%E6%8C%87%E5%8D%97"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Vibecoding：程序猿在 AI 折叠中的突围指南</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/07/16/I-Built-a-Plugin-for-My-Obsidian-Practice"><span class="level-item">I Built a Plugin for My Obsidian Practice</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="/img/avatar.png" alt="LinYiBing"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">LinYiBing</p><p class="is-size-6 is-block">Frontend Engineer</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Hangzhou, China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives/"><p class="title">50</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories/"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags/"><p class="title">50</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://bento.me/leyang" target="_blank" rel="me noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/quanru"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Twitter" href="https://twitter.com/quanruzhuoxiu"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Zhihu" href="https://www.zhihu.com/people/quanru"><i class="fab fa-zhihu"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Weibo" href="http://weibo.com/zhuoxiu"><i class="fab fa-weibo"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Background"><span class="level-left"><span class="level-item">1</span><span class="level-item">Background</span></span></a></li><li><a class="level is-mobile" href="#Slides"><span class="level-left"><span class="level-item">2</span><span class="level-item">Slides</span></span></a></li><li><a class="level is-mobile" href="#Slides-Attachment"><span class="level-left"><span class="level-item">3</span><span class="level-item">Slides Attachment</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="https://api.follow.it/subscription-form/WklsOUszYmN3Vi9OdElyWjliaThEQ0x4bTNoZG56YTUvY2QzMjg5RDdEa256Z3NSUitqMWJwaFVtbzlRMWozUWhpa0o4L290WkpYeUcwSVp3WHVVUlhhUW1KVFVyUHQ0cnphNEJiVmZsVGNKOGdsaStQWnRrcTlwYzhTNFBYRzV8S3BDQ2Uyem1ZQlBZcXFQdDZ5VktBZDNadlUydng0QUpRTDNHRXMvYnN2bz0=/8" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-06-03T20:00:00.000Z">2026-06-03</time></p><p class="title"><a href="/2026/06/03/Turning-Vibecoding-Debt-into-a-Harness-00-Baseline-Audit">Turning Vibecoding Debt into a Harness (00): Building a Local Harness in Public, on a Real Repo</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-05-27T20:00:00.000Z">2026-05-27</time></p><p class="title"><a href="/2026/05/27/Action-Space-as-a-Protocol">Why Midscene&#039;s Action Space Is a Protocol</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-05-27T12:00:00.000Z">2026-05-27</time></p><p class="title"><a href="/2026/05/27/How-Midscene-Stays-Model-Agnostic">How Does Midscene Stay Model-Agnostic?</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-05-26T20:00:00.000Z">2026-05-26</time></p><p class="title"><a href="/2026/05/26/Why-Midscene-Splits-Locate-and-Action">Why Does Midscene Split Locate and Action into Two Steps?</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-05-26T19:30:00.000Z">2026-05-26</time></p><p class="title"><a href="/2026/05/26/What-Actually-Happens-Inside-a-Midscene-aiAct">What Actually Happens Inside a Single Midscene aiAct Call?</a></p><p class="categories"><a href="/categories/Engineering/">Engineering</a></p></div></article></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/Development-Tools"><span class="level-start"><span class="level-item">Development Tools</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Engineering"><span class="level-start"><span class="level-item">Engineering</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><li><a class="level is-mobile" href="/categories/Frontend-Learning"><span class="level-start"><span class="level-item">Frontend Learning</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Interview"><span class="level-start"><span class="level-item">Interview</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Node-js-Server"><span class="level-start"><span class="level-item">Node.js Server</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Node-js-Server-Side"><span class="level-start"><span class="level-item">Node.js Server-Side</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Node-js-Server-side"><span class="level-start"><span class="level-item">Node.js Server-side</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Reading-Notes"><span class="level-start"><span class="level-item">Reading Notes</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/Second-Brain"><span class="level-start"><span class="level-item">Second Brain</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/Summary"><span class="level-start"><span class="level-item">Summary</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Work-Journal"><span class="level-start"><span class="level-item">Work Journal</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/Work-Log"><span class="level-start"><span class="level-item">Work Log</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/Work-Notes"><span class="level-start"><span class="level-item">Work Notes</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/categories/%E7%AC%AC%E4%BA%8C%E5%A4%A7%E8%84%91"><span class="level-start"><span class="level-item">第二大脑</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2026/06/"><span class="level-start"><span class="level-item">June 2026</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2026/05/"><span class="level-start"><span class="level-item">May 2026</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/12/"><span class="level-start"><span class="level-item">December 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/07/"><span class="level-start"><span class="level-item">July 2023</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/06/"><span class="level-start"><span class="level-item">June 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/12/"><span class="level-start"><span class="level-item">December 2022</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/12/"><span class="level-start"><span class="level-item">December 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2021/04/"><span class="level-start"><span class="level-item">April 2021</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/09/"><span class="level-start"><span class="level-item">September 2020</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/06/"><span class="level-start"><span class="level-item">June 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/05/"><span class="level-start"><span class="level-item">May 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2020/04/"><span class="level-start"><span class="level-item">April 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2019/07/"><span class="level-start"><span class="level-item">July 2019</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2018/02/"><span class="level-start"><span class="level-item">February 2018</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/12/"><span class="level-start"><span class="level-item">December 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/08/"><span class="level-start"><span class="level-item">August 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2017/03/"><span class="level-start"><span class="level-item">March 2017</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/12/"><span class="level-start"><span class="level-item">December 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/11/"><span class="level-start"><span class="level-item">November 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/10/"><span class="level-start"><span class="level-item">October 2016</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/08/"><span class="level-start"><span class="level-item">August 2016</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/04/"><span class="level-start"><span class="level-item">April 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2016/03/"><span class="level-start"><span class="level-item">March 2016</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/11/"><span class="level-start"><span class="level-item">November 2015</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/09/"><span class="level-start"><span class="level-item">September 2015</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/08/"><span class="level-start"><span class="level-item">August 2015</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/07/"><span class="level-start"><span class="level-item">July 2015</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2015/06/"><span class="level-start"><span class="level-item">June 2015</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/AGENT-md"><span class="tag">AGENT.md</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/AI-Agent"><span class="tag">AI Agent</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/AI-Automation"><span class="tag">AI Automation</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/AI-Coding"><span class="tag">AI Coding</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Build-in-Public"><span class="tag">Build in Public</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Bundler"><span class="tag">Bundler</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CLI-Tools"><span class="tag">CLI Tools</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/CSS"><span class="tag">CSS</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Canvas"><span class="tag">Canvas</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Compiler"><span class="tag">Compiler</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Conference"><span class="tag">Conference</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Diagnostics-Tool"><span class="tag">Diagnostics Tool</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Engineering"><span class="tag">Engineering</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Engineering-Governance"><span class="tag">Engineering Governance</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Frontend-Interview"><span class="tag">Frontend Interview</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Frontend-Backend-Separation"><span class="tag">Frontend-Backend Separation</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Functional-Programming"><span class="tag">Functional Programming</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Git"><span class="tag">Git</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Goal-Management"><span class="tag">Goal-Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Harness"><span class="tag">Harness</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Internship-Journey"><span class="tag">Internship Journey</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JavaScript"><span class="tag">JavaScript</span><span class="tag">26</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Javascript"><span class="tag">Javascript</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/JsBridge"><span class="tag">JsBridge</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/LifeOS"><span class="tag">LifeOS</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux"><span class="tag">Linux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MCP"><span class="tag">MCP</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Maintainability"><span class="tag">Maintainability</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Memory-Leak"><span class="tag">Memory Leak</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Micro-Frontend"><span class="tag">Micro Frontend</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Midscene"><span class="tag">Midscene</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Monitoring-and-Alerting"><span class="tag">Monitoring and Alerting</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Monorepo"><span class="tag">Monorepo</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Node-js"><span class="tag">Node.js</span><span class="tag">14</span></a></div><div class="control"><a class="tags has-addons" href="/tags/PKM"><span class="tag">PKM</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Periodic-Notes"><span class="tag">Periodic Notes</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Periodic-Note"><span class="tag">Periodic-Note</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Private-Deployment"><span class="tag">Private Deployment</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Prompt"><span class="tag">Prompt</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/React"><span class="tag">React</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Redux"><span class="tag">Redux</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Refactoring"><span class="tag">Refactoring</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Self-Learning-Journey"><span class="tag">Self-Learning Journey</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Source-Code-Analysis"><span class="tag">Source Code Analysis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Task-Management"><span class="tag">Task-Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Time-Management"><span class="tag">Time-Management</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/UI-Agent"><span class="tag">UI Agent</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Unit-Testing"><span class="tag">Unit Testing</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Vibecoding"><span class="tag">Vibecoding</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Webview"><span class="tag">Webview</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/avatar.png" alt="LinYiBing&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2026 LinYiBing</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script><!-- hexo injector body_end start --><script>
+    (function () {
+      const script = document.createElement('script');
+      const lang = document.documentElement.lang === 'zh' ? 'zh-CN' : 'en';
+
+      script.src = 'https://giscus.app/client.js';
+      script.setAttribute('data-repo', 'quanru/quanru.github.io');
+      script.setAttribute('data-repo-id', 'MDEwOlJlcG9zaXRvcnk3NDI4NDUwOQ==');
+      script.setAttribute('data-category', 'Announcements');
+      script.setAttribute('data-category-id', 'DIC_kwDOBG193c4CQ8si');
+      script.setAttribute('data-mapping', 'title');
+      script.setAttribute('data-strict', '0');
+      script.setAttribute('data-reactions-enabled', '1');
+      script.setAttribute('data-emit-metadata', '0');
+      script.setAttribute('data-input-position', 'top');
+      script.setAttribute('data-theme', 'preferred_color_scheme');
+      script.setAttribute('data-lang', lang);
+      script.setAttribute('data-loading', 'lazy');
+      script.setAttribute('crossorigin', 'anonymous');
+      script.async = true;
+
+      document.currentScript.parentNode.insertBefore(script, document.currentScript);
+    })();
+  </script><!-- hexo injector body_end end --></body></html>
