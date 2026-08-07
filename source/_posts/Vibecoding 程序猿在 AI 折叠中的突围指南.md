@@ -15,6 +15,13 @@ tags:
 
 <!-- more -->
 
+<article class="message message-immersive is-primary">
+<div class="message-body">
+<i class="fas fa-globe-asia mr-2"></i>This article is also available in
+<a href="/2025/12/04/Vibecoding-Programmers-Breakout-Guide-in-the-AI-Folding/">English</a>.
+</div>
+</article>
+
 ## 分享会背景
 
 - 团队内部分享：Vibecoding —— 程序猿在 AI 折叠中的突围指南
